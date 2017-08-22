@@ -10,28 +10,19 @@ using DG.Tweening;
 
 
 
-public class StartAnswer : MonoBehaviour {
-
+public class HorizontalSwipe : MonoBehaviour {
 
     Vector2 screenSize;     // 스크린사이즈
     float minSwipeDist;     // swipe이동조건 최소값
-
 
     public GameObject bgAnswer;
 
     public GameObject AnswerPanel_0;
     public GameObject AnswerPanel_1;
 
-    public GameObject AnswerBtn0;
-    public GameObject AnswerBtn1;
-    public GameObject AnswerBtn2;
-    public GameObject AnswerBtn3;
-
-
     List<string> AnswerList;
     string AnswerStr;
     
-
 
 
     void Awake()
@@ -60,8 +51,8 @@ public class StartAnswer : MonoBehaviour {
         SwipeUpdate();      // 스왑 체크
        
 
-
 	}
+
 
     // 답변 버튼 활성화
     void ShowAnswerBtn()
@@ -123,8 +114,8 @@ public class StartAnswer : MonoBehaviour {
 
 
 
-    bool Swiped = false;        // 스왑중인지 체크
-    //Vector2 SwipeDirection;     // 스왑 방향
+    bool Swiped = false;            // 스왑중인지 체크
+    //Vector2 SwipeDirection;       // 스왑 방향
     float SwipeDirection;
 
 

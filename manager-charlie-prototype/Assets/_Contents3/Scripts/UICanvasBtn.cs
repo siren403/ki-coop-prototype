@@ -16,6 +16,14 @@ public class UICanvasBtn : MonoBehaviour {
     {
 
     }
+    public void OnClickTestBtn3()
+    {
+
+    }
+    public void OnClickTestBtn4()
+    {
+
+    }
 
 
 
