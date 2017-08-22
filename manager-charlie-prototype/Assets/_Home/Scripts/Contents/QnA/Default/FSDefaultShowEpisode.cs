@@ -4,13 +4,13 @@ using Util;
 
 namespace Contents
 {
-    public class FSDefaultShowEpisode : QuestionFiniteState
+    public class FSDefaultShowEpisode : QnAFiniteState
     {
-        public override QnAContantsBase.State StateID
+        public override QnAContentsBase.State StateID
         {
             get
             {
-                return QnAContantsBase.State.ShowEpisode;
+                return QnAContentsBase.State.ShowEpisode;
             }
         }
         private SimpleTimer Timer = SimpleTimer.Create();
@@ -30,7 +30,7 @@ namespace Contents
             Timer.Update();
             if (Timer.Check(TitleDuration))
             {
-                Entity.ChangeState(QnAContantsBase.State.ShowSituation);
+                Entity.ChangeState(QnAContentsBase.State.ShowSituation);
             }
         }
         public override void Exit()

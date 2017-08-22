@@ -13,9 +13,9 @@ namespace Util.Editor
             window.Show();
         }
 
-        private string EnumName;
+        private string EnumName = "BuildScene";
         private string Path;
-        private string NameSpace;
+        private string NameSpace = "SceneLoader";
         private string Prefix;
 
         void OnGUI()

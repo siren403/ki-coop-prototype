@@ -22,6 +22,7 @@ namespace Util.Editor
 
             string generatePath = path;
 
+
             if (string.IsNullOrEmpty(generatePath))
                 generatePath = Application.dataPath + string.Format("\\{0}.cs", name);
             else
