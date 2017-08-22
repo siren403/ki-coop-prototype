@@ -117,7 +117,7 @@ public class JsonManager : MonoBehaviour
 
             if (checkUsed == "True")
             {
-                CDebug.Log("다시돌린다.");
+                CDebug.Log("이전에 나왔던 선택지, 다시돌린다.");
             }
             else
             {
