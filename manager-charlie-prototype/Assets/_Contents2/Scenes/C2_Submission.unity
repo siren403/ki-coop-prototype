@@ -157,6 +157,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackGround: {fileID: 1897049026}
+  Question1: {fileID: 1339649269}
+  Question2: {fileID: 827813310}
+  Red: {fileID: 1134669602315184, guid: a034db107a9b2ff4485bf8c32a792b5b, type: 2}
+  Blue: {fileID: 1977587390163722, guid: 236bfe95805a6aa4cb286ddbeb57fed6, type: 2}
 --- !u!1 &688234877
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +257,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 827813309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 114590414}
@@ -393,7 +397,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339649268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 114590414}
