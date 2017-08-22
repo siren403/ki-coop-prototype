@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Util.Editor
+namespace Util.BuildScene
 {
     public class BuildSceneToEumEditorWindow : EditorWindow
     {
