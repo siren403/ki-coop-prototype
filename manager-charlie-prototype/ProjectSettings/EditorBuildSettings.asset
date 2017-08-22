@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Home/Scenes/SceneHome.unity
     guid: ed34aad75c92da14b82ba67e59ea38e1
+  - enabled: 1
+    path: Assets/_Common/01.Scene/Scene[SwipeJsonEx].unity
+    guid: 5c7a8618f0a233b4c9f7773bc82dbeec
