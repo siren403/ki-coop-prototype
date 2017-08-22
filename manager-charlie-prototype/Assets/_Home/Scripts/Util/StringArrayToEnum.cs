@@ -1,9 +1,8 @@
 ﻿using System.Text;
 using System.IO;
 
-namespace WoodGear
+namespace Util
 {
-
     public static class StringArrayToEnum
     {
         public static void Generate(string[] array, string name, string path, string nameSpace = null, string prefix = null)

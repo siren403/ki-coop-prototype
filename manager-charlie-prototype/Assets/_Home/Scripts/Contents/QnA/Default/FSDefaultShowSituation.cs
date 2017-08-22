@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using CustomDebug;
-
+using Util;
 namespace Contents
 {
     public class FSDefaultShowSituation : QuestionFiniteState

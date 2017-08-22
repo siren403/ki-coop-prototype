@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Util;
 #if UNITY_EDITOR
-namespace WoodGear
+namespace Util.Editor
 {
     public static class BuildSceneToEnum
     {
