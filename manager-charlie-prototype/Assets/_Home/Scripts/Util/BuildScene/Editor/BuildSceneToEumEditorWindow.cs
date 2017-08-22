@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace Util.Editor
+namespace Util.BuildScene
 {
     public class BuildSceneToEumEditorWindow : EditorWindow
     {
@@ -13,9 +13,9 @@ namespace Util.Editor
             window.Show();
         }
 
-        private string EnumName;
+        private string EnumName = "BuildScene";
         private string Path;
-        private string NameSpace;
+        private string NameSpace = "SceneLoader";
         private string Prefix;
 
         void OnGUI()

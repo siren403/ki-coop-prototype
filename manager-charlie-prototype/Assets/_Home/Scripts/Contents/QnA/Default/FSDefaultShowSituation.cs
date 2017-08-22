@@ -3,13 +3,13 @@ using CustomDebug;
 using Util;
 namespace Contents
 {
-    public class FSDefaultShowSituation : QuestionFiniteState
+    public class FSDefaultShowSituation : QnAFiniteState
     {
-        public override QnAContantsBase.State StateID
+        public override QnAContentsBase.State StateID
         {
             get
             {
-                return QnAContantsBase.State.ShowSituation;
+                return QnAContentsBase.State.ShowSituation;
             }
         }
         private SimpleTimer Timer = SimpleTimer.Create();
@@ -28,7 +28,7 @@ namespace Contents
             Timer.Update();
             if (Timer.Check(1.5f))
             {
-                Entity.ChangeState(QnAContantsBase.State.None);
+                Entity.ChangeState(QnAContentsBase.State.None);
             }
         }
         public override void Exit()

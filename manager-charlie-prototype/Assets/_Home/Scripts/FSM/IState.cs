@@ -3,9 +3,9 @@ using System.Collections;
 namespace FSM
 {
     /// <summary>
-    /// »óÅÂ¸¦ ±¸Çö ½Ã »ó¼Ó
+    /// ìƒíƒœë¥¼ êµ¬í˜„ ì‹œ ìƒì†
     /// </summary>
-    /// <typeparam name="T">ÇØ´ç StateÀÇ ID Å¸ÀÔ</typeparam>
+    /// <typeparam name="T">í•´ë‹¹ Stateì˜ ID íƒ€ì…</typeparam>
     public interface IState<T>
     {
         void Enter();

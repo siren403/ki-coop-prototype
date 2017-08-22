@@ -5,7 +5,7 @@ using FSM;
 
 namespace Contents
 {
-    public abstract class ContantsBase<T, U> : FiniteStateMachine<T, U>
+    public abstract class ContentsBase<T, U> : FiniteStateMachine<T, U>
     {
         protected sealed override void Awake()
         {

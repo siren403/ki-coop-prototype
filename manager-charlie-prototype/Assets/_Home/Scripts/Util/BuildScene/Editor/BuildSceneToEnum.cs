@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Util;
 #if UNITY_EDITOR
-namespace Util.Editor
+namespace Util.BuildScene
 {
     public static class BuildSceneToEnum
     {
@@ -21,6 +21,7 @@ namespace Util.Editor
             }
 
             string generatePath = path;
+
 
             if (string.IsNullOrEmpty(generatePath))
                 generatePath = Application.dataPath + string.Format("\\{0}.cs", name);
