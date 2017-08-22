@@ -28,6 +28,13 @@ public class csSwipeManager : MonoBehaviour
 
     bool SwipeOn; // swipe 중복을 막기 위해 ,true 일때만 swipe 가능
 
+    public enum ButtonState
+    {
+        prev,
+        next
+    }
+    public ButtonState buttonState;
+
     // Use this for initialization
     void Start()
     {
@@ -35,6 +42,8 @@ public class csSwipeManager : MonoBehaviour
         current_Page = 0;
         ShowButton();
         SwipeOn = true;
+
+        Debug.Log(ButtonState.next);
     }
 
     void Update()
@@ -101,7 +110,7 @@ public class csSwipeManager : MonoBehaviour
     {
         current_Page = current_Page - 1;
         ShowButton();
-        ChangePosition("Previous");
+        ChangePosition(0);
     }
 
     //뒤 버튼 눌렀을 때
@@ -109,20 +118,20 @@ public class csSwipeManager : MonoBehaviour
     {
         current_Page = current_Page + 1;
         ShowButton();
-        ChangePosition("Next");
+        ChangePosition(1);
     }
 
     //앞, 뒤 버튼 눌렀을 때 포지션 변경
-    void ChangePosition(string Direction)
+    void ChangePosition(int Direction)
     {
-        if (Direction == "Previous")
+        if (Direction == 0)
         {
             for (int i = 0; i < Page.Length; i++)
             {
                 Page[i].transform.DOMoveX(Page[i].transform.position.x + 400, SwipeTime).SetEase(Anim);
             }
         }
-        else if (Direction == "Next")
+        else if (Direction == 1)
         {
             for (int i = 0; i < Page.Length; i++)
             {
