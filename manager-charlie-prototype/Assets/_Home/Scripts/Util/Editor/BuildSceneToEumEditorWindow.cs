@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace WoodGear.Editor
+namespace Util.Editor
 {
     public class BuildSceneToEumEditorWindow : EditorWindow
     {
