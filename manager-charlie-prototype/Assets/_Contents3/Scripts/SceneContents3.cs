@@ -10,8 +10,8 @@ using Util;
 public class SceneContents3 : MonoBehaviour {
 
 
-    //private QnAContantsBase Contents = null;
-    private QnAContantsBase.State mState;
+    //private QnAContentsBase Contents = null;
+    private QnAContentsBase.State mState;
     
     public GameObject AnswerUI = null;              // 선택지UI 오브젝트
     public GameObject SituationAnim = null;         // 상황연출 오브젝트
@@ -27,9 +27,9 @@ public class SceneContents3 : MonoBehaviour {
 
     void Awake()
     {
-        //Contents = new QnAContantsBase();
+        //Contents = new QnAContentsBase();
 
-        mState = new QnAContantsBase.State();
+        mState = new QnAContentsBase.State();
     }
 
 
@@ -41,7 +41,7 @@ public class SceneContents3 : MonoBehaviour {
         //Debug.Log(AnswerUI);
 
 
-        mState = QnAContantsBase.State.ShowSituation;
+        mState = QnAContentsBase.State.ShowSituation;
         DoAction();
 
 
@@ -68,7 +68,7 @@ public class SceneContents3 : MonoBehaviour {
     {
         switch (mState)
         {
-            case QnAContantsBase.State.ShowSituation:
+            case QnAContentsBase.State.ShowSituation:
                 {
                     // 상황연출 anim show
                     CDebug.Log("ShowSituation");
@@ -86,7 +86,7 @@ public class SceneContents3 : MonoBehaviour {
                 }
                 break;
 
-            case QnAContantsBase.State.ShowQuestion:
+            case QnAContentsBase.State.ShowQuestion:
                 {
                     // 문제 anim show
                     CDebug.Log("ShowQuestion");
@@ -96,28 +96,28 @@ public class SceneContents3 : MonoBehaviour {
                 }
                 break;
 
-            case QnAContantsBase.State.ShowAnswer:
+            case QnAContentsBase.State.ShowAnswer:
                 {
                     //if(null == AnswerUI)
                     AnswerUI.SetActive(true);       // 답변 선택창
                 }
                 break;
 
-            case QnAContantsBase.State.EvaluateAnswer:
+            case QnAContentsBase.State.EvaluateAnswer:
                 {
                     // 답변 체크
                     CDebug.Log("EvaluateAnswer");
                 }
                 break;
 
-                case QnAContantsBase.State.QuitQuestion:
+                case QnAContentsBase.State.QuitQuestion:
                 {
                     // 보상 anim show
                     CDebug.Log("QuitQuestion");
                 }
                 break;
 
-            case QnAContantsBase.State.ShowReward:
+            case QnAContentsBase.State.ShowReward:
                 {
                     // 보상 anim show
                     CDebug.Log("ShowReward");
