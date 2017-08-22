@@ -230,7 +230,8 @@ Transform:
 --- !u!1 &827813309
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1134669602315184, guid: a034db107a9b2ff4485bf8c32a792b5b,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
@@ -238,7 +239,7 @@ GameObject:
   - component: {fileID: 827813312}
   - component: {fileID: 827813311}
   m_Layer: 5
-  m_Name: Red
+  m_Name: Question2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +248,8 @@ GameObject:
 --- !u!224 &827813310
 RectTransform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 224371957820583644, guid: a034db107a9b2ff4485bf8c32a792b5b,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 827813309}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -265,7 +267,8 @@ RectTransform:
 --- !u!114 &827813311
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 114306048815800920, guid: a034db107a9b2ff4485bf8c32a792b5b,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 827813309}
   m_Enabled: 1
@@ -274,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.64705884, g: 0.64705884, b: 0.64705884, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -292,7 +295,8 @@ MonoBehaviour:
 --- !u!222 &827813312
 CanvasRenderer:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 222942868306530422, guid: a034db107a9b2ff4485bf8c32a792b5b,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 827813309}
 --- !u!1 &1020220158
@@ -366,7 +370,8 @@ CanvasRenderer:
 --- !u!1 &1339649268
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 1977587390163722, guid: 236bfe95805a6aa4cb286ddbeb57fed6,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
@@ -374,7 +379,7 @@ GameObject:
   - component: {fileID: 1339649271}
   - component: {fileID: 1339649270}
   m_Layer: 5
-  m_Name: Blue
+  m_Name: Question1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +388,8 @@ GameObject:
 --- !u!224 &1339649269
 RectTransform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 224569444652401980, guid: 236bfe95805a6aa4cb286ddbeb57fed6,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339649268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -401,7 +407,8 @@ RectTransform:
 --- !u!114 &1339649270
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 114570389684029130, guid: 236bfe95805a6aa4cb286ddbeb57fed6,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339649268}
   m_Enabled: 1
@@ -410,7 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.64705884, g: 0.64705884, b: 0.64705884, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -428,7 +435,8 @@ MonoBehaviour:
 --- !u!222 &1339649271
 CanvasRenderer:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 222929415384660686, guid: 236bfe95805a6aa4cb286ddbeb57fed6,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339649268}
 --- !u!1 &1348133744
