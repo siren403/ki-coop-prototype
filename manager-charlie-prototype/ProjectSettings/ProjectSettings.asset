@@ -496,7 +496,8 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLUseWasm: 0
   webGLCompressionFormat: 1
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    7: ENABLE_LOG
   platformArchitecture: {}
   scriptingBackend: {}
   incrementalIl2cppBuild: {}
