@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Util;
 #if UNITY_EDITOR
-namespace Util.Editor
+namespace Util.BuildScene
 {
     public static class BuildSceneToEnum
     {
