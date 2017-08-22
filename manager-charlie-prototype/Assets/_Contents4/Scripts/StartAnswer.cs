@@ -41,14 +41,9 @@ public class StartAnswer : MonoBehaviour {
         bgAnswer.SetActive(true);
         ShowAnswerBtn();
 
-
         AnswerList = new List<string>();
         InputAnswer();
 
-        DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
-
-
-        
         
 	}
 	
@@ -68,11 +63,6 @@ public class StartAnswer : MonoBehaviour {
     {
         AnswerPanel_0.SetActive(true);
         AnswerPanel_1.SetActive(true);
-
-        //AnswerBtn0.SetActive(true);
-        //AnswerBtn1.SetActive(true);
-        //AnswerBtn2.SetActive(true);
-        //AnswerBtn3.SetActive(true);
     }
 
     // 답변 버튼 비활성화
@@ -132,6 +122,7 @@ public class StartAnswer : MonoBehaviour {
     //Vector2 SwipeDirection;     // 스왑 방향
     float SwipeDirection;
 
+
     Vector2 mouseDownPos;
     Vector2 mouseUpPos;
     // 스와이프 기능
@@ -152,7 +143,6 @@ public class StartAnswer : MonoBehaviour {
             {
                 onSwipeDetected(SwipeDirection);
             }
-            
         }
 
         else if (Input.GetMouseButtonUp(0) == true)
@@ -161,7 +151,6 @@ public class StartAnswer : MonoBehaviour {
             Debug.Log(mouseUpPos);
             //Swiped = true;
         }
-
 
         //return mouseDownPos.x - mouseUpPos.x < 0.0f ? true : false;
     }
@@ -194,7 +183,7 @@ public class StartAnswer : MonoBehaviour {
         SwipePanel(dir);
         
     }
-    
+
 
     public void testBtn1()
     {
@@ -206,4 +195,6 @@ public class StartAnswer : MonoBehaviour {
         AnswerPanel_0.transform.DOMoveX(200.0f, 1.0f, true);
         AnswerPanel_1.transform.DOMoveX(600.0f, 1.0f, true);
     }
+
+
 }
