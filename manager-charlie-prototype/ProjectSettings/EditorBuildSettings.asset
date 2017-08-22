@@ -6,17 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Home/Scenes/Example.unity
-    guid: e487a8ca3182d2240bca37155819ccf9
-  - enabled: 0
-    path: Assets/_Contents2/Scenes/Q_exposure.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/_Contents2/Scenes/Submission.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/_Contents2/Scenes/C2_Qexposure.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/_Contents2/Scenes/C2_Submission.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/_Home/Scenes/SceneHome.unity
+    guid: ed34aad75c92da14b82ba67e59ea38e1
