@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 1331880925}
   - component: {fileID: 1331880929}
   m_Layer: 5
-  m_Name: Canvas_Answer
+  m_Name: InstUICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1360,7 +1360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1928837490}
   m_Layer: 0
-  m_Name: Content3_Greeting
+  m_Name: InstContent3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
