@@ -10,6 +10,7 @@ namespace Contents
     {
       
         private IDataContainer mContainer = null;
+
         protected IDataContainer Container
         {
             get

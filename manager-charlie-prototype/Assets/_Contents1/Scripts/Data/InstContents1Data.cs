@@ -1,7 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Contents;
 
-public class InstContents1Data
+
+namespace Content1
+{
+
+}
+
+public class InstContents1Data : QnAContentsBase
 {
     public List<InstContent1Word> Words = new List<InstContent1Word>();
 
@@ -15,6 +22,8 @@ public class InstContents1Data
     //    }
     //    return _instance;
     //}
+
+    //this.Container.GetData(1)
 
     public InstContents1Data()
     {
