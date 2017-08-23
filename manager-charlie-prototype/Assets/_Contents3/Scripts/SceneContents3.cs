@@ -18,14 +18,16 @@ namespace Contents3
         //private QnAContentsBase Contents = null;
         private QnAContentsBase.State mState;                   // 상태기계 변수
 
-        public GameObject AnswerUI = null;                      // 선택지UI 오브젝트
+        public GameObject ObjAnswerUI = null;                      // 선택지UI 오브젝트
+        
 
-
-        public GameObject SituationAnim = null;                 // 상황연출 오브젝트
+        public GameObject ObjSituation = null;                  // 상황연출 오브젝트
         private SituationDirecting mSituationScript = null;
 
-        public GameObject QuestionAnim = null;                  // 문제제시 오브젝트
+        public GameObject ObjQuestion = null;                   // 문제제시 오브젝트
+        private QuestionDirecting mQuestionScript = null;
 
+        public GameObject ObjReward = null;                     // 리워드 오브젝트
 
        
 
@@ -39,6 +41,7 @@ namespace Contents3
             mState = QnAContentsBase.State.None;
 
             mSituationScript = new SituationDirecting();
+            mQuestionScript = new QuestionDirecting();
 
         }
 
@@ -52,7 +55,7 @@ namespace Contents3
             //Debug.Log(AnswerUI);
 
 
-            mState = QnAContentsBase.State.ShowSituation;
+            mState = QnAContentsBase.State.ShowQuestion;
             DoAction();
 
 
@@ -79,8 +82,7 @@ namespace Contents3
                         // 상황연출 anim show
                         CDebug.Log("ShowSituation");
 
-                        Instantiate(SituationAnim);     // 상황연출 오브젝트 생성
-
+                        Instantiate(ObjSituation);     // 상황연출 오브젝트 생성
                         
                     }
                     break;
@@ -90,7 +92,7 @@ namespace Contents3
                         // 문제 anim show
                         CDebug.Log("ShowQuestion");
 
-                        // QuestionAnim.SetActive(true);
+                        Instantiate(ObjQuestion);     // 문제연출 오브젝트 생성
 
                     }
                     break;
@@ -98,7 +100,7 @@ namespace Contents3
                 case QnAContentsBase.State.ShowAnswer:
                     {
                         //if(null == AnswerUI)
-                        AnswerUI.SetActive(true);       // 답변 선택창
+                        Instantiate(ObjAnswerUI);// 답변 선택창
                     }
                     break;
 
@@ -111,7 +113,6 @@ namespace Contents3
 
                 case QnAContentsBase.State.QuitQuestion:
                     {
-                        // 보상 anim show
                         CDebug.Log("QuitQuestion");
                     }
                     break;

@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4392537991636276}
   - component: {fileID: 114989114675463174}
   m_Layer: 0
-  m_Name: InstSituationAnim
+  m_Name: InstShowSituation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

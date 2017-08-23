@@ -180,17 +180,4 @@ public class HorizontalSwipe : MonoBehaviour {
         
     }
 
-
-    public void testBtn1()
-    {
-        AnswerPanel_0.transform.DOMoveX(-200.0f, 1.0f, true);
-        AnswerPanel_1.transform.DOMoveX(200.0f, 1.0f, true);
-    }
-    public void testBtn2()
-    {
-        AnswerPanel_0.transform.DOMoveX(200.0f, 1.0f, true);
-        AnswerPanel_1.transform.DOMoveX(600.0f, 1.0f, true);
-    }
-
-
 }
