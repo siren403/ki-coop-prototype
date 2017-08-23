@@ -57,7 +57,7 @@ public class InstContents1Manager : MonoBehaviour {
 
         mCon1EpisodeLoaction = 1;           // 추후 값 수정 필요
         mCorrectAnswerCount = 0;
-        mCon1QuestionCount = 0;
+        mCon1QuestionCount = 1;
     }
 	
 	// Update is called once per frame
@@ -68,7 +68,7 @@ public class InstContents1Manager : MonoBehaviour {
         {
             mStartEpisode = true;
 
-            //CDebug.Log("hi");
+            CDebug.Log("hi");
 
             // 콘텐츠 시작
             Content1StartGame();
@@ -84,48 +84,89 @@ public class InstContents1Manager : MonoBehaviour {
     {
         //CDebug.Log("hohoho");
         Content1CorrectSetting();
-        
+        Content1inCorrectSetting();
     }
 
     /** 정답 셋팅 */
     void Content1CorrectSetting()
     {
-        // 현재 나와야 할 알파벳 정보를 저장하는 변수
-        char s;
+        // 임시 지역 변수
+        string tmpString = null;
+        string[] tmpStrings = new string[3]; 
+        int tmpStringCount = 0;
 
-        switch (mCon1QuestionCount)
+        // 콘텐츠 위치에 따라서
+        if(mCon1EpisodeLoaction == 1)
         {
-            case 1:
-            case 6:
-                s = 'A';
-                break;
-            case 2:
-            case 7:
-                s = 'B';
-                break;
-            case 3:
-            case 8:
-                s = 'C';
-                break;
-            case 4:
-            case 9:
-                s = 'D';
-                break;
-            case 5:
-            case 10:
-                s = 'E';
-                break;
+            // 문제 개수 체크
+            switch(mCon1QuestionCount)
+            {
+                case 0:
+                case 5:
+                    CDebug.Log("A");
+                    tmpString = "A";
+                    break;
+                case 1:
+                case 6:
+                    CDebug.Log("B");
+                    tmpString = "B";
+                    break;
+                case 2:
+                case 7:
+                    CDebug.Log("C");
+                    tmpString = "C";
+                    break;
+                case 3:
+                case 8:
+                    CDebug.Log("D");
+                    tmpString = "D";
+                    break;
+                case 4:
+                case 9:
+                    CDebug.Log("E");
+                    tmpString = "E";
+                    break;
+            }
+        }
+        else if(mCon1EpisodeLoaction == 2)
+        {
+
+        }
+        else if(mCon1EpisodeLoaction == 3)
+        {
+
+        }
+        else if(mCon1EpisodeLoaction == 4)
+        {
+
+        }
+        else if(mCon1EpisodeLoaction == 5)
+        {
+
         }
 
-        for(int i=0; i<mWordsData.Words.Count; i++)
+        CDebug.Log(tmpString);
+
+        for (int i=0; i<mWordsData.Words.Count-1; i++)
         {
-            
+            if (mWordsData.Words[i].Word.Substring(0, 1) == tmpString)
+            {
+
+                tmpStrings[tmpStringCount] = mWordsData.Words[i].Word;
+                tmpStringCount++;
+            }
         }
+
+        int tmpNumber = Random.Range(0, 3);
+
+        mCorrectAnswer = tmpStrings[tmpNumber];
+
+        CDebug.Log(mCorrectAnswer);
     }
 
     /** 오답 셋팅 */
     void Content1inCorrectSetting()
     {
-
+        //if(mCorrectAnswer.Substring(0, 1))
     }
 }
