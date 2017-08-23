@@ -41,7 +41,7 @@ public class SceneContents3 : MonoBehaviour {
         //Debug.Log(AnswerUI);
 
 
-        mState = QnAContentsBase.State.ShowSituation;
+        mState = QnAContentsBase.State.Situation;
         DoAction();
 
 
@@ -68,7 +68,7 @@ public class SceneContents3 : MonoBehaviour {
     {
         switch (mState)
         {
-            case QnAContentsBase.State.ShowSituation:
+            case QnAContentsBase.State.Situation:
                 {
                     // 상황연출 anim show
                     CDebug.Log("ShowSituation");
@@ -86,7 +86,7 @@ public class SceneContents3 : MonoBehaviour {
                 }
                 break;
 
-            case QnAContentsBase.State.ShowQuestion:
+            case QnAContentsBase.State.Question:
                 {
                     // 문제 anim show
                     CDebug.Log("ShowQuestion");
@@ -96,28 +96,28 @@ public class SceneContents3 : MonoBehaviour {
                 }
                 break;
 
-            case QnAContentsBase.State.ShowAnswer:
+            case QnAContentsBase.State.Answer:
                 {
                     //if(null == AnswerUI)
                     AnswerUI.SetActive(true);       // 답변 선택창
                 }
                 break;
 
-            case QnAContentsBase.State.EvaluateAnswer:
+            case QnAContentsBase.State.Evaluation:
                 {
                     // 답변 체크
                     CDebug.Log("EvaluateAnswer");
                 }
                 break;
+                //상태 제거
+                //case QnAContentsBase.State.QuitQuestion:
+                //{
+                //    // 보상 anim show
+                //    CDebug.Log("QuitQuestion");
+                //}
+                //break;
 
-                case QnAContentsBase.State.QuitQuestion:
-                {
-                    // 보상 anim show
-                    CDebug.Log("QuitQuestion");
-                }
-                break;
-
-            case QnAContentsBase.State.ShowReward:
+            case QnAContentsBase.State.Reward:
                 {
                     // 보상 anim show
                     CDebug.Log("ShowReward");

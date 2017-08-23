@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using CustomDebug;
 using Util;
-
-namespace Contents
+using Contents;
+namespace Examples
 {
-    public class FSDefaultShowEpisode : QnAFiniteState
+    public class FSExamShowReward : QnAFiniteState
     {
         public override QnAContentsBase.State StateID
         {
             get
             {
-                return QnAContentsBase.State.ShowEpisode;
+                return QnAContentsBase.State.Reward;
             }
         }
         private SimpleTimer Timer = SimpleTimer.Create();
-        private float TitleDuration = 3.0f;
 
         public override void Initialize()
         {
@@ -22,20 +21,22 @@ namespace Contents
         }
         public override void Enter()
         {
-            CDebug.Log("Start Show Episode");
+            CDebug.Log("[FSM] Show Reward");
+            CDebug.Log("[FSM] Send Clear Data");
             Timer.Start();
         }
         public override void Excute()
         {
             Timer.Update();
-            if (Timer.Check(TitleDuration))
+            if (Timer.Check(1.5f))
             {
-                Entity.ChangeState(QnAContentsBase.State.ShowSituation);
+                CDebug.Log("[FSM] Receive Reward Data");
+                Entity.UI.ShowReward();
             }
         }
         public override void Exit()
         {
-            Entity.ShowEpisodeList();
+
         }
     }
 }
