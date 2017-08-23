@@ -23,8 +23,7 @@ namespace Data
             string json = Resources.Load<TextAsset>(path).text;
             data = JsonMapper.ToObject(json);
             return data;
-        }
-     
+        }     
 
         /**
          * @fn  public JsonData GetData(int contentsID)
