@@ -12,15 +12,10 @@
         {"Question":"E","Answer":"Egg"}
     ],
     "dic":{
-        "A":"Apple",
-        "A":"Acorn",
-        "B":"Bread",
-        "B":"Bean",
-        "C":"Cucumber",
-        "C":"Carrot",
-        "D":"Daikon",
-        "D":"Date",
-        "E":"Elderberry",
-        "E":"Egg"
+        "A":["Apple","Acorn"],
+        "B":["Bread","Bean"],
+        "C":["Cucumber","Carrot"],
+        "D":["Daikon","Date"],
+        "E":["Elderberry","Egg"]
     }
 }
