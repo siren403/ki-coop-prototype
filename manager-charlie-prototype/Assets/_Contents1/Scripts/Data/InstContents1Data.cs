@@ -1,14 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Contents;
+using UnityEngine;
 
-
-namespace Content1
-{
-
-}
-
-public class InstContents1Data : QnAContentsBase
+public class InstContents1Data : MonoBehaviour
 {
     public List<InstContent1Word> Words = new List<InstContent1Word>();
 
