@@ -21,6 +21,7 @@ namespace Contents
         protected abstract void Initialize();
 
         private IDataContainer mContainer = null;
+
         protected IDataContainer Container
         {
             get
