@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FSM;
+using Data;
 
 namespace Contents
 {
@@ -18,6 +19,19 @@ namespace Contents
         }
 
         protected abstract void Initialize();
+
+        private IDataContainer mContainer = null;
+        protected IDataContainer Container
+        {
+            get
+            {
+                if(mContainer == null)
+                {
+                    mContainer = new MocContainer();
+                }
+                return mContainer;
+            }
+        }
 
     }
 }

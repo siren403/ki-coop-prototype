@@ -27,6 +27,8 @@ namespace Contents
             AddState(CreateShowSituation());
 
             ChangeState(State.ShowEpisode);
+
+            this.Container.ToString();
         }
 
         public void ShowEpisodeList()
