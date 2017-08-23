@@ -34,14 +34,20 @@ namespace Content1
         /** 파닉스 단어들을 담고 있는 클래스 -> 추후에 데이터 관련 사항이 정해지면 수정 */
         InstContents1Data mWordsData;
 
+        public override IQnAContentsUI UI
+        {
+            get
+            {
+                return null;
+            }
+        }
+
         //protected override void Initialize()
         //{
         //    base.Initialize();
         //}
         protected override void Initialize()
         {
-            base.Initialize();
-
             // 인스턴스 생성
             mWordsData = new InstContents1Data();
 
@@ -191,7 +197,7 @@ namespace Content1
                         // 정답
                         int tmpNumber = 0;                          // 이 지역에서 쓰이는 임시 랜덤 숫자 저장 변수
                         int[] tmpUsePhanix = { 1, 2, 3, 4 };            // 사용한 파닉스 알파벳을 저장하는 임시 배열
-                        string[] tmpUseWord = { "A", "A", "A", "A" };        // 사용한 단어를 저장하는 임시 배열                    
+                        string[] tmpUseWord = { "A", "A", "A", "A" };        // 사용한 단어를 저장하는 임시 배열                   
 
                         tmpNumber = Random.Range(0, 2);
 
@@ -201,7 +207,7 @@ namespace Content1
 
                         // 등장할 단어 섞기
                         /* 단어들은 배열에 저장 될 숫자에 따라 결정된다.
-                           단어들은 배열의 위치에 따라 B=[0], C=[1], D=[2], E=[3]인데, 
+                           단어들은 배열의 위치에 따라 B=[0], C=[1], D=[2], E=[3]인데,
                            각 배열에 저장되는 숫자가 2, 3, 4, 1이라면 4번을 가지는 [2]번 배열의 요소 D의 단어는 등장하지 않는다.*/
                         for (int i = 0; i < 20; i++)
                         {

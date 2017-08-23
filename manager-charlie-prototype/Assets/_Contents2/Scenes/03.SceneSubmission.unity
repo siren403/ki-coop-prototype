@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12161e63b8471e43aa9b0c4c48b4fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backGround: {fileID: 1897049026}
+  Background: {fileID: 1897049026}
   question: {fileID: 1020220158}
   question1: {fileID: 1339649269}
   question2: {fileID: 827813310}
