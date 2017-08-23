@@ -10,13 +10,19 @@ namespace Content2
     public class Submission : MonoBehaviour
     {
 
-        public Transform backGround;        // 백 그라운드를 움직일 수 있게 해주는 대상
+        public Transform Background;        // 백 그라운드를 움직일 수 있게 해주는 대상
         public GameObject question;         // 문제 대상
         public Transform question1;         // 문제 1의 자리
         public Transform question2;         // 문제 2의 자리
         public GameObject answer;           // 정답 프리팹, Transform으로 추후에 변경
         public GameObject wAnswer;          // 오답 프리팹, Transform으로 추후에 변경
 
+
+        void Awake()
+        {
+            DontDestroyOnLoad(question1);
+            DontDestroyOnLoad(question2);
+        }
 
         void Start()
         {
@@ -59,7 +65,7 @@ namespace Content2
 
             yield return new WaitForSeconds(1.0f);
             Sequence mySequence = DOTween.Sequence();
-            mySequence.Append(backGround.DOMoveY(400, 1));
+            mySequence.Append(Background.DOMoveY(400, 1));
             mySequence.Play();
         }
     }
