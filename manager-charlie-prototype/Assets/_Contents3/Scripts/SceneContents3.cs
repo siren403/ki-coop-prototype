@@ -4,128 +4,141 @@ using UnityEngine;
 
 using Contents;
 using CustomDebug;
-using Util;
-
-// 게임루프
-public class SceneContents3 : MonoBehaviour {
 
 
-    //private QnAContentsBase Contents = null;
-    private QnAContentsBase.State mState;
-    
-    public GameObject AnswerUI = null;              // 선택지UI 오브젝트
-    public GameObject SituationAnim = null;         // 상황연출 오브젝트
-    public GameObject QuestionAnim = null;          // 문제제시 오브젝트
-
-
-    private SimpleTimer Timer = SimpleTimer.Create();
-    [SerializeField]
-    private float mCheckTime = 5.0f;
-    private bool mTimeUp = false;       // 타이머 스위치
-
-
-
-    void Awake()
+namespace Contents3
+{
+    /// <summary>
+    /// 컨텐츠3의 게임루프 클래스
+    /// </summary>
+    public class SceneContents3 : MonoBehaviour
     {
-        //Contents = new QnAContentsBase();
-
-        mState = new QnAContentsBase.State();
-    }
 
 
+        //private QnAContentsBase Contents = null;
+        private QnAContentsBase.State mState;                   // 상태기계 변수
 
-	void Start () {
-
-
-        //AnswerUI = GameObject.FindWithTag("UIAnswer");
-        //Debug.Log(AnswerUI);
+        public GameObject AnswerUI = null;                      // 선택지UI 오브젝트
 
 
-        mState = QnAContentsBase.State.ShowSituation;
-        DoAction();
+        public GameObject SituationAnim = null;                 // 상황연출 오브젝트
+        private SituationDirecting mSituationScript = null;
+
+        public GameObject QuestionAnim = null;                  // 문제제시 오브젝트
 
 
-
-	}
-	
+       
 
 
-	void Update () {
+        
 
-        Timer.Update();       // 타이머 업데이트
-        if (Timer.Check(mCheckTime))
+        void Awake()
         {
-            CDebug.Log("Timer");
-            mTimeUp = true;
+            //Contents = new QnAContentsBase();
+
+            mState = QnAContentsBase.State.None;
+
+            mSituationScript = new SituationDirecting();
+
         }
 
-	}
 
 
-
-    // test
-    void DoAction()
-    {
-        switch (mState)
+        void Start()
         {
-            case QnAContentsBase.State.ShowSituation:
-                {
-                    // 상황연출 anim show
-                    CDebug.Log("ShowSituation");
 
-                    mTimeUp = false;
-                    Timer.Start();      // 타이머시작
 
-                    // SituationAnim.SetActive(true);   
+            //AnswerUI = GameObject.FindWithTag("UIAnswer");
+            //Debug.Log(AnswerUI);
 
-                        if (true == mTimeUp)
-                        {
-                            CDebug.Log("After 5c");
-                            mTimeUp = false;
-                        }
-                }
-                break;
 
-            case QnAContentsBase.State.ShowQuestion:
-                {
-                    // 문제 anim show
-                    CDebug.Log("ShowQuestion");
+            mState = QnAContentsBase.State.ShowSituation;
+            DoAction();
 
-                    // QuestionAnim.SetActive(true);
 
-                }
-                break;
 
-            case QnAContentsBase.State.ShowAnswer:
-                {
-                    //if(null == AnswerUI)
-                    AnswerUI.SetActive(true);       // 답변 선택창
-                }
-                break;
+        }
 
-            case QnAContentsBase.State.EvaluateAnswer:
-                {
-                    // 답변 체크
-                    CDebug.Log("EvaluateAnswer");
-                }
-                break;
+
+
+        void Update()
+        {
+
+
+        }
+
+
+
+        // test
+        void DoAction()
+        {
+            switch (mState)
+            {
+                case QnAContentsBase.State.ShowSituation:
+                    {
+                        // 상황연출 anim show
+                        CDebug.Log("ShowSituation");
+
+                        Instantiate(SituationAnim);     // 상황연출 오브젝트 생성
+
+                        
+                    }
+                    break;
+
+                case QnAContentsBase.State.ShowQuestion:
+                    {
+                        // 문제 anim show
+                        CDebug.Log("ShowQuestion");
+
+                        // QuestionAnim.SetActive(true);
+
+                    }
+                    break;
+
+                case QnAContentsBase.State.ShowAnswer:
+                    {
+                        //if(null == AnswerUI)
+                        AnswerUI.SetActive(true);       // 답변 선택창
+                    }
+                    break;
+
+                case QnAContentsBase.State.EvaluateAnswer:
+                    {
+                        // 답변 체크
+                        CDebug.Log("EvaluateAnswer");
+                    }
+                    break;
 
                 case QnAContentsBase.State.QuitQuestion:
-                {
-                    // 보상 anim show
-                    CDebug.Log("QuitQuestion");
-                }
-                break;
+                    {
+                        // 보상 anim show
+                        CDebug.Log("QuitQuestion");
+                    }
+                    break;
 
-            case QnAContentsBase.State.ShowReward:
-                {
-                    // 보상 anim show
-                    CDebug.Log("ShowReward");
-                }
-                break;
+                case QnAContentsBase.State.ShowReward:
+                    {
+                        // 보상 anim show
+                        CDebug.Log("ShowReward");
+                    }
+                    break;
 
-            
 
+
+            }
         }
+
+
+        //** FSM 상태 얻는 메소드 */
+        public QnAContentsBase.State GetState()
+        {
+            return mState;
+        }
+        //** FSM 상태 바꾸는 메소드 */
+        public void ChangeState(QnAContentsBase.State tState)
+        {
+            mState = tState;
+        }
+
     }
 }
