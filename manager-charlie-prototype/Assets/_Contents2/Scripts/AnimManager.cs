@@ -42,7 +42,7 @@ public class AnimManager : MonoBehaviour {
 
         yield return new WaitForSeconds(1.0f);
 
-        //StartCoroutine(SeqSituation());
+        StartCoroutine(SeqSituation());
     }
     
 
@@ -51,24 +51,28 @@ public class AnimManager : MonoBehaviour {
         PanelSituation.SetActive(true);
         PanelHello.SetActive(false);
 
-        JoyMoveOn = new Vector3(-75.5f, 10, 0);
+        JoyMoveOn = new Vector3(100, 200, 0);
         ImgCharactor.DOMove(JoyMoveOn, 0);
         ImgCharactor.DOScale(1, 0);
 
         ImgBackground.DOMoveX(ImgBackground.position.x - 400, 1);
-        ImgCharactor.GetComponent<Image>().DOFade(0, 1);
 
+        yield return new WaitForSeconds(3.0f);
+        ImgCharactor.GetComponent<Image>().DOFade(0, 1);
+        
 
         yield return new WaitForSeconds(1.0f);
         ImgItem.DOScale(2.0f, 1);
         ImgItem.DOMove(Vector3.one * 200, 1);
 
+        yield return new WaitForSeconds(3.0f);
         StartCoroutine(SeqQuestion());
     }
 
     IEnumerator SeqQuestion()
     {
         PanelQuestion.SetActive(true);
+        ImgItem.transform.SetParent(PanelQuestion.transform);
         PanelSituation.SetActive(false);
 
         yield return new WaitForSeconds(1.0f);
