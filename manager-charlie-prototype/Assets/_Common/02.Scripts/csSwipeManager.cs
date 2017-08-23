@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine;
+using CustomDebug;
 
 public class csSwipeManager : MonoBehaviour
 {
@@ -10,29 +11,37 @@ public class csSwipeManager : MonoBehaviour
 
 
 
-    public int page_Count; //총 페이지 수
+    public int PageCount; //총 페이지 수
 
-    public int current_Page; // 현재 보고있는 페이지 
+    [SerializeField]
+    private int mCurrentPage; // 현재 보고있는 페이지 
 
     public Button PreviousButton;
     public Button NextButton;
 
     public AnimationCurve Anim;
     public float SwipeTime;
-    public float SwipeSensitivity; //스와이프 감도 -> 작을 수록 민감하다
+    public float SwipeSensitivity; /**스와이프 감도 -> 작을 수록 민감하다*/
 
     //swipe 관련
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
 
-    bool SwipeOn; // swipe 중복을 막기 위해 ,true 일때만 swipe 가능
+    bool SwipeOn; /** swipe 중복을 막기 위해 ,true 일때만 swipe 가능*/
 
-    // Use this for initialization
+    public enum InputState
+    {
+        prev,
+        next
+    }
+    public InputState buttonInput;
+
+    
     void Start()
     {
         //첫 페이지는 0부터 시작
-        current_Page = 0;
+        mCurrentPage = 0;
         ShowButton();
         SwipeOn = true;
     }
@@ -63,23 +72,23 @@ public class csSwipeManager : MonoBehaviour
 
 
             //swipe left
-            if (current_Page < page_Count-1)
+            if (mCurrentPage < PageCount-1)
             {
                 if (currentSwipe.x < -SwipeSensitivity)
                 {
-                    Debug.Log("left swipe");
-                    ClickNextButton();
+                    CDebug.Log("left swipe");
+                    OnClickNextButton();
                     SwipeOn = false;
                 }
             }
 
             //swipe right
-            if (current_Page >= 1)
+            if (mCurrentPage >= 1)
             {
                 if (currentSwipe.x > SwipeSensitivity)
                 {
-                    Debug.Log("right swipe");
-                    ClickPreviousButton();
+                    CDebug.Log("right swipe");
+                    OnClickPreviousButton();
                     SwipeOn = false;
                 }
             }
@@ -97,32 +106,34 @@ public class csSwipeManager : MonoBehaviour
 
 
     //앞 버튼 눌렀을 때
-    public void ClickPreviousButton()
+    public void OnClickPreviousButton()
     {
-        current_Page = current_Page - 1;
+        mCurrentPage = mCurrentPage - 1;
         ShowButton();
-        ChangePosition("Previous");
+        buttonInput = InputState.prev;
+        ChangePosition();
     }
 
     //뒤 버튼 눌렀을 때
-    public void ClickNextButton()
+    public void OnClickNextButton()
     {
-        current_Page = current_Page + 1;
+        mCurrentPage = mCurrentPage + 1;
         ShowButton();
-        ChangePosition("Next");
+        buttonInput = InputState.next;
+        ChangePosition();
     }
 
     //앞, 뒤 버튼 눌렀을 때 포지션 변경
-    void ChangePosition(string Direction)
+    void ChangePosition()
     {
-        if (Direction == "Previous")
+        if (buttonInput == InputState.prev)
         {
             for (int i = 0; i < Page.Length; i++)
             {
                 Page[i].transform.DOMoveX(Page[i].transform.position.x + 400, SwipeTime).SetEase(Anim);
             }
         }
-        else if (Direction == "Next")
+        else if (buttonInput == InputState.next)
         {
             for (int i = 0; i < Page.Length; i++)
             {
@@ -134,12 +145,12 @@ public class csSwipeManager : MonoBehaviour
     //앞, 뒤 버튼 보여주는 함수
     void ShowButton()
     {
-        if (current_Page == 0) //첫 페이지 이전 버튼 안보임
+        if (mCurrentPage == 0) //첫 페이지 이전 버튼 안보임
         {
             PreviousButton.gameObject.SetActive(false);
             NextButton.gameObject.SetActive(true);
         }
-        else if (current_Page == page_Count - 1) //마지막 페이지면 넥스트 버튼 안보임
+        else if (mCurrentPage == PageCount - 1) //마지막 페이지면 넥스트 버튼 안보임
         {
             PreviousButton.gameObject.SetActive(true);
             NextButton.gameObject.SetActive(false);

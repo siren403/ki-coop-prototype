@@ -12,17 +12,24 @@ namespace FSM
     {
         public static FiniteState<T, U> EmptyState = new FiniteState<T, U>();
 
-        private T Entity;
+        private T mEntity;
 
-        private Dictionary<U, FiniteState<T,U>> StateDic = new Dictionary<U, FiniteState<T, U>>();
+        private Dictionary<U, FiniteState<T,U>> mStateDic = new Dictionary<U, FiniteState<T, U>>();
 
-        private FiniteState<T, U> CurrentState;
-        private FiniteState<T, U> PreviousState;
-        public FiniteState<T, U> PrevState
+        private FiniteState<T, U> mCurrentState;
+        private FiniteState<T, U> mPreviousState;
+        public FiniteState<T, U> CurrentState
         {
             get
             {
-                return PreviousState;
+                return mCurrentState;
+            }
+        }
+        public FiniteState<T, U> PreviousState
+        {
+            get
+            {
+                return mPreviousState;
             }
         }
 
@@ -30,60 +37,67 @@ namespace FSM
         {
             get
             {
-                if (CurrentState == null) return default(U);
-                return CurrentState.StateID;
+                if (mCurrentState == null) return default(U);
+                return mCurrentState.StateID;
             }
             set
             {
                 ChangeState(value);
             }
         }
-        /// <summary>
-        /// 재정의 시 Base 호출 이후 제어 구조 작성
-        /// </summary>
+
+        /**
+         * @fn  protected virtual void Awake()
+         *
+         * @brief   재정의 시 Base 호출 이후 제어 구조 작성
+         *
+         * @author  SEONG
+         * @date    2017-08-23
+         */
+
         protected virtual void Awake()
         {
-            Entity = GetComponent<T>();
+            mEntity = GetComponent<T>();
         }
         protected virtual void Start() { }
-        /// <summary>
-        /// 재정의 시 Base 호출 이후 제어 구조 작성
-        /// </summary>
+
+        /**
+         * @fn  protected virtual void Update()
+         *
+         * @brief   재정의 시 Base 호출 이후 제어 구조 작성
+         *
+         * @author  SEONG
+         * @date    2017-08-23
+         */
+
         protected virtual void Update()
         {
-            if (CurrentState != null)
-                CurrentState.Excute();
+            if (mCurrentState != null)
+                mCurrentState.Excute();
         }
-        /// <summary>
-        /// Unirx로 처리하였을때의 잔재
-        /// </summary>
-        public void ExcuteState()
-        {
-            if (CurrentState != null)
-                CurrentState.Excute();
-        }
+
 
         public void ChangeState(FiniteState<T, U> nextState)
         {
-            if (CurrentState == nextState) return;
+            if (mCurrentState == nextState) return;
 
-            if(CurrentState != null)
+            if(mCurrentState != null)
             {
-                CurrentState.Exit();
-                PreviousState = CurrentState;
+                mCurrentState.Exit();
+                mPreviousState = mCurrentState;
             }
 
-            CurrentState = nextState;
+            mCurrentState = nextState;
 
-            CurrentState.Enter();
+            mCurrentState.Enter();
         }
 
 
         public void ChangeState(U stateID)
         {
-            if (StateDic.ContainsKey(stateID))
+            if (mStateDic.ContainsKey(stateID))
             {
-                ChangeState(StateDic[stateID]);
+                ChangeState(mStateDic[stateID]);
             }
             else
             {
@@ -94,8 +108,8 @@ namespace FSM
 
         public void RevertState()
         {
-            if (PreviousState != null)
-                ChangeState(PreviousState);
+            if (mPreviousState != null)
+                ChangeState(mPreviousState);
         }
 
 
@@ -103,16 +117,16 @@ namespace FSM
         {
             if (state == null) return;
 
-            state.SetEntity(this.Entity);
+            state.SetEntity(this.mEntity);
 
-            if (StateDic.ContainsKey(state.StateID) == false)
+            if (mStateDic.ContainsKey(state.StateID) == false)
             {
-                StateDic.Add(state.StateID, state);
+                mStateDic.Add(state.StateID, state);
             }
             else
             {
-                StateDic[state.StateID] = null;
-                StateDic[state.StateID] = state;
+                mStateDic[state.StateID] = null;
+                mStateDic[state.StateID] = state;
             }
 
             state.Initialize();
@@ -120,8 +134,8 @@ namespace FSM
 
         public void RemoveState(FiniteState<T, U> state)
         {
-            if(StateDic.ContainsKey(state.StateID))
-                StateDic.Remove(state.StateID);
+            if(mStateDic.ContainsKey(state.StateID))
+                mStateDic.Remove(state.StateID);
         }
     }
 }
