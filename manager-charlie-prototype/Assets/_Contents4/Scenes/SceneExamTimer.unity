@@ -230,9 +230,49 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 58424790775848988, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58424790775848988, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &182325446 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 1663406814}
+--- !u!4 &182325447 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 1663406814}
+--- !u!114 &182325449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182325446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialKind: 1
+  InputTime: 0
+  Distance: 0
+  InputPosition: {x: 0, y: 0, z: 0}
+  OutPutPosition: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
+  IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject: []
 --- !u!1001 &221477062
 Prefab:
   m_ObjectHideFlags: 0
@@ -331,6 +371,99 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &427401045
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 434140709}
+    m_Modifications:
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58424790775848988, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58424790775848988, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_Name
+      value: PFDialBtn (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: DialKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_TagString
+      value: Dial
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d06bb0b2114972347850111118102c10,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &434140708
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +492,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1734555019}
+  - {fileID: 2003962309}
+  - {fileID: 1192224100}
+  - {fileID: 182325447}
+  - {fileID: 571653183}
+  - {fileID: 900082482}
+  - {fileID: 1422587154}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,12 +512,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DialKind: 0
   InputTime: 0
   Distance: 0
   InputPosition: {x: 0, y: 0, z: 0}
   OutPutPosition: {x: 0, y: 0, z: 0}
   Direction: {x: 0, y: 0, z: 0}
   IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject:
+  - {fileID: 2003962308}
+  - {fileID: 1192224099}
+  - {fileID: 182325446}
+  - {fileID: 571653182}
+  - {fileID: 900082481}
+  - {fileID: 1422587153}
 --- !u!61 &434140711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -404,6 +552,202 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 10}
   m_EdgeRadius: 0
+--- !u!1001 &468368355
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 434140709}
+    m_Modifications:
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.1999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_Name
+      value: PFDialBtn (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: DialKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_TagString
+      value: Dial
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 915f7e39bd6632c458f3ac141732d571,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &571653182 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 468368355}
+--- !u!4 &571653183 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 468368355}
+--- !u!114 &571653185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 571653182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialKind: 1
+  InputTime: 0
+  Distance: 0
+  InputPosition: {x: 0, y: 0, z: 0}
+  OutPutPosition: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
+  IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject: []
+--- !u!1001 &640363182
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 434140709}
+    m_Modifications:
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_Name
+      value: PFDialBtn (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: DialKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_TagString
+      value: Dial
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: edf38f19c43c11b498eabbd356aed2e5,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &691094680
 Prefab:
   m_ObjectHideFlags: 0
@@ -616,6 +960,119 @@ Transform:
   m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
     type: 2}
   m_PrefabInternal: {fileID: 853748950}
+--- !u!1 &900082481 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 640363182}
+--- !u!4 &900082482 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 640363182}
+--- !u!114 &900082484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 900082481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialKind: 1
+  InputTime: 0
+  Distance: 0
+  InputPosition: {x: 0, y: 0, z: 0}
+  OutPutPosition: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
+  IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject: []
+--- !u!1001 &921907298
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 434140709}
+    m_Modifications:
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_Name
+      value: PFDialBtn (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: DialKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_TagString
+      value: Dial
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07599a1620f73ff47b5afc2c87c1ac90,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1000726851
 Prefab:
   m_ObjectHideFlags: 0
@@ -683,6 +1140,119 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1081128827
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 434140709}
+    m_Modifications:
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_Name
+      value: PFDialBtn (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: DialKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_TagString
+      value: Dial
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 39e7a8ce6f598524a8394263b7b392c7,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1192224099 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 427401045}
+--- !u!4 &1192224100 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 427401045}
+--- !u!114 &1192224102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1192224099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialKind: 1
+  InputTime: 0
+  Distance: 0
+  InputPosition: {x: 0, y: 0, z: 0}
+  OutPutPosition: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
+  IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject: []
 --- !u!1 &1365851819
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +1319,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10, y: 10}
   m_EdgeRadius: 0
+--- !u!1 &1422587153 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 921907298}
+--- !u!4 &1422587154 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 921907298}
+--- !u!114 &1422587156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1422587153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialKind: 1
+  InputTime: 0
+  Distance: 0
+  InputPosition: {x: 0, y: 0, z: 0}
+  OutPutPosition: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
+  IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject: []
 --- !u!1001 &1472599712
 Prefab:
   m_ObjectHideFlags: 0
@@ -842,6 +1442,97 @@ Transform:
   m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
     type: 2}
   m_PrefabInternal: {fileID: 2035185265}
+--- !u!1001 &1663406814
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 434140709}
+    m_Modifications:
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.1999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_Name
+      value: PFDialBtn (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: DialKind
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+      propertyPath: m_TagString
+      value: Dial
+      objectReference: {fileID: 0}
+    - target: {fileID: 212843272520507716, guid: 8da0c502b0f73c14e9185aa2d6337654,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fab110d7060f61f4b815a193d1773557,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1734555018
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +1617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1771573422
 Transform:
   m_ObjectHideFlags: 0
@@ -951,6 +1642,36 @@ Transform:
   m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
     type: 2}
   m_PrefabInternal: {fileID: 691094680}
+--- !u!1 &2003962308 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 1081128827}
+--- !u!4 &2003962309 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4373024651674024, guid: 8da0c502b0f73c14e9185aa2d6337654,
+    type: 2}
+  m_PrefabInternal: {fileID: 1081128827}
+--- !u!114 &2003962311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2003962308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialKind: 1
+  InputTime: 0
+  Distance: 0
+  InputPosition: {x: 0, y: 0, z: 0}
+  OutPutPosition: {x: 0, y: 0, z: 0}
+  Direction: {x: 0, y: 0, z: 0}
+  IsSwipe: 0
+  IsBtnTouch: 0
+  DialBtnObject: []
 --- !u!1001 &2035185265
 Prefab:
   m_ObjectHideFlags: 0
