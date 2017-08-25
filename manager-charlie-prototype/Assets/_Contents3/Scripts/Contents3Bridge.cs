@@ -12,15 +12,4 @@ public class Contents3Bridge : MonoBehaviour {
     protected QnAContentsBase.State mState;
     protected SceneContents3 mContents3 = null;
 
-	void Start () {
-
-        mContents3 = new SceneContents3();
-        mState = mContents3.GetState();
-
-	}
-	
-
-	void Update () {
-		
-	}
 }
