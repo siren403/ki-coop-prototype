@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CustomDebug;
-using System;
 using Contents;
 using FSM;
 using Data;
 using Util.Inspector;
+using LitJson;
 
-namespace Contents
+namespace Contents1
 {
     public class SceneContents1 : QnAContentsBase
     {
         private const int ContentsID = 1;
-
-        /** 선택지 버튼과 관련된 이미지, 텍스트 */
-        /** 세부사항은 인스펙터에서 가져옴 */
-        public Image[] instImageChoice;
-        public Text[] instTextChoice;
 
         /** 콘텐츠 관련 멤버 */
         private int mCon1EpisodeLoaction;       // 유저가 위치하고 있는 에피소드를 체크하는 변수
@@ -28,6 +23,7 @@ namespace Contents
         private int mCont1AlpahbetCount;        // 알파벳 개수를 저장하는 변수
         private int mCont1WordsCount;           // 알파벳과 관련된 단어 개수를 저장하는 변수
 
+        /** UI 및 리소스 관리자 */
         [SerializeField]
         private UIContents1 mInstUI = null;
 
@@ -35,44 +31,122 @@ namespace Contents
         private string mCorrectAnswer;          // 정답을 저장하는 변수
         private string[] mInCorrectAnswer = { "A", "A", "A" };      // 오답을 저장하는 배열
 
-        /** 게임 시작 체크 멤버 */
-        private bool mStartEpisode;
-
         /** 파닉스 단어들을 담고 있는 클래스 -> 추후에 데이터 관련 사항이 정해지면 수정 */
-        InstContents1Data mWordsData;
+        private Dictionary<int, string> mWords;
 
         public override IQnAContentsUI UI
         {
             get
             {
-                return null;
+                return mInstUI;
             }
         }
 
-        //protected override void Initialize()
-        //{
-        //    base.Initialize();
-        //}
         protected override void Initialize()
         {
             mInstUI.Initialize(this);
 
             // 인스턴스 생성
-            mWordsData = new InstContents1Data();
 
-            CDebug.Log(mWordsData.Words[1].Alphabet);
-            CDebug.Log(mWordsData.Words.Count);
+            Debug.Log(this.Container.GetData(1).Count);
+            Debug.Log("sd");
 
             //멤버 값 초기화
-            mStartEpisode = false;
-
             mCorrectAnswer = null;
 
             mCon1EpisodeLoaction = 1;           // 추후 값 수정 필요
             mCorrectAnswerCount = 0;
             mCon1QuestionCount = 0;
 
+            ChangeState(State.Episode);
+
         }
+
+        protected override QnAFiniteState CreateShowEpisode()
+        {
+            return new FSContents1Episode();
+        }
+        protected override QnAFiniteState CreateShowSituation()
+        {
+            return new FSContents1Situation();
+        }
+
+        protected override QnAFiniteState CreateShowQuestion()
+        {
+            return new FSContents1Question();
+        }
+
+        protected override QnAFiniteState CreateShowAnswer()
+        {
+            return new FSContents1Answer();
+        }
+
+        protected override QnAFiniteState CreateShowSelectAnswer()
+        {
+            return new FSContents1Select();
+        }
+
+        protected override QnAFiniteState CreateShowEvaluateAnswer()
+        {
+            return new FSContents1Evaluation();
+        }
+
+        protected override QnAFiniteState CreateShowReward()
+        {
+            return new FSContents1Reward();
+        }
+
+        protected override QnAFiniteState CreateShowClearEpisode()
+        {
+            return new FSContents1ShowClearEpisode();
+        }
+
+        /**
+         * @fn  public void SelectEpisode(int episodeID)
+         *
+         * @brief   사용자(?) 정의 함수 -> 사용자라는 부분을 어떻게 수정해야할지 가이드 부탁드립니다.
+         *
+         * @author  KBY
+         * @date    2017-08-25
+         *
+         * @param   episodeID   Identifier for the episode.
+         */
+
+        // 에피소드 설정 함수
+        public void SelectEpisode(int episodeID)
+        {
+            ChangeState(State.Situation);
+        }
+
+        // 정답 선택 기능 함수
+        public void SelectAnswer(int answer)
+        {
+            CDebug.Log("Selection Button : "+ answer);
+            ChangeState(State.Evaluation);
+        }
+
+        // 정답 판별 함수
+        public void EvaluationConfirm(int answer)
+        {
+            if(answer == 1)
+            {
+                ChangeState(State.Reward);
+                CDebug.Log("confirm");
+            }
+            else
+            {
+                ChangeState(State.Select);
+            }            
+        }
+
+        // 보상 확인 함수
+        public void RewardConfirm()
+        {
+            CDebug.Log("confirm Reward");
+
+
+        }
+
 
         /** 에피소드 관련 정보 셋팅 */
         void Content1StartGame()
@@ -101,83 +175,83 @@ namespace Contents
 
                 int[] tmpSettingArr = new int[4];
 
-                // string 배열 5개에 이번 에피소드에 등장하는 파닉스 음과 관련한 단어들을 저장하는 로직
-                // 첫번째 for문-------------
-                for (int i = 0; i < 5; i++)
-                {
-                    tmpStringCount = 0;
+                //// string 배열 5개에 이번 에피소드에 등장하는 파닉스 음과 관련한 단어들을 저장하는 로직
+                //// 첫번째 for문-------------
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    tmpStringCount = 0;
 
-                    // 중첩, 2번째 for문-----------------
-                    for (int j = 0; j < mWordsData.Words.Count; j++)
-                    {
-                        // i가 0일 경우 'A'와 관련된 단어들을 tmpSaveTextA 배열에 저장
-                        if (i == 0)
-                        {
-                            // 모든 리스트를 검색하기 때문에 일정 요건만 확인하고 벗어남.
-                            if (tmpStringCount >= 3)
-                                break;
+                //    // 중첩, 2번째 for문-----------------
+                //    for (int j = 0; j < mWordsData.Words.Count; j++)
+                //    {
+                //        // i가 0일 경우 'A'와 관련된 단어들을 tmpSaveTextA 배열에 저장
+                //        if (i == 0)
+                //        {
+                //            // 모든 리스트를 검색하기 때문에 일정 요건만 확인하고 벗어남.
+                //            if (tmpStringCount >= 3)
+                //                break;
 
-                            if (mWordsData.Words[j].Word.Substring(0, 1) == "A")
-                            {
-                                CDebug.Log("I come A");
-                                tmpSaveTextA[tmpStringCount] = mWordsData.Words[j].Word;
-                                tmpStringCount++;
-                            }
-                        }
-                        // "B"
-                        else if (i == 1)
-                        {
-                            if (tmpStringCount >= 3)
-                                break;
+                //            if (mWordsData.Words[j].Word.Substring(0, 1) == "A")
+                //            {
+                //                CDebug.Log("I come A");
+                //                tmpSaveTextA[tmpStringCount] = mWordsData.Words[j].Word;
+                //                tmpStringCount++;
+                //            }
+                //        }
+                //        // "B"
+                //        else if (i == 1)
+                //        {
+                //            if (tmpStringCount >= 3)
+                //                break;
 
-                            if (mWordsData.Words[j].Word.Substring(0, 1) == "B")
-                            {
-                                CDebug.Log("I come B");
-                                tmpSaveTextB[tmpStringCount] = mWordsData.Words[j].Word;
-                                tmpStringCount++;
-                            }
-                        }
-                        // "C"
-                        else if (i == 2)
-                        {
-                            if (tmpStringCount >= 3)
-                                break;
+                //            if (mWordsData.Words[j].Word.Substring(0, 1) == "B")
+                //            {
+                //                CDebug.Log("I come B");
+                //                tmpSaveTextB[tmpStringCount] = mWordsData.Words[j].Word;
+                //                tmpStringCount++;
+                //            }
+                //        }
+                //        // "C"
+                //        else if (i == 2)
+                //        {
+                //            if (tmpStringCount >= 3)
+                //                break;
 
-                            if (mWordsData.Words[j].Word.Substring(0, 1) == "C")
-                            {
-                                CDebug.Log("I come C");
-                                tmpSaveTextC[tmpStringCount] = mWordsData.Words[j].Word;
-                                tmpStringCount++;
-                            }
-                        }
-                        // "D"
-                        else if (i == 3)
-                        {
-                            if (tmpStringCount >= 3)
-                                break;
+                //            if (mWordsData.Words[j].Word.Substring(0, 1) == "C")
+                //            {
+                //                CDebug.Log("I come C");
+                //                tmpSaveTextC[tmpStringCount] = mWordsData.Words[j].Word;
+                //                tmpStringCount++;
+                //            }
+                //        }
+                //        // "D"
+                //        else if (i == 3)
+                //        {
+                //            if (tmpStringCount >= 3)
+                //                break;
 
-                            if (mWordsData.Words[j].Word.Substring(0, 1) == "D")
-                            {
-                                CDebug.Log("I come D");
-                                tmpSaveTextD[tmpStringCount] = mWordsData.Words[j].Word;
-                                tmpStringCount++;
-                            }
-                        }
-                        // "E"
-                        else if (i == 4)
-                        {
-                            if (tmpStringCount >= 3)
-                                break;
+                //            if (mWordsData.Words[j].Word.Substring(0, 1) == "D")
+                //            {
+                //                CDebug.Log("I come D");
+                //                tmpSaveTextD[tmpStringCount] = mWordsData.Words[j].Word;
+                //                tmpStringCount++;
+                //            }
+                //        }
+                //        // "E"
+                //        else if (i == 4)
+                //        {
+                //            if (tmpStringCount >= 3)
+                //                break;
 
-                            if (mWordsData.Words[j].Word.Substring(0, 1) == "E")
-                            {
-                                CDebug.Log("I come E");
-                                tmpSaveTextE[tmpStringCount] = mWordsData.Words[j].Word;
-                                tmpStringCount++;
-                            }
-                        }
-                    } // 중첩 for문 종료
-                } // for문 최종 종료
+                //            if (mWordsData.Words[j].Word.Substring(0, 1) == "E")
+                //            {
+                //                CDebug.Log("I come E");
+                //                tmpSaveTextE[tmpStringCount] = mWordsData.Words[j].Word;
+                //                tmpStringCount++;
+                //            }
+                //        }
+                //    } // 중첩 for문 종료
+                //} // for문 최종 종료
 
                 // 출제할 정답과 오답 셋팅
                 switch (mCon1QuestionCount)

@@ -5,62 +5,51 @@ using System;
 using LitJson;
 using CustomDebug;
 using UnityEngine.UI;
+using Contents;
 
-namespace Contents
+
+namespace Contents1
 {
     public class UIContents1 : MonoBehaviour, IQnAContentsUI
     {
-        [SerializeField]
-        private GameObject InstPanelEpisode = null;
-        [SerializeField]
-        private List<Button> InstBtnEpisodeList = new List<Button>();
-        [SerializeField]
-        private GameObject InstPanelAnswer = null;
-        [SerializeField]
-        private List<Button> InstBtnAnswerList = new List<Button>();
-
-        private string[] mAnswersData = null;
-
         private SceneContents1 mScene = null;
+
+        public GameObject InstPanelEpisode = null;
+        public List<Button> InstBtnEpisodeList = null;
+
+        public GameObject InstPanelAnswer = null;
+        public List<Button> InstBtnAnswerList = null;
 
         public void Initialize(SceneContents1 scene)
         {
             mScene = scene;
-            //에피소드 버튼
-            InstBtnEpisodeList[0].onClick.AddListener(() => SelectEpisodeEvent(0));
-            InstBtnEpisodeList[1].onClick.AddListener(() => SelectEpisodeEvent(1));
-            InstBtnEpisodeList[2].onClick.AddListener(() => SelectEpisodeEvent(2));
-            InstBtnEpisodeList[3].onClick.AddListener(() => SelectEpisodeEvent(3));
 
-            //선택지 버튼
-            InstBtnAnswerList[0].onClick.AddListener(() => EvaluationEvent(0));
-            InstBtnAnswerList[1].onClick.AddListener(() => EvaluationEvent(1));
-            InstBtnAnswerList[2].onClick.AddListener(() => EvaluationEvent(2));
-            InstBtnAnswerList[3].onClick.AddListener(() => EvaluationEvent(3));
+            InstBtnEpisodeList[0].onClick.AddListener(() => OnBtnSelectEpisode(0));
+            InstBtnEpisodeList[1].onClick.AddListener(() => OnBtnSelectEpisode(1));
+            InstBtnEpisodeList[2].onClick.AddListener(() => OnBtnSelectEpisode(2));
+            InstBtnEpisodeList[3].onClick.AddListener(() => OnBtnSelectEpisode(3));
+
+            InstBtnAnswerList[0].onClick.AddListener(() => OnBtnSelectAnswer(0));
+            InstBtnAnswerList[1].onClick.AddListener(() => OnBtnSelectAnswer(1));
+            InstBtnAnswerList[2].onClick.AddListener(() => OnBtnSelectAnswer(2));
+            InstBtnAnswerList[3].onClick.AddListener(() => OnBtnSelectAnswer(3));
         }
 
-        #region 유저 입력 시 이벤트 처리 함수(ex. animation, sound play...)
-        private void SelectEpisodeEvent(int episodeID)
+
+
+        public void OnBtnSelectEpisode(int episodeID)
         {
-            mScene.StartEpisode(episodeID);
+            mScene.SelectEpisode(episodeID);
             InstPanelEpisode.SetActive(false);
         }
-        private void EvaluationEvent(int answerID)
+
+        public void OnBtnSelectAnswer(int selection)
         {
-            bool result = mScene.Evaluation(answerID);
-            if (result)
-            {
-                CDebug.Log("Correct!! with animation");
-                mScene.ChangeState(QnAContentsBase.State.Reward);
-            }
-            else
-            {
-                CDebug.Log("Wrong... with animation");
-                mScene.ChangeState(QnAContentsBase.State.Question);
-            }
+            mScene.SelectAnswer(selection);
+            //* 2. 선택한 번호 전달 */
+            //* 2. SceneContents1.cs  __ 함수 호출*/
             InstPanelAnswer.SetActive(false);
         }
-        #endregion
 
 
         public void ShowEpisode()
@@ -69,43 +58,38 @@ namespace Contents
         }
         public void ShowSituation()
         {
-            CDebug.Log(string.Format("Playing Situation... Duration {0} sec", 1.5f));
+            CDebug.Log("Play Animation");
         }
         public void ShowQuestion()
         {
-
-            CDebug.LogFormat("Please, give me food starting with {0},{0},{0}", mScene.GetPhonics());
+            CDebug.Log("Play Question");
         }
         public void ShowAnswer()
         {
-            CDebug.Log("Get Answers Data");
-            CDebug.Log("Wait Show Answers Animation... \n Input Close");
-            mAnswersData = mScene.GetAnswersData();
-            foreach (var answer in mAnswersData)
-            {
-                CDebug.LogFormat("Answer : {0}", answer);
-            }
             InstPanelAnswer.SetActive(true);
+            //* 1. 정답 데이터 설정*/
+           
         }
         public void SelectAnswer()
         {
-            CDebug.Log("Wait Show Answers Animation... \n Input Open");
+            mScene.RewardConfirm();
         }
+        public void Evaluation(int answer)
+        {
 
+        }
         public void ShowReward()
         {
-            CDebug.Log("Play Reward Animation");
             mScene.ChangeState(QnAContentsBase.State.Clear);
         }
-
         public void ClearEpisode()
         {
-            CDebug.Log("Play Clear Animation");
-            CDebug.Log("Stop Clear Animation by Show Outro");
 
         }
 
 
+
+        
     }
 
 }
