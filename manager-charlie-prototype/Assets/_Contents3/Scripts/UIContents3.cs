@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using Contents;
+using Contents.QnA;
 using System;
 using LitJson;
 using CustomDebug;
 
-public class UIContents3 : MonoBehaviour, IQnAContentsUI
+public class UIContents3 : MonoBehaviour, IQnAContentsView
 {
     
     [SerializeField]
@@ -138,5 +137,14 @@ public class UIContents3 : MonoBehaviour, IQnAContentsUI
         CDebug.Log("Play Clear Animation");
 
         mScene.ChangeState(QnAContentsBase.State.Episode);
+    }
+
+
+    public void CorrectAnswer()
+    {
+    }
+
+    public void WrongAnswer()
+    {
     }
 }

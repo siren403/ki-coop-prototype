@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using Contents;
+using Contents.QnA;
 
 public class FSContents3ShowReward : QnAFiniteState
 {

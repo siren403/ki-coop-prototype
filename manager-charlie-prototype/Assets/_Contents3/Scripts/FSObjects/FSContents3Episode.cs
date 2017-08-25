@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Contents;
+using Contents.QnA;
 using CustomDebug;
 
 

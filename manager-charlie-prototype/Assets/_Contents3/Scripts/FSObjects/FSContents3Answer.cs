@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-using Contents;
+using Contents.QnA;
 using CustomDebug;
 
 public class FSContents3Answer : QnAFiniteState
