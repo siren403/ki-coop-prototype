@@ -22,7 +22,7 @@ public class FSContents2ShowAnswer : QnAFiniteState
 
     public override void Enter()
     {
-
+        Entity.UI.ShowAnswer();
     }
 
     public override void Excute()
