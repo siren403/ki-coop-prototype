@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Contents;
-using Contents3;
 using CustomDebug;
 
 
@@ -79,7 +78,7 @@ public class QuestionDirecting : Contents3Bridge
         // 대사 사운드 출력
 
 
-        mState = QnAContentsBase.State.ShowAnswer;
+        //mState = QnAContentsBase.State.ShowAnswer;
         mContents3.ChangeState(mState);
         CDebug.Log(mState);
 

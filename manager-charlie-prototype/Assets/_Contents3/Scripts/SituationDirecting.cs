@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Contents;
-using Contents3;
 using CustomDebug;
 
 
@@ -26,8 +25,8 @@ public class SituationDirecting : Contents3Bridge
 
     void ShowSituation()
     {
-        if (QnAContentsBase.State.ShowSituation == mState)
-        {
+        //if (QnAContentsBase.State.ShowSituation == mState)
+        //{
 
         // 상황연출 anim show
         CDebug.Log("ShowSituation");
@@ -43,11 +42,11 @@ public class SituationDirecting : Contents3Bridge
         // 사운드 출력
 
 
-        mState = QnAContentsBase.State.ShowQuestion;
+        //mState = QnAContentsBase.State.ShowQuestion;
         mContents3.ChangeState(mState);
         CDebug.Log(mState);
      
-        }
+        //}
     }
 
 }

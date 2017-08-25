@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Contents;
-using Contents3;
 using CustomDebug;
 
 
