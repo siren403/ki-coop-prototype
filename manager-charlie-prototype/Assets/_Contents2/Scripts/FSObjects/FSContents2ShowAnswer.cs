@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using CustomDebug;
 using Util;
-using Contents;
+using Contents.QnA;
 
 
 public class FSContents2ShowAnswer : QnAFiniteState

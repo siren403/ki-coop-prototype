@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Contents;
+using Contents.QnA;
 using System;
 using LitJson;
 using CustomDebug;
 
 namespace Contents2
 {
-    public class UIContents2 : MonoBehaviour, IQnAContentsUI
+    public class UIContents2 : MonoBehaviour, IQnAContentsView
     {
         [SerializeField]
         private GameObject InstPanelEpisode = null;
@@ -100,5 +100,14 @@ namespace Contents2
             CDebug.Log("Stop Clear Animation by Show Outro");
         }
 
+        public void CorrectAnswer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WrongAnswer()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

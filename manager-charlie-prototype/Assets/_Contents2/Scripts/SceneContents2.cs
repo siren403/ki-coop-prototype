@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents;
+using Contents.QnA;
 using System;
 using CustomDebug;
 using LitJson;
@@ -18,7 +18,7 @@ namespace Contents2
         [SerializeField]
         private UIContents2 mInstUI = null;
 
-        public override IQnAContentsUI UI
+        public override IQnAContentsView UI
         {
             get
             {
