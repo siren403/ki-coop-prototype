@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using CustomDebug;
 using Util;
-using Contents;
+using Contents.QnA;
+
 namespace Examples
 {
     public class FSExamSelectAnswer : QnAFiniteState
@@ -25,7 +26,7 @@ namespace Examples
         }
         public override void Excute()
         {
-
+            //10초 대기 등 추후 선택 상태일때 세부구현
         }
         public override void Exit()
         {

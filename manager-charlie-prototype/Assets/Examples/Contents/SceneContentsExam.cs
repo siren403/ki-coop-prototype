@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents;
+using Contents.QnA;
+
 using System;
 using CustomDebug;
 using LitJson;
@@ -31,7 +32,7 @@ namespace Examples
          *
          * @return  추상화된 UI 인터페이스
          */
-        public override IQnAContentsUI UI
+        public override IQnAContentsView UI
         {
             get
             {
@@ -42,6 +43,8 @@ namespace Examples
         private char[] mPhonics = new char[] { 'A', 'B', 'C', 'D', 'E' };
         private int mCurrentPhonics = 0;
         private int mQustionCount = 0;
+
+        public int SelectAnswerID = 0;
 
         protected override void Initialize()
         {
@@ -76,13 +79,11 @@ namespace Examples
             };
             return answers;
         }
-        public bool Evaluation(int answerID)
+        public void SelectAnswer(int answerID)
         {
-            if(answerID == 0)
-            {
-                return true;
-            }
-            return false;
+            this.SelectAnswerID = answerID;
+            ChangeState(State.Evaluation);
+            
         }
     }
 

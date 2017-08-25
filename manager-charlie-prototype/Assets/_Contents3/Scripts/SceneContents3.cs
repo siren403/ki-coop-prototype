@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
-using Contents;
 using LitJson;
 using Util.Inspector;
+using Contents.QnA;
 using CustomDebug;
 
 
