@@ -114,7 +114,7 @@ public class HorizontalSwipe : MonoBehaviour {
 
 
 
-    bool Swiped = false;            // 스왑중인지 체크
+    bool isSwiped = false;            // 스왑중인지 체크
     //Vector2 SwipeDirection;       // 스왑 방향
     float SwipeDirection;
 
@@ -128,7 +128,7 @@ public class HorizontalSwipe : MonoBehaviour {
         {
             mouseDownPos = Input.mousePosition;
             Debug.Log(mouseDownPos);
-            Swiped = false;
+            isSwiped = false;
         }
         else if(Input.GetMouseButton(0) == true)
         {
@@ -145,7 +145,7 @@ public class HorizontalSwipe : MonoBehaviour {
         {
             mouseUpPos = Input.mousePosition;
             Debug.Log(mouseUpPos);
-            //Swiped = true;
+            //isSwiped = true;
         }
 
         //return mouseDownPos.x - mouseUpPos.x < 0.0f ? true : false;
@@ -154,7 +154,7 @@ public class HorizontalSwipe : MonoBehaviour {
 
     bool CheckSwipe (Vector2 downPos, Vector2 currentPos)
     {
-        if (Swiped == true)
+        if (isSwiped == true)
             return false;
 
         Vector2 currentSwipe = currentPos - downPos;
@@ -173,24 +173,11 @@ public class HorizontalSwipe : MonoBehaviour {
     bool dir = false;
     void onSwipeDetected(float swipeDirection)
     {
-        Swiped = true;
+        isSwiped = true;
         dir = swipeDirection < 0.0f ? true : false;
         Debug.Log(dir);
         SwipePanel(dir);
         
     }
-
-
-    public void testBtn1()
-    {
-        AnswerPanel_0.transform.DOMoveX(-200.0f, 1.0f, true);
-        AnswerPanel_1.transform.DOMoveX(200.0f, 1.0f, true);
-    }
-    public void testBtn2()
-    {
-        AnswerPanel_0.transform.DOMoveX(200.0f, 1.0f, true);
-        AnswerPanel_1.transform.DOMoveX(600.0f, 1.0f, true);
-    }
-
 
 }
