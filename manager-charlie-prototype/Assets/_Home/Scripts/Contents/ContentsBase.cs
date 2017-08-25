@@ -17,10 +17,14 @@ namespace Contents
             {
                 if(mContainer == null)
                 {
-                    mContainer = new MocContainer();
+                    mContainer = GetDataContainer();
                 }
                 return mContainer;
             }
+        }
+        protected virtual IDataContainer GetDataContainer()
+        {
+            return new MocContainer();
         }
 
     }
