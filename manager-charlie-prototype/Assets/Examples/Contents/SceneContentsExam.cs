@@ -5,6 +5,7 @@ using Contents;
 using System;
 using CustomDebug;
 using LitJson;
+using Util.Inspector;
 
 namespace Examples
 {
@@ -46,7 +47,6 @@ namespace Examples
         {
             mInstUI.Initialize(this);
             ChangeState(State.Episode);
-
         }
         protected override QnAFiniteState CreateShowEpisode() { return new FSExamShowEpisode(); }
         protected override QnAFiniteState CreateShowSituation() { return new FSExamShowSituation(); }
