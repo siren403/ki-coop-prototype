@@ -35,10 +35,8 @@ public class UIContents3 : MonoBehaviour, IQnAContentsView
     private int mOrder = 0;                                 // 순서               
 
     public GameObject ObjSituation = null;                  // 상황연출 오브젝트
-    private SituationDirecting mSituationScript = null;
 
     public GameObject ObjQuestion = null;                   // 문제제시 오브젝트
-    private QuestionDirecting mQuestionScript = null;
 
     public GameObject ObjReward = null;                     // 리워드 오브젝트
 

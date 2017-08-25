@@ -19,7 +19,7 @@ public class SceneContents3 : QnAContentsBase
     [SerializeField]
     public UIContents3 mInstUI = null;                     // UI 연결용
 
-    public override IQnAContentsUI UI
+    public override IQnAContentsView UI
     {
         get
         {
