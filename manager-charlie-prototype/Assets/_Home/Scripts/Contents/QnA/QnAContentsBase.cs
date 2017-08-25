@@ -5,7 +5,7 @@ using FSM;
 using System;
 using CustomDebug;
 
-namespace Contents
+namespace Contents.QnA
 {
     /**
      * @class   QnAContentsBase
@@ -27,7 +27,7 @@ namespace Contents
             Evaluation, Reward, Clear,
         }
 
-        public abstract IQnAContentsUI UI { get; }
+        public abstract IQnAContentsView UI { get; }
         /**
          * @fn  protected sealed override void Awake()
          *
