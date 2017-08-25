@@ -1,0 +1,21 @@
+{
+    "list":[
+        {"Question":"A","Answer":"Apple"},
+        {"Question":"A","Answer":"Acorn"},
+        {"Question":"B","Answer":"Bread"},
+        {"Question":"B","Answer":"Bean"},
+        {"Question":"C","Answer":"Cucumber"},
+        {"Question":"C","Answer":"Carrot"},
+        {"Question":"D","Answer":"Daikon"},
+        {"Question":"D","Answer":"Date"},
+        {"Question":"E","Answer":"Elderberry"},
+        {"Question":"E","Answer":"Egg"}
+    ],
+    "dic":{
+        "A":["Apple","Acorn"],
+        "B":["Bread","Bean"],
+        "C":["Cucumber","Carrot"],
+        "D":["Daikon","Date"],
+        "E":["Elderberry","Egg"]
+    }
+}

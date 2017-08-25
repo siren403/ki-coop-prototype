@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Contents;
+using UnityEngine;
 
-public class InstContents1Data
+public class InstContents1Data : MonoBehaviour
 {
     public List<InstContent1Word> Words = new List<InstContent1Word>();
 
@@ -15,6 +17,8 @@ public class InstContents1Data
     //    }
     //    return _instance;
     //}
+
+    //this.Container.GetData(1)
 
     public InstContents1Data()
     {

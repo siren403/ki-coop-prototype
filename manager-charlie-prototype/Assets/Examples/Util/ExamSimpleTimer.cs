@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CustomDebug;
-
-namespace Util.Example
+using Util;
+namespace Examples
 {
     public class ExamSimpleTimer : MonoBehaviour
     {

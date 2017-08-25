@@ -901,8 +901,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc995f23c998e9b4d8a378ef29b01df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instImageChoice: []
-  instTextChoice: []
+  instImageChoice:
+  - {fileID: 1783913537}
+  - {fileID: 154250495}
+  - {fileID: 1980211090}
+  - {fileID: 2060526303}
+  instTextChoice:
+  - {fileID: 191285868}
+  - {fileID: 2055579316}
+  - {fileID: 1604160441}
+  - {fileID: 675584326}
 --- !u!1 &1783913534
 GameObject:
   m_ObjectHideFlags: 0
