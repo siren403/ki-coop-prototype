@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CustomDebug;
-using Contents;
+using Contents.QnA;
 using FSM;
 using Data;
 
@@ -34,7 +34,7 @@ namespace Content1
         /** 파닉스 단어들을 담고 있는 클래스 -> 추후에 데이터 관련 사항이 정해지면 수정 */
         InstContents1Data mWordsData;
 
-        public override IQnAContentsUI UI
+        public override IQnAContentsView UI
         {
             get
             {

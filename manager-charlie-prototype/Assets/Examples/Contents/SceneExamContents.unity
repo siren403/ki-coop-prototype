@@ -611,6 +611,59 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 571077761}
+--- !u!1 &623114294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 623114296}
+  - component: {fileID: 623114295}
+  m_Layer: 0
+  m_Name: InstViewContentsExam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &623114295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623114294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0206556a68f048c4a9d9dfee15e21373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InstPanelEpisode: {fileID: 22620218}
+  InstBtnEpisodeList:
+  - {fileID: 649653048}
+  - {fileID: 771398857}
+  - {fileID: 1101564535}
+  - {fileID: 1611933633}
+  InstPanelAnswer: {fileID: 2003342503}
+  InstBtnAnswerList:
+  - {fileID: 912488580}
+  - {fileID: 571077763}
+  - {fileID: 1776904273}
+  - {fileID: 1682476326}
+--- !u!4 &623114296
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623114294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6478713, y: -1.4379785, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 856234510}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &649653046
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,12 +894,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 856234510}
-  - component: {fileID: 856234511}
   - component: {fileID: 856234509}
   - component: {fileID: 856234508}
   - component: {fileID: 856234507}
   m_Layer: 5
-  m_Name: InstUIContents
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,37 +973,14 @@ RectTransform:
   m_Children:
   - {fileID: 22620219}
   - {fileID: 2003342504}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 623114296}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &856234511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 856234506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0206556a68f048c4a9d9dfee15e21373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InstPanelEpisode: {fileID: 22620218}
-  InstBtnEpisodeList:
-  - {fileID: 649653048}
-  - {fileID: 771398857}
-  - {fileID: 1101564535}
-  - {fileID: 1611933633}
-  InstPanelAnswer: {fileID: 2003342503}
-  InstBtnAnswerList:
-  - {fileID: 912488580}
-  - {fileID: 571077763}
-  - {fileID: 1776904273}
-  - {fileID: 1682476326}
 --- !u!1 &912488578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,7 +1790,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020d5aafca6cb5e428e9804b938ccd0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mInstUI: {fileID: 856234511}
+  mInstUI: {fileID: 623114295}
+  SelectAnswerID: 0
 --- !u!1 &2003342503
 GameObject:
   m_ObjectHideFlags: 0
