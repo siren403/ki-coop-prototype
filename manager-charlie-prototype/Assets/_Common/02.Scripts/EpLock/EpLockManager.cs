@@ -18,20 +18,25 @@ public class EpLockManager : MonoBehaviour
     //* Contents 별로 내가 마지막에 깬 Episode 값 저장 변수*/
     private int mContents1SavedEp;
 
+    public bool TestMode;
 
     // Use this for initialization
     void Start()
     {
-        //*초기화. */
-        InitEpsode();
+        //*태스트를 위해 초기화 해주는 코드 */
+        if (TestMode == true)
+        {
+            InitEpsode();
+        }
+        
 
         SetClearEpisode();
 
 
         //*Ep1은 일단 열어둔다. */
-        PlayerPrefs.SetInt("IsEp1Lock" , 1);
+        PlayerPrefs.SetInt("IsEp1Lock", 1);
         ImgEpisodeLock[0].gameObject.SetActive(false);
-        ButtonEp[0].interactable = true;
+
 
 
         //*마지막으로 클리어한 episode 값 가져 온다. (초기값 0)*/
@@ -39,11 +44,11 @@ public class EpLockManager : MonoBehaviour
         CDebug.Log("////  mSavedEpContents1 - > " + mContents1SavedEp);
 
         //*Ep 별로 clear 한 저장변수 보기 위해*/
-        for (int i = 0; i < ButtonEp.Length; i++)
+        for (int i = 0; i < ImgEpisodeLock.Length; i++)
         {
             mEpString = System.String.Format("{0}{1}{2} ", "IsEp", i, "Lock");
             CDebug.Log(" // mEpString  " + (i) + " : " + mEpString);
-        }        
+        }
     }
 
 
@@ -55,7 +60,7 @@ public class EpLockManager : MonoBehaviour
         PlayerPrefs.SetInt("Contents1MySavedEp", mContents1SavedEp);
 
         //*stage 열림*/
-        for (int i = 0; i < mContents1SavedEp+1; i++)
+        for (int i = 0; i < mContents1SavedEp + 1; i++)
         {
             //* Lock 이미지 제거*/
             ImgEpisodeLock[i].gameObject.SetActive(false);
@@ -65,14 +70,14 @@ public class EpLockManager : MonoBehaviour
             mEpString = System.String.Format("{0}{1}{2} ", "IsEp", i, "Lock");
             CDebug.Log(" // mEpString  " + (i) + " : " + mEpString);
 
-            PlayerPrefs.SetInt(mEpString , 1);
+            PlayerPrefs.SetInt(mEpString, 1);
         }
     }
 
     /** clear 한 episode에 따라서 episode 잠금 해제 */
-    public void SetClearEpisode()
+    void SetClearEpisode()
     {
-        for (int i = 0; i < ButtonEp.Length; i++)
+        for (int i = 0; i < ImgEpisodeLock.Length; i++)
         {
             int isLock;
 
@@ -91,36 +96,69 @@ public class EpLockManager : MonoBehaviour
     void InitEpsode()
     {
         PlayerPrefs.SetInt("Contents1MySavedEp", 0);
-        for (int i = 0; i < ButtonEp.Length; i++)
+        for (int i = 0; i < ImgEpisodeLock.Length; i++)
         {
             mEpString = System.String.Format("{0}{1}{2} ", "IsEp", i, "Lock");
             PlayerPrefs.SetInt(mEpString, 0);
-            ButtonEp[i].interactable = false;
         }
     }
 
     public void OnClickEp1()
     {
-        CDebug.Log("///  --- >    Ep 1  Click ! ");
+        CDebug.Log("///  --- >    Go Episode 1    ! ");
     }
     public void OnClickEp2()
     {
-        CDebug.Log("///  --- >    Ep 2  Click ! ");
+        //*이전 episode 클리어하지 못하면 unlock 사운드 play*/
+        if (mContents1SavedEp < 1)
+        {
+            CDebug.Log("///  --- >    Ep 2  Lock ! ");
+        }
+        //*이전 episode 클리어 했다면 그 episode 시작*/
+        else
+        {
+            CDebug.Log("///  --- >   Go Episode 2   ! ");
+        }
+
     }
     public void OnClickEp3()
     {
-        CDebug.Log("///  --- >    Ep 3  Click ! ");
+        if (mContents1SavedEp < 2)
+        {
+            CDebug.Log("///  --- >    Ep 3  Lock ! ");
+        }
+        else
+        {
+            CDebug.Log("///  --- >    Go 3  Episode 3   ! ");
+        }
     }
     public void OnClickEp4()
     {
-        CDebug.Log("///  --- >    Ep 4  Click ! ");
+        if (mContents1SavedEp < 3)
+        {
+            CDebug.Log("///  --- >    Ep 4  Lock ! ");
+        }
+        else
+        {
+            CDebug.Log("///  --- >    Go 4  Episode 4   ! ");
+        }
     }
     public void OnClickEp5()
     {
-        CDebug.Log("///  --- >    Ep 5  Click ! ");
+        if (mContents1SavedEp < 4)
+        {
+            CDebug.Log("///  --- >    Ep 5  Lock ! ");
+        }
+        else
+        {
+            CDebug.Log("///  --- >     Go 5  Episode 5   !  ");
+        }
     }
     public void OnClickEp6()
     {
-        CDebug.Log("///  --- >    Ep 6  Click ! ");
+
+        CDebug.Log("///  --- >    Go MiniGameScene ");
+
+
     }
 }
