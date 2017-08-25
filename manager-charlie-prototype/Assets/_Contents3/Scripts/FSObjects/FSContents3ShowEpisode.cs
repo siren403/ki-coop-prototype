@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using Contents.QnA;
+using CustomDebug;
 
 namespace Contents3
 {
-    public class FSContents3ShowReward : QnAFiniteState
+    public class FSContents3ShowEpisode : QnAFiniteState
     {
 
         public override QnAContentsBase.State StateID
         {
             get
             {
-                return QnAContentsBase.State.Reward;
+                return QnAContentsBase.State.Episode;
             }
         }
+
 
         public override void Initialize()
         {
@@ -22,15 +25,16 @@ namespace Contents3
         }
         public override void Enter()
         {
+            Entity.UI.ShowEpisode();
+        }
+        public override void Excute()
+        {
 
         }
         public override void Exit()
         {
 
         }
-        public override void Excute()
-        {
 
-        }
     }
 }

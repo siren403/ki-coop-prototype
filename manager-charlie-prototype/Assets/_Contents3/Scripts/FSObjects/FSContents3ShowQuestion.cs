@@ -1,26 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Contents.QnA;
-using Util;
 using CustomDebug;
+using Util;
+using DG.Tweening;
+
 
 namespace Contents3
 {
-    public class FSContents3Select : QnAFiniteState
+    public class FSContents3ShowQuestion : QnAFiniteState
     {
 
         public override QnAContentsBase.State StateID
         {
             get
             {
-                return QnAContentsBase.State.Select;
+                return QnAContentsBase.State.Question;
             }
         }
-
         private SimpleTimer Timer = SimpleTimer.Create();
-        private float mSelectingDuration = 10.0f;
 
         public override void Initialize()
         {
@@ -28,17 +27,21 @@ namespace Contents3
         }
         public override void Enter()
         {
-            CDebug.Log("Select");
+            CDebug.Log("이미지확대 및 대사 출력");
+
+            // 데이터 받아서 문제 출력
+
+            Entity.UI.ShowQuestion();
+            Timer.Start();
+
         }
         public override void Excute()
         {
-            //CDebug.Log("Checking");
             Timer.Update();
-            if (Timer.Check(mSelectingDuration))
+            if (Timer.Check(3.0f))
             {
-                CDebug.Log("haven't answered");
-                
-                //Entity.ChangeState(QnAContentsBase.State.Select);
+                CDebug.Log("Question Excute : After 3.0f");
+                Entity.ChangeState(QnAContentsBase.State.Answer);
             }
         }
         public override void Exit()

@@ -2,34 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 using Contents.QnA;
 
-public class FSContents3EvaluteAnswer : QnAFiniteState
+namespace Contents3
 {
-
-    public override QnAContentsBase.State StateID
+    public class FSContents3EvaluteAnswer : QnAFiniteState
     {
-        get
+
+        public override QnAContentsBase.State StateID
         {
-            return QnAContentsBase.State.Situation;
+            get
+            {
+                return QnAContentsBase.State.Evaluation;
+            }
         }
-    }
 
-    public override void Initialize()
-    {
+        public override void Initialize()
+        {
 
-    }
-    public override void Enter()
-    {
+        }
+        public override void Enter()
+        {
 
-    }
-    public override void Exit()
-    {
+        }
+        public override void Exit()
+        {
 
-    }
-    public override void Excute()
-    {
+        }
+        public override void Excute()
+        {
 
+        }
     }
 }

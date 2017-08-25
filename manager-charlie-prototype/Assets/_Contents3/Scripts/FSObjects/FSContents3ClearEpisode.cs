@@ -4,31 +4,33 @@ using UnityEngine;
 
 using Contents.QnA;
 
-public class FSContents3ClearEpisode : QnAFiniteState
+namespace Contents3
 {
-
-    public override QnAContentsBase.State StateID
+    public class FSContents3ClearEpisode : QnAFiniteState
     {
-        get
+
+        public override QnAContentsBase.State StateID
         {
-            return QnAContentsBase.State.Situation;
+            get
+            {
+                return QnAContentsBase.State.Clear;
+            }
         }
-    }
 
-    public override void Initialize()
-    {
+        public override void Initialize()
+        {
 
-    }
-    public override void Enter()
-    {
+        }
+        public override void Enter()
+        {
+            
+        }
+        public override void Exit()
+        {
 
-    }
-    public override void Exit()
-    {
-
-    }
-    public override void Excute()
-    {
-
+        }
+        public override void Excute()
+        {
+        }
     }
 }
