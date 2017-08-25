@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Contents;
+using Contents.QnA;
+using CustomDebug;
 using Util;
 
 namespace Contents1
@@ -22,12 +23,9 @@ namespace Contents1
         }
         public override void Enter()
         {
+            CDebug.Log("Question Enter");
             Entity.UI.ShowQuestion();
-            Entity.ChangeState(QnAContentsBase.State.Answer);
-        }
-        public override void Excute()
-        {
-
+            //Entity.ChangeState(QnAContentsBase.State.Answer);
         }
         public override void Exit()
         {

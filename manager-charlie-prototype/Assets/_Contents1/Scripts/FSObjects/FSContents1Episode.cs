@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Contents;
+using Contents.QnA;
 
 namespace Contents1
 {

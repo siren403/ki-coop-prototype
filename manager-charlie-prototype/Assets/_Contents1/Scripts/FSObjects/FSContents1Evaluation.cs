@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents;
+using Contents.QnA;
+using CustomDebug;
 
 namespace Contents1
 {
@@ -21,7 +22,8 @@ namespace Contents1
 
         public override void Enter()
         {
-            (Entity as SceneContents1).EvaluationConfirm(1);
+            CDebug.Log("Enter Evaluation");   
+            (Entity as SceneContents1).EvaluationConfirm((Entity as SceneContents1).Contents1AnswerNumber);
             
         }
 

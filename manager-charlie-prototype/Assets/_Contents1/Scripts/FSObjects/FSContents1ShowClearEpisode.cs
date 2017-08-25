@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Contents;
+using Contents.QnA;
 
 namespace Contents1
 {
@@ -20,10 +20,12 @@ namespace Contents1
 
         public override void Enter()
         {
+
         }
 
         public override void Excute()
         {
+            
         }
 
         public override void Exit()

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents;
+using Contents.QnA;
+using CustomDebug;
 
 namespace Contents1
 {
@@ -21,6 +22,7 @@ namespace Contents1
 
         public override void Enter()
         {
+            CDebug.Log("Enter Reward");
             Entity.UI.ShowReward();
         }
 
