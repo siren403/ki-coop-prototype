@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InstConente1Question : MonoBehaviour {
+using DG.Tweening;
 
-	// Use this for initialization
+public class CharacterMoving : MonoBehaviour {
+
+
+
 	void Start () {
 		
+
+
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
