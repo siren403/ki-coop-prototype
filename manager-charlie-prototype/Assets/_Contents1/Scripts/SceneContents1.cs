@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CustomDebug;
+using System;
 using Contents;
 using FSM;
 using Data;
+using Util.Inspector;
 
-namespace Content1
+namespace Contents
 {
-    public class InstContents1Manager : QnAContentsBase
+    public class SceneContents1 : QnAContentsBase
     {
+        private const int ContentsID = 1;
+
         /** 선택지 버튼과 관련된 이미지, 텍스트 */
         /** 세부사항은 인스펙터에서 가져옴 */
         public Image[] instImageChoice;
@@ -23,6 +27,9 @@ namespace Content1
 
         private int mCont1AlpahbetCount;        // 알파벳 개수를 저장하는 변수
         private int mCont1WordsCount;           // 알파벳과 관련된 단어 개수를 저장하는 변수
+
+        [SerializeField]
+        private UIContents1 mInstUI = null;
 
         /** 정답, 오답 관련 멤버 */
         private string mCorrectAnswer;          // 정답을 저장하는 변수
@@ -48,6 +55,8 @@ namespace Content1
         //}
         protected override void Initialize()
         {
+            mInstUI.Initialize(this);
+
             // 인스턴스 생성
             mWordsData = new InstContents1Data();
 
@@ -62,25 +71,7 @@ namespace Content1
             mCon1EpisodeLoaction = 1;           // 추후 값 수정 필요
             mCorrectAnswerCount = 0;
             mCon1QuestionCount = 0;
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-            // 로직 시작
-            if (!mStartEpisode)
-            {
-                mStartEpisode = true;
-
-                CDebug.Log("hi");
-
-                // 콘텐츠 시작
-                Content1StartGame();
-            }
-            else
-            {
-                return;
-            }
         }
 
         /** 에피소드 관련 정보 셋팅 */
@@ -311,10 +302,32 @@ namespace Content1
     }
 }
 
-///** 각 에피소드에 등장하는 파닉스 단어 */
-///** A~E 1~15번, F~J 16~31번, K~O 32~55번, P~S 56~78번, T~Z 79~100번 */
+
+/* ------ 사용하지 않는 코드 ----------*/
+
+/* 각 에피소드에 등장하는 파닉스 단어 */
+/* A~E 1~15번, F~J 16~31번, K~O 32~55번, P~S 56~78번, T~Z 79~100번 */
 //private const string mEPSODE1 = "ABCDE";
 //private const string mEPSODE2 = "FGHIJ";
 //private const string mEPSODE3 = "KLMNO";
 //private const string mEPSODE4 = "PQRS";
 //private const string mEPSODE5 = "TUVWXYZ";
+
+//// Update is called once per frame
+//void Update()
+//{
+//    // 로직 시작
+//    if (!mStartEpisode)
+//    {
+//        mStartEpisode = true;
+
+//        CDebug.Log("hi");
+
+//        // 콘텐츠 시작
+//        Content1StartGame();
+//    }
+//    else
+//    {
+//        return;
+//    }
+//}
