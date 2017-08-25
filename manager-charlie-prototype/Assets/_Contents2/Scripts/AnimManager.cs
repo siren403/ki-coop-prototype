@@ -16,8 +16,13 @@ public class AnimManager : MonoBehaviour {
 
     // Animation Objects
     public Transform ImgCharactor;
-    public Transform ImgBackground;
+    public Transform ImgSituationBackground;
+    public Transform ImgQuestBackground;
     public Transform ImgItem;
+
+    // Answer
+    public Transform WrongBtn;
+    public Transform AnswerBtn;
 
     // 조이 Fade In 위치
     Vector3 JoyMoveOn;
@@ -27,6 +32,7 @@ public class AnimManager : MonoBehaviour {
         PanelHello.SetActive(true);
         PanelSituation.SetActive(false);
         PanelQuestion.SetActive(false);
+        
     }
 
     void Start ()
@@ -55,7 +61,7 @@ public class AnimManager : MonoBehaviour {
         ImgCharactor.DOMove(JoyMoveOn, 0);
         ImgCharactor.DOScale(1, 0);
 
-        ImgBackground.DOMoveX(ImgBackground.position.x - 400, 1);
+        ImgSituationBackground.DOMoveX(ImgSituationBackground.position.x - 400, 1);
 
         yield return new WaitForSeconds(3.0f);
         ImgCharactor.GetComponent<Image>().DOFade(0, 1);
@@ -76,7 +82,24 @@ public class AnimManager : MonoBehaviour {
         PanelSituation.SetActive(false);
 
         yield return new WaitForSeconds(1.0f);
-    }
+        ImgItem.DOScale(1.0f, 1);
+        ImgItem.GetComponent<Image>().DOFade(0, 1);
 
+        yield return new WaitForSeconds(1.0f);
+        int randomSubmit = Random.Range(0, 2);
+
+        ImgQuestBackground.DOMoveY(ImgQuestBackground.position.y + 400, 1);
+
+        if (randomSubmit == 0)
+        {
+            AnswerBtn.DOMoveX(ImgItem.position.x - 100, 1);
+            WrongBtn.DOMoveX(WrongBtn.position.x + 100, 1);
+        }
+        else
+        {
+            AnswerBtn.DOMoveX(ImgItem.position.x + 100, 1);
+            WrongBtn.DOMoveX(WrongBtn.position.x - 100, 1);
+        }
+    }
 
 }

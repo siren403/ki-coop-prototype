@@ -11,11 +11,64 @@
         {"Question":"E","Answer":"Elderberry"},
         {"Question":"E","Answer":"Egg"}
     ],
-    "dic":{
-        "A":["Apple","Acorn"],
-        "B":["Bread","Bean"],
-        "C":["Cucumber","Carrot"],
-        "D":["Daikon","Date"],
-        "E":["Elderberry","Egg"]
+  "dic": {
+    "A": [ "Apple", "Acorn" ],
+    "B": [ "Bread", "Bean" ],
+    "C": [ "Cucumber", "Carrot" ],
+    "D": [ "Daikon", "Date" ],
+    "E": [ "Elderberry", "Egg" ]
+  },
+  "table": [
+    {
+      "id": 1,
+      "phonics": "A",
+      "word": "apple"
+    },
+    {
+      "id": 2,
+      "phonics": "A",
+      "word": "acorn"
+    },
+    {
+      "id": 3,
+      "phonics": "B",
+      "word": "bread"
+    },
+    {
+      "id": 4,
+      "phonics": "B",
+      "word": "bean"
+    },
+    {
+      "id": 5,
+      "phonics": "C",
+      "word": "cucumber"
+    },
+    {
+      "id": 6,
+      "phonics": "C",
+      "word": "carrot"
+    },
+    {
+      "id": 7,
+      "phonics": "D",
+      "word": "daikon"
+    },
+    {
+      "id": 8,
+      "phonics": "D",
+      "word": "date"
+    },
+    {
+      "id": 9,
+      "phonics": "E",
+      "word": "elderberry"
+    },
+    {
+      "id": 10,
+      "phonics": "E",
+      "word": "egg"
     }
+  ]
+
 }
