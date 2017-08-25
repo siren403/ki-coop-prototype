@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Contents;
+using Contents.QnA;
 using System;
 using LitJson;
 using CustomDebug;
 
 namespace Examples
 {
-    public class UIContentsExam : MonoBehaviour, IQnAContentsUI
+    public class UIContentsExam : MonoBehaviour, IQnAContentsView
     {
         [SerializeField]
         private GameObject InstPanelEpisode = null;
@@ -29,38 +29,28 @@ namespace Examples
         {
             mScene = scene;
             //에피소드 버튼
-            InstBtnEpisodeList[0].onClick.AddListener(() => SelectEpisodeEvent(0));
-            InstBtnEpisodeList[1].onClick.AddListener(() => SelectEpisodeEvent(1));
-            InstBtnEpisodeList[2].onClick.AddListener(() => SelectEpisodeEvent(2));
-            InstBtnEpisodeList[3].onClick.AddListener(() => SelectEpisodeEvent(3));
+            InstBtnEpisodeList[0].onClick.AddListener(() => OnBtnSelectEpisodeEvent(0));
+            InstBtnEpisodeList[1].onClick.AddListener(() => OnBtnSelectEpisodeEvent(1));
+            InstBtnEpisodeList[2].onClick.AddListener(() => OnBtnSelectEpisodeEvent(2));
+            InstBtnEpisodeList[3].onClick.AddListener(() => OnBtnSelectEpisodeEvent(3));
 
             //선택지 버튼
-            InstBtnAnswerList[0].onClick.AddListener(() => EvaluationEvent(0));
-            InstBtnAnswerList[1].onClick.AddListener(() => EvaluationEvent(1));
-            InstBtnAnswerList[2].onClick.AddListener(() => EvaluationEvent(2));
-            InstBtnAnswerList[3].onClick.AddListener(() => EvaluationEvent(3));
+            InstBtnAnswerList[0].onClick.AddListener(() => OnBtnSelectAnswer(0));
+            InstBtnAnswerList[1].onClick.AddListener(() => OnBtnSelectAnswer(1));
+            InstBtnAnswerList[2].onClick.AddListener(() => OnBtnSelectAnswer(2));
+            InstBtnAnswerList[3].onClick.AddListener(() => OnBtnSelectAnswer(3));
         }
 
         #region 유저 입력 시 이벤트 처리 함수(ex. animation, sound play...)
-        private void SelectEpisodeEvent(int episodeID)
+        private void OnBtnSelectEpisodeEvent(int episodeID)
         {
             mScene.StartEpisode(episodeID);
             InstPanelEpisode.SetActive(false);
         }
-        private void EvaluationEvent(int answerID)
+        private void OnBtnSelectAnswer(int answerID)
         {
-            bool result = mScene.Evaluation(answerID);
-            if(result)
-            {
-                CDebug.Log("Correct!! with animation");
-                mScene.ChangeState(QnAContentsBase.State.Reward);
-            }
-            else
-            {
-                CDebug.Log("Wrong... with animation");
-                mScene.ChangeState(QnAContentsBase.State.Question);
-            }
-            InstPanelAnswer.SetActive(false);
+            mScene.SelectAnswer(answerID);
+            
         }
         #endregion
 
@@ -93,7 +83,14 @@ namespace Examples
         {
             CDebug.Log("Wait Show Answers Animation... \n Input Open");
         }
-
+        public void CorrectAnswer()
+        {
+            CDebug.Log("Correct!! with animation");
+        }
+        public void WrongAnswer()
+        {
+            CDebug.Log("Wrong... with animation");
+        }
         public void ShowReward()
         {
             CDebug.Log("Play Reward Animation");

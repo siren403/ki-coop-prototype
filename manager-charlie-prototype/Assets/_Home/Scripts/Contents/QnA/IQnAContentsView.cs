@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Contents
+namespace Contents.QnA
 {
-    public interface IQnAContentsUI
+    public interface IQnAContentsView
     {
         void ShowEpisode();
         void ShowQuestion();
         void ShowSituation();
         void ShowAnswer();
         void SelectAnswer();
+        void CorrectAnswer();
+        void WrongAnswer();
         void ShowReward();
         void ClearEpisode();
     }
