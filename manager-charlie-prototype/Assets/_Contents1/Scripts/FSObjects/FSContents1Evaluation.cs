@@ -23,8 +23,16 @@ namespace Contents1
         public override void Enter()
         {
             CDebug.Log("Enter Evaluation");   
-            (Entity as SceneContents1).EvaluationConfirm((Entity as SceneContents1).Contents1AnswerNumber);
-            
+            //(Entity as SceneContents1).EvaluationConfirm((Entity as SceneContents1).Contents1AnswerNumber);
+
+            if((Entity as SceneContents1).Contents1AnswerNumber == (Entity as SceneContents1).Contents1CorrectNubmer)
+            {
+                Entity.UI.CorrectAnswer();
+            }
+            else
+            {
+                Entity.UI.WrongAnswer();
+            }         
         }
 
         public override void Excute()

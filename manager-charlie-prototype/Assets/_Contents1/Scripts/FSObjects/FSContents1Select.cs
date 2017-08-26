@@ -32,6 +32,9 @@ namespace Contents1
         public override void Enter()
         {
             CDebug.Log("Enter Select");
+
+            Entity.UI.ShowAnswer();
+
             mTimer.Start();
         }
 
@@ -44,7 +47,6 @@ namespace Contents1
             if(mTimer.Check(6))
             {
                 (Entity as SceneContents1).NoSelect(5);
-                mTimer.Stop();
                 mTimer.Start();
             }
             else if(mTimer.Check(11))
@@ -58,7 +60,7 @@ namespace Contents1
         public override void Exit()
         {
             mTimer.Stop();
-            CDebug.Log("I Loop exit!");
+            //CDebug.Log("I Loop exit!");
         }
     }
 }

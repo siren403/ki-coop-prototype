@@ -18,17 +18,21 @@ namespace Contents1
 
 
         /** 콘텐츠 관련 멤버 */
-        private int mEpisodeLoaction = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수
-        private int mCurrentQuestionIndex = 0;         // 문제 진행 개수 체크 변수
-        private int mCorrectAnswerCount = 0;        // 정답 맞춘 개수를 카운트 하는 변수
+        private int mEpisodeLoaction = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
 
-        private int mCont1AlpahbetCount = 0;        // 알파벳 개수를 저장하는 변수
-        private int mCont1WordsCount = 0;           // 알파벳과 관련된 단어 개수를 저장하는 변수
+        private int mCont1AlpahbetCount = 0;          // 알파벳 개수를 저장하는 변수
+        private int mCont1WordsCount = 0;             // 알파벳과 관련된 단어 개수를 저장하는 변수
 
-        public int Contents1CorrectNubmer = 0;                 // 정답의 인덱스를 저장하는 변수
-        public int Contents1AnswerNumber = 0;
+        public int Contents1CorrectNubmer = 0;        // 정답의 인덱스를 저장하는 변수
+        public int Contents1AnswerNumber = 0;         // 선택한 정답의 인덱스를 저장하는 변수
 
-        public float Contents1GuagePercent = 0;
+        public int CurrentQuestionIndex = 0;         // 문제 진행 개수 체크 변수        
+        public int CorrectAnswerCount = 0;           // 정답 맞춘 개수를 카운트 하는 변수
+        public int ThisProblemCount = 0;             // 현재 진행하고 있는 문제를 몇 번 풀었는가를 카운트하는 변수
+
+        public float Contents1GuagePercent = 0;      // 게이지 값 변경 변수
+
+        public bool[] BlockInfo = new bool[4] {false, false, false, false};        // 블럭 이미지를 On/Off 하는데 사용되는 정보
 
         /** UI 및 리소스 관리자 */
         [SerializeField]
@@ -49,7 +53,7 @@ namespace Contents1
         {
             get
             {
-                return mPhonics[mCurrentQuestionIndex % 5];
+                return mPhonics[CurrentQuestionIndex % 5];
             }
         }
 
@@ -57,8 +61,6 @@ namespace Contents1
         private Dictionary<string, List<JsonData>> mWrongAnswerDIc = null;
 
         #endregion
-
-
 
         public override IQnAContentsView UI
         {
@@ -81,9 +83,8 @@ namespace Contents1
             mCorrectAnswer = null;
 
             mEpisodeLoaction = 1;        // 추후 값 수정 필요
-            mCorrectAnswerCount = 0;
-            mCurrentQuestionIndex = 0;
-
+            CorrectAnswerCount = 0;
+            CurrentQuestionIndex = 0;
 
             mPhonicsDic = new Dictionary<string, List<JsonData>>();
 
@@ -127,7 +128,7 @@ namespace Contents1
 
         protected override QnAFiniteState CreateShowClearEpisode()
         {
-            return new FSContents1ShowClearEpisode();
+            return new FSContents1Clear();
         }
 
         /**
@@ -177,9 +178,10 @@ namespace Contents1
 
         public string[] GetAnswers()
         {
+            CDebug.Log("Get Answers");
+
             string[] answers = new string[] { "Apple", "Bean", "Cucumber", "Daikon" };
 
-            mCurrentQuestionIndex++;
             //문제 인덱스 증가
             return answers;
         }
@@ -203,40 +205,21 @@ namespace Contents1
         public void SelectAnswer(int answer)
         {
             CDebug.Log("Selection Button : "+ answer);
-            Contents1CorrectNubmer = 1;
+            Contents1CorrectNubmer = 0;
             Contents1AnswerNumber = answer;
-            ChangeState(State.Evaluation);
-        }
 
-        // 정답 판별 함수
-        public void EvaluationConfirm(int answer)
-        {
-            if(answer == 1)
-            {
-                mCorrectAnswerCount++;
-                Contents1GuagePercent = Contents1GuagePercent + 1;
-
-                ChangeState(State.Reward);
-
-                CDebug.Log("confirm");
-            }
-            else
-            {               
-                CDebug.Log("inCorrect");
-
-                ChangeState(State.Question);
-            }        
+            mInstUI.SelectAnswer();
         }
 
         // 보상 확인 함수
         public void RewardConfirm()
         {
             CDebug.Log("confirm Reward");
-
-
         }
 
+        
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
         /** 에피소드 관련 정보 셋팅 */
         void Content1StartGame()
         {
