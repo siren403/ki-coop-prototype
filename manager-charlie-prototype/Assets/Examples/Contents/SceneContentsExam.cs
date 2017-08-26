@@ -101,11 +101,11 @@ namespace Examples
             CDebug.Log(episodeID);
             ChangeState(State.Situation);
         }
-
+        [Button]
         private void Suffle()
         {
             string[] words = new string[] { "apple", "acorn", "bread", "bean", "daikon", "elderberry" };
-            CDebug.Log("Before : "+JsonUtility.ToJson(words));
+            CDebug.Log("Before : "+LitJson.JsonMapper.ToJson(words));
             for (int i = 0; i < words.Length; i++)
             {
                 int n = Random.Range(0, words.Length);
@@ -113,7 +113,7 @@ namespace Examples
                 words[n] = words[i];
                 words[i] = temp;
             }
-            CDebug.Log("After : " + JsonUtility.ToJson(words));
+            CDebug.Log("After : " + LitJson.JsonMapper.ToJson(words));
         }
         public string[] GetAnswersData()
         {
