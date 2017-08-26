@@ -286,7 +286,15 @@ namespace UnityQuickSheet
             sp.importedFilePath = machine.excelFilePath;
 
             // path where the .asset file will be created.
-            string path = Path.GetDirectoryName(machine.excelFilePath);
+            string path = null;
+            //path = Path.GetDirectoryName(machine.excelFilePath);
+            //path += "/" + machine.WorkSheetName + ".asset";
+            path = "Assets/Resources";
+            if (Directory.Exists(path) == false)
+                Directory.CreateDirectory(path);
+            path += "/" + this.NameSpace;
+            if (Directory.Exists(path) == false)
+                Directory.CreateDirectory(path);
             path += "/" + machine.WorkSheetName + ".asset";
             sp.assetFilepath = path;
             sp.assetPostprocessorClass = machine.WorkSheetName + "AssetPostprocessor";

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FSM;
-using Data;
+using Contents.Data;
 
 namespace Contents
 {
     public abstract class ContentsBase<T, U> : FiniteStateMachine<T, U>
     {
-      
-        private IDataContainer mContainer = null;
-
-        protected IDataContainer Container
+        [System.Obsolete]
+        private DataContainer mContainer = null;
+        [System.Obsolete]
+        protected DataContainer Container
         {
             get
             {
@@ -22,10 +22,10 @@ namespace Contents
                 return mContainer;
             }
         }
-        protected virtual IDataContainer GetDataContainer()
+        [System.Obsolete]
+        protected virtual DataContainer GetDataContainer()
         {
             return new MocContainer();
         }
-
     }
 }

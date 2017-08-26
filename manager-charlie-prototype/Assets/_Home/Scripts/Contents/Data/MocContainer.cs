@@ -5,9 +5,9 @@ using LitJson;
 using System;
 using CustomDebug;
 
-namespace Data
+namespace Contents.Data
 {
-    public class MocContainer : IDataContainer
+    public class MocContainer : DataContainer
     {
         private JsonData[] mContentsDataArray = null;
 
@@ -23,7 +23,7 @@ namespace Data
             string json = Resources.Load<TextAsset>(path).text;
             data = JsonMapper.ToObject(json);
             return data;
-        }     
+        }
 
         /**
          * @fn  public JsonData GetData(int contentsID)
@@ -44,5 +44,6 @@ namespace Data
 
             return response;
         }
+       
     }
 }

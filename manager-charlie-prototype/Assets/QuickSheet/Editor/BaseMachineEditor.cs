@@ -26,6 +26,15 @@ namespace UnityQuickSheet
 
         protected GUIStyle headerStyle = null;
 
+        protected string NameSpace
+        {
+            get
+            {
+                //return machine.SpreadSheetName.Split('.')[0];
+                return "QuickSheet";
+            }
+        }
+
         protected virtual void OnEnable()
         {
             // Nothing to do here.
@@ -95,7 +104,7 @@ namespace UnityQuickSheet
         /// </summary>
         protected void CreateScriptableObjectClassScript(BaseMachine machine, ScriptPrescription sp)
         {
-            sp.nameSpace = machine.SpreadSheetName.Split('.')[0];
+            sp.nameSpace = NameSpace;
             sp.className = machine.WorkSheetName;
             sp.dataClassName = machine.WorkSheetName + "Data";
             sp.template = GetTemplate("ScriptableObjectClass");
@@ -139,7 +148,7 @@ namespace UnityQuickSheet
         /// </summary>
         protected void CreateScriptableObjectEditorClassScript(BaseMachine machine, ScriptPrescription sp)
         {
-            sp.nameSpace = machine.SpreadSheetName.Split('.')[0];
+            sp.nameSpace = NameSpace;
             sp.className = machine.WorkSheetName + "Editor";
             sp.worksheetClassName = machine.WorkSheetName;
             sp.dataClassName = machine.WorkSheetName + "Data";
@@ -209,7 +218,7 @@ namespace UnityQuickSheet
 
                 fieldList.Add(member);
             }
-            sp.nameSpace = machine.SpreadSheetName.Split('.')[0];
+            sp.nameSpace = NameSpace;
             sp.className = machine.WorkSheetName + "Data";
             sp.template = GetTemplate("DataClass");
 

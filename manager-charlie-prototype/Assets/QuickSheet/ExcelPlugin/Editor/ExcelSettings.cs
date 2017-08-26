@@ -17,6 +17,7 @@ namespace UnityQuickSheet
     /// </summary>
     public class ExcelSettings : ScriptableObject
     {
+
         // A path of default setting file is located.
         public static string AssetPath = "Assets/QuickSheet/ExcelPlugin/Editor/";
 

@@ -20,11 +20,18 @@ namespace Examples
      */
     public class SceneContentsExam : QnAContentsBase
     {
-        private const int CONTENTS_ID = 1;
 
         [SerializeField]
         private UIContentsExam mInstUI = null;
 
+
+        protected override int ContentsID
+        {
+            get
+            {
+                return 1;
+            }
+        }
         /**
          * @property    public UIContentsExam UI
          *

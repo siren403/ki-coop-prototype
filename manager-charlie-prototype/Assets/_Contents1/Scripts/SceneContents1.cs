@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using CustomDebug;
 using Contents.QnA;
 using FSM;
-using Data;
+using Contents.Data;
 using Util.Inspector;
 using LitJson;
 

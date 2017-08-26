@@ -4,6 +4,7 @@ using UnityEngine;
 using FSM;
 using System;
 using CustomDebug;
+using Contents.Data;
 
 namespace Contents.QnA
 {
@@ -27,6 +28,13 @@ namespace Contents.QnA
             Evaluation, Reward, Clear,
         }
 
+        protected virtual int ContentsID
+        {
+            get
+            {
+                return 0;
+            }
+        }
         public abstract IQnAContentsView UI { get; }
         /**
          * @fn  protected sealed override void Awake()
@@ -36,7 +44,6 @@ namespace Contents.QnA
          * @author  SEONG
          * @date    2017-08-23
          */
-
         protected sealed override void Awake()
         {
             base.Awake();
