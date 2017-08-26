@@ -1,0 +1,19 @@
+{
+	"episode":[
+		{ 
+			"phonics":["a", "b", "c", "d", "e"] 
+		},
+		{ 
+			"phonics":["f", "g", "h", "i", "j"] 
+		},
+		{ 
+			"phonics":["k", "l", "m", "n", "o"] 
+		},
+		{ 
+			"phonics":["p", "q", "r", "s", "t"] 
+		},
+		{ 
+			"phonics":["u", "v", "w", "x", "y", "z"] 
+		}
+	]
+}

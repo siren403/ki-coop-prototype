@@ -2,14 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Contents.QnA;
-
-using System;
 using CustomDebug;
-using LitJson;
+using Contents.Data;
+using QuickSheet;
 using Util.Inspector;
 
 namespace Examples
 {
+    [System.Serializable]
+    public class ContentsData
+    {
+        public List<EpisodeData> episode = null;
+    }
+    [System.Serializable]
+    public class EpisodeData
+    {
+        public string[] phonics = null;
+    }
+
     /**
      * @class   SceneContentsExam
      *
@@ -24,14 +34,6 @@ namespace Examples
         [SerializeField]
         private UIContentsExam mInstUI = null;
 
-
-        protected override int ContentsID
-        {
-            get
-            {
-                return 1;
-            }
-        }
         /**
          * @property    public UIContentsExam UI
          *
@@ -39,7 +41,7 @@ namespace Examples
          *
          * @return  추상화된 UI 인터페이스
          */
-        public override IQnAContentsView UI
+        public override IQnAView UI
         {
             get
             {
@@ -47,15 +49,42 @@ namespace Examples
             }
         }
 
-        private char[] mPhonics = new char[] { 'A', 'B', 'C', 'D', 'E' };
-        private int mCurrentPhonics = 0;
+        private QuickSheet.Contents1 mQnATable = null;
+        private ContentsData mContentsData = null;
+        private int mSelectEpisode = 0;
+
+       
         private int mQustionCount = 0;
+        private int mPhonicsIndex = 0;
 
         public int SelectAnswerID = 0;
 
+        public int EpisodeCount
+        {
+            get
+            {
+                return mContentsData.episode.Count;
+            }
+        }
+        public EpisodeData CurrentEpisode
+        {
+            get
+            {
+                return mContentsData.episode[mSelectEpisode];
+            }
+        }
+        public string CurrentPhonics
+        {
+            get
+            {
+                return CurrentEpisode.phonics[mPhonicsIndex % CurrentEpisode.phonics.Length];
+            }
+        }
         protected override void Initialize()
         {
-            mInstUI.Initialize(this);
+            string json = Resources.Load<TextAsset>("ContentsData/Contents1").text;
+            mContentsData = JsonUtility.FromJson<ContentsData>(json);
+            mQnATable = DataFactory.LoadContents1Table();
             ChangeState(State.Episode);
         }
         protected override QnAFiniteState CreateShowEpisode() { return new FSExamShowEpisode(); }
@@ -67,16 +96,24 @@ namespace Examples
         protected override QnAFiniteState CreateShowReward() { return new FSExamShowReward(); }
         protected override QnAFiniteState CreateShowClearEpisode() { return new FSExamClearEpisode(); }
 
-
-
         public void StartEpisode(int episodeID)
         {
             CDebug.Log(episodeID);
             ChangeState(State.Situation);
         }
-        public char GetPhonics()
+
+        private void Suffle()
         {
-            return mPhonics[mCurrentPhonics];
+            string[] words = new string[] { "apple", "acorn", "bread", "bean", "daikon", "elderberry" };
+            CDebug.Log("Before : "+JsonUtility.ToJson(words));
+            for (int i = 0; i < words.Length; i++)
+            {
+                int n = Random.Range(0, words.Length);
+                string temp = words[n];
+                words[n] = words[i];
+                words[i] = temp;
+            }
+            CDebug.Log("After : " + JsonUtility.ToJson(words));
         }
         public string[] GetAnswersData()
         {

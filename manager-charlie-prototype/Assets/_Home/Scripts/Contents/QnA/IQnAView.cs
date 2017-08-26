@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Contents.QnA
 {
-    public interface IQnAContentsView
+    public interface IQnAView
     {
         void ShowEpisode();
         void ShowQuestion();

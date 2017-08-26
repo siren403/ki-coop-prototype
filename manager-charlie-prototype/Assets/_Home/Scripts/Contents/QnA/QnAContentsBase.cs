@@ -16,7 +16,6 @@ namespace Contents.QnA
      * @author  SEONG
      * @date    2017-08-23
      */
-
     public abstract class QnAContentsBase : ContentsBase<QnAContentsBase,QnAContentsBase.State>
     {
         public static QnAFiniteState EmptyQnAState = new QnAFiniteState();
@@ -28,14 +27,7 @@ namespace Contents.QnA
             Evaluation, Reward, Clear,
         }
 
-        protected virtual int ContentsID
-        {
-            get
-            {
-                return 0;
-            }
-        }
-        public abstract IQnAContentsView UI { get; }
+        public abstract IQnAView UI { get; }
         /**
          * @fn  protected sealed override void Awake()
          *
@@ -60,6 +52,11 @@ namespace Contents.QnA
         protected sealed override void Start()
         {
             Initialize();
+            IViewInitialize viewInit = UI as IViewInitialize;
+            if(viewInit != null)
+            {
+                viewInit.Initialize(this);
+            }
         }
 
         /**
