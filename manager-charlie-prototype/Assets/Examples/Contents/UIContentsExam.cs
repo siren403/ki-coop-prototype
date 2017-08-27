@@ -59,7 +59,7 @@ namespace Examples
 
         public void ShowEpisode()
         {
-            //InstPanelEpisode.SetActive(true);
+            InstPanelEpisodeList.gameObject.SetActive(true);
         }
         public void ShowSituation()
         {
