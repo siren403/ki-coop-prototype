@@ -612,7 +612,6 @@ MonoBehaviour:
   InstPanelEpisodeList: {fileID: 22620222}
   PFEpisodeButton: {fileID: 114790336360990548, guid: 3fe0808b317fe0043b45ce5937704aaf,
     type: 2}
-  InstGridEpisode: {fileID: 482787187}
   InstPanelAnswer: {fileID: 2003342503}
   InstBtnAnswerList:
   - {fileID: 912488580}
