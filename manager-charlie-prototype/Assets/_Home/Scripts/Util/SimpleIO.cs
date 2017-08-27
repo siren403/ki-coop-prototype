@@ -21,6 +21,7 @@ namespace Util
         }
         public T ReadJson<T>(string path)
         {
+
             T data = default(T);
             string readPath = string.Format("{0}/{1}", Application.persistentDataPath, path);
             if (Directory.Exists(readPath))
