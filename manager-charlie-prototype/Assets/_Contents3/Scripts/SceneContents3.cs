@@ -170,7 +170,10 @@ namespace Contents3
             }
         }
         
-
+        public int GetQuestionCount()
+        {
+            return mQuestionCount;
+        }
         
 
 

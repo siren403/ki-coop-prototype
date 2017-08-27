@@ -2,36 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 using Contents.QnA;
 using CustomDebug;
-using Contents3;
+using Util;
 
-public class FSContents3EvaluteAnswer : QnAFiniteState
+
+namespace Contents3
 {
-
-    public override QnAContentsBase.State StateID
+    public class FSContents3EvaluteAnswer : QnAFiniteState
     {
-        get
+
+        public override QnAContentsBase.State StateID
         {
-            return QnAContentsBase.State.Evaluation;
+            get
+            {
+                return QnAContentsBase.State.Evaluation;
+            }
         }
-    }
 
-    public override void Initialize()
-    {
+        private int mQuestionCount = 0;
 
-    }
-    public override void Enter()
-    {
-        (Entity.UI as UIContents3).AnswerBlackout();
-    }
-    public override void Exit()
-    {
+        public override void Initialize()
+        {
 
-    }
-    public override void Excute()
-    {
+        }
+        public override void Enter()
+        {
+            
 
+            //(Entity.UI as UIContents3).mScene.GetQuestionCount();
+            (Entity.UI as UIContents3).AnswerBlackout();
+        }
+        public override void Exit()
+        {
+
+        }
+        public override void Excute()
+        {
+
+        }
+
+        public void CheckFinished()
+        {
+            mQuestionCount++;
+
+            CDebug.Log(mQuestionCount);
+            if (mQuestionCount == 10)
+            {
+                mQuestionCount = 0;
+                Entity.ChangeState(QnAContentsBase.State.Reward);
+            }
+            else
+            {
+                Entity.ChangeState(QnAContentsBase.State.Question);
+            }
+        }
     }
 }
