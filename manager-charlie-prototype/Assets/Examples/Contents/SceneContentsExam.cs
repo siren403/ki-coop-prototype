@@ -6,6 +6,7 @@ using CustomDebug;
 using Contents.Data;
 using QuickSheet;
 using Util.Inspector;
+using Util;
 
 namespace Examples
 {
@@ -84,7 +85,7 @@ namespace Examples
         {
             string json = Resources.Load<TextAsset>("ContentsData/Contents1").text;
             mContentsData = JsonUtility.FromJson<ContentsData>(json);
-            mQnATable = DataFactory.LoadContents1Table();
+            mQnATable = TableFactory.LoadContents1Table();
             ChangeState(State.Episode);
         }
         protected override QnAFiniteState CreateShowEpisode() { return new FSExamShowEpisode(); }
@@ -101,20 +102,7 @@ namespace Examples
             CDebug.Log(episodeID);
             ChangeState(State.Situation);
         }
-
-        private void Suffle()
-        {
-            string[] words = new string[] { "apple", "acorn", "bread", "bean", "daikon", "elderberry" };
-            CDebug.Log("Before : "+JsonUtility.ToJson(words));
-            for (int i = 0; i < words.Length; i++)
-            {
-                int n = Random.Range(0, words.Length);
-                string temp = words[n];
-                words[n] = words[i];
-                words[i] = temp;
-            }
-            CDebug.Log("After : " + JsonUtility.ToJson(words));
-        }
+       
         public string[] GetAnswersData()
         {
             string[] answers = new string[4]
