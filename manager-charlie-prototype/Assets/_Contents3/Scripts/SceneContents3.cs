@@ -21,7 +21,7 @@ namespace Contents3
         [SerializeField]
         public UIContents3 mInstUI = null;                     // UI 연결용
 
-        public override IQnAContentsView UI
+        public override IQnAView UI
         {
             get
             {
@@ -51,6 +51,12 @@ namespace Contents3
         protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3Select(); }
         protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents3EvaluteAnswer(); }
         protected override QnAFiniteState CreateShowReward() { return new FSContents3ShowReward(); }
+
+        public bool Evaluation(int answerID)
+        {
+            return false;
+        }
+
         protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents3ClearEpisode(); }
 
 
