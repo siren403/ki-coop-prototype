@@ -22,23 +22,19 @@ namespace Contents1
 
         public override void Enter()
         {
-            CDebug.Log("Enter Evaluation");   
-            //(Entity as SceneContents1).EvaluationConfirm((Entity as SceneContents1).Contents1AnswerNumber);
+            CDebug.Log("Enter Evaluation");
 
-            if((Entity as SceneContents1).Contents1AnswerNumber == (Entity as SceneContents1).Contents1CorrectNubmer)
+            var scene = Entity as SceneContents1;
+            if(scene.CurrentCorrect.ID == scene.SelectedAnswer.ID)
             {
+                scene.IncrementCorrectCount();
                 Entity.UI.CorrectAnswer();
             }
             else
             {
                 Entity.UI.WrongAnswer();
-            }         
+            }
         }
-
-        public override void Excute()
-        {
-        }
-
         public override void Exit()
         {
         }

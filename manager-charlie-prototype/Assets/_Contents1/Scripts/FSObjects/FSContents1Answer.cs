@@ -23,7 +23,7 @@ namespace Contents1
         public override void Enter()
         {
             Entity.UI.ShowAnswer();
-            Entity.ChangeState(QnAContentsBase.State.Evaluation);
+            //Entity.ChangeState(QnAContentsBase.State.Evaluation);
         }
 
         public override void Excute()
