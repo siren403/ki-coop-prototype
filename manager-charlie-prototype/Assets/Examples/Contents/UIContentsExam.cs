@@ -31,7 +31,7 @@ namespace Examples
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
-                btn.Initialize(i, OnBtnSelectEpisodeEvent);
+                btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 

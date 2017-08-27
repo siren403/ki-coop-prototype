@@ -85,7 +85,7 @@ namespace Examples
         {
             string json = Resources.Load<TextAsset>("ContentsData/Contents1").text;
             mContentsData = JsonUtility.FromJson<ContentsData>(json);
-            mQnATable = DataFactory.LoadContents1Table();
+            mQnATable = TableFactory.LoadContents1Table();
             ChangeState(State.Episode);
         }
         protected override QnAFiniteState CreateShowEpisode() { return new FSExamShowEpisode(); }
