@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using FSM;
 using CustomDebug;
-namespace Contents
+namespace Contents.QnA
 {
     public class QnAFiniteState : FiniteState<QnAContentsBase, QnAContentsBase.State>
     {

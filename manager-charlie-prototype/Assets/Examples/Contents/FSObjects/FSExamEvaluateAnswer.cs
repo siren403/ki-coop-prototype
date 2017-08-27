@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using CustomDebug;
 using Util;
-using Contents;
+using Contents.QnA;
+
 namespace Examples
 {
     public class FSExamEvaluateAnswer : QnAFiniteState
@@ -13,7 +14,6 @@ namespace Examples
                 return QnAContentsBase.State.Evaluation;
             }
         }
-        private SimpleTimer Timer = SimpleTimer.Create();
 
         public override void Initialize()
         {
@@ -22,15 +22,15 @@ namespace Examples
         public override void Enter()
         {
             CDebug.Log("[FSM] Eval Answer");
-            Timer.Start();
-        }
-        public override void Excute()
-        {
-            Timer.Update();
-            if (Timer.Check(1.5f))
+            if ((Entity as SceneContentsExam).SelectAnswerID == 0)
             {
-                //문제를 다풀었을 경우를 가정
+                (Entity.UI as UIContentsExam).CorrectAnswer();
                 Entity.ChangeState(QnAContentsBase.State.Reward);
+            }
+            else
+            {
+                (Entity.UI as UIContentsExam).WrongAnswer();
+                Entity.ChangeState(QnAContentsBase.State.Question);
             }
         }
         public override void Exit()

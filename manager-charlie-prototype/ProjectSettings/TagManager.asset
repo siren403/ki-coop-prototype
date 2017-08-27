@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - UIAnswer
-  - Dial
+  - PanelAnswer
   layers:
   - Default
   - TransparentFX

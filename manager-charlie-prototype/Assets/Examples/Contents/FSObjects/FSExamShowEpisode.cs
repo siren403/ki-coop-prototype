@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using CustomDebug;
 using Util;
-using Contents;
+using Contents.QnA;
+
 namespace Examples
 {
     public class FSExamShowEpisode : QnAFiniteState
