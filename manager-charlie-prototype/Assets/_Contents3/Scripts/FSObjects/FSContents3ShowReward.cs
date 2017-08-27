@@ -10,7 +10,7 @@ public class FSContents3ShowReward : QnAFiniteState
     {
         get
         {
-            return QnAContentsBase.State.Situation;
+            return QnAContentsBase.State.Reward;
         }
     }
 

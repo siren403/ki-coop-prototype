@@ -12,7 +12,7 @@ public class FSContents3EvaluteAnswer : QnAFiniteState
     {
         get
         {
-            return QnAContentsBase.State.Situation;
+            return QnAContentsBase.State.Evaluation;
         }
     }
 

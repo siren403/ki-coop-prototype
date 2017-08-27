@@ -6,7 +6,7 @@ using LitJson;
 using Util.Inspector;
 using Contents.QnA;
 using CustomDebug;
-
+using Contents.Data;
 
 namespace Contents3
 {
@@ -51,19 +51,13 @@ namespace Contents3
         protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3Select(); }
         protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents3EvaluteAnswer(); }
         protected override QnAFiniteState CreateShowReward() { return new FSContents3ShowReward(); }
-
-        public bool Evaluation(int answerID)
-        {
-            return false;
-        }
-
         protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents3ClearEpisode(); }
 
 
         public void StartEpisode(int episodeID)
         {
             CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
-            
+            var table = TableFactory.LoadContents3Table();
             ChangeState(State.Situation);
         }
         public string getQuestion()
@@ -83,7 +77,6 @@ namespace Contents3
             this.SelectAnswerID = answerID;
             ChangeState(State.Evaluation);
         }
-        /**
         public bool Evaluation(int answerID)
         {
             if (answerID == 0)
@@ -92,7 +85,7 @@ namespace Contents3
             }
             return false;
         }
-        */
+
         public class QnAContets3
         {
             public string Question;         // 문제
