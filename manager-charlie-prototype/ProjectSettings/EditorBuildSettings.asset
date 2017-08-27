@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/_Home/Scenes/SceneHome.unity
     guid: ed34aad75c92da14b82ba67e59ea38e1
   - enabled: 1
-    path: Assets/_Contents2/Scenes/SceneQexposure.unity
-    guid: 00000000000000000000000000000000
+    path: Assets/_Contents1/Scenes/SceneContents1.unity
+    guid: 68801949e29c7af48a672aca49346220
   - enabled: 1
-    path: Assets/_Contents2/Scenes/SceneSubmission.unity
+    path: Assets/_Contents2/Scenes/SceneContents2.unity
+    guid: 33d2923996a075848b255c98ac2842c5
+  - enabled: 1
+    path: Assets/_Contents3/Scenes/SceneContents3.unity
     guid: 00000000000000000000000000000000

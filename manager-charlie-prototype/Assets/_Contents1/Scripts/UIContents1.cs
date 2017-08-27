@@ -95,6 +95,9 @@ namespace Contents1
         public void ShowSituation()
         {
             InstPanelGuage.SetActive(true);
+
+            mScene.AnswerSetting();
+
             CDebug.Log("Play Animation");
         }
 

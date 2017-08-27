@@ -19,56 +19,21 @@
     "E": [ "Elderberry", "Egg" ]
   },
   "table": [
-    {
-      "id": 1,
-      "phonics": "A",
-      "word": "apple"
-    },
-    {
-      "id": 2,
-      "phonics": "A",
-      "word": "acorn"
-    },
-    {
-      "id": 3,
-      "phonics": "B",
-      "word": "bread"
-    },
-    {
-      "id": 4,
-      "phonics": "B",
-      "word": "bean"
-    },
-    {
-      "id": 5,
-      "phonics": "C",
-      "word": "cucumber"
-    },
-    {
-      "id": 6,
-      "phonics": "C",
-      "word": "carrot"
-    },
-    {
-      "id": 7,
-      "phonics": "D",
-      "word": "daikon"
-    },
-    {
-      "id": 8,
-      "phonics": "D",
-      "word": "date"
-    },
-    {
-      "id": 9,
-      "phonics": "E",
-      "word": "elderberry"
-    },
-    {
-      "id": 10,
-      "phonics": "E",
-      "word": "egg"
-    }
+    {"id": 1,"phonics": "A","word": "Apple"},
+    {"id": 2,"phonics": "A","word": "Acorn"},
+	{"id": 3,"phonics": "A","word": "Almond"},
+    {"id": 4,"phonics": "B","word": "Bread"},
+    {"id": 5,"phonics": "B","word": "Bean" },
+	{"id": 6,"phonics": "B","word": "Banana" },
+    {"id": 7,"phonics": "C","word": "Cucumber"},
+    {"id": 8,"phonics": "C","word": "Carrot"},
+	{"id": 9,"phonics": "C","word": "Cheese"},
+    {"id": 10,"phonics": "D","word": "Daikon"},
+    {"id": 11,"phonics": "D","word": "Date"},
+	{"id": 12,"phonics": "D","word": "Dumpling"},
+    {"id": 13,"phonics": "E","word": "Elderberry"},
+    {"id": 14,"phonics": "E","word": "Egg"},
+	{"id": 15,"phonics": "E","word": "Eggplant"}
   ]
 
 }

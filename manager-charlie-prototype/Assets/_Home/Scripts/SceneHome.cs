@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneHome : MonoBehaviour {
+namespace Home
+{
+    public class SceneHome : MonoBehaviour
+    {
+        public ViewHome View = null;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        private void Awake()
+        {
+            View.SetScene(this);
+        }
+
+    }
 }

@@ -11,7 +11,7 @@ namespace UIComponent
         public override void Initialize(int id, Action<int> onSelect)
         {
             base.Initialize(id, onSelect);
-            GetComponentInChildren<Text>().text = string.Format("Episode\n{0}", id + 1);
+            GetComponentInChildren<Text>().text = string.Format("Episode\n{0}", id);
         }
     }
 }
