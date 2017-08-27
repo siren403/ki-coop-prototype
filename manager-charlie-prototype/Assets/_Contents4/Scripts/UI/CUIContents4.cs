@@ -7,23 +7,9 @@ public class CUIContents4 : MonoBehaviour {
     
     public csSwipeManager InstSelectPage = null;
     public CUIAlarmSelectPage InstAlarmSelectPage = null; 
-
-    private void Awake()
-    {
-       
-    }
-
+        
     
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void HideSelectPage()
     {
