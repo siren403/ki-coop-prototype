@@ -32,9 +32,6 @@ namespace Contents1
         public override void Enter()
         {
             CDebug.Log("Enter Select");
-
-            Entity.UI.ShowAnswer();
-
             mTimer.Start();
         }
 

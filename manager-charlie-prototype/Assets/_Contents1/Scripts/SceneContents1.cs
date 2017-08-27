@@ -351,30 +351,45 @@ namespace Contents1
         {
             //수정
             for (int i = 0; i < mAnswers.Length; i++)
-                mAnswers[i] = null;
-
-            mCurrentCorrect = mQnA[CurrentPhonics].Dequeue();
-            mAnswers[0] = mCurrentCorrect;
-
-            for(int i = 1; i < mAnswers.Length; i++)
             {
-                if(CurrentEpisode["phonics"][i].ToString().Equals(mAnswers[0].Question) == false)
+                mAnswers[i] = null;
+            }
+
+            int answersIndex = 0;
+            mCurrentCorrect = mQnA[CurrentPhonics].Dequeue();
+            mAnswers[answersIndex] = mCurrentCorrect;
+            answersIndex++;
+            CDebug.LogFormat("CurrentPhonics : {0}", mCurrentCorrect.Question);
+
+            for (int i = 0; i < CurrentEpisode["phonics"].Count; i++)
+            {
+                if(answersIndex < 4)
                 {
-                    mAnswers[i] = mQnA[CurrentEpisode["phonics"][i].ToString()].First();
+                    CDebug.LogFormat("{0}/{1}", CurrentEpisode["phonics"][i].ToString(), mCurrentCorrect.Question);
+                    if (CurrentEpisode["phonics"][i].ToString().Equals(mCurrentCorrect.Question) == false)
+                    {
+                        mAnswers[answersIndex] = mQnA[CurrentEpisode["phonics"][i].ToString()].First();
+                        CDebug.Log("Answers : " + mAnswers[i].Correct);
+                        answersIndex++;
+                    }
                 }
                 else
                 {
-                    continue;
+                    break;
                 }
             }
 
-            foreach(var answer in mAnswers)
-            {
-                if(answer == null)
-                {
-                    throw new System.Exception("선택지 데이터가 부족함");
-                }
-            }
+            //foreach (var answer in mAnswers)
+            //{
+            //    if (answer == null)
+            //    {
+            //        CDebug.Log("answer is null");
+            //    }
+            //    else
+            //    {
+            //        CDebug.Log(answer.Correct);
+            //    }
+            //}
 
             ShuffleMachine<QuickSheet.Contents1Data[]> shuffle = new ShuffleMachine<QuickSheet.Contents1Data[]>(mAnswers);
             shuffle.DoShuffle();

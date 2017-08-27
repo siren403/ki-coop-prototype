@@ -26,11 +26,11 @@ namespace Contents1
         //public List<Button> InstBtnEpisodeList = null;
 
         public CorrectGuage InstCorrectGuage = null;
-
         public Image InstImgRewardSticker = null;
-
         public GameObject InstPanelClear = null;
         public GameObject InstOutro = null;
+
+        private int mSelectedAnswerIndex = 0;
 
         //Outro 버튼
         public Button InstBtnHome = null;
@@ -92,8 +92,9 @@ namespace Contents1
          */
         public void OnBtnSelectAnswer(int selection)
         {
-            CDebug.Log(selection);
-            mScene.SelectAnswer(selection);
+            mSelectedAnswerIndex = selection;
+            CDebug.Log(mSelectedAnswerIndex);
+            mScene.SelectAnswer(mSelectedAnswerIndex);
             //* 2. 선택한 번호 전달 */
             //* 2. SceneContents1.cs  __ 함수 호출*/
         }
@@ -150,7 +151,7 @@ namespace Contents1
         {
             CDebug.Log("View ShowAnswer");
             var answers = mScene.GetAnswers();
-            for (int i = 0; i < InstBtnAnswerList.Count; i++)
+            for (int i = 0; i < answers.Length; i++)
             {
                 InstBtnAnswerList[i].GetComponentInChildren<Text>().text = answers[i].Correct;
             }
@@ -198,20 +199,24 @@ namespace Contents1
         {
             Debug.Log("UI WrondAnswer");
 
-            // 오답 개수가 3개 미만 일 경우
-            if (mScene.ThisProblemCount < 2)
-            {
-                mScene.ThisProblemCount++;
-                mScene.BlockInfo[mScene.Contents1AnswerNumber] = true;
-                //mScene.ChangeState(QnAContentsBase.State.Situation);
-                mScene.ChangeState(QnAContentsBase.State.Select);
-            }
-            // 오답 개수가 3개 이상일 경우, 정답 처리 후 넘어감
-            else
-            {
-                CDebug.Log("Fail Answer");
-                CorrectAnswer();
-            }
+            mScene.BlockInfo[mSelectedAnswerIndex] = true;
+            InstImgBlockList[mSelectedAnswerIndex].SetActive(true);
+            mScene.ChangeState(QnAContentsBase.State.Select);
+
+            //// 오답 개수가 3개 미만 일 경우
+            //if (mScene.ThisProblemCount < 2)
+            //{
+            //    mScene.ThisProblemCount++;
+            //    mScene.BlockInfo[mScene.Contents1AnswerNumber] = true;
+            //    //mScene.ChangeState(QnAContentsBase.State.Situation);
+            //    mScene.ChangeState(QnAContentsBase.State.Select);
+            //}
+            //// 오답 개수가 3개 이상일 경우, 정답 처리 후 넘어감
+            //else
+            //{
+            //    CDebug.Log("Fail Answer");
+            //    CorrectAnswer();
+            //}
         }
         public void ShowReward()
         {
