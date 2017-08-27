@@ -4,6 +4,8 @@ using UnityEngine;
 
 
 using Contents.QnA;
+using CustomDebug;
+using Contents3;
 
 public class FSContents3EvaluteAnswer : QnAFiniteState
 {
@@ -22,7 +24,7 @@ public class FSContents3EvaluteAnswer : QnAFiniteState
     }
     public override void Enter()
     {
-
+        (Entity.UI as UIContents3).AnswerBlackout();
     }
     public override void Exit()
     {

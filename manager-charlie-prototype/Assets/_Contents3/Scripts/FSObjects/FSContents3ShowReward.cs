@@ -20,7 +20,7 @@ public class FSContents3ShowReward : QnAFiniteState
     }
     public override void Enter()
     {
-
+        Entity.UI.ShowReward();
     }
     public override void Exit()
     {
