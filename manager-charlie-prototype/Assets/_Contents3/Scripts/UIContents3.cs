@@ -6,6 +6,7 @@ using Contents.QnA;
 using System;
 using LitJson;
 using CustomDebug;
+using UIComponent;
 
 namespace Contents3
 {
@@ -13,11 +14,8 @@ namespace Contents3
     public class UIContents3 : MonoBehaviour, IQnAView
     {
 
-        [SerializeField]
-        private GameObject InstPanelEpisode = null;                         // 에피소드 패널
-
-        [SerializeField]
-        private List<Button> InstBtnEpisodeList = new List<Button>();       // 에피소드 버튼
+        public GridSwipe InstPanelEpisodeList = null;
+        public EpisodeButton PFEpisodeButton = null;
 
         [SerializeField]
         private GameObject InstPanelAnswer = null;                          // 답변 패널
@@ -37,12 +35,6 @@ namespace Contents3
         private GameObject[] Character;                         // 문제 상황 캐릭터
         private int mOrder = 0;                                 // 순서               
 
-        public GameObject ObjSituation = null;                  // 상황연출 오브젝트
-
-        public GameObject ObjQuestion = null;                   // 문제제시 오브젝트
-
-        public GameObject ObjReward = null;                     // 리워드 오브젝트
-
 
 
 
@@ -50,7 +42,7 @@ namespace Contents3
         private void SelectEpisodeEvent(int episodeID)
         {
             mScene.StartEpisode(episodeID);
-            InstPanelEpisode.SetActive(false);
+            //InstPanelEpisode.SetActive(false);
         }
         private void EvaluationEvent(int answerID)
         {
@@ -64,33 +56,39 @@ namespace Contents3
         }
         #endregion
 
-
-        public void Initialize(SceneContents3 scene)
+        public void Initialize(QnAContentsBase scene)
         {
+            mScene = scene as SceneContents3;
 
-            mScene = scene;
-            // Episode Btn
-            InstBtnEpisodeList[0].onClick.AddListener(() => SelectEpisodeEvent(0));
-            InstBtnEpisodeList[1].onClick.AddListener(() => SelectEpisodeEvent(1));
-            InstBtnEpisodeList[2].onClick.AddListener(() => SelectEpisodeEvent(2));
-            InstBtnEpisodeList[3].onClick.AddListener(() => SelectEpisodeEvent(3));
+            for (int i = 0; i < mScene.EpisodeCount; i++)
+            {
+                var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
+                btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
+            }
+            InstPanelEpisodeList.TargetGrid.Reposition();
+
 
             // Answer Btn
-            InstBtnEpisodeList[0].onClick.AddListener(() => EvaluationEvent(0));
-            InstBtnEpisodeList[1].onClick.AddListener(() => EvaluationEvent(1));
+            //InstBtnEpisodeList[0].onClick.AddListener(() => EvaluationEvent(0));
+            //InstBtnEpisodeList[1].onClick.AddListener(() => EvaluationEvent(1));
 
             // 문제상황 캐릭터
             //Character[0] = Resources.Load("Joy") as GameObject;
             //Character[1] = Resources.Load("Joy") as GameObject;
             //Character[2] = Resources.Load("Joy") as GameObject;
 
-
+        }
+        private void OnBtnSelectEpisodeEvent(int episodeID)
+        {
+            Debug.Log(episodeID);
+            mScene.StartEpisode(episodeID);
+            InstPanelEpisodeList.gameObject.SetActive(false);
         }
 
 
         public void ShowEpisode()                                                   // 에피소드 시작
         {
-            InstPanelEpisode.SetActive(true);
+            InstPanelEpisodeList.gameObject.SetActive(true);
 
             mScene.ChangeState(QnAContentsBase.State.Situation);
         }
@@ -103,7 +101,7 @@ namespace Contents3
         }
         public void ShowQuestion()                                                  // 문제 연출
         {
-            CDebug.LogFormat("What should I say?", mScene.getQuestion());
+            CDebug.LogFormat("What should I say?", mScene.GetQuestion());
 
             mScene.ChangeState(QnAContentsBase.State.Answer);
         }
@@ -148,5 +146,7 @@ namespace Contents3
         public void WrongAnswer()
         {
         }
+
+        
     }
 }

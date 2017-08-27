@@ -36,9 +36,22 @@ namespace Contents3
 
         public int SelectAnswerID = 0;
 
+        private JsonData mContentsData = null;
+
+        public int EpisodeCount
+        {
+            get
+            {
+                return mContentsData["episode"].Count;
+            }
+        }
 
         protected override void Initialize()
         {
+            string json = Resources.Load<TextAsset>("ContentsData/Contents3").text;
+            mContentsData = JsonMapper.ToObject(json);
+
+
             mInstUI.Initialize(this);
             ChangeState(State.Episode);
         }
@@ -54,22 +67,24 @@ namespace Contents3
         protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents3ClearEpisode(); }
 
 
+
         public void StartEpisode(int episodeID)
         {
             CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
-            var table = TableFactory.LoadContents3Table();
+            var table = TableFactory.LoadContents3Table();              // 데이터 로드
+            //table.dataArray[0].Correct[0]
             ChangeState(State.Situation);
         }
-        public string getQuestion()
+        public string GetQuestion()
         {
             return "string";
         }
         public string[] GetAnswersData()
         {
             string[] answers = new string[3]
-        {
+            {
             "Hi", "Hello", "Hey"
-        };
+            };
             return answers;
         }
         public void SelectAnswer(int answerID)
