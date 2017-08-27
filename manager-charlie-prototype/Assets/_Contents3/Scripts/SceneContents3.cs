@@ -52,7 +52,6 @@ namespace Contents3
             mContentsData = JsonMapper.ToObject(json);
 
 
-            mInstUI.Initialize(this);
             ChangeState(State.Episode);
         }
 
@@ -61,7 +60,7 @@ namespace Contents3
         protected override QnAFiniteState CreateShowSituation() { return new FSContents3ShowSituation(); }
         protected override QnAFiniteState CreateShowQuestion() { return new FSContents3ShowQuestion(); }
         protected override QnAFiniteState CreateShowAnswer() { return new FSContents3ShowAnswer(); }
-        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3Select(); }
+        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3SelectAnswer(); }
         protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents3EvaluteAnswer(); }
         protected override QnAFiniteState CreateShowReward() { return new FSContents3ShowReward(); }
         protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents3ClearEpisode(); }

@@ -11,7 +11,7 @@ using UIComponent;
 namespace Contents3
 {
 
-    public class UIContents3 : MonoBehaviour, IQnAView
+    public class UIContents3 : MonoBehaviour, IQnAView, IViewInitialize
     {
 
         public GridSwipe InstPanelEpisodeList = null;
@@ -89,8 +89,6 @@ namespace Contents3
         public void ShowEpisode()                                                   // 에피소드 시작
         {
             InstPanelEpisodeList.gameObject.SetActive(true);
-
-            mScene.ChangeState(QnAContentsBase.State.Situation);
         }
         public void ShowSituation()                                                 // 상황 연출
         {

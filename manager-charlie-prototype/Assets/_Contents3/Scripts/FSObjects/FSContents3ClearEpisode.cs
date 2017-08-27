@@ -11,7 +11,7 @@ public class FSContents3ClearEpisode : QnAFiniteState
     {
         get
         {
-            return QnAContentsBase.State.Situation;
+            return QnAContentsBase.State.Clear;
         }
     }
 
