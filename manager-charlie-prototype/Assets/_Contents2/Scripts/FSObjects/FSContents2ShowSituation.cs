@@ -16,7 +16,7 @@ namespace Contents2
             }
         }
         private SimpleTimer Timer = SimpleTimer.Create();
-        private float Duration = 1.5f;
+        private float duration = 3.0f;
 
         public override void Initialize()
         {
@@ -25,7 +25,7 @@ namespace Contents2
 
         public override void Enter()
         {
-            CDebug.Log("[FSM] Show Situation and Wating Animation");
+            CDebug.Log("[FSM] Show Situation and Wating Animation // ");
             Entity.UI.ShowSituation();
             Timer.Start();
         }
@@ -33,7 +33,7 @@ namespace Contents2
         public override void Excute()
         {
             Timer.Update();
-            if (Timer.Check(Duration))
+            if (Timer.Check(duration))
             {
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
