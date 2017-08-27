@@ -22,7 +22,7 @@ namespace Contents2
         public override void Enter()
         {
             Entity.UI.ShowQuestion();
-            (Entity as QnAContentsBase).ChangeState(QnAContentsBase.State.Answer);
+            (Entity as QnAContentsBase).ChangeState(QnAContentsBase.State.Select);
         }
         public override void Excute()
         {

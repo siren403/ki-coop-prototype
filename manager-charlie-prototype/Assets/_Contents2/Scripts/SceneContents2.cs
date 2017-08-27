@@ -6,7 +6,7 @@ using System;
 using CustomDebug;
 using LitJson;
 using Util.Inspector;
-
+using Contents.Data;
 
 namespace Contents2
 {
@@ -69,8 +69,9 @@ namespace Contents2
             return new FSContents2ShowSituation();
         }
 
-        public void StartEpisode(int expisodeID)
+        public void StartEpisode(int episodeID)
         {
+            CDebug.Log("Episode Id :  " + episodeID);
             ChangeState(State.Situation);
         }
 

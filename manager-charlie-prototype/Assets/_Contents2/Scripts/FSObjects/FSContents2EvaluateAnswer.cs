@@ -34,7 +34,7 @@ namespace Contents2
             }
             else
             {
-                Entity.ChangeState(QnAContentsBase.State.Situation);
+                Entity.ChangeState(QnAContentsBase.State.Answer);
             }
             CDebug.Log("[FSM] Eval Answer");
             
