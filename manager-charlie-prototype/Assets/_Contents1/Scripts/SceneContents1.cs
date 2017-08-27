@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using CustomDebug;
 using Contents.QnA;
 using FSM;
-using Data;
+using Contents.Data;
 using Util.Inspector;
 using LitJson;
 
@@ -101,7 +101,7 @@ namespace Contents1
 
         #endregion
 
-        public override IQnAContentsView UI
+        public override IQnAView UI
         {
             get
             {

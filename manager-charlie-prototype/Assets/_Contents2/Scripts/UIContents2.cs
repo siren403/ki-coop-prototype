@@ -9,7 +9,7 @@ using CustomDebug;
 
 namespace Contents2
 {
-    public class UIContents2 : MonoBehaviour, IQnAContentsView
+    public class UIContents2 : MonoBehaviour, IQnAView
     {
         [SerializeField]
         private GameObject InstPanelEpisode = null;                                 // 에피소드 선택 창 패널

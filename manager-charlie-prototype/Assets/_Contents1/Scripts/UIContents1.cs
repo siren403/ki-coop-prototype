@@ -10,7 +10,7 @@ using Contents.QnA;
 
 namespace Contents1
 {
-    public class UIContents1 : MonoBehaviour, IQnAContentsView
+    public class UIContents1 : MonoBehaviour, IQnAView
     {
         private SceneContents1 mScene = null;
 

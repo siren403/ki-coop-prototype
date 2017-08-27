@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - UIAnswer
+  - PanelAnswer
   layers:
   - Default
   - TransparentFX
