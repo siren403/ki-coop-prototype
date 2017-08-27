@@ -79,7 +79,11 @@ namespace FSM
 
         public void ChangeState(FiniteState<T, U> nextState)
         {
-            if (mCurrentState == nextState) return;
+            if (mCurrentState == nextState)
+            {
+                Debug.LogError("change to same state...");
+                return;
+            }
 
             if(mCurrentState != null)
             {
@@ -127,6 +131,7 @@ namespace FSM
             {
                 mStateDic[state.StateID] = null;
                 mStateDic[state.StateID] = state;
+                Debug.LogError("overlap to add state");
             }
 
             state.Initialize();

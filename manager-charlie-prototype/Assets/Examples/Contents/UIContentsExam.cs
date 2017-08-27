@@ -6,33 +6,34 @@ using Contents.QnA;
 using System;
 using LitJson;
 using CustomDebug;
+using UIComponent;
+using Util;
 
 namespace Examples
 {
-    public class UIContentsExam : MonoBehaviour, IQnAContentsView
+    public class UIContentsExam : MonoBehaviour, IQnAView, IViewInitialize
     {
-        [SerializeField]
-        private GameObject InstPanelEpisode = null;
-        [SerializeField]
-        private List<Button> InstBtnEpisodeList = new List<Button>();
+
+        public GridSwipe InstPanelEpisodeList = null;
+        public EpisodeButton PFEpisodeButton = null;
+
         [SerializeField]
         private GameObject InstPanelAnswer = null;
         [SerializeField]
         private List<Button> InstBtnAnswerList = new List<Button>();
-
         private SceneContentsExam mScene = null;
-
-
         private string[] mAnswersData = null;
 
-        public void Initialize(SceneContentsExam scene)
+        public void Initialize(QnAContentsBase scene)
         {
-            mScene = scene;
-            //에피소드 버튼
-            InstBtnEpisodeList[0].onClick.AddListener(() => OnBtnSelectEpisodeEvent(0));
-            InstBtnEpisodeList[1].onClick.AddListener(() => OnBtnSelectEpisodeEvent(1));
-            InstBtnEpisodeList[2].onClick.AddListener(() => OnBtnSelectEpisodeEvent(2));
-            InstBtnEpisodeList[3].onClick.AddListener(() => OnBtnSelectEpisodeEvent(3));
+            mScene = scene as SceneContentsExam;
+
+            for (int i = 0; i < mScene.EpisodeCount; i++)
+            {
+                var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
+                btn.Initialize(i, OnBtnSelectEpisodeEvent);
+            }
+            InstPanelEpisodeList.TargetGrid.Reposition();
 
             //선택지 버튼
             InstBtnAnswerList[0].onClick.AddListener(() => OnBtnSelectAnswer(0));
@@ -44,8 +45,9 @@ namespace Examples
         #region 유저 입력 시 이벤트 처리 함수(ex. animation, sound play...)
         private void OnBtnSelectEpisodeEvent(int episodeID)
         {
+            Debug.Log(episodeID);
             mScene.StartEpisode(episodeID);
-            InstPanelEpisode.SetActive(false);
+            InstPanelEpisodeList.gameObject.SetActive(false);
         }
         private void OnBtnSelectAnswer(int answerID)
         {
@@ -57,7 +59,7 @@ namespace Examples
 
         public void ShowEpisode()
         {
-            InstPanelEpisode.SetActive(true);
+            //InstPanelEpisode.SetActive(true);
         }
         public void ShowSituation()
         {
@@ -65,8 +67,7 @@ namespace Examples
         }
         public void ShowQuestion()
         {
-
-            CDebug.LogFormat("Please, give me food starting with {0},{0},{0}", mScene.GetPhonics());
+            CDebug.LogFormat("Please, give me food starting with {0},{0},{0}", mScene.CurrentPhonics);
         }
         public void ShowAnswer()
         {
