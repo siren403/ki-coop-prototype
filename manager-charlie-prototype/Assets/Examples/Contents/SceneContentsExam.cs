@@ -6,6 +6,7 @@ using CustomDebug;
 using Contents.Data;
 using QuickSheet;
 using Util.Inspector;
+using Util;
 
 namespace Examples
 {
@@ -101,20 +102,7 @@ namespace Examples
             CDebug.Log(episodeID);
             ChangeState(State.Situation);
         }
-        [Button]
-        private void Suffle()
-        {
-            string[] words = new string[] { "apple", "acorn", "bread", "bean", "daikon", "elderberry" };
-            CDebug.Log("Before : "+LitJson.JsonMapper.ToJson(words));
-            for (int i = 0; i < words.Length; i++)
-            {
-                int n = Random.Range(0, words.Length);
-                string temp = words[n];
-                words[n] = words[i];
-                words[i] = temp;
-            }
-            CDebug.Log("After : " + LitJson.JsonMapper.ToJson(words));
-        }
+       
         public string[] GetAnswersData()
         {
             string[] answers = new string[4]

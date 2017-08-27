@@ -591,6 +591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 623114296}
   - component: {fileID: 623114295}
+  - component: {fileID: 623114297}
   m_Layer: 0
   m_Name: InstViewContentsExam
   m_TagString: Untagged
@@ -612,7 +613,6 @@ MonoBehaviour:
   InstPanelEpisodeList: {fileID: 22620222}
   PFEpisodeButton: {fileID: 114790336360990548, guid: 3fe0808b317fe0043b45ce5937704aaf,
     type: 2}
-  InstGridEpisode: {fileID: 482787187}
   InstPanelAnswer: {fileID: 2003342503}
   InstBtnAnswerList:
   - {fileID: 912488580}
@@ -633,6 +633,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &623114297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623114294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 223cabcf7a228e4408cffe5388fd74ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &856234506
 GameObject:
   m_ObjectHideFlags: 0
