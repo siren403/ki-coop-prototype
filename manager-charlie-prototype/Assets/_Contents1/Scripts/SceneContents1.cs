@@ -114,7 +114,6 @@ namespace Contents1
             mInstUI.Initialize(this);
 
             // 인스턴스 생성
-            Debug.Log(this.Container.GetData(1).Count);
             Debug.Log("sd");
 
             //멤버 값 초기화
@@ -204,100 +203,100 @@ namespace Contents1
          */
         public void AnswerSetting()
         {
-            CDebug.Log("Enter Answer setting");
+            //CDebug.Log("Enter Answer setting");
 
-            string[] answers = new string[4];
+            //string[] answers = new string[4];
 
-            var table = this.Container.GetData(CONTENTS_ID)["table"];
+            ////var table = this.Container.GetData(CONTENTS_ID)["table"];
 
-            mWords.Clear();
-            mEpisodeWords.Clear();
+            //mWords.Clear();
+            //mEpisodeWords.Clear();
 
-            // 단어 데이터 받아오기
-            for (int i = 0; i < table.Count; i++)
-            {
-                string word = table[i]["word"].ToString();
+            //// 단어 데이터 받아오기
+            //for (int i = 0; i < table.Count; i++)
+            //{
+            //    string word = table[i]["word"].ToString();
 
-                mWords.Add(i, word);
-            }
+            //    mWords.Add(i, word);
+            //}
 
-            // 에피소드1 문제 셋팅
-            if (mEpisodeLoaction == 0)
-            {
-                // 등장하는 파닉스 알파벳의 개수와, 파닉스에 속하는 단어들의 개수 구하기
-                int startIndex = 0;                                                         // mWords에 속한 단어들을 검색할 때 사용되는 인덱스 변수
-                int length = mProgressData.Episode1Phonics.Length;                          // 이번 에피소드에 등장할 단어들의 개수를 가지고 있는 변수
-                int[] PhonicsWord = new int[length];                                        // 이번 에피소드에 등장할 파닉스 알파벳에 속한 각 단어들의 총 개수를 저장하고 있는 변수 
-                                                                                            // 예) 파닉스 "A"에 속한 단어는 "Almond", "Arcon", "Apple"해서 총 3개. 이것들의 개수를 가지고 있다는 이야기입니다.
+            //// 에피소드1 문제 셋팅
+            //if (mEpisodeLoaction == 0)
+            //{
+            //    // 등장하는 파닉스 알파벳의 개수와, 파닉스에 속하는 단어들의 개수 구하기
+            //    int startIndex = 0;                                                         // mWords에 속한 단어들을 검색할 때 사용되는 인덱스 변수
+            //    int length = mProgressData.Episode1Phonics.Length;                          // 이번 에피소드에 등장할 단어들의 개수를 가지고 있는 변수
+            //    int[] PhonicsWord = new int[length];                                        // 이번 에피소드에 등장할 파닉스 알파벳에 속한 각 단어들의 총 개수를 저장하고 있는 변수 
+            //                                                                                // 예) 파닉스 "A"에 속한 단어는 "Almond", "Arcon", "Apple"해서 총 3개. 이것들의 개수를 가지고 있다는 이야기입니다.
 
-                //CDebug.Log(length);
+            //    //CDebug.Log(length);
 
-                int maxCount = 0;                                                           // for문에서 각 단어들의 총 개수를 구할때 사용되는 변수
+            //    int maxCount = 0;                                                           // for문에서 각 단어들의 총 개수를 구할때 사용되는 변수
 
-                // 각 파닉스군에 속한 단어들의 개수 구하기
-                for(int i=0; i<length; i++)
-                {
-                    maxCount = 0;
+            //    // 각 파닉스군에 속한 단어들의 개수 구하기
+            //    for(int i=0; i<length; i++)
+            //    {
+            //        maxCount = 0;
 
-                    for(int j=0; j<mWords.Count; j++)
-                    {
-                        string word = mWords[j];
+            //        for(int j=0; j<mWords.Count; j++)
+            //        {
+            //            string word = mWords[j];
 
-                        if (word.Substring(0, 1) == mProgressData.Episode1Phonics[i])
-                        {
-                            maxCount++;
-                        }
+            //            if (word.Substring(0, 1) == mProgressData.Episode1Phonics[i])
+            //            {
+            //                maxCount++;
+            //            }
 
-                        CDebug.Log("------ word : " + word);
-                    }
+            //            CDebug.Log("------ word : " + word);
+            //        }
 
-                    PhonicsWord[i] = maxCount;                                              // 개수 저장
-                    //CDebug.Log("----- maxCount :" + maxCount);
-                }
+            //        PhonicsWord[i] = maxCount;                                              // 개수 저장
+            //        //CDebug.Log("----- maxCount :" + maxCount);
+            //    }
 
-                // Ep1에서 등장할 단어들을 mEpisodeWord<string, List<string>>에 저장
-                for (int i = 0; i < length; i++)
-                {
-                    CDebug.Log("---- Length");
+            //    // Ep1에서 등장할 단어들을 mEpisodeWord<string, List<string>>에 저장
+            //    for (int i = 0; i < length; i++)
+            //    {
+            //        CDebug.Log("---- Length");
 
-                    string key = mProgressData.Episode1Phonics[i];
+            //        string key = mProgressData.Episode1Phonics[i];
 
-                    for (int j = 0; j < PhonicsWord[i]; j++)
-                    {           
-                        if(mEpisodeWords.ContainsKey(key) == false)
-                        {
-                            mEpisodeWords.Add(key, new List<string>());
-                        }
+            //        for (int j = 0; j < PhonicsWord[i]; j++)
+            //        {           
+            //            if(mEpisodeWords.ContainsKey(key) == false)
+            //            {
+            //                mEpisodeWords.Add(key, new List<string>());
+            //            }
 
-                        mEpisodeWords[key].Add(mWords[startIndex]);
+            //            mEpisodeWords[key].Add(mWords[startIndex]);
                         
-                        CDebug.Log("----- startIndex : " + startIndex);
+            //            CDebug.Log("----- startIndex : " + startIndex);
 
-                        startIndex++;
-                    }
-                }
+            //            startIndex++;
+            //        }
+            //    }
 
-                // 사용할 단어 추출
-                switch (CurrentQuestionIndex)
-                {
-                    case 0:
-                    case 5:
-                        break;
+            //    // 사용할 단어 추출
+            //    switch (CurrentQuestionIndex)
+            //    {
+            //        case 0:
+            //        case 5:
+            //            break;
 
-                    case 1:
-                    case 6:
-                        break;
-                    case 2:
-                    case 7:
-                        break;
-                    case 3:
-                    case 8:
-                        break;
-                    case 4:
-                    case 9:
-                        break;
-                }
-            }
+            //        case 1:
+            //        case 6:
+            //            break;
+            //        case 2:
+            //        case 7:
+            //            break;
+            //        case 3:
+            //        case 8:
+            //            break;
+            //        case 4:
+            //        case 9:
+            //            break;
+            //    }
+            //}
 
             //mProgressData.Ep1GetAnswers(mWords, CurrentQuestionIndex);
         }
