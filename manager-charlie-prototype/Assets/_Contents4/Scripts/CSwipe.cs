@@ -33,6 +33,8 @@ public class CSwipe : MonoBehaviour {
     public GameObject[] DialBtnObject = null;
 
 
+    public GameObject tempDialBtnObjct = null;
+
     public float jTime = 1.0f;
     public float startTime;
 
@@ -41,10 +43,13 @@ public class CSwipe : MonoBehaviour {
     public const float PI = Mathf.PI;
 
 
+    public  float[] DistanceCalculation;
+
     private void Awake()
     {
-        DialPosition = new Vector3[6];
+        DialPosition = new Vector3[8];
 
+        DistanceCalculation = new float[8];
      
 
 
@@ -55,15 +60,26 @@ public class CSwipe : MonoBehaviour {
         //for (int ti = 6; ti < Components.Length; ti = ti + 5)
         //   CDebug.Log(Components[ti].name);
         startTime = Time.time;
-        DialPosition[0] = new Vector3(-2.0f, 3.5f, 0.0f);
-        DialPosition[1] = new Vector3(1.0f, 3.5f, 0.0f);
-        DialPosition[2] = new Vector3(3.2f, 1.5f, 0.0f);
-        DialPosition[3] = new Vector3(3.2f, -1.5f, 0.0f);
-        DialPosition[4] = new Vector3(1.0f, -3.5f, 0.0f);
-        DialPosition[5] = new Vector3(-2.0f, -3.5f, 0.0f);
+        // DialPosition[0] = new Vector3(-2.0f, 3.5f, 0.0f);
+        // DialPosition[1] = new Vector3(1.0f, 3.5f, 0.0f);
+        // DialPosition[2] = new Vector3(3.2f, 1.5f, 0.0f);
+        // DialPosition[3] = new Vector3(3.2f, -1.5f, 0.0f);
+        // DialPosition[4] = new Vector3(1.0f, -3.5f, 0.0f);
+        // DialPosition[5] = new Vector3(-2.0f, -3.5f, 0.0f);
+
+        DialPosition[0] = new Vector3(-1.3f, 3.25f, 0.0f);
+        DialPosition[1] = new Vector3(1.3f, 3.25f, 0.0f);
+        DialPosition[2] = new Vector3(3.25f, 1.3f, 0.0f);
+        DialPosition[3] = new Vector3(3.25f, -1.3f, 0.0f);
+        DialPosition[4] = new Vector3(1.3f, -3.25f, 0.0f);
+        DialPosition[5] = new Vector3(-1.3f, -3.25f, 0.0f);
+        DialPosition[6] = new Vector3(-3.25f, -1.3f, 0.0f);
+        DialPosition[7] = new Vector3(-3.25f, 1.3f, 0.0f);
+
+
 
     }
-    
+
     // Update is called once per frame
     void Update () {
 
@@ -74,9 +90,14 @@ public class CSwipe : MonoBehaviour {
 
         //DialBtnObject[1].transform.DOMove(new Vector3(X, Y, 0.0f), 10.0f);
 
-
+        DialBtnSort();
     }
 
+    public float InPutAngle = 0.0f;
+    public float OutPutAngle = 0.0f;
+    public float Angle = 0.0f;
+
+    public float ObjectAngle = 0.0f;
 
     private void OnMouseDown()
     {
@@ -101,21 +122,82 @@ public class CSwipe : MonoBehaviour {
            
         }
 
+        InPutAngle = Mathf.Atan2(InputPosition.y, InputPosition.x);// * Mathf.Deg2Rad;
+
     }
 
+        float mtmpX = 0.0f;
+    float mtmpY = 0.0f;
+    
+    public float SwipeSpeed = 0.0f;
+    int DragInputTime = 0;
+    Vector3 tempOutPuPosition = Vector3.zero;
+    Vector3 PutPosition = Vector3.zero;
     private void OnMouseDrag()
     {
         InputTime++;
-
         OutPutPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Direction = OutPutPosition - InputPosition;
+
+        PutPosition = InputPosition - OutPutPosition;
+
+        Quaternion QAngle;
+       
+
+        OutPutAngle = Mathf.Atan2(OutPutPosition.y, OutPutPosition.x);// * Mathf.Deg2Rad;
+        float Angle = InPutAngle - OutPutAngle;
+        CDebug.Log(Angle);
+        // ObjectAngle = Mathf.Atan2(DialBtnObject[1].transform.position.y, DialBtnObject[1].transform.position.x);
+
+        QAngle = Quaternion.Euler(0.0f, 0.0f, -Angle*10);
+
+
+        Direction = PutPosition;// new Vector3(0.0f, 0.0f, Angle);// PutPosition.y);
         Distance = Direction.y;
+
+        //tempDialBtnObjct.transform.rotation = QAngle;
+        if(Distance == 0)
+        {
+            SwipeSpeed = 0;
+        }
+        else
+        {
+            SwipeSpeed = -Distance;
+        }
+       
+
+       // if (mtmpX != (float)Camera.main.ScreenToWorldPoint(Input.mousePosition).x && mtmpY != (float)Camera.main.ScreenToWorldPoint(Input.mousePosition).y)
+
+        //{
+         //   mtmpX = (float)Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+          //  mtmpY = (float)Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+            //a1 = tTotal - (float)deg;
+            //  = this.transform.rotation.z + tTotal - (float)deg;
+            //tempDialBtnObjct.transform.Rotate(0, 0, Distance);// Angle * SwipeSpeed);
+                                                              //}
+
+        
+        if(DragInputTime == 100)
+        {
+            PutPosition = Vector3.zero;
+            InputPosition = OutPutPosition;
+            
+            DragInputTime = 0;
+        }
+
+        if(InputPosition != OutPutPosition)
+        {
+            DragInputTime++;
+            tempDialBtnObjct.transform.Rotate(0, 0,  SwipeSpeed);
+            
+        }
+
+
     }
 
     private void OnMouseUp()
     {
 
-        InputTime = 0;
+        
         
 
         IsBtnTouch = false;
@@ -123,9 +205,56 @@ public class CSwipe : MonoBehaviour {
         {
             IsSwipe = true;
         }
-        
-        DoSwipe();
+        if(InputTime <50 && Distance>10)
+        {
+
+        }
+        InputTime = 0;
+        InputPosition = Vector3.zero;
+        OutPutPosition = Vector3.zero;
+      //  DoSwipe();
     }
+
+
+  
+
+    public int DialBtnObjckDistanceMinIndex()
+    {
+        int DistanceMinIndex = 0;
+
+        for (int ti = 0; ti < DistanceCalculation.Length; ti++)
+        {
+            DistanceCalculation[ti] = Vector3.Distance(DialBtnObject[0].transform.position, DialPosition[ti]);
+        }
+        for (int ti = 1; ti < DistanceCalculation.Length; ti++)
+        {
+            if(DistanceCalculation[DistanceMinIndex] > DistanceCalculation[ti])
+            {
+                DistanceMinIndex = ti;
+            }
+        }
+
+        return DistanceMinIndex;
+
+    }
+    public float DialDistance = 0.0f;
+    public void DialBtnSort()
+    {
+
+
+
+
+        DialDistance = Vector3.Distance(DialBtnObject[0].transform.position , DialPosition[DialBtnObjckDistanceMinIndex()]);
+
+        if (InputPosition == OutPutPosition && IsSwipe == false)
+        {
+            if(DialDistance != 0)
+            {
+                tempDialBtnObjct.transform.Rotate(new Vector3(0.0f,0.0f, DialDistance));
+            }
+        }
+    }
+
 
     public void DoSwipe()
     {
