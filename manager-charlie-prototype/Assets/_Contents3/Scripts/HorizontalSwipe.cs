@@ -80,20 +80,7 @@ public class HorizontalSwipe : MonoBehaviour {
         for (int i = 0; i < AnswerList.Count; i++)
             Debug.Log(AnswerList[0]);
     }
-
-
-
-    // 정답
-    void CorrectAnswer()
-    {
-
-    }
-    // 오답
-    void WrongAnswer()
-    {
-
-    }
-
+    
 
 
 

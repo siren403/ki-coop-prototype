@@ -18,7 +18,7 @@ namespace Contents3
         }
 
         private SimpleTimer Timer = SimpleTimer.Create();
-        private float mDuration = 3.0f;
+        private float mDuration = 4.0f;
 
         public override void Initialize()
         {
@@ -31,7 +31,7 @@ namespace Contents3
             CDebug.Log("Situation");
             Timer.Start();
 
-            //Entity.UI.ShowSituation();
+            Entity.UI.ShowSituation();
 
         }
         public override void Excute()
@@ -39,7 +39,7 @@ namespace Contents3
             Timer.Update();
             if (Timer.Check(mDuration))
             {
-                CDebug.Log("Situation Excute : After 3.0f");
+                CDebug.Log("Situation Excute : After 4.0f change state to Question");
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
         
