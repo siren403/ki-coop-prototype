@@ -22,17 +22,17 @@ namespace Contents2
 
         public override void Enter()
         {
+            Timer.Check(0.0f);
             Timer.Start();
         }
 
         public override void Excute()
         {
-            
-
             Timer.Update();
-            if(Timer.Check(10.0f))          // 10sec waiting, Idle Aniamation play
+            if(Timer.Check(10.0f))          //* 10sec waiting, Idle Aniamation play*/
             {
-                    CDebug.Log("Idle Animation Play");
+                CDebug.Log("Idle Animation Play , 10 초 이상 반응이 없으면 , UIContent2.cs 에서 SelectAnswer 호출한다");
+                Entity.UI.SelectAnswer();
                     Timer.Check(0.0f);
             }
         }

@@ -31,7 +31,7 @@ public class FSContents2ShowAnswer : QnAFiniteState
         if(Timer.Check(1.5f))
         {
             CDebug.Log("[FSM] Stop Show Answer Animation");
-            Entity.ChangeState(QnAContentsBase.State.Select);
+            Entity.ChangeState(QnAContentsBase.State.Situation);
         }
     }
 

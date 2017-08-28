@@ -8,6 +8,11 @@ namespace Contents2
     public class FSContents2EvaluateAnswer : QnAFiniteState
     {
         private int evalAnswer = 0;
+        private float duration = 3.0f;
+
+        int randomCorrectAnswerID;
+        int selectedId;
+
         public override QnAContentsBase.State StateID
         {
             get
@@ -24,29 +29,55 @@ namespace Contents2
 
         public override void Enter()
         {
+            Timer.Start();
+
             evalAnswer++;
 
-            CDebug.Log(evalAnswer);
-            if(evalAnswer == 10)
+            CDebug.Log( evalAnswer + "번째 문제");
+            CDebug.Log("[FSM] Eval Answer");
+
+            randomCorrectAnswerID = (Entity as SceneContents2).RandomCorrectAnswerID;
+            selectedId = (Entity as SceneContents2).SelectedAnswerID;
+
+            CDebug.Log("selectedId  : " + selectedId);
+
+            if (selectedId == randomCorrectAnswerID)
             {
-                evalAnswer = 0;
-                Entity.ChangeState(QnAContentsBase.State.Reward);
+                Entity.UI.CorrectAnswer();
             }
+            //* 오답일 때*/
             else
             {
-                Entity.ChangeState(QnAContentsBase.State.Situation);
+                Entity.UI.WrongAnswer();
+                Entity.ChangeState(QnAContentsBase.State.Select);
             }
-            CDebug.Log("[FSM] Eval Answer");
-            
         }
+    
 
         public override void Excute()
         {
-            //Timer.Update();
-            //if(Timer.Check(1.5f))
-            //{
-            //    Entity.ChangeState(QnAContentsBase.State.Reward);
-            //}
+            Timer.Update();
+            if (Timer.Check(duration))
+            {
+                //* 정답일 때*/
+                if (selectedId == randomCorrectAnswerID)
+                {
+                    if (evalAnswer == 10)
+                    {
+                        evalAnswer = 0;
+                        Entity.ChangeState(QnAContentsBase.State.Reward);
+                    }
+                    else
+                    {
+                        Entity.ChangeState(QnAContentsBase.State.Situation);
+                    }
+                }
+                //* 오답일 때*/
+                else
+                {
+                    
+                }
+            }
         }
 
         public override void Exit()
