@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using CustomDebug;
 using Contents.QnA;
 using FSM;
 using Contents.Data;
 using Util.Inspector;
 using LitJson;
+using System.Linq;
+using Util;
 
 namespace Contents1
 {
@@ -70,7 +71,7 @@ namespace Contents1
 
         /** UI 및 리소스 관리자 */
         [SerializeField]
-        private UIContents1 mInstUI = null;
+        private ViewContents1 mInstUI = null;
 
         /** 정답, 오답 관련 멤버 */
         private string mCorrectAnswer;          // 정답을 저장하는 변수
@@ -85,20 +86,80 @@ namespace Contents1
         /** 임시로 생성된 클래스, 자세한 설명은 소스 코드 위쪽을 참조 */
         private tmpContents1Progress mProgressData = new tmpContents1Progress();
 
-        #region 
 
-        private string[] mPhonics = new string[] { "A", "B", "C", "D", "E" };
-        private string mCurrentPhonics
+        #region Create by seongho
+
+        //데이터 구성요소가 잡히기 전까지 사용할 데이터 객체
+        private JsonData mContentsData = null;
+
+        ////현재 제출해야할 문제의 파닉스 인덱스
+        //private int mPhonicsIndex = 0;
+
+        //현재 제출문제의 정답 데이터
+        private QuickSheet.Contents1Data mCurrentCorrect = null;
+        //현재 제출 선택지 중 유저가 선택한 데이터
+        private QuickSheet.Contents1Data mSelectedAnswer = null;
+        public QuickSheet.Contents1Data CurrentCorrect
         {
             get
             {
-                return mPhonics[CurrentQuestionIndex % 5];
+                return mCurrentCorrect;
+            }
+        }
+        public QuickSheet.Contents1Data SelectedAnswer
+        {
+            get
+            {
+                return mSelectedAnswer;
             }
         }
 
-        private Dictionary<string, List<JsonData>> mPhonicsDic = null;
-        private Dictionary<string, List<JsonData>> mWrongAnswerDIc = null;
+        //에피소드 버튼 동적생성을 위한 데이터
+        public int EpisodeCount
+        {
+            get
+            {
+                return mContentsData["episode"].Count;
+            }
+        }
+        public JsonData CurrentEpisode
+        {
+            get
+            {
+                return mContentsData["episode"][mEpisodeLoaction - 1];
+            }
+        }
+        public string CurrentPhonics
+        {
+            get
+            {
+                return CurrentEpisode["phonics"][mSubmitQuestionCount % CurrentEpisode["phonics"].Count].ToString();
+            }
+        }
 
+        private Dictionary<string,Queue<QuickSheet.Contents1Data>> mQnA = null;
+
+        private QuickSheet.Contents1Data[] mAnswers = new QuickSheet.Contents1Data[4];
+
+        //ContentsData로 제어해도 될 듯
+        private int mMaximumQuestion = 10;
+        private int mSubmitQuestionCount = 0;
+        private int mCorrectCount = 0;
+        public float CorrectProgress
+        {
+            get
+            {
+                return (float)mCorrectCount / mMaximumQuestion;
+            }
+        }
+        //다음 문제가 있는지?
+        public bool HasNextQuestion
+        {
+            get
+            {
+                return mSubmitQuestionCount < mMaximumQuestion;
+            }
+        }
         #endregion
 
         public override IQnAView UI
@@ -111,10 +172,11 @@ namespace Contents1
 
         protected override void Initialize()
         {
-            mInstUI.Initialize(this);
-
-            // 인스턴스 생성
-            Debug.Log("sd");
+            //IVewInitialize 구현으로 인해 코드 제거
+            //mInstUI.Initialize(this);
+            
+            string json = Resources.Load<TextAsset>("ContentsData/Contents1").text;
+            mContentsData = JsonMapper.ToObject(json);
 
             //멤버 값 초기화
             mCorrectAnswer = null;
@@ -123,7 +185,6 @@ namespace Contents1
             CorrectAnswerCount = 0;
             CurrentQuestionIndex = 0;
 
-            mPhonicsDic = new Dictionary<string, List<JsonData>>();
             mWords = new Dictionary<int, string>();
             mEpisodeWords = new Dictionary<string, List<string>>();
 
@@ -131,71 +192,46 @@ namespace Contents1
             //ChangeState(State.Question);
         }
 
-        protected override QnAFiniteState CreateShowEpisode()
-        {
-            return new FSContents1Episode();
-        }
-        protected override QnAFiniteState CreateShowSituation()
-        {
-            return new FSContents1Situation();
-        }
-        protected override QnAFiniteState CreateShowQuestion()
-        {
-            return new FSContents1Question();
-        }
-        protected override QnAFiniteState CreateShowAnswer()
-        {
-            return new FSContents1Answer();
-        }
-        protected override QnAFiniteState CreateShowSelectAnswer()
-        {
-            return new FSContents1Select();
-        }
-        protected override QnAFiniteState CreateShowEvaluateAnswer()
-        {
-            return new FSContents1Evaluation();
-        }
-        protected override QnAFiniteState CreateShowReward()
-        {
-            return new FSContents1Reward();
-        }
-        protected override QnAFiniteState CreateShowClearEpisode()
-        {
-            return new FSContents1Clear();
-        }
+        #region QnAContents를 구성하는 기본적인 State객체
+        protected override QnAFiniteState CreateShowEpisode() { return new FSContents1Episode(); }
+        protected override QnAFiniteState CreateShowSituation() { return new FSContents1Situation(); }
+        protected override QnAFiniteState CreateShowQuestion() { return new FSContents1Question(); }
+        protected override QnAFiniteState CreateShowAnswer() { return new FSContents1Answer(); }
+        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents1Select(); }
+        protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents1Evaluation(); }
+        protected override QnAFiniteState CreateShowReward() { return new FSContents1Reward(); }
+        protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents1Clear(); }
+        #endregion
+
 
         /**
          * @fn  public void SelectEpisode(int episodeID)
          *
          * @brief   사용자(?) 정의 함수 -> 사용자라는 부분을 어떻게 수정해야할지 가이드 부탁드립니다.
+         *          에피소드 설정 함수
          *
          * @author  KBY
          * @date    2017-08-25
          *
          * @param   episodeID   Identifier for the episode.
          */
-
-        // 에피소드 설정 함수
         public void SelectEpisode(int episodeID)
         {
+            //수정
             mEpisodeLoaction = episodeID;
-
+            var table = TableFactory.LoadContents1Table().dataArray
+                                    .Where((data) => data.Episode == mEpisodeLoaction)
+                                    .ToList();
+            mQnA = new Dictionary<string, Queue<QuickSheet.Contents1Data>>();
+            foreach(var row in table)
+            {
+                if(mQnA.ContainsKey(row.Question) == false)
+                {
+                    mQnA.Add(row.Question, new Queue<QuickSheet.Contents1Data>(3));
+                }
+                mQnA[row.Question].Enqueue(row);
+            }
             ChangeState(State.Situation);
-
-            //string key = null;
-
-            //for(int i = 0;i<table.Count;i++)
-            //{
-            //    key = table[i]["phonics"].ToString();                
-
-            //    if (mPhonicsDic.ContainsKey(key) == false)
-            //    {
-            //        mPhonicsDic.Add(key,new List<JsonData>());
-            //    }
-            //    mPhonicsDic[key].Add(table[i]);
-            //}
-
-            //mWrongAnswerDIc = new Dictionary<string, List<JsonData>>(mPhonicsDic);
         }
 
         /** 바꿀 게 너무 많습니다.
@@ -311,15 +347,62 @@ namespace Contents1
          *
          * @return  An array of string.
          */
-
-        public string[] GetAnswers()
+        public QuickSheet.Contents1Data[] GetAnswers()
         {
-            CDebug.Log("Get Answers");
+            //수정
+            for (int i = 0; i < mAnswers.Length; i++)
+            {
+                mAnswers[i] = null;
+            }
 
-            string[] answers = new string[] { "Apple", "Bean", "Cucumber", "Daikon" };
+            int answersIndex = 0;
+            mCurrentCorrect = mQnA[CurrentPhonics].Dequeue();
+            mAnswers[answersIndex] = mCurrentCorrect;
+            answersIndex++;
+            CDebug.LogFormat("CurrentPhonics : {0}", mCurrentCorrect.Question);
+
+            for (int i = 0; i < CurrentEpisode["phonics"].Count; i++)
+            {
+                if(answersIndex < 4)
+                {
+                    CDebug.LogFormat("{0}/{1}", CurrentEpisode["phonics"][i].ToString(), mCurrentCorrect.Question);
+                    if (CurrentEpisode["phonics"][i].ToString().Equals(mCurrentCorrect.Question) == false)
+                    {
+                        mAnswers[answersIndex] = mQnA[CurrentEpisode["phonics"][i].ToString()].First();
+                        CDebug.Log("Answers : " + mAnswers[i].Correct);
+                        answersIndex++;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            //foreach (var answer in mAnswers)
+            //{
+            //    if (answer == null)
+            //    {
+            //        CDebug.Log("answer is null");
+            //    }
+            //    else
+            //    {
+            //        CDebug.Log(answer.Correct);
+            //    }
+            //}
+
+            ShuffleMachine<QuickSheet.Contents1Data[]> shuffle = new ShuffleMachine<QuickSheet.Contents1Data[]>(mAnswers);
+            shuffle.DoShuffle();
 
             //문제 인덱스 증가
-            return answers;
+            mSubmitQuestionCount++;
+
+            return shuffle.Array;
+        }
+        //추가
+        public void IncrementCorrectCount()
+        {
+            mCorrectCount++;
         }
 
 
@@ -340,11 +423,14 @@ namespace Contents1
         // 정답 선택 기능 함수
         public void SelectAnswer(int answer)
         {
-            CDebug.Log("Selection Button : "+ answer);
-            Contents1CorrectNubmer = 0;
-            Contents1AnswerNumber = answer;
+            mSelectedAnswer = mAnswers[answer];
+            ChangeState(State.Evaluation);
 
-            mInstUI.SelectAnswer();
+            //CDebug.Log("Selection Button : "+ answer);
+            //Contents1CorrectNubmer = 0;
+            //Contents1AnswerNumber = answer;
+
+            //mInstUI.SelectAnswer();
         }
 
         // 보상 확인 함수
