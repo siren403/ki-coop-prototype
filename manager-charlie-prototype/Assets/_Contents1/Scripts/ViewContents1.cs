@@ -143,7 +143,7 @@ namespace Contents1
         {
             CDebug.Log("Play Question");
 
-            mScene.ChangeState(QnAContentsBase.State.Select);
+            mScene.ChangeState(QnAContentsBase.State.Answer);
         }
 
         // As Select
@@ -163,6 +163,8 @@ namespace Contents1
                 bool info = mScene.BlockInfo[i];
                 InstImgBlockList[i].SetActive(info);
             }
+
+            mScene.ChangeState(QnAContentsBase.State.Select);
         }
         //현재는 사용할일이 없을거라 예상
         public void SelectAnswer()
