@@ -14,7 +14,7 @@ MonoBehaviour:
   templatePath: QuickSheet/ExcelPlugin/Templates
   scriptFilePath: _Home/DataResources/_Generate/Runtime
   editorScriptFilePath: _Home/DataResources/_Generate/Editor
-  sheetName: QnAData.xlsx
+  sheetName: QnAContents.xlsx
   workSheetName: Contents3
   columnHeaderList:
   - type: 3
@@ -37,7 +37,7 @@ MonoBehaviour:
     name: Character
     isEnable: 0
     isArray: 0
-  excelFilePath: Assets/_Home/DataResources/QnATable/QnAData.xlsx
+  excelFilePath: Assets/_Home/DataResources/Contents/QnAContents.xlsx
   SheetNames:
   - Contents1
   - Contents2

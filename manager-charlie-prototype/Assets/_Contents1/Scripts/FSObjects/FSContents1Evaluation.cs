@@ -16,6 +16,7 @@ namespace Contents1
             }
         }
 
+
         public override void Initialize()
         {
         }
@@ -32,6 +33,7 @@ namespace Contents1
             }
             else
             {
+                (Entity as SceneContents1).WrongCount++;
                 Entity.UI.WrongAnswer();
             }
         }

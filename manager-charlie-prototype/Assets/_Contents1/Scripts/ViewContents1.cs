@@ -5,10 +5,11 @@ using System;
 using LitJson;
 using CustomDebug;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Contents.QnA;
 using UIComponent;
 using DG.Tweening;
-
+using System.Linq;
 
 namespace Contents1
 {
@@ -22,8 +23,6 @@ namespace Contents1
         // PFEpisodeButton에 링크시킨 Prefab은 구현을 위해 만든 임시 Prefab
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;
-        //public GameObject InstPanelEpisode = null;
-        //public List<Button> InstBtnEpisodeList = null;
 
         public CorrectGuage InstCorrectGuage = null;
         public Image InstImgRewardSticker = null;
@@ -38,11 +37,14 @@ namespace Contents1
         public Button InstBtnReplay = null;
         public Button InstBtnNext = null;
 
+        private HashSet<int> mAnswerIndexSet = new HashSet<int>();
+
+        public EventSystem InstEventSystem = null;
         #endregion
         public GameObject InstPanelAnswer = null;
         public List<Button> InstBtnAnswerList = null;
 
-        public List<GameObject> InstImgBlockList = null;
+        //public List<GameObject> InstImgBlockList = null;
 
 
         public void Initialize(QnAContentsBase scene)
@@ -74,30 +76,22 @@ namespace Contents1
         }
 
 
-        public void OnBtnSelectEpisodeEvent(int episodeID)
+        private void ButtonChangeState(Button btn,bool enable)
         {
-            mScene.SelectEpisode(episodeID);
-            InstPanelEpisodeList.gameObject.SetActive(false);
+            if(enable)
+            {
+                btn.enabled = true;
+                btn.image.color = Color.white;
+            }
+            else
+            {
+                btn.enabled = false;
+                btn.image.color = new Color(0.6f, 0.6f, 0.6f, 0.5f);
+            }
+          
         }
 
-        /**
-         * @fn  public void OnBtnSelectAnswer(int selection)
-         *
-         * @brief   버튼을 선택한 답을 SceneContent1 클래스의 멤버 함수에 전달해주는 함수
-         *
-         * @author  Byeong
-         * @date    2017-08-25
-         *
-         * @param   selection   The selection.
-         */
-        public void OnBtnSelectAnswer(int selection)
-        {
-            mSelectedAnswerIndex = selection;
-            CDebug.Log(mSelectedAnswerIndex);
-            mScene.SelectAnswer(mSelectedAnswerIndex);
-            //* 2. 선택한 번호 전달 */
-            //* 2. SceneContents1.cs  __ 함수 호출*/
-        }
+        
 
         /**
          * @fn  public void ShowEpisode()
@@ -113,7 +107,11 @@ namespace Contents1
             InstCorrectGuage.gameObject.SetActive(false);
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
-
+        public void OnBtnSelectEpisodeEvent(int episodeID)
+        {
+            mScene.SelectEpisode(episodeID);
+            InstPanelEpisodeList.gameObject.SetActive(false);
+        }
         /**
          * @fn  public void ShowSituation()
          *
@@ -125,9 +123,6 @@ namespace Contents1
         public void ShowSituation()
         {
             InstCorrectGuage.gameObject.SetActive(true);
-
-            mScene.AnswerSetting();
-
             CDebug.Log("Play Animation");
         }
 
@@ -158,14 +153,47 @@ namespace Contents1
             InstPanelAnswer.SetActive(true);
 
             // 선택지 블럭 이미지 ON/OFF
-            for (int i = 0; i < mScene.BlockInfo.Length; i++)
+            //for (int i = 0; i < mScene.BlockInfo.Length; i++)
+            //{
+            //    bool info = mScene.BlockInfo[i];
+            //    InstImgBlockList[i].SetActive(info);
+            //}
+            mAnswerIndexSet.Clear();
+            for (int i = 0; i < InstBtnAnswerList.Count; i++)
             {
-                bool info = mScene.BlockInfo[i];
-                InstImgBlockList[i].SetActive(info);
+                ButtonChangeState(InstBtnAnswerList[i], true);
+                //선택지의 인덱스를 HashSet에 저장
+                //후에 유저가 선택한 버튼의 인덱스를 꺼내서
+                //3번 오답시 정답 선택지를 알아냄 
+                mAnswerIndexSet.Add(i);
             }
-
             mScene.ChangeState(QnAContentsBase.State.Select);
         }
+
+        /**
+         * @fn  public void OnBtnSelectAnswer(int selection)
+         *
+         * @brief   버튼을 선택한 답을 SceneContent1 클래스의 멤버 함수에 전달해주는 함수
+         *
+         * @author  Byeong
+         * @date    2017-08-25
+         *
+         * @param   selection   The selection.
+         */
+        public void OnBtnSelectAnswer(int selection)
+        {
+            mSelectedAnswerIndex = selection;
+            CDebug.LogFormat("Select Answer Index : {0}",mSelectedAnswerIndex);
+            mScene.SelectAnswer(mSelectedAnswerIndex);
+            //선택한 선택지 인덱스를 HashSet에서 제거
+            if (mAnswerIndexSet.Contains(mSelectedAnswerIndex))
+            {
+                mAnswerIndexSet.Remove(mSelectedAnswerIndex);
+            }
+            //* 2. 선택한 번호 전달 */
+            //* 2. SceneContents1.cs  __ 함수 호출*/
+        }
+
         //현재는 사용할일이 없을거라 예상
         public void SelectAnswer()
         {
@@ -185,7 +213,7 @@ namespace Contents1
                     if (mScene.HasNextQuestion)
                     {
                         CDebug.Log("Has Next Question");
-                        mScene.ChangeState(QnAContentsBase.State.Answer);
+                        mScene.ChangeState(QnAContentsBase.State.Question);
                     }
                     else
                     {
@@ -200,10 +228,33 @@ namespace Contents1
         public void WrongAnswer()
         {
             Debug.Log("UI WrondAnswer");
+            ButtonChangeState(InstBtnAnswerList[mSelectedAnswerIndex], false);
 
-            mScene.BlockInfo[mSelectedAnswerIndex] = true;
-            InstImgBlockList[mSelectedAnswerIndex].SetActive(true);
-            mScene.ChangeState(QnAContentsBase.State.Select);
+            //3번 틀리면 정답강조 후 다음 문제
+            if(mScene.WrongCount >= 3)
+            {
+                //3번 틀린 이후라면 HashSet에는 하나의 인덱스만 남아있고
+                //그 인덱스가 정답버튼의 인덱스
+                CDebug.LogFormat("Correct Answer Index : {0}", mAnswerIndexSet.First());
+                InstEventSystem.enabled = false;
+                InstBtnAnswerList[mAnswerIndexSet.First()].image.DOColor(Color.green, 0.15f)
+                    .SetLoops(8, LoopType.Yoyo)
+                    .OnComplete(() =>
+                    {
+                        InstEventSystem.enabled = true;
+                        mScene.ChangeState(QnAContentsBase.State.Question);
+                    });
+            }
+            else
+            {
+                mScene.ChangeState(QnAContentsBase.State.Select);
+            }
+
+
+
+
+            //mScene.BlockInfo[mSelectedAnswerIndex] = true;
+            //InstImgBlockList[mSelectedAnswerIndex].SetActive(true);
 
             //// 오답 개수가 3개 미만 일 경우
             //if (mScene.ThisProblemCount < 2)
