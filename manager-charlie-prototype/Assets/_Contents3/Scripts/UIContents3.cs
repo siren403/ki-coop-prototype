@@ -7,6 +7,7 @@ using System;
 using LitJson;
 using CustomDebug;
 using UIComponent;
+using DG.Tweening;
 
 namespace Contents3
 {
@@ -19,6 +20,18 @@ namespace Contents3
 
         public GameObject InstBlackPanle = null;
         public GameObject InstAnswerBlackPanel = null;
+
+        public CorrectGuage InstCorrectGauge = null;
+        public Image InstImageRewardSticker = null;
+
+        // Outro 버튼
+        public GameObject InstOutroPanel = null;
+        public Button InstBtnHome = null;
+        public Button InstBtnMiniGame = null;
+        public Button InstBtnReplay = null;
+        public Button InstBtnNext = null;
+
+        private HashSet<int> mAnswerIndexSet = new HashSet<int>();
 
         [SerializeField]
         private GameObject InstPanelAnswer = null;                          // 답변 패널
@@ -40,12 +53,15 @@ namespace Contents3
 
         private void SelectEpisodeEvent(int episodeID)
         {
-            mScene.StartEpisode(episodeID);
+            mScene.SelectEpisode(episodeID);
         }
         private void OnBtnSelectAnswer(int answerID)
         {
             mScene.SelectAnswer(answerID);
-            InstPanelAnswer.SetActive(false);
+            if(answerID == 0)
+            {
+                InstPanelAnswer.SetActive(false);
+            }
         }
         #endregion
 
@@ -63,22 +79,44 @@ namespace Contents3
             // Answer Btn
             InstBtnAnswerList[0].onClick.AddListener(() => OnBtnSelectAnswer(0));
             InstBtnAnswerList[1].onClick.AddListener(() => OnBtnSelectAnswer(1));
-            
+
+            InstBtnHome.onClick.AddListener(() => CDebug.Log("Home"));
+            InstBtnMiniGame.onClick.AddListener(() => CDebug.Log("MiniGame"));
+            InstBtnReplay.onClick.AddListener(() => CDebug.Log("Replay"));
+            InstBtnNext.onClick.AddListener(() => CDebug.Log("Next"));
+        }
+
+        private void ButtonChangeState(Button btn, bool enable)
+        {
+            if(enable)
+            {
+                btn.interactable = true;
+                //btn.enabled = true;
+                //btn.image.color = Color.white;
+            }
+            else
+            {
+                btn.interactable = false;
+                //btn.enabled = false;
+                //btn.image.color = new Color(0.6f, 0.6f, 0.6f, 0.5f);
+            }
         }
 
         private void OnBtnSelectEpisodeEvent(int episodeID)                         // 에피소드 버튼 선택 이벤트
         {
             Debug.Log(episodeID);
-            mScene.StartEpisode(episodeID);
+            mScene.SelectEpisode(episodeID);
             InstPanelEpisodeList.gameObject.SetActive(false);
         }
         
         public void ShowEpisode()                                                   // 에피소드 시작
         {
+            InstCorrectGauge.gameObject.SetActive(false);
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
         public void ShowSituation()                                                 // 상황 연출
         {
+            InstCorrectGauge.gameObject.SetActive(true);
             CDebug.Log(string.Format("Playing Situation", 1.5f));
             //Instantiate(Character[mCurrentQuestion % 3]);
         }
@@ -90,17 +128,30 @@ namespace Contents3
         }
         public void ShowAnswer()                                                    // 답변 연출
         {
-            CDebug.Log("Get Answers Data");
-            CDebug.Log("Wait Show Answers Animation");
+            CDebug.Log("Show Answer");
+
+                
 
             mAnswersData = mScene.GetAnswersData();
-            foreach (var answer in mAnswersData)
+            /**
+            var answers = mScene.GetAnswers();
+            for (int i = 0; i < answers.Length; i++ )
             {
-                CDebug.LogFormat("Answer : {0}", answer);
+                InstBtnAnswerList[i].GetComponentInChildren<Text>().text = answers[i].Correct;
             }
+            */
+            InstPanelAnswer.SetActive(true);
 
-            //if (false == InstPanelAnswer.activeInHierarchy)
-                InstPanelAnswer.SetActive(true);
+            mAnswerIndexSet.Clear();
+            for(int i = 0; i < InstBtnAnswerList.Count; i++)
+            {
+                //InstBtnAnswerList[i].GetComponent<Button>().interactable = true;        // 버튼 활성화
+                //InstBtnAnswerList[i].GetComponent<Button>().interactable = true;        // interactable
+
+                ButtonChangeState(InstBtnAnswerList[i], true);
+                mAnswerIndexSet.Add(i);
+            }
+            //mScene.ChangeState(QnAContentsBase.State.Select);
         }
         public void SelectAnswer()                                                  // 답변 선택
         {
@@ -115,6 +166,22 @@ namespace Contents3
         public void CorrectAnswer()
         {
             CDebug.Log("Correct answer with animation");
+
+            DOTween.To(() => InstCorrectGauge.Value, (x) => InstCorrectGauge.Value = x, mScene.CorrectProgress, 0.3f)
+                        .OnComplete(() =>
+                        {
+                            if (mScene.HasNextQuestion)
+                            {
+                               // mScene.ChangeState(QnAContentsBase.State.Question);
+                                CDebug.Log("Gauge = Next Q");
+                            }
+                            else
+                            {
+                               // mScene.ChangeState(QnAContentsBase.State.Reward);
+                                CDebug.Log("Gauge full");
+                            }
+                        });
+
             mCurrentQuestion++;
             mCorretAnswer++;
             mScene.ChangeState(QnAContentsBase.State.Question);
@@ -122,13 +189,17 @@ namespace Contents3
         public void WrongAnswer()
         {
             CDebug.Log("Wrong answer with animation");
-            //InstBtnAnswerList[0].GetComponent<Button>().interactive = false;
-            mScene.ChangeState(QnAContentsBase.State.Answer);
+            
+            InstBtnAnswerList[1].GetComponent<Button>().interactable = false;       // 버튼 비활성화
+
+            //ShowQuestion();
+            //mScene.ChangeState(QnAContentsBase.State.Select);
         }
 
         public void ShowReward()                                                    // 보상 연출
         {
             CDebug.Log("Play Reward Animation");
+            InstCorrectGauge.gameObject.SetActive(false);
 
             mScene.ChangeState(QnAContentsBase.State.Clear);
         }
@@ -136,7 +207,10 @@ namespace Contents3
         {
             CDebug.Log("Play Clear Animation");
 
-            mScene.ChangeState(QnAContentsBase.State.Episode);
+            InstOutroPanel.SetActive(true);
+
+            //mScene.ChangeState(QnAContentsBase.State.Episode);
+
         }
 
         
@@ -150,14 +224,6 @@ namespace Contents3
             InstBlackPanle.SetActive(false);
         }
 
-        public void AnswerBlackout()
-        {
-            InstAnswerBlackPanel.SetActive(true);
-        }
-        public void HideAnswerBlackout()
-        {
-            InstAnswerBlackPanel.SetActive(false);
-        }
         
     }
 }

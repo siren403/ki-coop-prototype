@@ -3,32 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Contents.QnA;
+using CustomDebug;
 
-public class FSContents3ClearEpisode : QnAFiniteState
+
+namespace Contents3
 {
-
-    public override QnAContentsBase.State StateID
+    public class FSContents3ClearEpisode : QnAFiniteState
     {
-        get
+
+        public override QnAContentsBase.State StateID
         {
-            return QnAContentsBase.State.Clear;
+            get
+            {
+                return QnAContentsBase.State.Clear;
+            }
         }
-    }
 
-    public override void Initialize()
-    {
+        public override void Initialize()
+        {
 
-    }
-    public override void Enter()
+        }
+        public override void Enter()
     {
+        CDebug.Log("Enter: ClearEpisode");
         Entity.UI.ClearEpisode();
+        Entity.ChangeState(QnAContentsBase.State.None);
     }
-    public override void Exit()
-    {
+        public override void Exit()
+        {
 
-    }
-    public override void Excute()
-    {
+        }
+        public override void Excute()
+        {
 
+        }
     }
 }

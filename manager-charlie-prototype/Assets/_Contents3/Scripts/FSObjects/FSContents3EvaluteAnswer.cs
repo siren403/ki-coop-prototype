@@ -11,7 +11,6 @@ namespace Contents3
 {
     public class FSContents3EvaluteAnswer : QnAFiniteState
     {
-
         public override QnAContentsBase.State StateID
         {
             get
@@ -19,8 +18,9 @@ namespace Contents3
                 return QnAContentsBase.State.Evaluation;
             }
         }
-
         private int mQuestionCount = 0;
+
+        int randomCorrectAnswerID;
 
         public override void Initialize()
         {
@@ -28,14 +28,37 @@ namespace Contents3
         }
         public override void Enter()
         {
-            
+            CDebug.Log("Enter: Evaluation");
+            var scene = Entity as SceneContents3;
+            scene.IncreaseCorrectCount();
 
-            //(Entity.UI as UIContents3).mScene.GetQuestionCount();
-            (Entity.UI as UIContents3).AnswerBlackout();
+            /** 정답 비교 
+            var scene = Entity as SceneContents3;
+            if(scene.CurrentCorrect.ID == scene.SelectedAnswer.ID)
+            {
+                scene.IncreaseCorrectCount();
+                Entity.UI.CorrectAnswer();
+             * 
+             * // 정답 사운드 출력
+            }
+            else
+            {
+                (Entity as SceneContents3).WrongCount++;
+                Entity.UI.WrongAnswer();
+             * 
+             * // 오답 사운드 출력
+
+                (Entity.UI as UIContents3).AnswerBlackout();
+            }
+            */
+
+            mQuestionCount++;
+            CheckFinished();
+
         }
         public override void Exit()
         {
-
+            
         }
         public override void Excute()
         {
@@ -44,10 +67,9 @@ namespace Contents3
 
         public void CheckFinished()
         {
-            mQuestionCount++;
 
             CDebug.Log(mQuestionCount);
-            if (mQuestionCount == 10)
+            if (mQuestionCount == 6)
             {
                 mQuestionCount = 0;
                 Entity.ChangeState(QnAContentsBase.State.Reward);
