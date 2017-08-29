@@ -40,13 +40,17 @@ namespace Contents2
         [SerializeField]
         private GameObject InstPanelRightWrong = null;
 
+        //* 문제 이미지 */
+        [SerializeField]
+        private GameObject InstImgQusetion = null;
+
 
         [SerializeField]
-        private Slider GaugeBar = null;
+        private Slider GaugeBar = null;                                             // 게이지 바가 찬다.
 
         private SceneContents2 mScene = null;                                       // 씬 로더
 
-        private string[] mAnswerData = null;
+        private string[] mAnswerData = null;                                        // 정답 데이터를 로드
 
         
         
@@ -108,6 +112,7 @@ namespace Contents2
 
         public void ShowSituation()                                                 // 문제 제출 애니메이션 출력 다 한 후에 FMS에서 시간을 체크해 상태를 Answer으로 넘긴다.
         {
+            
             InstPanelSituation.SetActive(true);
             CDebug.Log("Situation Data Set -> situation 애니메이션 보여주면서 Question을 설정해준다");
             mScene.SetQuestion();
