@@ -329,30 +329,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 182325446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d96364ea3d0447a7a5cf9e6d80c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 1
-  InputTime: 0
-  Distance: 0
-  InputPosition: {x: 0, y: 0, z: 0}
-  OutPutPosition: {x: 0, y: 0, z: 0}
-  Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
-  IsBtnTouch: 0
-  DialBtnObject: []
-  tempDialBtnObjct: {fileID: 0}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  Index: 0
+  InstBody: {fileID: 0}
 --- !u!1001 &221477062
 Prefab:
   m_ObjectHideFlags: 0
@@ -649,7 +630,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_Name
-      value: PFDialBtn (11)
+      value: PFDialBtn_1
       objectReference: {fileID: 0}
     - target: {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654,
         type: 2}
@@ -676,7 +657,7 @@ Prefab:
         type: 3}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
@@ -727,36 +708,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 434140708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f250ec4caba9674087a95af6ddbc969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 0
-  InputTime: 0
-  Distance: 0
+  DialBtns:
+  - {fileID: 2003962311}
+  - {fileID: 1192224102}
+  - {fileID: 182325449}
+  - {fileID: 571653185}
+  - {fileID: 900082484}
+  - {fileID: 1422587156}
+  Radius: 0
+  Angle: 0
   InputPosition: {x: 0, y: 0, z: 0}
   OutPutPosition: {x: 0, y: 0, z: 0}
   Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
   IsBtnTouch: 0
-  DialBtnObject:
-  - {fileID: 1156052442}
-  - {fileID: 1192224099}
-  - {fileID: 182325446}
-  - {fileID: 571653182}
-  - {fileID: 900082481}
-  - {fileID: 1422587153}
-  tempDialBtnObjct: {fileID: 1771573421}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  NowPosition: {x: 0, y: 0}
+  PreviousPosition: {x: 0, y: 0}
+  Power: 0
 --- !u!61 &434140711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -823,7 +793,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_Name
-      value: PFDialBtn (9)
+      value: PFDialBtn_3
       objectReference: {fileID: 0}
     - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_LocalScale.x
@@ -863,7 +833,7 @@ Prefab:
         type: 3}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
@@ -887,30 +857,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 571653182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d96364ea3d0447a7a5cf9e6d80c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 1
-  InputTime: 0
-  Distance: 0
-  InputPosition: {x: 0, y: 0, z: 0}
-  OutPutPosition: {x: 0, y: 0, z: 0}
-  Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
-  IsBtnTouch: 0
-  DialBtnObject: []
-  tempDialBtnObjct: {fileID: 0}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  Index: 0
+  InstBody: {fileID: 0}
 --- !u!1001 &640363182
 Prefab:
   m_ObjectHideFlags: 0
@@ -952,7 +903,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_Name
-      value: PFDialBtn (6)
+      value: PFDialBtn_4
       objectReference: {fileID: 0}
     - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_LocalScale.x
@@ -992,7 +943,7 @@ Prefab:
         type: 3}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
@@ -1478,30 +1429,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 900082481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d96364ea3d0447a7a5cf9e6d80c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 1
-  InputTime: 0
-  Distance: 0
-  InputPosition: {x: 0, y: 0, z: 0}
-  OutPutPosition: {x: 0, y: 0, z: 0}
-  Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
-  IsBtnTouch: 0
-  DialBtnObject: []
-  tempDialBtnObjct: {fileID: 0}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  Index: 0
+  InstBody: {fileID: 0}
 --- !u!1001 &900852884
 Prefab:
   m_ObjectHideFlags: 0
@@ -1611,7 +1543,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_Name
-      value: PFDialBtn (8)
+      value: PFDialBtn_5
       objectReference: {fileID: 0}
     - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_LocalScale.x
@@ -1651,7 +1583,7 @@ Prefab:
         type: 3}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
@@ -1769,7 +1701,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_Name
-      value: PFDialBtn (10)
+      value: PFDialBtn_0
       objectReference: {fileID: 0}
     - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_LocalScale.x
@@ -1809,17 +1741,12 @@ Prefab:
         type: 3}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1156052442 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654,
-    type: 2}
-  m_PrefabInternal: {fileID: 60562745}
 --- !u!1001 &1168467009
 Prefab:
   m_ObjectHideFlags: 0
@@ -1906,30 +1833,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192224099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d96364ea3d0447a7a5cf9e6d80c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 1
-  InputTime: 0
-  Distance: 0
-  InputPosition: {x: 0, y: 0, z: 0}
-  OutPutPosition: {x: 0, y: 0, z: 0}
-  Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
-  IsBtnTouch: 0
-  DialBtnObject: []
-  tempDialBtnObjct: {fileID: 0}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  Index: 0
+  InstBody: {fileID: 0}
 --- !u!1001 &1298005649
 Prefab:
   m_ObjectHideFlags: 0
@@ -2082,30 +1990,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1422587153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d96364ea3d0447a7a5cf9e6d80c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 1
-  InputTime: 0
-  Distance: 0
-  InputPosition: {x: 0, y: 0, z: 0}
-  OutPutPosition: {x: 0, y: 0, z: 0}
-  Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
-  IsBtnTouch: 0
-  DialBtnObject: []
-  tempDialBtnObjct: {fileID: 0}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  Index: 0
+  InstBody: {fileID: 0}
 --- !u!1001 &1472599712
 Prefab:
   m_ObjectHideFlags: 0
@@ -2184,7 +2073,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
@@ -2310,7 +2199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_Name
-      value: PFDialBtn (7)
+      value: PFDialBtn_2
       objectReference: {fileID: 0}
     - target: {fileID: 4728100128552186, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_LocalScale.x
@@ -2358,7 +2247,7 @@ Prefab:
         type: 3}
     - target: {fileID: 1326438714988642, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114170644782169592, guid: 8da0c502b0f73c14e9185aa2d6337654, type: 2}
@@ -2516,7 +2405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1771573422
 Transform:
   m_ObjectHideFlags: 0
@@ -2925,30 +2814,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2003962308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6fb3e63c4dfc843a33ccd76e9fc176, type: 3}
+  m_Script: {fileID: 11500000, guid: 636d96364ea3d0447a7a5cf9e6d80c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialKind: 1
-  InputTime: 0
-  Distance: 0
-  InputPosition: {x: 0, y: 0, z: 0}
-  OutPutPosition: {x: 0, y: 0, z: 0}
-  Direction: {x: 0, y: 0, z: 0}
-  DialPosition: []
-  IsSwipe: 0
-  IsBtnTouch: 0
-  DialBtnObject: []
-  tempDialBtnObjct: {fileID: 0}
-  jTime: 1
-  startTime: 0
-  X: 0
-  Y: 0
-  DistanceCalculation: []
-  InPutAngle: 0
-  OutPutAngle: 0
-  Angle: 0
-  ObjectAngle: 0
-  SwipeSpeed: 0
+  Index: 0
+  InstBody: {fileID: 0}
 --- !u!1001 &2035185265
 Prefab:
   m_ObjectHideFlags: 0
