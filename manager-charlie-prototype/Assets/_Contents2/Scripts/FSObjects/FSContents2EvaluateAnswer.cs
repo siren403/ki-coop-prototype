@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using CustomDebug;
 using Util;
 using Contents.QnA;
@@ -29,6 +31,7 @@ namespace Contents2
 
         public override void Enter()
         {
+
             Timer.Start();
 
             evalAnswer++;
@@ -56,28 +59,30 @@ namespace Contents2
 
         public override void Excute()
         {
-            Timer.Update();
-            if (Timer.Check(duration))
-            {
-                //* 정답일 때*/
-                if (selectedId == randomCorrectAnswerID)
-                {
-                    if (evalAnswer == 10)
-                    {
-                        evalAnswer = 0;
-                        Entity.ChangeState(QnAContentsBase.State.Reward);
-                    }
-                    else
-                    {
-                        Entity.ChangeState(QnAContentsBase.State.Situation);
-                    }
-                }
-                //* 오답일 때*/
-                else
-                {
+            //Timer.Update();
+            //if (Timer.Check(duration))
+            //{
+            //    //* 정답일 때*/
+            //    if (selectedId == randomCorrectAnswerID)
+            //    {
+            //        Debug.Log("mCorrectCount ->>>> " + evalAnswer);
+            //        if (evalAnswer == 10)
+            //        {
+            //            evalAnswer = 0;
+                        
+            //            Entity.ChangeState(QnAContentsBase.State.Reward);
+            //        }
+            //        else
+            //        {
+            //            Entity.ChangeState(QnAContentsBase.State.Situation);
+            //        }
+            //    }
+            //    //* 오답일 때*/
+            //    else
+            //    {
                     
-                }
-            }
+            //    }
+            //}
         }
 
         public override void Exit()

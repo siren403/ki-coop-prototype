@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents.QnA;
-using System;
 using CustomDebug;
-using LitJson;
-using Util.Inspector;
+using Contents.QnA;
+using FSM;
+using System;
 using Contents.Data;
+using Util.Inspector;
+using LitJson;
+using System.Linq;
+using Util;
 
 namespace Contents2
 {
@@ -43,6 +46,9 @@ namespace Contents2
 
     public class SceneContents2 : QnAContentsBase
     {
+        /** 콘텐츠 관련 멤버 */
+        private int mSelectedEpisode = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
+
         public List<Qna> QnaList = new List<Qna>();
         private const int CONTENTS_ID = 2;
 
@@ -68,6 +74,34 @@ namespace Contents2
         private string mCorrectAnswer;
         private string mWrongAnswer;
         private string mQuestionObject;
+
+        //Scene1 에 참고함
+        private int mMaximumQuestion = 10;
+        private int mSubmitQuestionCount = 0;
+        private int mCorrectCount = 0;
+
+        private Dictionary<string, Queue<QuickSheet.Contents2Data>> mQnA = null;
+
+        public float CorrectProgress
+        {
+            get
+            {
+                return (float)mCorrectCount / mMaximumQuestion;
+            }
+        }
+
+        //다음 문제가 있는지?
+        public bool HasNextQuestion
+        {
+            get
+            {
+                return mSubmitQuestionCount < mMaximumQuestion;
+            }
+        }
+
+
+        //Scene1 에 참고함
+
 
         public int QuestionCount
         {
@@ -168,25 +202,29 @@ namespace Contents2
             return new FSContents2ShowSituation();
         }
 
-        public void StartEpisode(int episodeID)
+        public void SelectEpisode(int episodeID)
         {
-            CDebug.Log("Episode Id " + episodeID + "이 선택되었습니다.");
             //* Episode id를 받아  옴*/
+            CDebug.Log("Episode Id " + episodeID + "이 선택되었습니다.");
 
-            //* 한 episode 별로 문제 가져옴 */
-            if (episodeID == 1)
+
+
+            //수정
+            //* Episode id별로 data 받아온다 */
+            mSelectedEpisode = episodeID;
+            var table = TableFactory.LoadContents2Table().dataArray
+                                    .Where((data) => data.Episode == mSelectedEpisode)
+                                    .ToList();
+
+            //* 아직 사용하지 않지만 , 나중에 사용 할 수 있음 */
+            mQnA = new Dictionary<string, Queue<QuickSheet.Contents2Data>>();
+
+            //* 받아온 데이터를 QnaList에 넣는다 */
+            foreach (var row in table)
             {
-                for (int i = 0 * 10; i < 10; i++)
-                {
-                    QnaList.Add(new Qna(TableFactory.LoadContents2Table().dataArray[i].ID, TableFactory.LoadContents2Table().dataArray[i].Episode, TableFactory.LoadContents2Table().dataArray[i].Question
-                        , TableFactory.LoadContents2Table().dataArray[i].Correct, TableFactory.LoadContents2Table().dataArray[i].Wrong, TableFactory.LoadContents2Table().dataArray[i].Objectstate));
-                }
-
+                QnaList.Add(new Qna(row.ID, row.Episode, row.Question, row.Correct, row.Wrong, row.Objectstate));
             }
-            else if (episodeID == 2 )
-            {
 
-            }
             ChangeState(State.Situation);
         }
 
@@ -227,6 +265,14 @@ namespace Contents2
 
    
         }
+
+        //* Contents2 는 문제 맞춘수가 나온수와 같으니 같이 처리 해준다*/
+        public void IncrementCorrectCount()
+        {
+            mCorrectCount++;
+            mSubmitQuestionCount =  mCorrectCount;
+        }
+
 
         //*이전에 사용한 데이터 지워준다*/
         public void EraseData()
