@@ -5,6 +5,8 @@ using UnityEngine;
 using LitJson;
 using CustomDebug;
 
+
+//* Json 개인 테스트용 스크립트*/
 public class Qna
 {
     public int QuestionId;

@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using CustomDebug;
 
-public class csSwipeManager : MonoBehaviour
+public class SwipeManager : MonoBehaviour
 {
     public GameObject[] Page;
 
