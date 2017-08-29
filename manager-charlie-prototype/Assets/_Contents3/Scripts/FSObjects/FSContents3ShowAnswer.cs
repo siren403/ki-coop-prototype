@@ -10,7 +10,6 @@ namespace Contents3
 {
     public class FSContents3ShowAnswer : QnAFiniteState
     {
-
         public override QnAContentsBase.State StateID
         {
             get
@@ -18,13 +17,12 @@ namespace Contents3
                 return QnAContentsBase.State.Answer;
             }
         }
-        private SimpleTimer Timer = SimpleTimer.Create();
 
-        public GameObject AnswerPanel = null;
+        private SimpleTimer Timer = SimpleTimer.Create();
+        private GameObject AnswerPanel = null;
 
         public override void Initialize()
         {
-            
         }
         public override void Enter()
         {
@@ -33,23 +31,34 @@ namespace Contents3
             // 데이터를 받아서 답지 출력
 
             Entity.UI.ShowAnswer();
-            AnswerPanel = GameObject.FindGameObjectWithTag("PanelAnswer");
-            Timer.Start();
+            CDebug.Log("ShowAnswer : 이미지 확대 + 대사 출력");
 
+            AnswerPanel = GameObject.FindGameObjectWithTag("PanelAnswer");
+
+
+            Timer.Start();
         }
         public override void Excute()
         {
             Timer.Update();
-            if (Timer.Check(1.5f))
+            if (Timer.Check(3.0f))
             {
-                CDebug.Log("[FSM] Stop Show Answer Aniamtion");
-                DOTween.Sequence().Append(AnswerPanel.transform.DOMoveY(200, 1.5f));        // Y축으로 이동
-                Entity.ChangeState(QnAContentsBase.State.Select);
+                CDebug.Log("After 3.0s, 선택지 출력");
+
+                //* 선택지 패널 이동후 Select 상태 전환 */
+                MovePanel();
             }
+
         }
         public override void Exit()
         {
-
         }
+
+        public void MovePanel()
+        {
+            DOTween.Sequence().Append(AnswerPanel.transform.DOMoveY(0, 1.5f));
+            Entity.ChangeState(QnAContentsBase.State.Select);
+        }
+        
     }
 }

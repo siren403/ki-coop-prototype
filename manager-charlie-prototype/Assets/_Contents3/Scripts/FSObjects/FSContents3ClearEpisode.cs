@@ -11,7 +11,7 @@ public class FSContents3ClearEpisode : QnAFiniteState
     {
         get
         {
-            return QnAContentsBase.State.Situation;
+            return QnAContentsBase.State.Clear;
         }
     }
 
@@ -21,7 +21,7 @@ public class FSContents3ClearEpisode : QnAFiniteState
     }
     public override void Enter()
     {
-
+        Entity.UI.ClearEpisode();
     }
     public override void Exit()
     {

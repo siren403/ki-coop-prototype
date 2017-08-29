@@ -6,7 +6,7 @@ using LitJson;
 using Util.Inspector;
 using Contents.QnA;
 using CustomDebug;
-
+using Contents.Data;
 
 namespace Contents3
 {
@@ -28,18 +28,34 @@ namespace Contents3
                 return mInstUI;
             }
         }
+        
+        private JsonData mContentsData = null;
+    
+
+        //* 문제 연출 변수 */                   
+        private string[] mQuestion = new string[] { };
+        private string[] mAnswer = new string[] { };
+
+        private int mQuestionCount = 0;                             // 등장 문제 수
+        private List<int> mUsedQuestionID = new List<int>();        // 사용된 문제 번호
+        private int SelectAnswerID;
 
 
-        private string[] mQuestion = new string[] { "Hi", "Hello", "Hey" };
-        private int mCurrentQuestion = 0;
-        private int mQuestionCount = 0;
 
-        public int SelectAnswerID = 0;
-
+        public int EpisodeCount
+        {
+            get
+            {
+                return mContentsData["episode"].Count;
+            }
+        }
 
         protected override void Initialize()
         {
-            mInstUI.Initialize(this);
+            string json = Resources.Load<TextAsset>("ContentsData/Contents3").text;
+            mContentsData = JsonMapper.ToObject(json);
+
+
             ChangeState(State.Episode);
         }
 
@@ -48,42 +64,79 @@ namespace Contents3
         protected override QnAFiniteState CreateShowSituation() { return new FSContents3ShowSituation(); }
         protected override QnAFiniteState CreateShowQuestion() { return new FSContents3ShowQuestion(); }
         protected override QnAFiniteState CreateShowAnswer() { return new FSContents3ShowAnswer(); }
-        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3Select(); }
+        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3SelectAnswer(); }
         protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents3EvaluteAnswer(); }
         protected override QnAFiniteState CreateShowReward() { return new FSContents3ShowReward(); }
-
-        public bool Evaluation(int answerID)
-        {
-            return false;
-        }
-
         protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents3ClearEpisode(); }
+
 
 
         public void StartEpisode(int episodeID)
         {
             CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
-            
+
+            //GetData();
+
             ChangeState(State.Situation);
         }
-        public string getQuestion()
+        public void SetSituation()
         {
-            return "string";
+            // 문제상황 캐릭터
+            //Character[0] = Resources.Load("Joy") as GameObject;
+            //Character[1] = Resources.Load("Joy") as GameObject;
+            //Character[2] = Resources.Load("Joy") as GameObject;
+        }
+        public string GetQuestion()
+        {
+            int i = UnityEngine.Random.Range(0, mQuestion.Length);      // Question의 크기안에서 랜덤으로 문제를 냄
+
+            if(true == IsUsedQuestion(i))
+            {
+                return GetQuestion();                                   // 다시 랜덤 출제
+            }
+            else
+            {
+                mUsedQuestionID.Add(i);                                 // 이미낸 문제는 나중에 거르기 위해 List에 저장
+                return mQuestion[i];                                    // 중복 안된 것을 출제
+            }
+        }
+        public bool IsUsedQuestion(int i)
+        {
+            for (int j = 0; j < mQuestion.Length; j++)
+            {
+                if (mQuestion[i] == mQuestion[mUsedQuestionID[j]])          // 선택된 문제가 이미 사용됨 = true
+                {
+                    return true;                                   
+                }
+                else if (mQuestion[i] != mQuestion[mUsedQuestionID[j]])     // 선택된 문제가 사용 안됨 = false
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        public bool IsFinished()
+        {
+            if (6 == mQuestionCount)
+            {
+                CDebug.Log("Finished");
+                ChangeState(QnAContentsBase.State.Reward);
+            }
+            return false;
         }
         public string[] GetAnswersData()
         {
-            string[] answers = new string[3]
-        {
-            "Hi", "Hello", "Hey"
-        };
-            return answers;
+            //string[] answers = new string[3]
+            //{
+            //"Hi", "Hello", "Hey"
+            //};
+            return mAnswer;
         }
         public void SelectAnswer(int answerID)
         {
             this.SelectAnswerID = answerID;
             ChangeState(State.Evaluation);
         }
-        /**
         public bool Evaluation(int answerID)
         {
             if (answerID == 0)
@@ -92,7 +145,7 @@ namespace Contents3
             }
             return false;
         }
-        */
+
         public class QnAContets3
         {
             public string Question;         // 문제
@@ -100,28 +153,30 @@ namespace Contents3
             public string[] Wrongs;         // 오답
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        void Awake()
+        //* 데이터 로드 */
+        public void GetData()
         {
-            mState = QnAContentsBase.State.None;
+            var table = TableFactory.LoadContents3Table();
+            for (int i = 0; i < table.dataArray.Length; i++)
+            {
+                mQuestion[i] = table.dataArray[i].Question;
+                CDebug.Log(mQuestion[i]);
 
-            mSituationScript = new SituationDirecting();
-            mQuestionScript = new QuestionDirecting();
-
+                for (int j = 0; j < 3; j++)
+                {
+                    mAnswer[i] = table.dataArray[i].Correct[j];
+                    CDebug.Log(mAnswer[j]);
+                }
+            }
         }
-        */
+        
+        public int GetQuestionCount()
+        {
+            return mQuestionCount;
+        }
+        
+
+
 
 
         /*

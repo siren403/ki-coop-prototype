@@ -497,6 +497,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
+    1: ENABLE_LOG
     7: ENABLE_LOG
   platformArchitecture: {}
   scriptingBackend: {}

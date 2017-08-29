@@ -9,7 +9,7 @@ namespace QuickSheet {
 ///
 public class Contents3AssetPostprocessor : AssetPostprocessor 
 {
-    private static readonly string filePath = "Assets/_Home/DataResources/QnATable/QnAData.xlsx";
+    private static readonly string filePath = "Assets/_Home/DataResources/Contents/QnAContents.xlsx";
     private static readonly string assetFilePath = "Assets/Resources/QuickSheet/Contents3.asset";
     private static readonly string sheetName = "Contents3";
     

@@ -24,8 +24,8 @@ namespace Contents1
         public override void Enter()
         {
             CDebug.Log("Question Enter");
+            (Entity as SceneContents1).WrongCount = 0;
             Entity.UI.ShowQuestion();
-            //Entity.ChangeState(QnAContentsBase.State.Answer);
         }
         public override void Exit()
         {

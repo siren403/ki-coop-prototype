@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using CustomDebug;
 using Contents.QnA;
 using FSM;
 using Contents.Data;
 using Util.Inspector;
 using LitJson;
+using System.Linq;
+using Util;
 
 namespace Contents1
 {
@@ -48,57 +49,115 @@ namespace Contents1
 
     public class SceneContents1 : QnAContentsBase
     {
-        private const int CONTENTS_ID = 1;
-        private const int MAX_QUESTION_COUNT = 10;
+        //private const int MAX_QUESTION_COUNT = 10;
 
         /** 콘텐츠 관련 멤버 */
-        private int mEpisodeLoaction = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
+        private int mSelectedEpisode = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
 
-        private int mCont1AlpahbetCount = 0;          // 알파벳 개수를 저장하는 변수
-        private int mCont1WordsCount = 0;             // 알파벳과 관련된 단어 개수를 저장하는 변수
+        //private int mCont1AlpahbetCount = 0;          // 알파벳 개수를 저장하는 변수
+        //private int mCont1WordsCount = 0;             // 알파벳과 관련된 단어 개수를 저장하는 변수
 
-        public int Contents1CorrectNubmer = 0;        // 정답의 인덱스를 저장하는 변수
-        public int Contents1AnswerNumber = 0;         // 선택한 정답의 인덱스를 저장하는 변수
+        //public int Contents1CorrectNubmer = 0;        // 정답의 인덱스를 저장하는 변수
+        //public int Contents1AnswerNumber = 0;         // 선택한 정답의 인덱스를 저장하는 변수
 
-        public int CurrentQuestionIndex = 0;         // 문제 진행 개수 체크 변수        
-        public int CorrectAnswerCount = 0;           // 정답 맞춘 개수를 카운트 하는 변수
-        public int ThisProblemCount = 0;             // 현재 진행하고 있는 문제를 몇 번 풀었는가를 카운트하는 변수
+        //public int CurrentQuestionIndex = 0;         // 문제 진행 개수 체크 변수        
+        //public int CorrectAnswerCount = 0;           // 정답 맞춘 개수를 카운트 하는 변수
+        //public int ThisProblemCount = 0;             // 현재 진행하고 있는 문제를 몇 번 풀었는가를 카운트하는 변수
 
-        public float Contents1GuagePercent = 0;      // 게이지 값 변경 변수
+        //public float Contents1GuagePercent = 0;      // 게이지 값 변경 변수
 
         public bool[] BlockInfo = new bool[4] {false, false, false, false};        // 블럭 이미지를 On/Off 하는데 사용되는 정보
 
         /** UI 및 리소스 관리자 */
         [SerializeField]
-        private UIContents1 mInstUI = null;
+        private ViewContents1 mInstUI = null;
 
         /** 정답, 오답 관련 멤버 */
-        private string mCorrectAnswer;          // 정답을 저장하는 변수
-        private string[] mInCorrectAnswer = { "A", "A", "A" };      // 오답을 저장하는 배열
+        //private string mCorrectAnswer;          // 정답을 저장하는 변수
+        //private string[] mInCorrectAnswer = { "A", "A", "A" };      // 오답을 저장하는 배열
 
-        private int[] mUsableWords = new int[10] { 11, 11, 11 , 11, 11, 11, 11, 11, 11, 11 };
+        //private int[] mUsableWords = new int[10] { 11, 11, 11 , 11, 11, 11, 11, 11, 11, 11 };
 
         /** 파닉스 단어들을 담고 있는 클래스 -> 추후에 데이터 관련 사항이 정해지면 수정 */
-        private Dictionary<int, string> mWords;
-        private Dictionary<string, List<string>> mEpisodeWords;
+        //private Dictionary<int, string> mWords;
+        //private Dictionary<string, List<string>> mEpisodeWords;
         
         /** 임시로 생성된 클래스, 자세한 설명은 소스 코드 위쪽을 참조 */
-        private tmpContents1Progress mProgressData = new tmpContents1Progress();
+        //private tmpContents1Progress mProgressData = new tmpContents1Progress();
 
-        #region 
+        #region Create by seongho
 
-        private string[] mPhonics = new string[] { "A", "B", "C", "D", "E" };
-        private string mCurrentPhonics
+        //데이터 구성요소가 잡히기 전까지 사용할 데이터 객체
+        private JsonData mContentsData = null;
+
+        //현재 제출문제의 정답 데이터
+        private QuickSheet.Contents1Data mCurrentCorrect = null;
+        //현재 제출 선택지 중 유저가 선택한 데이터
+        private QuickSheet.Contents1Data mSelectedAnswer = null;
+        public QuickSheet.Contents1Data CurrentCorrect
         {
             get
             {
-                return mPhonics[CurrentQuestionIndex % 5];
+                return mCurrentCorrect;
+            }
+        }
+        public QuickSheet.Contents1Data SelectedAnswer
+        {
+            get
+            {
+                return mSelectedAnswer;
             }
         }
 
-        private Dictionary<string, List<JsonData>> mPhonicsDic = null;
-        private Dictionary<string, List<JsonData>> mWrongAnswerDIc = null;
+        //에피소드 버튼 동적생성을 위한 데이터
+        public int EpisodeCount
+        {
+            get
+            {
+                return mContentsData["episode"].Count;
+            }
+        }
+        public JsonData CurrentEpisode
+        {
+            get
+            {
+                return mContentsData["episode"][mSelectedEpisode - 1];
+            }
+        }
+        public string CurrentPhonics
+        {
+            get
+            {
+                return CurrentEpisode["phonics"][mSubmitQuestionCount % CurrentEpisode["phonics"].Count].ToString();
+            }
+        }
 
+        private Dictionary<string,Queue<QuickSheet.Contents1Data>> mQnA = null;
+
+        private QuickSheet.Contents1Data[] mAnswers = new QuickSheet.Contents1Data[4];
+
+        //ContentsData로 제어해도 될 듯
+        private int mMaximumQuestion = 10;
+        private int mSubmitQuestionCount = 0;
+        private int mCorrectCount = 0;
+        public float CorrectProgress
+        {
+            get
+            {
+                return (float)mCorrectCount / mMaximumQuestion;
+            }
+        }
+        //다음 문제가 있는지?
+        public bool HasNextQuestion
+        {
+            get
+            {
+                return mSubmitQuestionCount < mMaximumQuestion;
+            }
+        }
+
+        private int mWrongCount = 0;
+        public int WrongCount { get { return mWrongCount; } set { mWrongCount = value; } }
         #endregion
 
         public override IQnAView UI
@@ -111,195 +170,170 @@ namespace Contents1
 
         protected override void Initialize()
         {
-            mInstUI.Initialize(this);
-
-            // 인스턴스 생성
-            Debug.Log("sd");
+            //IVewInitialize 구현으로 인해 코드 제거
+            //mInstUI.Initialize(this);
+            
+            string json = Resources.Load<TextAsset>("ContentsData/Contents1").text;
+            mContentsData = JsonMapper.ToObject(json);
 
             //멤버 값 초기화
-            mCorrectAnswer = null;
+            //mCorrectAnswer = null;
 
             //mEpisodeLoaction = 1;        // 추후 값 수정 필요
-            CorrectAnswerCount = 0;
-            CurrentQuestionIndex = 0;
+            //CorrectAnswerCount = 0;
+            //CurrentQuestionIndex = 0;
 
-            mPhonicsDic = new Dictionary<string, List<JsonData>>();
-            mWords = new Dictionary<int, string>();
-            mEpisodeWords = new Dictionary<string, List<string>>();
+            //mWords = new Dictionary<int, string>();
+            //mEpisodeWords = new Dictionary<string, List<string>>();
 
             ChangeState(State.Episode);
             //ChangeState(State.Question);
         }
 
-        protected override QnAFiniteState CreateShowEpisode()
-        {
-            return new FSContents1Episode();
-        }
-        protected override QnAFiniteState CreateShowSituation()
-        {
-            return new FSContents1Situation();
-        }
-        protected override QnAFiniteState CreateShowQuestion()
-        {
-            return new FSContents1Question();
-        }
-        protected override QnAFiniteState CreateShowAnswer()
-        {
-            return new FSContents1Answer();
-        }
-        protected override QnAFiniteState CreateShowSelectAnswer()
-        {
-            return new FSContents1Select();
-        }
-        protected override QnAFiniteState CreateShowEvaluateAnswer()
-        {
-            return new FSContents1Evaluation();
-        }
-        protected override QnAFiniteState CreateShowReward()
-        {
-            return new FSContents1Reward();
-        }
-        protected override QnAFiniteState CreateShowClearEpisode()
-        {
-            return new FSContents1Clear();
-        }
+        #region QnAContents를 구성하는 기본적인 State객체
+        protected override QnAFiniteState CreateShowEpisode() { return new FSContents1Episode(); }
+        protected override QnAFiniteState CreateShowSituation() { return new FSContents1Situation(); }
+        protected override QnAFiniteState CreateShowQuestion() { return new FSContents1Question(); }
+        protected override QnAFiniteState CreateShowAnswer() { return new FSContents1Answer(); }
+        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents1Select(); }
+        protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents1Evaluation(); }
+        protected override QnAFiniteState CreateShowReward() { return new FSContents1Reward(); }
+        protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents1Clear(); }
+        #endregion
+
 
         /**
          * @fn  public void SelectEpisode(int episodeID)
          *
          * @brief   사용자(?) 정의 함수 -> 사용자라는 부분을 어떻게 수정해야할지 가이드 부탁드립니다.
+         *          에피소드 설정 함수
          *
          * @author  KBY
          * @date    2017-08-25
          *
          * @param   episodeID   Identifier for the episode.
          */
-
-        // 에피소드 설정 함수
         public void SelectEpisode(int episodeID)
         {
-            mEpisodeLoaction = episodeID;
-
+            //수정
+            mSelectedEpisode = episodeID;
+            var table = TableFactory.LoadContents1Table().dataArray
+                                    .Where((data) => data.Episode == mSelectedEpisode)
+                                    .ToList();
+            mQnA = new Dictionary<string, Queue<QuickSheet.Contents1Data>>();
+            foreach(var row in table)
+            {
+                if(mQnA.ContainsKey(row.Question) == false)
+                {
+                    mQnA.Add(row.Question, new Queue<QuickSheet.Contents1Data>(3));
+                }
+                mQnA[row.Question].Enqueue(row);
+            }
             ChangeState(State.Situation);
-
-            //string key = null;
-
-            //for(int i = 0;i<table.Count;i++)
-            //{
-            //    key = table[i]["phonics"].ToString();                
-
-            //    if (mPhonicsDic.ContainsKey(key) == false)
-            //    {
-            //        mPhonicsDic.Add(key,new List<JsonData>());
-            //    }
-            //    mPhonicsDic[key].Add(table[i]);
-            //}
-
-            //mWrongAnswerDIc = new Dictionary<string, List<JsonData>>(mPhonicsDic);
         }
 
         /** 바꿀 게 너무 많습니다.
          *  이 코드를 어디서 부터 어디서 바꿔야 할지...
          */
-        public void AnswerSetting()
-        {
-            //CDebug.Log("Enter Answer setting");
+        //public void AnswerSetting()
+        //{
+        //    CDebug.Log("Enter Answer setting");
 
-            //string[] answers = new string[4];
+        //    string[] answers = new string[4];
 
-            ////var table = this.Container.GetData(CONTENTS_ID)["table"];
+        //    //var table = this.Container.GetData(CONTENTS_ID)["table"];
 
-            //mWords.Clear();
-            //mEpisodeWords.Clear();
+        //    mWords.Clear();
+        //    mEpisodeWords.Clear();
 
-            //// 단어 데이터 받아오기
-            //for (int i = 0; i < table.Count; i++)
-            //{
-            //    string word = table[i]["word"].ToString();
+        //    // 단어 데이터 받아오기
+        //    for (int i = 0; i < table.Count; i++)
+        //    {
+        //        string word = table[i]["word"].ToString();
 
-            //    mWords.Add(i, word);
-            //}
+        //        mWords.Add(i, word);
+        //    }
 
-            //// 에피소드1 문제 셋팅
-            //if (mEpisodeLoaction == 0)
-            //{
-            //    // 등장하는 파닉스 알파벳의 개수와, 파닉스에 속하는 단어들의 개수 구하기
-            //    int startIndex = 0;                                                         // mWords에 속한 단어들을 검색할 때 사용되는 인덱스 변수
-            //    int length = mProgressData.Episode1Phonics.Length;                          // 이번 에피소드에 등장할 단어들의 개수를 가지고 있는 변수
-            //    int[] PhonicsWord = new int[length];                                        // 이번 에피소드에 등장할 파닉스 알파벳에 속한 각 단어들의 총 개수를 저장하고 있는 변수 
-            //                                                                                // 예) 파닉스 "A"에 속한 단어는 "Almond", "Arcon", "Apple"해서 총 3개. 이것들의 개수를 가지고 있다는 이야기입니다.
+        //    // 에피소드1 문제 셋팅
+        //    if (mEpisodeLoaction == 0)
+        //    {
+        //        // 등장하는 파닉스 알파벳의 개수와, 파닉스에 속하는 단어들의 개수 구하기
+        //        int startIndex = 0;                                                         // mWords에 속한 단어들을 검색할 때 사용되는 인덱스 변수
+        //        int length = mProgressData.Episode1Phonics.Length;                          // 이번 에피소드에 등장할 단어들의 개수를 가지고 있는 변수
+        //        int[] PhonicsWord = new int[length];                                        // 이번 에피소드에 등장할 파닉스 알파벳에 속한 각 단어들의 총 개수를 저장하고 있는 변수 
+        //                                                                                    // 예) 파닉스 "A"에 속한 단어는 "Almond", "Arcon", "Apple"해서 총 3개. 이것들의 개수를 가지고 있다는 이야기입니다.
 
-            //    //CDebug.Log(length);
+        //        //CDebug.Log(length);
 
-            //    int maxCount = 0;                                                           // for문에서 각 단어들의 총 개수를 구할때 사용되는 변수
+        //        int maxCount = 0;                                                           // for문에서 각 단어들의 총 개수를 구할때 사용되는 변수
 
-            //    // 각 파닉스군에 속한 단어들의 개수 구하기
-            //    for(int i=0; i<length; i++)
-            //    {
-            //        maxCount = 0;
+        //        // 각 파닉스군에 속한 단어들의 개수 구하기
+        //        for (int i = 0; i < length; i++)
+        //        {
+        //            maxCount = 0;
 
-            //        for(int j=0; j<mWords.Count; j++)
-            //        {
-            //            string word = mWords[j];
+        //            for (int j = 0; j < mWords.Count; j++)
+        //            {
+        //                string word = mWords[j];
 
-            //            if (word.Substring(0, 1) == mProgressData.Episode1Phonics[i])
-            //            {
-            //                maxCount++;
-            //            }
+        //                if (word.Substring(0, 1) == mProgressData.Episode1Phonics[i])
+        //                {
+        //                    maxCount++;
+        //                }
 
-            //            CDebug.Log("------ word : " + word);
-            //        }
+        //                CDebug.Log("------ word : " + word);
+        //            }
 
-            //        PhonicsWord[i] = maxCount;                                              // 개수 저장
-            //        //CDebug.Log("----- maxCount :" + maxCount);
-            //    }
+        //            PhonicsWord[i] = maxCount;                                              // 개수 저장
+        //            //CDebug.Log("----- maxCount :" + maxCount);
+        //        }
 
-            //    // Ep1에서 등장할 단어들을 mEpisodeWord<string, List<string>>에 저장
-            //    for (int i = 0; i < length; i++)
-            //    {
-            //        CDebug.Log("---- Length");
+        //        // Ep1에서 등장할 단어들을 mEpisodeWord<string, List<string>>에 저장
+        //        for (int i = 0; i < length; i++)
+        //        {
+        //            CDebug.Log("---- Length");
 
-            //        string key = mProgressData.Episode1Phonics[i];
+        //            string key = mProgressData.Episode1Phonics[i];
 
-            //        for (int j = 0; j < PhonicsWord[i]; j++)
-            //        {           
-            //            if(mEpisodeWords.ContainsKey(key) == false)
-            //            {
-            //                mEpisodeWords.Add(key, new List<string>());
-            //            }
+        //            for (int j = 0; j < PhonicsWord[i]; j++)
+        //            {
+        //                if (mEpisodeWords.ContainsKey(key) == false)
+        //                {
+        //                    mEpisodeWords.Add(key, new List<string>());
+        //                }
 
-            //            mEpisodeWords[key].Add(mWords[startIndex]);
-                        
-            //            CDebug.Log("----- startIndex : " + startIndex);
+        //                mEpisodeWords[key].Add(mWords[startIndex]);
 
-            //            startIndex++;
-            //        }
-            //    }
+        //                CDebug.Log("----- startIndex : " + startIndex);
 
-            //    // 사용할 단어 추출
-            //    switch (CurrentQuestionIndex)
-            //    {
-            //        case 0:
-            //        case 5:
-            //            break;
+        //                startIndex++;
+        //            }
+        //        }
 
-            //        case 1:
-            //        case 6:
-            //            break;
-            //        case 2:
-            //        case 7:
-            //            break;
-            //        case 3:
-            //        case 8:
-            //            break;
-            //        case 4:
-            //        case 9:
-            //            break;
-            //    }
-            //}
+        //        // 사용할 단어 추출
+        //        switch (CurrentQuestionIndex)
+        //        {
+        //            case 0:
+        //            case 5:
+        //                break;
 
-            //mProgressData.Ep1GetAnswers(mWords, CurrentQuestionIndex);
-        }
+        //            case 1:
+        //            case 6:
+        //                break;
+        //            case 2:
+        //            case 7:
+        //                break;
+        //            case 3:
+        //            case 8:
+        //                break;
+        //            case 4:
+        //            case 9:
+        //                break;
+        //        }
+        //    }
+
+        //    mProgressData.Ep1GetAnswers(mWords, CurrentQuestionIndex);
+        //}
 
         /**
          * @fn  public string[] GetAnswers()
@@ -311,15 +345,62 @@ namespace Contents1
          *
          * @return  An array of string.
          */
-
-        public string[] GetAnswers()
+        public QuickSheet.Contents1Data[] GetAnswers()
         {
-            CDebug.Log("Get Answers");
+            //수정
+            for (int i = 0; i < mAnswers.Length; i++)
+            {
+                mAnswers[i] = null;
+            }
 
-            string[] answers = new string[] { "Apple", "Bean", "Cucumber", "Daikon" };
+            int answersIndex = 0;
+            mCurrentCorrect = mQnA[CurrentPhonics].Dequeue();
+            mAnswers[answersIndex] = mCurrentCorrect;
+            answersIndex++;
+            CDebug.LogFormat("CurrentPhonics : {0}", mCurrentCorrect.Question);
+
+            for (int i = 0; i < CurrentEpisode["phonics"].Count; i++)
+            {
+                if(answersIndex < 4)
+                {
+                    CDebug.LogFormat("{0}/{1}", CurrentEpisode["phonics"][i].ToString(), mCurrentCorrect.Question);
+                    if (CurrentEpisode["phonics"][i].ToString().Equals(mCurrentCorrect.Question) == false)
+                    {
+                        mAnswers[answersIndex] = mQnA[CurrentEpisode["phonics"][i].ToString()].First();
+                        CDebug.Log("Answers : " + mAnswers[i].Correct);
+                        answersIndex++;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            //foreach (var answer in mAnswers)
+            //{
+            //    if (answer == null)
+            //    {
+            //        CDebug.Log("answer is null");
+            //    }
+            //    else
+            //    {
+            //        CDebug.Log(answer.Correct);
+            //    }
+            //}
+
+            ShuffleMachine<QuickSheet.Contents1Data[]> shuffle = new ShuffleMachine<QuickSheet.Contents1Data[]>(mAnswers);
+            shuffle.DoShuffle();
 
             //문제 인덱스 증가
-            return answers;
+            mSubmitQuestionCount++;
+
+            return shuffle.Array;
+        }
+        //추가
+        public void IncrementCorrectCount()
+        {
+            mCorrectCount++;
         }
 
 
@@ -340,11 +421,13 @@ namespace Contents1
         // 정답 선택 기능 함수
         public void SelectAnswer(int answer)
         {
-            CDebug.Log("Selection Button : "+ answer);
-            Contents1CorrectNubmer = 0;
-            Contents1AnswerNumber = answer;
+            mSelectedAnswer = mAnswers[answer];
+            ChangeState(State.Evaluation);
 
-            mInstUI.SelectAnswer();
+            //CDebug.Log("Selection Button : "+ answer);
+            //Contents1CorrectNubmer = 0;
+            //Contents1AnswerNumber = answer;
+            //mInstUI.SelectAnswer();
         }
 
         // 보상 확인 함수
