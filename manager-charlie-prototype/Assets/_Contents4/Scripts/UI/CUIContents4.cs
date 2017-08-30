@@ -5,7 +5,7 @@ using UnityEngine;
 public class CUIContents4 : MonoBehaviour {
 
     
-    public csSwipeManager InstSelectPage = null;
+    public SwipeManager InstSelectPage = null;
     public CUIAlarmSelectPage InstAlarmSelectPage = null; 
         
     

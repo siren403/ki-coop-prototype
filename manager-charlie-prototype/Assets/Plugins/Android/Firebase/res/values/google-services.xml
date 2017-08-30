@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://charlie-proto.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">742486778260</string>
+  <string name="google_storage_bucket" translatable="false">charlie-proto.appspot.com</string>
+  <string name="project_id" translatable="false">charlie-proto</string>
+  <string name="google_api_key" translatable="false">AIzaSyBLOAHSU-t1n30khCN_vUKFvIcZSolhvg0</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBLOAHSU-t1n30khCN_vUKFvIcZSolhvg0</string>
+  <string name="google_app_id" translatable="false">1:742486778260:android:33522330c3c3add8</string>
+  <string name="default_web_client_id" translatable="false">742486778260-kkat9l71iou8aqp2af9vcihll0qsh1iq.apps.googleusercontent.com</string>
+</resources>
