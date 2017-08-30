@@ -29,27 +29,24 @@ namespace Contents3
         public override void Enter()
         {
             CDebug.Log("Enter: Evaluation");
-            var scene = Entity as SceneContents3;
 
-            /** 정답 비교 
+            // 정답 비교 
             var scene = Entity as SceneContents3;
             if(scene.CurrentCorrect.ID == scene.SelectedAnswer.ID)
             {
                 scene.IncreaseCorrectCount();
                 Entity.UI.CorrectAnswer();
-             * 
-             * // 정답 사운드 출력
+              
+              // 정답 사운드 출력
             }
             else
             {
                 (Entity as SceneContents3).WrongCount++;
                 Entity.UI.WrongAnswer();
-             * 
-             * // 오답 사운드 출력
-
-                (Entity.UI as UIContents3).AnswerBlackout();
+              
+              // 오답 사운드 출력
             }
-            */
+            
 
             mQuestionCount++;
             CheckFinished();

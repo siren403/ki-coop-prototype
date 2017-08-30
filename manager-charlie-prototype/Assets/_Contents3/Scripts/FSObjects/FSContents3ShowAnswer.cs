@@ -35,7 +35,6 @@ namespace Contents3
 
             AnswerPanel = GameObject.FindGameObjectWithTag("PanelAnswer");
 
-
             Timer.Start();
         }
         public override void Excute()
@@ -52,7 +51,7 @@ namespace Contents3
         }
         public override void Exit()
         {
-            AnswerPanel.transform.position = new Vector2(0, 0f);
+            //AnswerPanel.transform.position = new Vector2(0, 0f);
         }
 
         public void MovePanel()

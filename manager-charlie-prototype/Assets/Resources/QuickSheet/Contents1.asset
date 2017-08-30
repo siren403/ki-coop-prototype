@@ -13,4 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SheetName: Assets/_Home/DataResources/Contents/QnAContents.xlsx
   WorksheetName: Contents1
-  dataArray: []
+  dataArray:
+  - id: 0
+    episode: 0
+    question: 
+    correct: 
+  - id: 0
+    episode: 0
+    question: 
+    correct: 
+  - id: 0
+    episode: 0
+    question: 
+    correct: 

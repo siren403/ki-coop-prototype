@@ -8,6 +8,27 @@ using System.Linq;
 
 namespace Contents3
 {
+    public class QnA
+    {
+        public int Id;
+        public int Episode;
+        public string Question;
+
+        public string[] Correct;
+        public string Character;
+
+
+        public QnA(int id, int episode, string question, string[] correct, string character)
+        {
+            Id = id;
+            Episode = episode;
+            Question = question;
+            Correct = correct;
+            Character = character;
+        }
+    }
+    
+
     /// <summary>
     /// 컨텐츠3 게임루프 클래스
     /// </summary>
@@ -29,25 +50,6 @@ namespace Contents3
         }
 
 
-        private JsonData mContentsData = null;                          // 데이터 구성요소가 잡히기 전까지 사용할 데이터 객체
-
-        private QuickSheet.Contents3Data mCurrentCorrect = null;        // 현재 제출문제의 정답 데이터
-        private QuickSheet.Contents3Data mSelectedAnswer = null;        // 현재 제출 선택지 중 유저가 선택한 데이터
-        public QuickSheet.Contents3Data CurrentCorrect
-        {
-            get
-            {
-                return mCurrentCorrect;
-            }
-        }
-        public QuickSheet.Contents3Data SelectedAnswer
-        {
-            get
-            {
-                return mSelectedAnswer;
-            }
-        }
-
         public float CorrectProgress
         {
             get
@@ -63,11 +65,10 @@ namespace Contents3
             }
         }
 
-       
+        public List<QnA> QnAList = new List<QnA>();
 
         //* 문제 연출 변수 */
-        private string[] mQuestion = new string[] { "Hi", "Hello", "Hey" };              // 사운드로 바뀔 예정
-        private string[] mAnswer = new string[] { };
+        
 
         private int mMaximumQuestion = 6;                           // 최대 문제 수
         private int mSubmitQuestionCount = 0;                       // 제출된 문제 수
@@ -76,9 +77,6 @@ namespace Contents3
 
         private List<int> mUsedQuestionID = new List<int>();        // 사용된 문제 번호
         private int SelectAnswerID;
-
-        private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQnA = null;
-        private QuickSheet.Contents3Data[] mAnswers = new QuickSheet.Contents3Data[2];
 
         public int WrongCount
         {
@@ -123,7 +121,7 @@ namespace Contents3
         {
             CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
 
-            GetData(episodeID);
+            //GetData(episodeID);
 
             ChangeState(State.Situation);
         }
@@ -135,61 +133,102 @@ namespace Contents3
             //Character[2] = Resources.Load("Joy") as GameObject;
         }
 
-        /** 문제 랜덤 생성 */
-        public string GetQuestion()
-        {
-            int i = UnityEngine.Random.Range(0, mQuestion.Length);      // Question의 크기안에서 랜덤으로 문제를 냄
 
-            if(true == IsUsedQuestion(i))
-            {
-                return GetQuestion();                                          // 다시 랜덤 출제
-            }
-            else
-            {
-                mUsedQuestionID.Add(i);                                 // 이미낸 문제는 나중에 거르기 위해 List에 저장
-                return mQuestion[i];                                    // 중복 안된 것을 출제
-            }
-        }
-        public bool IsUsedQuestion(int i)
+        private JsonData mContentsData = null;                          // 데이터 구성요소가 잡히기 전까지 사용할 데이터 객체
+
+        private List<string> mQuestion = new List<string>();              // 사운드로 바뀔 예정
+        private string[] mAnswer = new string[] { };
+
+        private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQnA = null;
+        private QuickSheet.Contents3Data[] mAnswers = new QuickSheet.Contents3Data[2];
+
+        private QuickSheet.Contents3Data mCurrentCorrect = null;        // 현재 제출문제의 정답 데이터
+        private QuickSheet.Contents3Data mSelectedAnswer = null;        // 현재 제출 선택지 중 유저가 선택한 데이터
+        public QuickSheet.Contents3Data CurrentCorrect
         {
-            for (int j = 0; j < mQuestion.Length; j++)
+            get
             {
-                if (mQuestion[i] == mQuestion[mUsedQuestionID[j]])          // 선택된 문제가 이미 사용됨 = true
-                {
-                    return true;                                   
-                }
-                else if (mQuestion[i] != mQuestion[mUsedQuestionID[j]])     // 선택된 문제가 사용 안됨 = false
-                {
-                    return false;
-                }
+                return mCurrentCorrect;
             }
-            return false;
         }
-        public string[] GetAnswersData()
+        public QuickSheet.Contents3Data SelectedAnswer
         {
-            return mAnswer;
+            get
+            {
+                return mSelectedAnswer;
+            }
         }
-        /*
+        public string CurrentQuestion
+        {
+            get
+            {
+                return CurrentEpisode["question"][mSubmitQuestionCount % CurrentEpisode["question"].Count].ToString();
+            }
+        }
+
+
+        //* 데이터 로드 */
+        public void GetData(int episodeID)
+        {
+            var table = TableFactory.LoadContents3Table().dataArray
+                                    .Where((data) => data.Episode == mSelectedEpisode).ToList();
+
+            foreach (var row in table)
+            {
+                QnAList.Add(new QnA(row.ID, row.Episode, row.Question, row.Correct, row.Character));
+            }
+
+            Debug.Log(QnAList);
+
+            //mQnA = new Dictionary<string, Queue<QuickSheet.Contents3Data>>();
+
+            //CDebug.Log( QnAList[0].Correct[0].ToString());
+
+            /*
+            foreach (var row in table)
+            {
+                if (mQnA.ContainsKey(row.Question) == false)
+                {
+                    mQuestion.Add(row.Question);            // List에 Question 추가
+                    //CDebug.LogFormat("Question : {0}", mQuestion);
+                    mQnA.Add(row.Question, new Queue<QuickSheet.Contents3Data>(3));
+                }
+               mQnA[row.Question].Enqueue(row);
+               //CDebug.LogFormat("Question : {0}", mQnA[row.Question].ToString());
+            }
+            */
+
+
+        }
         public QuickSheet.Contents3Data[] GetAnswers()
         {
-            for(int i = 0; i < mAnswers.Length; i++)
+            for (int i = 0; i < mAnswers.Length; i++)
             {
                 mAnswers[i] = null;
             }
-
-            int answersIndex = 0;
-            mCurrentCorrect = mQnA[CurrentGreetings].Dequeue();
-            mAnswers[answersIndex] = mCurrentCorrect;
-            answersIndex++;
-            CDebug.LogFormat("Current : {0}", mCurrentCorrect.Question);
             
-            for(int i = 0; i < CurrentEpisode["Greeting"].Count; i++)
+            //int answersIndex = 0;
+            //mCurrentCorrect = mQnA["Hi"].Dequeue();
+            //mAnswers[answersIndex] = mCurrentCorrect;
+
+            CDebug.Log(mQnA["Hi"]);
+            CDebug.Log(mCurrentCorrect);
+            CDebug.LogFormat("CurrentQuestion : {0}", mCurrentCorrect.Question);
+
+
+            //answersIndex++;
+
+
+            /*
+            for (int i = 0; i < CurrentEpisode["question"].Count; i++)
             {
-                if (answersIndex < 4)
+                if (answersIndex < 2)
                 {
-                    if (CurrentEpisode["Greeting"][i].ToString().Equals(mCurrentCorrect.Question) == false)
+                    CDebug.LogFormat("{0}/{1}", CurrentEpisode["question"][i].ToString(), mCurrentCorrect.Question);
+                    if (CurrentEpisode["question"][i].ToString().Equals(mCurrentCorrect.Question) == false)
                     {
-                        mAnswers[answersIndex] = mQnA[CurrentEpisode["Greeting"][i].ToString()].First();
+                        mAnswers[answersIndex] = mQnA[CurrentEpisode["question"][i].ToString()].First();
+                        CDebug.Log("Answers : " + mAnswers[i].Correct[i]);
                         answersIndex++;
                     }
                 }
@@ -198,31 +237,20 @@ namespace Contents3
                     break;
                 }
             }
+            */
+
+            mSubmitQuestionCount++;             //문제 인덱스 증가
+            
+            return mAnswers;
         }
-        */
+        
 
         public void IncreaseCorrectCount()
         {
             mCorrectCount++;
         }
 
-        //* 데이터 로드 */
-        public void GetData(int episodeID)
-        {
-            var table = TableFactory.LoadContents3Table().dataArray
-                                    .Where((data) => data.Episode == mSelectedEpisode).ToList();
-
-            mQnA = new Dictionary<string, Queue<QuickSheet.Contents3Data>>();
-            foreach(var row in table)
-            {
-                if (mQnA.ContainsKey(row.Question) == false)
-                {
-                    mQnA.Add(row.Question, new Queue<QuickSheet.Contents3Data>(3));
-                }
-                mQnA[row.Question].Enqueue(row);
-            }
-        }
-
+        
 
         /** Finite State Machine */
         protected override QnAFiniteState CreateShowEpisode() { return new FSContents3ShowEpisode(); }

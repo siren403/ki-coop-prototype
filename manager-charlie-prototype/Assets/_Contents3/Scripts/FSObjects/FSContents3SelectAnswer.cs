@@ -52,7 +52,7 @@ public class FSContents3SelectAnswer : QnAFiniteState
                 CDebug.Log("After 3.0s, Anim and Change State to Answer");
 
                 // 다시 Answer 진입
-                //Entity.ChangeState(QnAContentsBase.State.Answer);
+                Entity.ChangeState(QnAContentsBase.State.Answer);
                 (Entity.UI as UIContents3).HideBalckout();
             }
         }

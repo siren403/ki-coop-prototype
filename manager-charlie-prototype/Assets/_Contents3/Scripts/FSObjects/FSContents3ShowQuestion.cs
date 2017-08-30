@@ -33,7 +33,6 @@ namespace Contents3
             Entity.UI.ShowQuestion();
             
             Timer.Start();
-
         }
         public override void Excute()
         {

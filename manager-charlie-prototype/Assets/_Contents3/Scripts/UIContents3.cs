@@ -84,6 +84,8 @@ namespace Contents3
             InstBtnMiniGame.onClick.AddListener(() => CDebug.Log("MiniGame"));
             InstBtnReplay.onClick.AddListener(() => CDebug.Log("Replay"));
             InstBtnNext.onClick.AddListener(() => CDebug.Log("Next"));
+
+           // mScene.GetAnswers();
         }
 
         private void ButtonChangeState(Button btn, bool enable)
@@ -124,25 +126,21 @@ namespace Contents3
         {
             CDebug.Log("ShowQuestion");
 
-            /** 문제 랜덤 출제 */
-            CDebug.LogFormat("What should I say?", mScene.GetQuestion());
-            mScene.GetQuestion();
         }
         public void ShowAnswer()                                                    // 답변 연출
         {
             CDebug.Log("Show Answer");
 
 
-            mAnswersData = mScene.GetAnswersData();
-            /**
+            /*
             var answers = mScene.GetAnswers();
             for (int i = 0; i < answers.Length; i++ )
             {
-                InstBtnAnswerList[i].GetComponentInChildren<Text>().text = answers[i].Correct;
+                InstBtnAnswerList[i].GetComponentInChildren<Text>().text = answers[i].Correct[i];
             }
             */
-            InstPanelAnswer.SetActive(true);
 
+            InstPanelAnswer.SetActive(true);
             mAnswerIndexSet.Clear();
             for(int i = 0; i < InstBtnAnswerList.Count; i++)
             {
@@ -152,7 +150,10 @@ namespace Contents3
                 ButtonChangeState(InstBtnAnswerList[i], true);
                 mAnswerIndexSet.Add(i);
             }
-            //mScene.ChangeState(QnAContentsBase.State.Select);
+            
+            mScene.ChangeState(QnAContentsBase.State.Select);
+            
+            
         }
         public void SelectAnswer()                                                  // 답변 선택
         {
