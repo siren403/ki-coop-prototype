@@ -52,6 +52,7 @@ namespace Contents3
         }
         public override void Exit()
         {
+            AnswerPanel.transform.position = new Vector2(0, 0f);
         }
 
         public void MovePanel()

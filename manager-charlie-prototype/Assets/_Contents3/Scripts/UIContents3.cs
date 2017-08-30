@@ -41,12 +41,12 @@ namespace Contents3
         private SceneContents3 mScene = null;
         private string[] mAnswersData = null;
 
-        private int mCurrentQuestion = 0;                       // 현재 문제 번호
-        private int mCorretAnswer = 0;                          // 맞힌 문제 수
+        private int mCurrentQuestion = 0;                               // 현재 문제 번호
+        private int mCorretAnswer = 0;                                  // 맞힌 문제 수
 
         //* 상황 연출 변수 */
-        private GameObject[] Character;                         // 문제 상황 캐릭터
-        private int mOrder = 0;                                 // 순서 
+        private GameObject[] Character;                                // 문제 상황 캐릭터
+        private int mOrder = 0;                                        // 순서 
 
 
         #region 이벤트 처리 함수
@@ -123,14 +123,15 @@ namespace Contents3
         public void ShowQuestion()                                                  // 문제 연출
         {
             CDebug.Log("ShowQuestion");
-            //CDebug.LogFormat("What should I say?", mScene.GetQuestion());
-            //mScene.GetQuestion();
+
+            /** 문제 랜덤 출제 */
+            CDebug.LogFormat("What should I say?", mScene.GetQuestion());
+            mScene.GetQuestion();
         }
         public void ShowAnswer()                                                    // 답변 연출
         {
             CDebug.Log("Show Answer");
 
-                
 
             mAnswersData = mScene.GetAnswersData();
             /**
@@ -155,20 +156,18 @@ namespace Contents3
         }
         public void SelectAnswer()                                                  // 답변 선택
         {
-            CDebug.Log("Show Answers Animation");
-
-            if(false == mScene.IsFinished())
-            {
-                
-            }
+            CDebug.Log("SelectAnswer");
         }
 
         public void CorrectAnswer()
         {
             CDebug.Log("Correct answer with animation");
+            mScene.IncreaseCorrectCount();
 
-            DOTween.To(() => InstCorrectGauge.Value, (x) => InstCorrectGauge.Value = x, mScene.CorrectProgress, 0.3f)
-                        .OnComplete(() =>
+            // 정답 게이지 기능
+            DOTween.To( () => InstCorrectGauge.Value, 
+                        (x) => InstCorrectGauge.Value = x, 
+                        mScene.CorrectProgress, 0.3f).OnComplete( () =>
                         {
                             if (mScene.HasNextQuestion)
                             {
@@ -180,7 +179,7 @@ namespace Contents3
                                // mScene.ChangeState(QnAContentsBase.State.Reward);
                                 CDebug.Log("Gauge full");
                             }
-                        });
+                        } );
 
             mCurrentQuestion++;
             mCorretAnswer++;
@@ -208,13 +207,9 @@ namespace Contents3
             CDebug.Log("Play Clear Animation");
 
             InstOutroPanel.SetActive(true);
-
-            //mScene.ChangeState(QnAContentsBase.State.Episode);
-
         }
-
         
-
+        // 암막 효과
         public void Blackout()
         {
             InstBlackPanle.SetActive(true);

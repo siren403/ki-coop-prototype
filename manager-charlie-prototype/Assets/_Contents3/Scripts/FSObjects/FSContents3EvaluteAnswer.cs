@@ -30,7 +30,6 @@ namespace Contents3
         {
             CDebug.Log("Enter: Evaluation");
             var scene = Entity as SceneContents3;
-            scene.IncreaseCorrectCount();
 
             /** 정답 비교 
             var scene = Entity as SceneContents3;
@@ -54,7 +53,7 @@ namespace Contents3
 
             mQuestionCount++;
             CheckFinished();
-
+            
         }
         public override void Exit()
         {
@@ -68,16 +67,18 @@ namespace Contents3
         public void CheckFinished()
         {
 
-            CDebug.Log(mQuestionCount);
+            CDebug.LogFormat("Question Cnt: {0}", mQuestionCount);
             if (mQuestionCount == 6)
             {
                 mQuestionCount = 0;
                 Entity.ChangeState(QnAContentsBase.State.Reward);
+                 
             }
             else
             {
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
         }
+        
     }
 }

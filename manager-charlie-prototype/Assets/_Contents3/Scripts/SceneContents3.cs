@@ -13,13 +13,6 @@ namespace Contents3
     /// </summary>
     public class SceneContents3 : QnAContentsBase
     {
-        public class QnAContets3
-        {
-            public string Question;         // 문제
-            public string Answer;           // 답변
-            public string[] Wrongs;         // 오답
-        }
-
         private const int CONTENTS_ID = 3;                      // 콘텐츠 번호
         private int mSelectedEpisode = 0;                       // 유저가 위치하고 있는 에피소드
 
@@ -70,11 +63,41 @@ namespace Contents3
             }
         }
 
+       
+
+        //* 문제 연출 변수 */
+        private string[] mQuestion = new string[] { "Hi", "Hello", "Hey" };              // 사운드로 바뀔 예정
+        private string[] mAnswer = new string[] { };
+
+        private int mMaximumQuestion = 6;                           // 최대 문제 수
+        private int mSubmitQuestionCount = 0;                       // 제출된 문제 수
+        private int mCorrectCount = 0;                              // 맞은 수
+        private int mWrongCount = 0;                                // 틀린 수
+
+        private List<int> mUsedQuestionID = new List<int>();        // 사용된 문제 번호
+        private int SelectAnswerID;
+
+        private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQnA = null;
+        private QuickSheet.Contents3Data[] mAnswers = new QuickSheet.Contents3Data[2];
+
+        public int WrongCount
+        {
+            get { return mWrongCount; } 
+            set { mWrongCount = value; } 
+        }
+
+        protected override void Initialize()
+        {
+            string json = Resources.Load<TextAsset>("ContentsData/Contents3").text;
+            mContentsData = JsonMapper.ToObject(json);
+
+            ChangeState(State.Episode);
+        }
         public void SelectAnswer(int answerID)
         {
             CDebug.LogFormat("answerID: {0}", answerID);
             this.SelectAnswerID = answerID;
-            if(SelectAnswerID == 0)
+            if (SelectAnswerID == 0)
             {
 
                 ChangeState(State.Evaluation);
@@ -96,44 +119,6 @@ namespace Contents3
                 return mContentsData["episode"][mSelectedEpisode - 1];
             }
         }
-        public string CurrentGreetings
-        {
-            get
-            {
-                return CurrentEpisode["Greeting"][mSubmitQuestionCount % CurrentEpisode["Greeting"].Count].ToString();
-            }
-        }
-
-        //* 문제 연출 변수 */
-        private string[] mQuestion = new string[] { };
-        private string[] mAnswer = new string[] { };
-
-        private int mMaximumQuestion = 6;                           // 최대 문제 수
-        private int mSubmitQuestionCount = 0;                       // 제출된 문제 수
-        private int mCorrectCount = 0;                              // 맞은 수
-        private int mWrongCount = 0;                                // 틀린 수
-
-        private int mQuestionCount = 0;                             // 등장 문제 수
-        private List<int> mUsedQuestionID = new List<int>();        // 사용된 문제 번호
-        private int SelectAnswerID;
-
-        private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQnA = null;
-        private QuickSheet.Contents3Data[] mAnswers = new QuickSheet.Contents3Data[2];
-
-        public int WrongCount
-        {
-            get { return mWrongCount; } 
-            set { mWrongCount = value; } 
-        }
-
-        protected override void Initialize()
-        {
-            string json = Resources.Load<TextAsset>("ContentsData/Contents3").text;
-            mContentsData = JsonMapper.ToObject(json);
-
-            ChangeState(State.Episode);
-        }
-
        public void SelectEpisode(int episodeID)
         {
             CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
@@ -149,13 +134,15 @@ namespace Contents3
             //Character[1] = Resources.Load("Joy") as GameObject;
             //Character[2] = Resources.Load("Joy") as GameObject;
         }
+
+        /** 문제 랜덤 생성 */
         public string GetQuestion()
         {
             int i = UnityEngine.Random.Range(0, mQuestion.Length);      // Question의 크기안에서 랜덤으로 문제를 냄
 
             if(true == IsUsedQuestion(i))
             {
-                return GetQuestion();                                   // 다시 랜덤 출제
+                return GetQuestion();                                          // 다시 랜덤 출제
             }
             else
             {
@@ -175,15 +162,6 @@ namespace Contents3
                 {
                     return false;
                 }
-            }
-            return false;
-        }
-        public bool IsFinished()
-        {
-            if (6 == mQuestionCount)
-            {
-                CDebug.Log("Finished");
-                ChangeState(QnAContentsBase.State.Reward);
             }
             return false;
         }
