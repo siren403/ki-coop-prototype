@@ -23,7 +23,7 @@ public class FSContents2ShowAnswer : QnAFiniteState
     public override void Enter()
     {
         CDebug.Log(" ----------------------------------------------- ShowAnswer----------------------------------");
-        Entity.UI.ShowAnswer();
+        Entity.View.ShowAnswer();
         Entity.ChangeState(QnAContentsBase.State.Select);
 
     }

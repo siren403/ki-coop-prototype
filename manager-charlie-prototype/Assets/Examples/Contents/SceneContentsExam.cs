@@ -42,7 +42,7 @@ namespace Examples
          *
          * @return  추상화된 UI 인터페이스
          */
-        public override IQnAView UI
+        public override IQnAView View
         {
             get
             {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Util
 {
+    [System.Obsolete]
     public class ShuffleMachine<T> where T : IList
     {
         private T mArray = default(T);

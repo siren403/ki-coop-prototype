@@ -26,7 +26,7 @@ namespace Contents2
         {
             CDebug.Log(" ----------------------------------------------- ShowReward----------------------------------");
             CDebug.Log("[FSM] Show Reward");
-            Entity.UI.ShowReward();
+            Entity.View.ShowReward();
             CDebug.Log("[FSM] Send Clear Data");
         }
 
@@ -36,7 +36,7 @@ namespace Contents2
             if (Timer.Check(1.5f))
             {
                 CDebug.Log("[FSM] Receive Reward Data");
-                Entity.UI.ShowReward();
+                Entity.View.ShowReward();
             }
         }
 

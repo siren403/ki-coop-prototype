@@ -18,7 +18,7 @@ namespace Contents1
         }
         public override void Enter()
         {
-            Entity.UI.ShowEpisode();
+            Entity.View.ShowEpisode();
         }
         public override void Excute()
         {

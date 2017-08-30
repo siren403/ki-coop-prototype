@@ -1,5 +1,11 @@
-﻿using System.Collections.Generic;
+﻿//#define ADD
+//#define REMOVE
+//#define ENTER
+//#define EXIT
+
+using System.Collections.Generic;
 using UnityEngine;
+using CustomDebug;
 
 namespace FSM
 {
@@ -88,12 +94,19 @@ namespace FSM
             if(mCurrentState != null)
             {
                 mCurrentState.Exit();
+#if EXIT
+                CDebug.LogFormat("{0} Exit", mCurrentState.StateID.ToString());
+#endif
                 mPreviousState = mCurrentState;
             }
 
             mCurrentState = nextState;
 
             mCurrentState.Enter();
+#if ENTER
+            CDebug.LogFormat("{0} Enter", mCurrentState.StateID.ToString());
+#endif
+
         }
 
 
@@ -106,7 +119,7 @@ namespace FSM
             else
             {
                 ChangeState(EmptyState);
-                //UnityEngine.Debug.LogError("Not Find Key");
+                CDebug.LogFormat("Not Found Key {0}", stateID.ToString());
             }
         }
 
@@ -126,6 +139,10 @@ namespace FSM
             if (mStateDic.ContainsKey(state.StateID) == false)
             {
                 mStateDic.Add(state.StateID, state);
+#if ADD
+                CDebug.LogFormat("{0} Add Success", state.StateID.ToString());
+#endif
+
             }
             else
             {
@@ -140,7 +157,12 @@ namespace FSM
         public void RemoveState(FiniteState<T, U> state)
         {
             if(mStateDic.ContainsKey(state.StateID))
+            {
                 mStateDic.Remove(state.StateID);
+#if REMOVE
+                CDebug.LogFormat("{0} Remove Success", state.StateID.ToString());
+#endif
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Contents2
         [SerializeField]
         private UIContents2 mInstUI = null;
    
-        public override IQnAView UI
+        public override IQnAView View
         {
             get
             {

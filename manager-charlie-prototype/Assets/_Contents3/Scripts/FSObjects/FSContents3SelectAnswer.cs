@@ -40,7 +40,7 @@ public class FSContents3SelectAnswer : QnAFiniteState
             if (Timer.Check(10.0f))
             {
                 CDebug.Log("After 10.0s, Don't Answer");
-                (Entity.UI as UIContents3).Blackout();
+                (Entity.View as UIContents3).Blackout();
 
                 Requestion();
             }
@@ -53,7 +53,7 @@ public class FSContents3SelectAnswer : QnAFiniteState
 
                 // 다시 Answer 진입
                 Entity.ChangeState(QnAContentsBase.State.Answer);
-                (Entity.UI as UIContents3).HideBalckout();
+                (Entity.View as UIContents3).HideBalckout();
             }
         }
     }

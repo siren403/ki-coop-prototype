@@ -32,7 +32,7 @@ namespace Contents1
             //    CDebug.Log("Clear!");
             //}
 
-            Entity.UI.ClearEpisode();
+            Entity.View.ClearEpisode();
         }
 
         public override void Excute()
@@ -40,7 +40,7 @@ namespace Contents1
             if (TouchInput.Begin())
             {
                 //Outro 활성화
-                (Entity.UI as ViewContents1).ShowOutro();
+                (Entity.View as ViewContents1).ShowOutro();
                 Entity.ChangeState(QnAContentsBase.State.None);
             }
         }

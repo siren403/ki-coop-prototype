@@ -21,7 +21,7 @@ public class FSContents3ClearEpisode : QnAFiniteState
     }
     public override void Enter()
     {
-        Entity.UI.ClearEpisode();
+        Entity.View.ClearEpisode();
     }
     public override void Exit()
     {

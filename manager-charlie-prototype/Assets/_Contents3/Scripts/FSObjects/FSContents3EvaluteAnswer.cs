@@ -31,7 +31,7 @@ namespace Contents3
             
 
             //(Entity.UI as UIContents3).mScene.GetQuestionCount();
-            (Entity.UI as UIContents3).AnswerBlackout();
+            (Entity.View as UIContents3).AnswerBlackout();
         }
         public override void Exit()
         {

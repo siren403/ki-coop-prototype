@@ -19,7 +19,7 @@ namespace UIComponent
             }
             get
             {
-                return Foreground.fillAmount;
+                return Mathf.Clamp(Foreground.fillAmount * 2.0f, 0, 1.0f);
             }
         }
        

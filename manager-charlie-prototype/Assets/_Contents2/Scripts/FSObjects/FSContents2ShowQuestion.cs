@@ -26,7 +26,7 @@ namespace Contents2
         {
             CDebug.Log(" ----------------------------------------------- ShowQuestion----------------------------------");
             Timer.Start();
-            Entity.UI.ShowQuestion();
+            Entity.View.ShowQuestion();
         }
         public override void Excute()
         {

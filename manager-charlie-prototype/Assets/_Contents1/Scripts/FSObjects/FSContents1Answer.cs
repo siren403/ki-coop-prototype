@@ -22,7 +22,7 @@ namespace Contents1
 
         public override void Enter()
         {
-            Entity.UI.ShowAnswer();
+            Entity.View.ShowAnswer();
         }
 
         public override void Excute()

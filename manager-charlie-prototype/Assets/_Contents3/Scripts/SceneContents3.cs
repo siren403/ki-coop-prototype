@@ -21,7 +21,7 @@ namespace Contents3
         [SerializeField]
         public UIContents3 mInstUI = null;                     // UI 연결용
 
-        public override IQnAView UI
+        public override IQnAView View
         {
             get
             {

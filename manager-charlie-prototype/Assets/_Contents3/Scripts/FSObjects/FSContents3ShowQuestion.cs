@@ -31,7 +31,7 @@ namespace Contents3
 
             // 데이터 받아서 문제 출력
 
-            Entity.UI.ShowQuestion();
+            Entity.View.ShowQuestion();
             Timer.Start();
 
         }

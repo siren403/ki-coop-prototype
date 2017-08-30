@@ -23,7 +23,7 @@ namespace Contents1
         public override void Enter()
         {
             CDebug.Log("Enter Reward");
-            Entity.UI.ShowReward();
+            Entity.View.ShowReward();
         }
 
         public override void Excute()

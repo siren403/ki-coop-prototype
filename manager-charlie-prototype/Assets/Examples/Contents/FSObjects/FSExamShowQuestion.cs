@@ -23,7 +23,7 @@ namespace Examples
         public override void Enter()
         {
             CDebug.Log("[FSM] Show Question and Wating Animation");
-            Entity.UI.ShowQuestion();
+            Entity.View.ShowQuestion();
             Timer.Start();
         }
         public override void Excute()

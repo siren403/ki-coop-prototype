@@ -23,18 +23,27 @@ namespace Contents1
 
         public override void Enter()
         {
-            CDebug.Log("Enter Evaluation");
-
             var scene = Entity as SceneContents1;
             if(scene.CurrentCorrect.ID == scene.SelectedAnswer.ID)
             {
                 scene.IncrementCorrectCount();
-                Entity.UI.CorrectAnswer();
+                Entity.View.CorrectAnswer();
             }
             else
             {
-                (Entity as SceneContents1).WrongCount++;
-                Entity.UI.WrongAnswer();
+
+                scene.IncrementWrongCount();
+
+                //3번 틀리면 정답강조 후 다음 문제
+                if (scene.WrongCount >= 3)
+                {
+                    scene.RecycleCurrentQuestion();
+                    (Entity.View as ViewContents1).PerfectWrongAnswer();
+                }
+                else
+                {
+                    Entity.View.WrongAnswer();
+                }
             }
         }
         public override void Exit()

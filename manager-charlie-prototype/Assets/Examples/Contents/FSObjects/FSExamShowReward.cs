@@ -32,7 +32,7 @@ namespace Examples
             if (Timer.Check(1.5f))
             {
                 CDebug.Log("[FSM] Receive Reward Data");
-                Entity.UI.ShowReward();
+                Entity.View.ShowReward();
             }
         }
         public override void Exit()

@@ -27,7 +27,7 @@ namespace Contents.QnA
             Evaluation, Reward, Clear,
         }
 
-        public abstract IQnAView UI { get; }
+        public abstract IQnAView View { get; }
         /**
          * @fn  protected sealed override void Awake()
          *
@@ -52,7 +52,7 @@ namespace Contents.QnA
         protected sealed override void Start()
         {
             Initialize();
-            IViewInitialize viewInit = UI as IViewInitialize;
+            IViewInitialize viewInit = View as IViewInitialize;
             if(viewInit != null)
             {
                 viewInit.Initialize(this);

@@ -13,6 +13,14 @@ using System.Linq;
 
 namespace Contents1
 {
+    /**
+     @class ViewContents1
+    
+     @brief 컨텐츠 1의 View
+    
+     @author    SEONG
+     @date  2017-08-31
+     */
     public class ViewContents1 : MonoBehaviour, IQnAView, IViewInitialize
     {
         private SceneContents1 mScene = null;
@@ -46,6 +54,16 @@ namespace Contents1
 
         //public List<GameObject> InstImgBlockList = null;
 
+        /**
+         @fn    public void Initialize(QnAContentsBase scene)
+        
+         @brief View 초기화
+        
+         @author    SEONG
+         @date  2017-08-31
+        
+         @param scene   The scene.
+         */
         public void Initialize(QnAContentsBase scene)
         {
             //IViewInitialize 인터페이스 구현에 따라 형변환하여 참조
@@ -56,7 +74,7 @@ namespace Contents1
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
-                btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
+                btn.Initialize(i + 1, OnBtnSelectEpisode);
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 
@@ -71,6 +89,17 @@ namespace Contents1
             InstBtnNext.onClick.AddListener(() => CDebug.Log("Next"));
         }
 
+        /**
+         @fn    private void ButtonChangeState(Button btn,bool enable)
+        
+         @brief 전달한 버튼의 상태를 바꿈
+        
+         @author    SEONG
+         @date  2017-08-31
+        
+         @param btn     The button control.
+         @param enable  True to enable, false to disable.
+         */
         private void ButtonChangeState(Button btn,bool enable)
         {
             if(enable)
@@ -110,7 +139,17 @@ namespace Contents1
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
 
-        public void OnBtnSelectEpisodeEvent(int episodeID)
+        /**
+         @fn    private void OnBtnSelectEpisodeEvent(int episodeID)
+        
+         @brief 에피소드 버튼 선택 시 호출
+        
+         @author    SEONG
+         @date  2017-08-31
+        
+         @param episodeID   Identifier for the episode.
+         */
+        private void OnBtnSelectEpisode(int episodeID)
         {
             mScene.SelectEpisode(episodeID);
             InstPanelEpisodeList.gameObject.SetActive(false);
@@ -144,7 +183,14 @@ namespace Contents1
             mScene.ChangeState(QnAContentsBase.State.Answer);
         }
 
-        // As Select
+        /**
+         @fn    public void ShowAnswer()
+        
+         @brief 선택지를 보여줌
+        
+         @author    SEONG
+         @date  2017-08-31
+         */
         public void ShowAnswer()
         {
             CDebug.Log("View ShowAnswer");
@@ -197,11 +243,17 @@ namespace Contents1
             
         }
 
-
-        // 맞췄을 경우 - as FSContents1Evaluation
+        /**
+         @fn    public void CorrectAnswer()
+        
+         @brief 정답 선택 시 정반응 
+        
+         @author    SEONG
+         @date  2017-08-31
+         */
         public void CorrectAnswer()
         {
-            Debug.Log("UI CorrectAnswer");
+            InstEventSystem.enabled = false;
             // 블랙알파 후 캐릭터 애니메이션을 재생해야 하지만 현재는 리소스가 없으니
             // 선택지 패널 off
             InstPanelAnswer.gameObject.SetActive(false);
@@ -218,56 +270,48 @@ namespace Contents1
                         mScene.ChangeState(QnAContentsBase.State.Reward);
                         CDebug.Log("End Question");
                     }
+                    InstEventSystem.enabled = true;
                 });
             
         }
 
-        // 못 맞췄을 경우 - as FSContents1Evaluation
+        /**
+         @fn    public void WrongAnswer()
+        
+         @brief 틀린 답 선택 시 오반응
+        
+         @author    SEONG
+         @date  2017-08-31
+         */
         public void WrongAnswer()
         {
-            Debug.Log("UI WrondAnswer");
+            ButtonChangeState(InstBtnAnswerList[mSelectedAnswerIndex], false);
+            mScene.ChangeState(QnAContentsBase.State.Select);
+        }
+
+        /**
+         @fn    public void PerfectWrongAnswer()
+        
+         @brief 3번 틀린 답 선택시 강제 진행
+        
+         @author    SEONG
+         @date  2017-08-31
+         */
+        public void PerfectWrongAnswer()
+        {
             ButtonChangeState(InstBtnAnswerList[mSelectedAnswerIndex], false);
 
-            //3번 틀리면 정답강조 후 다음 문제
-            if(mScene.WrongCount >= 3)
-            {
-                //3번 틀린 이후라면 HashSet에는 하나의 인덱스만 남아있고
-                //그 인덱스가 정답버튼의 인덱스
-                CDebug.LogFormat("Correct Answer Index : {0}", mAnswerIndexSet.First());
-                InstEventSystem.enabled = false;
-                InstBtnAnswerList[mAnswerIndexSet.First()].image.DOColor(Color.green, 0.15f)
-                    .SetLoops(8, LoopType.Yoyo)
-                    .OnComplete(() =>
-                    {
-                        InstEventSystem.enabled = true;
-                        mScene.ChangeState(QnAContentsBase.State.Question);
-                    });
-            }
-            else
-            {
-                mScene.ChangeState(QnAContentsBase.State.Select);
-            }
-
-
-
-
-            //mScene.BlockInfo[mSelectedAnswerIndex] = true;
-            //InstImgBlockList[mSelectedAnswerIndex].SetActive(true);
-
-            //// 오답 개수가 3개 미만 일 경우
-            //if (mScene.ThisProblemCount < 2)
-            //{
-            //    mScene.ThisProblemCount++;
-            //    mScene.BlockInfo[mScene.Contents1AnswerNumber] = true;
-            //    //mScene.ChangeState(QnAContentsBase.State.Situation);
-            //    mScene.ChangeState(QnAContentsBase.State.Select);
-            //}
-            //// 오답 개수가 3개 이상일 경우, 정답 처리 후 넘어감
-            //else
-            //{
-            //    CDebug.Log("Fail Answer");
-            //    CorrectAnswer();
-            //}
+            //3번 틀린 이후라면 HashSet에는 하나의 인덱스만 남아있고
+            //그 인덱스가 정답버튼의 인덱스
+            CDebug.LogFormat("Correct Answer Index : {0}", mAnswerIndexSet.First());
+            InstEventSystem.enabled = false;
+            InstBtnAnswerList[mAnswerIndexSet.First()].image.DOColor(Color.green, 0.15f)
+                .SetLoops(8, LoopType.Yoyo)
+                .OnComplete(() =>
+                {
+                    InstEventSystem.enabled = true;
+                    mScene.ChangeState(QnAContentsBase.State.Question);
+                });
         }
         public void ShowReward()
         {
@@ -291,34 +335,6 @@ namespace Contents1
                 mScene.ChangeState(QnAContentsBase.State.Clear);
             }
             
-
-            //return;
-            //// Reward 게이지 체크
-            //if (mScene.ThisProblemCount < 2)
-            //{
-            //    mScene.CorrectAnswerCount++;
-            //    mScene.Contents1GuagePercent++;
-
-            //}
-
-            //mScene.CurrentQuestionIndex++;
-            //mScene.ThisProblemCount = 0;
-
-            //mScene.BlockInfo[0] = false;
-            //mScene.BlockInfo[1] = false;
-            //mScene.BlockInfo[2] = false;
-            //mScene.BlockInfo[3] = false;
-
-            //if(mScene.CurrentQuestionIndex >= 10)
-            //{
-            //    CDebug.Log("Again answer");
-            //    mScene.ChangeState(QnAContentsBase.State.Clear);
-            //}
-            //else
-            //{
-            //    CDebug.Log("Done answer");
-            //    mScene.ChangeState(QnAContentsBase.State.Situation);
-            //}
         }
         public void ClearEpisode()
         {

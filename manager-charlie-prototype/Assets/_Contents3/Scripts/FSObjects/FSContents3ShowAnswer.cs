@@ -30,7 +30,7 @@ namespace Contents3
 
             // 데이터를 받아서 답지 출력
 
-            Entity.UI.ShowAnswer();
+            Entity.View.ShowAnswer();
             CDebug.Log("ShowAnswer : 이미지 확대 + 대사 출력");
 
             AnswerPanel = GameObject.FindGameObjectWithTag("PanelAnswer");

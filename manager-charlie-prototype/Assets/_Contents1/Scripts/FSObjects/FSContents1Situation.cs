@@ -21,7 +21,7 @@ namespace Contents1
         }
         public override void Enter()
         {
-            Entity.UI.ShowSituation();
+            Entity.View.ShowSituation();
             mTimer.Start();
         }
         public override void Excute()

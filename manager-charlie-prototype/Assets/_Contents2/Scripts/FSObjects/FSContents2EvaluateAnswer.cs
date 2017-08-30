@@ -46,12 +46,12 @@ namespace Contents2
 
             if (selectedId == randomCorrectAnswerID)
             {
-                Entity.UI.CorrectAnswer();
+                Entity.View.CorrectAnswer();
             }
             //* 오답일 때*/
             else
             {
-                Entity.UI.WrongAnswer();
+                Entity.View.WrongAnswer();
                 Entity.ChangeState(QnAContentsBase.State.Select);
             }
         }

@@ -418,7 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9b466c69e188949bcef6391d00649d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Testobject: {fileID: 0}
   InstPanelEpisodeList: {fileID: 587120422}
   PFEpisodeButton: {fileID: 114790336360990548, guid: 3fe0808b317fe0043b45ce5937704aaf,
     type: 2}
@@ -635,8 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc995f23c998e9b4d8a378ef29b01df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockInfo: 00000000
-  mInstUI: {fileID: 560701287}
+  mInstView: {fileID: 560701287}
+  mQnATable: {fileID: 11400000, guid: ab8a1ea01b71fb74ea83fcefcfe03a0b, type: 2}
 --- !u!1 &827271397
 GameObject:
   m_ObjectHideFlags: 0

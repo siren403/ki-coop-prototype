@@ -31,7 +31,7 @@ namespace Contents3
             CDebug.Log("Situation");
             Timer.Start();
 
-            Entity.UI.ShowSituation();
+            Entity.View.ShowSituation();
 
         }
         public override void Excute()

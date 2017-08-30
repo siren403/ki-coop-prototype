@@ -24,12 +24,12 @@ namespace Examples
             CDebug.Log("[FSM] Eval Answer");
             if ((Entity as SceneContentsExam).SelectAnswerID == 0)
             {
-                (Entity.UI as UIContentsExam).CorrectAnswer();
+                (Entity.View as UIContentsExam).CorrectAnswer();
                 Entity.ChangeState(QnAContentsBase.State.Reward);
             }
             else
             {
-                (Entity.UI as UIContentsExam).WrongAnswer();
+                (Entity.View as UIContentsExam).WrongAnswer();
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
         }
