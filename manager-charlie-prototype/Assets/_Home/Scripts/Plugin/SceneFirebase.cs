@@ -62,21 +62,21 @@ namespace Examples.Plugin
             {
                 txtValid += "\n유효하지 않은 이메일";
             }
-            CDebug.Log(txtValid);
+            Print(txtValid);
             mResultText.Value = txtValid;
             if (isValidAccount && isValidPassword)
             {
                 mAuth.CreateUserWithEmailAndPasswordAsync(mAccount, mPassword).ContinueWith(task => {
                     if (task.IsCanceled)
                     {
-                        Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
-                        mResultText.Value = "CreateUserWithEmailAndPasswordAsync was canceled.";
+                        //Debug.LogError("CreateUserWithEmailAndPasswordAsync was canceled.");
+                        Print("CreateUserWithEmailAndPasswordAsync was canceled.");
                         return;
                     }
                     if (task.IsFaulted)
                     {
-                        Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
-                        mResultText.Value = "CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception;
+                        //Debug.LogError("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+                        Print("CreateUserWithEmailAndPasswordAsync encountered an error: " + task.Exception);
 
                         return;
                     }
@@ -85,7 +85,7 @@ namespace Examples.Plugin
                     mCurrentUser = task.Result;
                     string result = string.Format("Firebase user created successfully: {0} ({1})",
                         mCurrentUser.DisplayName, mCurrentUser.UserId);
-                    CDebug.Log(result);
+                    Print(result);
                     mResultText.Value = result;
                 });
             }
@@ -112,22 +112,22 @@ namespace Examples.Plugin
             mAuth.SignInWithEmailAndPasswordAsync(mAccount, mPassword).ContinueWith(task => {
                 if (task.IsCanceled)
                 {
-                    Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
-                    mResultText.Value = "SignInWithEmailAndPasswordAsync was canceled.";
+                    //Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
+                    Print("SignInWithEmailAndPasswordAsync was canceled.");
 
                     return;
                 }
                 if (task.IsFaulted)
                 {
-                    Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
-                    mResultText.Value = "SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception;
+                    //Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+                    Print("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
                     return;
                 }
 
                 mCurrentUser = task.Result;
                 string result = string.Format("User signed in successfully: {0} ({1})",
                     mCurrentUser.DisplayName, mCurrentUser.UserId);
-                CDebug.Log(result);
+                Print(result);
                 mResultText.Value = result;
             });
         }
@@ -147,16 +147,16 @@ namespace Examples.Plugin
                 bool signedIn = mCurrentUser != mAuth.CurrentUser && mAuth.CurrentUser != null;
                 if (!signedIn && mCurrentUser != null)
                 {
-                    CDebug.Log("Signed out " + mCurrentUser.UserId);
+                    Print("Signed out " + mCurrentUser.UserId);
                 }
                 mCurrentUser = mAuth.CurrentUser;
                 if (signedIn)
                 {
-                    CDebug.LogFormat("Signed in {0}\nName : {1}\nEmail : {2}\nPhotoUrl : {3}",
+                    Print(string.Format("Signed in {0}\nName : {1}\nEmail : {2}\nPhotoUrl : {3}",
                         mCurrentUser.UserId,
                         mCurrentUser.DisplayName,
                         mCurrentUser.Email,
-                        mCurrentUser.PhotoUrl);
+                        mCurrentUser.PhotoUrl));
 
                 }
             }
@@ -173,6 +173,41 @@ namespace Examples.Plugin
             {
                 Application.Quit();
             }
+        }
+
+
+        public void CreateGuest()
+        {
+            mAuth.SignInAnonymouslyAsync().ContinueWith(task => {
+                if (task.IsCanceled)
+                {
+                    //Debug.LogError("SignInAnonymouslyAsync was canceled.");
+                    Print("SignInAnonymouslyAsync was canceled.");
+                    return;
+                }
+                if (task.IsFaulted)
+                {
+                    //Debug.LogError("SignInAnonymouslyAsync encountered an error: " + task.Exception);
+                    Print("SignInAnonymouslyAsync encountered an error: " + task.Exception);
+                    return;
+                }
+
+                Firebase.Auth.FirebaseUser newUser = task.Result;
+                Print(string.Format("User signed in successfully: {0} ({1})",
+                    newUser.DisplayName, newUser.UserId));
+            });
+        }
+
+        public void CallFromNative(string str)
+        {
+            mResultText.Value = str;
+        }
+
+
+        private void Print(string str)
+        {
+            CDebug.Log(str);
+            mResultText.Value = str;
         }
     }
 }

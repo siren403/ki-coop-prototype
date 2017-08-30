@@ -1,13 +1,19 @@
 package com.kids.charlie;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.unity3d.player.UnityPlayer;
+import com.unity3d.player.UnityPlayerActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends UnityPlayerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        UnityPlayer.UnitySendMessage("InstSceneFirebase","CallFromNative","Native Call Test");
+    }
+
+    public String CallByUnityString(String str) {
+        return "Plugin Object : "+str;
     }
 }

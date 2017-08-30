@@ -16,7 +16,7 @@ namespace Examples.Plugin
         /** @brief Navigation */
         public GameObject InstPanelNavigation = null;
         public Button InstBtnOpenEmail = null;
-        public Button InstBtnOpenGoogle = null;
+        public Button InstBtnOpenGuest = null;
 
         /** @brief Email*/
         public GameObject InstPanelEmail = null;
@@ -25,6 +25,11 @@ namespace Examples.Plugin
         public Button InstBtnCreateUser = null;
         public Button InstBtnLogin = null;
         public Button InstBtnLogout = null;
+
+
+        /** @brief Guest */
+        public GameObject InstPanelGuest = null;
+        public Button InstBtnGuestLogin = null;
 
 
         public void SetScene(SceneFirebase scene)
@@ -49,6 +54,15 @@ namespace Examples.Plugin
                 .Subscribe(_ => mScene.Login());
             InstBtnLogout.OnClickAsObservable().Subscribe(_ => mScene.Logout());
 
+            InstBtnOpenGuest.OnClickAsObservable().Subscribe(_ =>
+            {
+                InstPanelNavigation.SetActive(false);
+                InstPanelGuest.SetActive(true);
+            });
+            InstBtnGuestLogin.OnClickAsObservable().Subscribe(_ => 
+            {
+                mScene.CreateGuest();
+            });
         }
 
         
