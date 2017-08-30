@@ -46,7 +46,6 @@ namespace Contents1
 
         //public List<GameObject> InstImgBlockList = null;
 
-
         public void Initialize(QnAContentsBase scene)
         {
             //IViewInitialize 인터페이스 구현에 따라 형변환하여 참조
@@ -66,15 +65,11 @@ namespace Contents1
             InstBtnAnswerList[2].onClick.AddListener(() => OnBtnSelectAnswer(2));
             InstBtnAnswerList[3].onClick.AddListener(() => OnBtnSelectAnswer(3));
 
-
-
             InstBtnHome.onClick.AddListener(() => CDebug.Log("Home"));
             InstBtnMiniGame.onClick.AddListener(() => CDebug.Log("MiniGame"));
-            InstBtnReplay.onClick.AddListener(() => CDebug.Log("Replay"));
+            InstBtnReplay.onClick.AddListener(() => OutroMove(3));
             InstBtnNext.onClick.AddListener(() => CDebug.Log("Next"));
-
         }
-
 
         private void ButtonChangeState(Button btn,bool enable)
         {
@@ -87,11 +82,18 @@ namespace Contents1
             {
                 btn.enabled = false;
                 btn.image.color = new Color(0.6f, 0.6f, 0.6f, 0.5f);
-            }
-          
-        }
+            }          
+        }        
 
-        
+        public void OutroMove(int moveInfo)
+        {
+            if(moveInfo == 3)
+            {
+                CDebug.Log("RePlay!");
+
+                mScene.ChangeState(QnAContentsBase.State.Situation);
+            }
+        }
 
         /**
          * @fn  public void ShowEpisode()
@@ -107,6 +109,7 @@ namespace Contents1
             InstCorrectGuage.gameObject.SetActive(false);
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
+
         public void OnBtnSelectEpisodeEvent(int episodeID)
         {
             mScene.SelectEpisode(episodeID);
@@ -152,12 +155,6 @@ namespace Contents1
             }
             InstPanelAnswer.SetActive(true);
 
-            // 선택지 블럭 이미지 ON/OFF
-            //for (int i = 0; i < mScene.BlockInfo.Length; i++)
-            //{
-            //    bool info = mScene.BlockInfo[i];
-            //    InstImgBlockList[i].SetActive(info);
-            //}
             mAnswerIndexSet.Clear();
             for (int i = 0; i < InstBtnAnswerList.Count; i++)
             {

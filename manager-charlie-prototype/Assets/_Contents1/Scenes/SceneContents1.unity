@@ -418,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9b466c69e188949bcef6391d00649d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Testobject: {fileID: 0}
   InstPanelEpisodeList: {fileID: 587120422}
   PFEpisodeButton: {fileID: 114790336360990548, guid: 3fe0808b317fe0043b45ce5937704aaf,
     type: 2}
