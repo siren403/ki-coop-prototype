@@ -31,7 +31,7 @@ namespace Contents2
 
         public override void Enter()
         {
-
+            CDebug.Log(" ----------------------------------------------- EvaluateAnswer----------------------------------");
             Timer.Start();
 
             evalAnswer++;

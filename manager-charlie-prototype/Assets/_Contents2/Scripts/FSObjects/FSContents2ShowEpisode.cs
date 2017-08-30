@@ -23,6 +23,7 @@ namespace Contents2
         public override void Enter()
         {
             Entity.UI.ShowEpisode();
+            CDebug.Log(" ----------------------------------------------- ShowEpisode----------------------------------");
         }
 
         public override void Excute()

@@ -24,6 +24,7 @@ namespace Contents2
 
         public override void Enter()
         {
+            CDebug.Log(" ----------------------------------------------- ShowReward----------------------------------");
             CDebug.Log("[FSM] Show Reward");
             Entity.UI.ShowReward();
             CDebug.Log("[FSM] Send Clear Data");

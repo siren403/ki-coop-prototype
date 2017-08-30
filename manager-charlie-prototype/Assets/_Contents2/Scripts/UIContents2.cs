@@ -15,61 +15,56 @@ namespace Contents2
     {
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;
+        //* 정답 버튼*/
+        public List<Button> InstEpisodeBtnList = new List<Button>();
+        public Sprite InstLockImage;
 
         public CorrectGuage InstCorrectGuage = null;
 
         //* 문제 Situation panel*/
-        [SerializeField]
-        private GameObject InstPanelSituation = null;
-        [SerializeField]
-        private GameObject InstPanelSituationBack = null;
-        [SerializeField]
-        private GameObject InstImgCharacter = null;
-        [SerializeField]
-        private GameObject InstImgItem= null;
+
+        public GameObject InstPanelSituation = null;
+
+        public GameObject InstPanelQuestion = null;
+
+        public GameObject InstPanelQuestionBack = null;
+
+        public GameObject InstImgCharacter = null;
+
+        public GameObject InstImgItem= null;
 
         //*가시적으로 보기위해 임시로 text 추가함  */
-        [SerializeField]
-        private GameObject InstTextSituation = null;
+        public GameObject InstTextQuestion = null;
 
         //*정답 선택지 판넬*/
-        [SerializeField]
-        private GameObject InstPanelAnswer = null;                            
+        public GameObject InstPanelAnswer = null;                            
 
         //* 정답 버튼*/
-        [SerializeField]
-        private List<Button> InstBtnAnswerList = new List<Button>();
+        public List<Button> InstBtnAnswerList = new List<Button>();
 
 
         //* 오답 선택 했을 때 가려주는 이미지*/
-        [SerializeField]
-        private GameObject InstPanelLeftWrong = null;
-        [SerializeField]
-        private GameObject InstPanelRightWrong = null;
+        public GameObject InstPanelLeftWrong = null;
+        public GameObject InstPanelRightWrong = null;
 
+        public GameObject InstPanelReward = null;
 
-        [SerializeField]
-        private GameObject InstPanelReward = null;
+        public GameObject InstPanelClear = null;
 
-        [SerializeField]
-        private GameObject InstPanelClear = null;
+        public GameObject InstPanelOutro = null;
 
-        [SerializeField]
-        private GameObject InstPanelOutro = null;
-
+        //* 10초이상 아무 선택 없을 시 나오는 Panel*/
+        public GameObject InstPanelSelectAnswer = null;
 
         //*게임 끝난 후 나오는  버튼 리스트 */
-        [SerializeField]
-        private List<Button> InstBtnOutroList = new List<Button>();
+        public List<Button> InstBtnOutroList = new List<Button>();
 
 
 
-        private SceneContents2 mScene = null;                                       // 씬 로더
+        public SceneContents2 mScene = null;                                       // 씬 로더
 
-        private string[] mAnswerData = null;                                        // 정답 데이터를 로드
-
-        
-        
+        public string[] mAnswerData = null;                                        // 정답 데이터를 로드
+     
 
         public void Initialize(QnAContentsBase scene)
         {
@@ -78,9 +73,14 @@ namespace Contents2
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
+                InstEpisodeBtnList[i] = btn.gameObject.GetComponent<Button>();
                 btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
+
+            //*EpisodeLock : 에피소드 잠금 설정하는 함수 호출*/
+            CheckEpisodeClear();
+
 
             // 정답 선택 버튼 2개
             InstBtnAnswerList[0].onClick.AddListener(() => EvaluationEvent(0));
@@ -93,33 +93,37 @@ namespace Contents2
             InstBtnOutroList[3].onClick.AddListener(() => OnClickOutroBtnEvent(3));
         }
 
+
+        //*EpisodeLock : 클리어한 episode를 체크해서 잠금 on, off 에 따라 버튼 이미지를 설정해준다*/
+        private void CheckEpisodeClear()
+        {
+            InstEpisodeBtnList[0].image.overrideSprite = InstLockImage;
+        }
+
+        //*EpisodeLock : 버튼 클릭 시 잠겨있는지 판단 */
         private void OnBtnSelectEpisodeEvent(int episodeID)
         {
             Debug.Log(episodeID);
             mScene.SelectEpisode(episodeID);
             InstPanelEpisodeList.gameObject.SetActive(false);
+            
+            //if (Contents2LockSystem.instance.CheckClearEpisode(episodeID) == true)
+            //{
+            //    CDebug.Log("clear 된 스테이지");
+            //}
+            //else
+            //{
+            //    CDebug.Log("clear 안 된 스테이지");
+            //}
         }
 
 
         private void EvaluationEvent(int answerID)
         {
             CDebug.Log( answerID +"번 선택");
-
+            InstBtnAnswerList[answerID].transform.DOScale(Vector3.one * 2, 0.5f).SetLoops(2, LoopType.Yoyo);
             mScene.SelectAnswer(answerID);
-            //* 정답 체크해준다*/
-            /*bool result = mScene.Evaluation(answerID);
 
-            if (result == true)
-            {
-                //InstPanelAnswer.SetActive(false);
-                FeelGaugeBar();
-                mScene.ChangeState(QnAContentsBase.State.Evaluation);
-            }
-            else
-            {
-                InstPanelWrong.SetActive(true);
-            }
-            */
         }
 
         private void OnClickOutroBtnEvent(int buttonID)
@@ -139,47 +143,84 @@ namespace Contents2
             else if (buttonID == 2)
             {
                 CDebug.Log("ReStart");
+                //* 게이지 바 초기화 한 후 다시 현재 에피소드 선택 함수를 호출 한다*/
+                InitGaugeBar();
+                mScene.SelectEpisode(mScene.CurrentEpisode);
             }
             //다음 에피소드
             else if (buttonID == 3)
             {
                 CDebug.Log("Next Episode");
+                //* 게이지 바 초기화 한 후 다음 에피소드 선택 함수를 호출 한다*/
+                InitGaugeBar();
+                if (mScene.CurrentEpisode < 4)
+                {
+                    mScene.SelectEpisode(mScene.CurrentEpisode + 1);
+                }
+                else
+                {
+                    CDebug.Log("다음 스테이지가 없습니다.");
+                }
             }
         }
 
-        private void FeelGaugeBar()
-        {
-            CDebug.Log("게이지바가 찬다.");
-        }
  
         public void ShowEpisode()                                                  
         {
             InstCorrectGuage.gameObject.SetActive(false);
             CDebug.Log("Contents2 - Episode 선택 화면 출력");
-            //InstPanelEpisode.SetActive(true);
         }
+
+
         //* 문제 제출 애니메이션 출력 다 한 후에 FMS에서 시간을 체크해 상태를 Answer으로 넘긴다.*/
         public void ShowSituation()                                               
         {
-            if (mScene.QuestionCount == 1)
-            {
-
-            }
-
-            InstCorrectGuage.gameObject.SetActive(true);
+            InstPanelQuestion.SetActive(false);
+            InstPanelAnswer.SetActive(false);
+            InstPanelLeftWrong.SetActive(false);
+            InstPanelRightWrong.SetActive(false);
+            InstPanelReward.SetActive(false);
+            InstPanelClear.SetActive(false);
+            InstPanelOutro.SetActive(false);
 
             InstPanelSituation.SetActive(true);
-            InstPanelSituationBack.transform.DOMoveX(InstPanelSituation.transform.position.x - 10,2);
-            
+            InstCorrectGuage.gameObject.SetActive(true);
+
+            StartCoroutine(SeqShowSituation());
+        }
+        IEnumerator SeqShowSituation()
+        {
+            CDebug.Log("Hi ~ I'm Joy ! ");
+            yield return new WaitForSeconds(2.0f);
+            CDebug.Log("Oh! it's so messy ! ... ");
+            yield return new WaitForSeconds(2.0f);
+            CDebug.Log("몇초 뒤 캐릭터와 같이 출력 (파이팅 동작을 하며 Let's Recycle !) ");
+        }
+
+
+
+        public void ShowQuestion()
+        {
+            InstPanelSituation.SetActive(false);
+            InstPanelAnswer.SetActive(false);
+            InstPanelQuestion.SetActive(true);
+
+            ////*뒷배경 , 아이템 사이즈 위치 원상복귀 */
+            //InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x + 10, 0);
+            //InstImgItem.transform.DOScale(Vector3.one, 0);
+
+
+            InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x -10, 2);
+
 
             CDebug.Log("Situation Data Set -> situation 애니메이션 보여주면서 Question을 설정해준다");
             mScene.SetQuestion();
 
-            InstTextSituation.GetComponent<Text>().text =  + mScene.QuestionCount + " 번째 situation : " + mScene.QuestionObject;
-            InstTextSituation.SetActive(false);
+            InstTextQuestion.GetComponent<Text>().text = +(mScene.CorrectProgress * 10) + " 번째 situation : " + mScene.QuestionObject;
+            InstTextQuestion.SetActive(false);
             if (mScene.RandomCorrectAnswerID == 0)
             {
-                InstBtnAnswerList[0].GetComponentInChildren<Text>().text= "정답" + mScene.CorrectAnswer;
+                InstBtnAnswerList[0].GetComponentInChildren<Text>().text = "정답" + mScene.CorrectAnswer;
                 InstBtnAnswerList[1].GetComponentInChildren<Text>().text = "오답" + mScene.WrongAnswer;
             }
             else
@@ -188,50 +229,37 @@ namespace Contents2
                 InstBtnAnswerList[1].GetComponentInChildren<Text>().text = "정답" + mScene.CorrectAnswer;
             }
 
-            StartCoroutine(SeqShowSituation());
-        }
-        IEnumerator SeqShowSituation()
-        {
-            yield return new WaitForSeconds(2.0f);
-            CDebug.Log("아이템 이름 출력 후 강조하면서 캐릭터 사라짐");
-            InstImgItem.transform.DOScale(Vector3.one * 2.0f, 2);
-            InstImgItem.transform.DOMove(Vector3.zero, 2);
-            InstImgCharacter.SetActive(false);
-
-            yield return new WaitForSeconds(2.0f);
-            CDebug.Log("Question의 이름이 출력되며 사운드 실행");
-            InstTextSituation.SetActive(true);
-
-            yield return new WaitForSeconds(2.0f);
-            CDebug.Log("몇초 뒤 캐릭터와 같이 출력 (파이팅 동작을 하며 Let's Recycle !) ");
-        }
-
-        public void ShowQuestion()
-        {
-
-            //*강조된 아이템 size 다시 돌려 놓기*/
-            InstImgItem.transform.DOScale(Vector3.one , 0);
-            InstImgItem.transform.DOMove(Vector3.zero, 0);
-
-            //* 사라진 캐릭터 원상 복귀 */
-            InstImgCharacter.SetActive(true);
-
-            CDebug.Log("질문 설정 후 보여주기");
-            InstPanelSituationBack.transform.DOMoveX(InstPanelSituation.transform.position.x, 0);
-
-            InstPanelSituation.SetActive(false);
-
-            CDebug.LogFormat("Please, Recylces throw out {0}", mScene.GetRecylces());
-
-            InstPanelAnswer.SetActive(true);
-
-            //* 선택지 출력 연출을 위해 사용*/
-
             StartCoroutine(SeqShowQuestion());
         }
         IEnumerator SeqShowQuestion()
         {
+            yield return new WaitForSeconds(2.0f);
+            CDebug.Log("아이템 이름 출력 후 강조하면서 캐릭터 사라짐");
+            InstImgItem.transform.DOScale(Vector3.one * 2.0f, 2);
+            InstImgCharacter.SetActive(false);
 
+            yield return new WaitForSeconds(2.0f);
+            CDebug.Log("Question의 이름이 출력되며 사운드 실행");
+            InstTextQuestion.SetActive(true);
+            InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x + 10, 0);
+            InstImgCharacter.SetActive(true);
+        }
+
+
+
+
+        public void ShowAnswer()                                                    
+        {
+            CDebug.Log("Get Answers Data");
+            CDebug.Log("Wait Show Answers Animaition... \n Input Close");
+            InstPanelQuestion.SetActive(false);
+            InstPanelAnswer.SetActive(true);
+
+            //* 선택지 출력 연출을 위해 사용*/
+            StartCoroutine(SeqShowAnswer());
+        }
+        IEnumerator SeqShowAnswer()
+        {
             //* 모든 선택지가 나오기 전에 버튼이 눌리지 않게 한다. */
             InstBtnAnswerList[0].enabled = false;
             InstBtnAnswerList[1].enabled = false;
@@ -250,22 +278,25 @@ namespace Contents2
         }
 
 
-        public void ShowAnswer()                                                    
-        {
-            CDebug.Log("Get Answers Data");
-            CDebug.Log("Wait Show Answers Animaition... \n Input Close");
-            mAnswerData = mScene.GetAnswersData();
-            foreach (var answer in mAnswerData)
-            {
-                CDebug.LogFormat("Answer : {0}", answer);
-            }
-        }
+
 
         public void SelectAnswer()
         {
             CDebug.Log("Wait Show Answer Animaition... \n InPut Open  -> Hurry Up! 넣어준다");
-            //mScene.ChangeState(QnAContentsBase.State.Select);
+
+            InstPanelSelectAnswer.GetComponent<Image>().DOFade(1.0f, 1.0f).SetLoops(2, LoopType.Yoyo)
+                   .OnStart(() =>
+                   {
+                       InstPanelSelectAnswer.gameObject.SetActive(true);
+                   })
+                   .SetDelay(1.5f)
+                   .OnComplete(() =>
+                   {
+                       InstPanelSelectAnswer.gameObject.SetActive(false);
+                   });
         }
+
+
 
         public void ShowReward()
         {
@@ -299,6 +330,10 @@ namespace Contents2
             InstPanelOutro.SetActive(true);
         }
 
+        public void InitGaugeBar()
+        {
+            DOTween.To(() => InstCorrectGuage.Value, (x) => InstCorrectGuage.Value = x, 0, 0);
+        }
         public void CorrectAnswer()
         {
             mScene.IncrementCorrectCount();
@@ -314,7 +349,7 @@ namespace Contents2
                  if (mScene.HasNextQuestion)
                  {
                      CDebug.Log("Has Next Question -> 다음 문제로 넘어감");
-                     mScene.ChangeState(QnAContentsBase.State.Situation);
+                     mScene.ChangeState(QnAContentsBase.State.Question);
                  }
                  else
                  {

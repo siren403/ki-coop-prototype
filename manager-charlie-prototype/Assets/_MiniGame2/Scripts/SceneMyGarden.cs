@@ -6,20 +6,13 @@ using CustomDebug;
 
 namespace MiniGame2
 {
-    public class SceneMyGarden : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+    public class SceneMyGarden : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
     {
         //* 드래그 내용 */
         bool moving;
 
         //* 화분에 닿았을 경우 */
-        public GameObject[] Pollen;
-
-        // * 화분에 안닿을 경우 */
-        private Transform ReturnTaget;
-
-        Ray ray;
-        RaycastHit hit;
-
+        public Transform NutrientGroup;
 
         private void Awake()
         {
@@ -47,16 +40,7 @@ namespace MiniGame2
         //* 화분에 닿았을 때 */
         public void OnPointerEnter(PointerEventData eventData)
         {
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-
-        }
-
-        public void OnDrop(PointerEventData eventData)
-        {
-
+            moving = false;
         }
     }
 }

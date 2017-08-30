@@ -22,17 +22,20 @@ public class FSContents2ShowAnswer : QnAFiniteState
 
     public override void Enter()
     {
+        CDebug.Log(" ----------------------------------------------- ShowAnswer----------------------------------");
         Entity.UI.ShowAnswer();
+        Entity.ChangeState(QnAContentsBase.State.Select);
+
     }
 
     public override void Excute()
     {
-        Timer.Update();
-        if(Timer.Check(1.5f))
-        {
-            CDebug.Log("[FSM] Stop Show Answer Animation");
-            Entity.ChangeState(QnAContentsBase.State.Situation);
-        }
+        //Timer.Update();
+        //if(Timer.Check(1.5f))
+        //{
+        //    CDebug.Log("[FSM] Stop Show Answer Animation");
+        //   // Entity.ChangeState(QnAContentsBase.State.Situation);
+        //}
     }
 
     public override void Exit()

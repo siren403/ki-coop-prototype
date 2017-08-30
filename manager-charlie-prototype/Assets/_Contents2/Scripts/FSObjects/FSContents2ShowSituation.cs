@@ -25,6 +25,7 @@ namespace Contents2
 
         public override void Enter()
         {
+            CDebug.Log(" ----------------------------------------------- ShowSituation----------------------------------");
             CDebug.Log("[FSM] Show Situation and Wating Animation // ");
             Entity.UI.ShowSituation();
             Timer.Start();
