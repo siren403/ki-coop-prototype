@@ -86,7 +86,7 @@ namespace Contents2
             InstBtnAnswerList[0].onClick.AddListener(() => EvaluationEvent(0));
             InstBtnAnswerList[1].onClick.AddListener(() => EvaluationEvent(1));
 
-            // Outro 버튼 2개
+            // Outro 버튼 4개
             InstBtnOutroList[0].onClick.AddListener(() => OnClickOutroBtnEvent(0));
             InstBtnOutroList[1].onClick.AddListener(() => OnClickOutroBtnEvent(1));
             InstBtnOutroList[2].onClick.AddListener(() => OnClickOutroBtnEvent(2));
@@ -155,12 +155,17 @@ namespace Contents2
         public void ShowEpisode()                                                  
         {
             InstCorrectGuage.gameObject.SetActive(false);
-            CDebug.Log("Contents2 애니메이션 넣기");
+            CDebug.Log("Contents2 - Episode 선택 화면 출력");
             //InstPanelEpisode.SetActive(true);
         }
         //* 문제 제출 애니메이션 출력 다 한 후에 FMS에서 시간을 체크해 상태를 Answer으로 넘긴다.*/
         public void ShowSituation()                                               
         {
+            if (mScene.QuestionCount == 1)
+            {
+
+            }
+
             InstCorrectGuage.gameObject.SetActive(true);
 
             InstPanelSituation.SetActive(true);
@@ -171,6 +176,7 @@ namespace Contents2
             mScene.SetQuestion();
 
             InstTextSituation.GetComponent<Text>().text =  + mScene.QuestionCount + " 번째 situation : " + mScene.QuestionObject;
+            InstTextSituation.SetActive(false);
             if (mScene.RandomCorrectAnswerID == 0)
             {
                 InstBtnAnswerList[0].GetComponentInChildren<Text>().text= "정답" + mScene.CorrectAnswer;
@@ -187,9 +193,14 @@ namespace Contents2
         IEnumerator SeqShowSituation()
         {
             yield return new WaitForSeconds(2.0f);
-            CDebug.Log("아이템 이름 출력 후 강조하기");
+            CDebug.Log("아이템 이름 출력 후 강조하면서 캐릭터 사라짐");
             InstImgItem.transform.DOScale(Vector3.one * 2.0f, 2);
             InstImgItem.transform.DOMove(Vector3.zero, 2);
+            InstImgCharacter.SetActive(false);
+
+            yield return new WaitForSeconds(2.0f);
+            CDebug.Log("Question의 이름이 출력되며 사운드 실행");
+            InstTextSituation.SetActive(true);
 
             yield return new WaitForSeconds(2.0f);
             CDebug.Log("몇초 뒤 캐릭터와 같이 출력 (파이팅 동작을 하며 Let's Recycle !) ");
@@ -200,15 +211,17 @@ namespace Contents2
 
             //*강조된 아이템 size 다시 돌려 놓기*/
             InstImgItem.transform.DOScale(Vector3.one , 0);
+            InstImgItem.transform.DOMove(Vector3.zero, 0);
+
+            //* 사라진 캐릭터 원상 복귀 */
+            InstImgCharacter.SetActive(true);
 
             CDebug.Log("질문 설정 후 보여주기");
             InstPanelSituationBack.transform.DOMoveX(InstPanelSituation.transform.position.x, 0);
 
             InstPanelSituation.SetActive(false);
 
-
             CDebug.LogFormat("Please, Recylces throw out {0}", mScene.GetRecylces());
-
 
             InstPanelAnswer.SetActive(true);
 
@@ -219,6 +232,7 @@ namespace Contents2
         IEnumerator SeqShowQuestion()
         {
 
+            //* 모든 선택지가 나오기 전에 버튼이 눌리지 않게 한다. */
             InstBtnAnswerList[0].enabled = false;
             InstBtnAnswerList[1].enabled = false;
 

@@ -13,7 +13,7 @@ using Util;
 
 namespace Contents2
 {
-    public class Qna
+    public class QnaContents2Data
     {
         public int QuestionId;
         public int EpisodeId;
@@ -32,7 +32,7 @@ namespace Contents2
         /** 2. 정답 설정  : Qna 에서 랜덤으로 하나 뽑음 -> used 를 true로 변경하여 이전에 제출되었다는 것을 체크 해준다. */
         /** 3. 오답 설정  : Qna 에서 랜덤으로 하나 뽑음 -> used 를 true가 아니고 현재 문제 코드 (A=1, B=2, C=3 ,...)가 아닌 것들 세개 설정 -> */
 
-        public Qna(int id, int episode, string question, string correct, string wrong, string objectstate)
+        public QnaContents2Data(int id, int episode, string question, string correct, string wrong, string objectstate)
         {
             QuestionId = id;
             EpisodeId = episode;
@@ -49,7 +49,7 @@ namespace Contents2
         /** 콘텐츠 관련 멤버 */
         private int mSelectedEpisode = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
 
-        public List<Qna> QnaList = new List<Qna>();
+        public List<QnaContents2Data> QnaList = new List<QnaContents2Data>();
         private const int CONTENTS_ID = 2;
 
         [SerializeField]
@@ -98,8 +98,6 @@ namespace Contents2
                 return mSubmitQuestionCount < mMaximumQuestion;
             }
         }
-
-
         //Scene1 에 참고함
 
 
@@ -207,8 +205,6 @@ namespace Contents2
             //* Episode id를 받아  옴*/
             CDebug.Log("Episode Id " + episodeID + "이 선택되었습니다.");
 
-
-
             //수정
             //* Episode id별로 data 받아온다 */
             mSelectedEpisode = episodeID;
@@ -222,9 +218,10 @@ namespace Contents2
             //* 받아온 데이터를 QnaList에 넣는다 */
             foreach (var row in table)
             {
-                QnaList.Add(new Qna(row.ID, row.Episode, row.Question, row.Correct, row.Wrong, row.Objectstate));
+                QnaList.Add(new QnaContents2Data(row.ID, row.Episode, row.Question, row.Correct, row.Wrong, row.Objectstate));
             }
 
+            
             ChangeState(State.Situation);
         }
 
@@ -262,8 +259,6 @@ namespace Contents2
             {
                 CDebug.Log("정답 오른쪽에 배치");
             }
-
-   
         }
 
         //* Contents2 는 문제 맞춘수가 나온수와 같으니 같이 처리 해준다*/
