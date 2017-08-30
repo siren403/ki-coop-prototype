@@ -14,6 +14,9 @@ namespace Contents2
                 return QnAContentsBase.State.Question;
             }
         }
+        private SimpleTimer Timer = SimpleTimer.Create();
+        private float duration = 6.0f;
+
 
         public override void Initialize()
         {
@@ -21,12 +24,17 @@ namespace Contents2
         }
         public override void Enter()
         {
+            CDebug.Log(" ----------------------------------------------- ShowQuestion----------------------------------");
+            Timer.Start();
             Entity.UI.ShowQuestion();
-            (Entity as QnAContentsBase).ChangeState(QnAContentsBase.State.Select);
         }
         public override void Excute()
         {
-
+            Timer.Update();
+            if (Timer.Check(duration))
+            {
+                Entity.ChangeState(QnAContentsBase.State.Answer);
+            }
         }
         public override void Exit()
         {

@@ -22,6 +22,7 @@ namespace Contents2
 
         public override void Enter()
         {
+            CDebug.Log(" ----------------------------------------------- Select Answer----------------------------------");
             Timer.Check(0.0f);
             Timer.Start();
         }
