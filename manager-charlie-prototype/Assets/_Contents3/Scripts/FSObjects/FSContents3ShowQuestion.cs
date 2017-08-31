@@ -21,10 +21,6 @@ namespace Contents3
         }
         private SimpleTimer Timer = SimpleTimer.Create();
 
-        public override void Initialize()
-        {
-
-        }
         public override void Enter()
         {
             CDebug.Log("Enter: Question 이미지확대 및 대사 출력");
@@ -44,10 +40,6 @@ namespace Contents3
                 CDebug.Log("Question Excute : After 3.0f");
                 Entity.ChangeState(QnAContentsBase.State.Answer);
             }
-        }
-        public override void Exit()
-        {
-
         }
 
     }

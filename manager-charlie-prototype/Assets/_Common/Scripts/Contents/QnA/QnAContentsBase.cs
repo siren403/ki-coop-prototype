@@ -28,6 +28,16 @@ namespace Contents.QnA
         }
 
         public abstract IQnAView View { get; }
+        protected virtual QnAFiniteState FSEpisode { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSSituation { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSQuestion { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSAnswer { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSSelect { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSEvaluate { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSReward { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSClear { get { return EmptyQnAState; } }
+
+
         /**
          * @fn  protected sealed override void Awake()
          *
@@ -39,14 +49,14 @@ namespace Contents.QnA
         protected sealed override void Awake()
         {
             base.Awake();
-            AddState(CreateShowEpisode());
-            AddState(CreateShowSituation());
-            AddState(CreateShowQuestion());
-            AddState(CreateShowAnswer());
-            AddState(CreateShowSelectAnswer());
-            AddState(CreateShowEvaluateAnswer());
-            AddState(CreateShowReward());
-            AddState(CreateShowClearEpisode());
+            AddState(FSEpisode);
+            AddState(FSSituation);
+            AddState(FSQuestion);
+            AddState(FSAnswer);
+            AddState(FSSelect);
+            AddState(FSEvaluate);
+            AddState(FSReward);
+            AddState(FSClear);
         }
 
         protected sealed override void Start()
@@ -78,14 +88,7 @@ namespace Contents.QnA
             }
         }
 
-        protected virtual QnAFiniteState CreateShowEpisode() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowSituation() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowQuestion() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowAnswer() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowSelectAnswer() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowEvaluateAnswer() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowReward() { return EmptyQnAState; }
-        protected virtual QnAFiniteState CreateShowClearEpisode() { return EmptyQnAState; }
+        
 
 
     }

@@ -17,11 +17,6 @@ namespace Contents2
         private SimpleTimer Timer = SimpleTimer.Create();
         private float duration = 6.0f;
 
-
-        public override void Initialize()
-        {
-
-        }
         public override void Enter()
         {
             CDebug.Log(" ----------------------------------------------- ShowQuestion----------------------------------");
@@ -36,9 +31,6 @@ namespace Contents2
                 Entity.ChangeState(QnAContentsBase.State.Answer);
             }
         }
-        public override void Exit()
-        {
-
-        }
+       
     }
 }

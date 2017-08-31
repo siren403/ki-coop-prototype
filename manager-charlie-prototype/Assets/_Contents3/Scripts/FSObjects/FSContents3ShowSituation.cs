@@ -20,9 +20,7 @@ namespace Contents3
         private SimpleTimer Timer = SimpleTimer.Create();
         private float mDuration = 4.0f;
 
-        public override void Initialize()
-        {
-        }
+       
         public override void Enter()
         {
             // 캐릭터를 순서대로 만남.
@@ -43,9 +41,6 @@ namespace Contents3
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
         }
-        
-        public override void Exit()
-        {
-        }
+       
     }
 }

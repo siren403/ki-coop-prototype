@@ -34,6 +34,18 @@ namespace Contents2
                 return mInstUI;
             }
         }
+
+        #region QnAContents를 구성하는 기본적인 State객체
+        protected override QnAFiniteState FSEpisode { get { return new FSContents2ShowEpisode(); } }
+        protected override QnAFiniteState FSSituation { get { return new FSContents2ShowSituation(); } }
+        protected override QnAFiniteState FSQuestion { get { return new FSContents2ShowQuestion(); } }
+        protected override QnAFiniteState FSAnswer { get { return new FSContents2ShowAnswer(); } }
+        protected override QnAFiniteState FSSelect { get { return new FSContents2SelectAnswer(); } }
+        protected override QnAFiniteState FSEvaluate { get { return new FSContents2EvaluateAnswer(); } }
+        protected override QnAFiniteState FSReward { get { return new FSContents2ShowReward(); } }
+        protected override QnAFiniteState FSClear { get { return new FSContents2ClearEpisode(); } }
+        #endregion
+
         private int mQuestionCount = 0;
         private JsonData mContentsData = null;
         private int mSetAnswerId =0;
@@ -134,14 +146,7 @@ namespace Contents2
             ChangeState(State.Episode);
         }
 
-        protected override QnAFiniteState CreateShowAnswer() { return new FSContents2ShowAnswer(); }
-        protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents2ClearEpisode(); }
-        protected override QnAFiniteState CreateShowEpisode() { return new FSContents2ShowEpisode(); }
-        protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents2EvaluateAnswer(); }
-        protected override QnAFiniteState CreateShowQuestion() { return new FSContents2ShowQuestion(); }
-        protected override QnAFiniteState CreateShowReward() { return new FSContents2ShowReward(); }
-        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents2SelectAnswer(); }
-        protected override QnAFiniteState CreateShowSituation() { return new FSContents2ShowSituation(); }
+       
 
         public void SelectEpisode(int episodeID)
         {

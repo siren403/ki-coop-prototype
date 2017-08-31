@@ -16,23 +16,13 @@ namespace Contents1
             }
         }
 
-        public override void Initialize()
-        {
-        }
-
+   
         public override void Enter()
         {
             CDebug.Log("Enter Reward");
             Entity.View.ShowReward();
         }
 
-        public override void Excute()
-        {
-        }
-
-        public override void Exit()
-        {
-        }
     }
 }
 

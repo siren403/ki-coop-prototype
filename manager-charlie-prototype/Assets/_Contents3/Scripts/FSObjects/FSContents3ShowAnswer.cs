@@ -21,9 +21,7 @@ namespace Contents3
         private SimpleTimer Timer = SimpleTimer.Create();
         private GameObject AnswerPanel = null;
 
-        public override void Initialize()
-        {
-        }
+       
         public override void Enter()
         {
             CDebug.Log("선택지 출력");
@@ -50,10 +48,7 @@ namespace Contents3
             }
 
         }
-        public override void Exit()
-        {
-            //AnswerPanel.transform.position = new Vector2(0, 0f);
-        }
+       
 
         public void MovePanel()
         {

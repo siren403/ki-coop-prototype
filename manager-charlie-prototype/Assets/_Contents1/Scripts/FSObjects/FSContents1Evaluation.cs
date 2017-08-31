@@ -17,10 +17,6 @@ namespace Contents1
         }
 
 
-        public override void Initialize()
-        {
-        }
-
         public override void Enter()
         {
             var scene = Entity as SceneContents1;
@@ -46,9 +42,7 @@ namespace Contents1
                 }
             }
         }
-        public override void Exit()
-        {
-        }
+     
     }
 }
 

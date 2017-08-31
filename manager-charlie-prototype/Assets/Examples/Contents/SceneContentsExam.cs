@@ -50,6 +50,17 @@ namespace Examples
             }
         }
 
+        #region QnAContents를 구성하는 기본적인 State객체
+        protected override QnAFiniteState FSEpisode { get { return new FSExamShowEpisode(); } }
+        protected override QnAFiniteState FSSituation { get { return new FSExamShowSituation(); } }
+        protected override QnAFiniteState FSQuestion { get { return new FSExamShowQuestion(); } }
+        protected override QnAFiniteState FSAnswer { get { return new FSExamShowAnswer(); } }
+        protected override QnAFiniteState FSSelect { get { return new FSExamSelectAnswer(); } }
+        protected override QnAFiniteState FSEvaluate { get { return new FSExamEvaluateAnswer(); } }
+        protected override QnAFiniteState FSReward { get { return new FSExamShowReward(); } }
+        protected override QnAFiniteState FSClear { get { return new FSExamClearEpisode(); } }
+        #endregion
+
         private QuickSheet.Contents1 mQnATable = null;
         private ContentsData mContentsData = null;
         private int mSelectEpisode = 0;
@@ -88,14 +99,7 @@ namespace Examples
             mQnATable = TableFactory.LoadContents1Table();
             ChangeState(State.Episode);
         }
-        protected override QnAFiniteState CreateShowEpisode() { return new FSExamShowEpisode(); }
-        protected override QnAFiniteState CreateShowSituation() { return new FSExamShowSituation(); }
-        protected override QnAFiniteState CreateShowQuestion() { return new FSExamShowQuestion(); }
-        protected override QnAFiniteState CreateShowAnswer() { return new FSExamShowAnswer(); }
-        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSExamSelectAnswer(); }
-        protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSExamEvaluateAnswer(); }
-        protected override QnAFiniteState CreateShowReward() { return new FSExamShowReward(); }
-        protected override QnAFiniteState CreateShowClearEpisode() { return new FSExamClearEpisode(); }
+       
 
         public void StartEpisode(int episodeID)
         {

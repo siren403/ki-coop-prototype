@@ -16,10 +16,6 @@ namespace Contents2
         }
         private SimpleTimer Timer = SimpleTimer.Create();
 
-        public override void Initialize()
-        {
-        }
-
         public override void Enter()
         {
             CDebug.Log(" ----------------------------------------------- Select Answer----------------------------------");
@@ -37,10 +33,6 @@ namespace Contents2
                     Timer.Check(0.0f);
             }
         }
-
-        public override void Exit()
-        {
-         
-        }
+       
     }
 }

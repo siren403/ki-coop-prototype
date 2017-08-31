@@ -17,18 +17,12 @@ namespace Contents1
             }
         }
 
-
-        public override void Initialize()
-        {
-        }
         public override void Enter()
         {
             (Entity as SceneContents1).ResetWrongCount();
             Entity.View.ShowQuestion();
         }
-        public override void Exit()
-        {
-        }
+       
     }
 }
 

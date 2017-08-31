@@ -17,11 +17,6 @@ namespace Contents2
         }
         private SimpleTimer Timer = SimpleTimer.Create();
 
-        public override void Initialize()
-        {
-            
-        }
-
         public override void Enter()
         {
             CDebug.Log(" ----------------------------------------------- ShowReward----------------------------------");
@@ -40,10 +35,6 @@ namespace Contents2
             }
         }
 
-        public override void Exit()
-        {
-            
-        }
     }
 
 }
