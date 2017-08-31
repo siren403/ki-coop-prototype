@@ -21,7 +21,7 @@ MonoBehaviour:
     - hi
     - hello
     - hey
-    character: joy
+    character: Joy
   - id: 2
     episode: 1
     question: hello
@@ -29,7 +29,7 @@ MonoBehaviour:
     - hi
     - hello
     - hey
-    character: joy
+    character: Joy
   - id: 3
     episode: 1
     question: hey
@@ -37,7 +37,7 @@ MonoBehaviour:
     - hi
     - hello
     - hey
-    character: joy
+    character: Joy
   - id: 4
     episode: 1
     question: how are you?
@@ -45,7 +45,7 @@ MonoBehaviour:
     - I'mgood
     - I'mhappy
     - great
-    character: wiwi
+    character: Bruce
   - id: 5
     episode: 1
     question: how's it going?
@@ -53,7 +53,7 @@ MonoBehaviour:
     - I'mgood
     - I'mhappy
     - great
-    character: wiwi
+    character: Bruce
   - id: 6
     episode: 1
     question: what's up?
@@ -61,7 +61,7 @@ MonoBehaviour:
     - I'mgood
     - I'mhappy
     - great
-    character: wiwi
+    character: Bruce
   - id: 7
     episode: 1
     question: nice to meet you
@@ -69,7 +69,7 @@ MonoBehaviour:
     - youtoo
     - itisnicetomeetyoutoo
     - itisgoodtoseeyoutoo
-    character: mrre
+    character: Tony
   - id: 8
     episode: 1
     question: nice to see you
@@ -77,7 +77,7 @@ MonoBehaviour:
     - youtoo
     - itisnicetomeetyoutoo
     - itisgoodtoseeyoutoo
-    character: mrre
+    character: Tony
   - id: 9
     episode: 1
     question: good to see you
@@ -85,4 +85,76 @@ MonoBehaviour:
     - youtoo
     - itisnicetomeetyoutoo
     - itisgoodtoseeyoutoo
-    character: mrre
+    character: Tony
+  - id: 10
+    episode: 2
+    question: Q7
+    correct:
+    - Thankyou
+    - Thankyousomuch
+    - Thankyouforyourhelp
+    character: Joy
+  - id: 11
+    episode: 2
+    question: Q8
+    correct:
+    - Thankyou
+    - Thankyousomuch
+    - Thankyouforyourhelp
+    character: Joy
+  - id: 12
+    episode: 2
+    question: Q9
+    correct:
+    - Thankyou
+    - Thankyousomuch
+    - Thankyouforyourhelp
+    character: Joy
+  - id: 13
+    episode: 2
+    question: Q10
+    correct:
+    - You'rewelcome
+    - Notatall
+    - Mypleasure
+    character: Bruce
+  - id: 14
+    episode: 2
+    question: Q11
+    correct:
+    - You'rewelcome
+    - Notatall
+    - Mypleasure
+    character: Bruce
+  - id: 15
+    episode: 2
+    question: Q12
+    correct:
+    - You'rewelcome
+    - Notatall
+    - Mypleasure
+    character: Bruce
+  - id: 16
+    episode: 2
+    question: Q13
+    correct:
+    - Don'tmentionit
+    - Noproblem
+    - Anytime
+    character: Tony
+  - id: 17
+    episode: 2
+    question: Q14
+    correct:
+    - Don'tmentionit
+    - Noproblem
+    - Anytime
+    character: Tony
+  - id: 18
+    episode: 2
+    question: Q15
+    correct:
+    - Don'tmentionit
+    - Noproblem
+    - Anytime
+    character: Tony

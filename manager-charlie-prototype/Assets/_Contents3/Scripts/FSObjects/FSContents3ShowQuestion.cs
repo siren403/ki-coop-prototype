@@ -27,13 +27,14 @@ namespace Contents3
         }
         public override void Enter()
         {
-            CDebug.Log("이미지확대 및 대사 출력");
+            CDebug.Log("Enter: Question 이미지확대 및 대사 출력");
 
-            // 데이터 받아서 문제 출력
 
-            Entity.View.ShowQuestion();
+            (Entity as SceneContents3).WrongCount = 0;
+            Entity.UI.ShowQuestion();
+            
+
             Timer.Start();
-
         }
         public override void Excute()
         {

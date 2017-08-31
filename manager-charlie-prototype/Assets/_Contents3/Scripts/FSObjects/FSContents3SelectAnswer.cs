@@ -66,7 +66,6 @@ public class FSContents3SelectAnswer : QnAFiniteState
     {
         // 캐릭터 애니메이션 및 대사 출력
         
-        
         Timer.Start();
         AnswerCheck = true;
     }

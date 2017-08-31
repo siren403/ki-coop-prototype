@@ -35,7 +35,6 @@ namespace Contents3
 
             AnswerPanel = GameObject.FindGameObjectWithTag("PanelAnswer");
 
-
             Timer.Start();
         }
         public override void Excute()
@@ -45,19 +44,20 @@ namespace Contents3
             {
                 CDebug.Log("After 3.0s, 선택지 출력");
 
-                //* 선택지 패널 이동후 Select 상태 전환 */
+                //* 선택지 패널 이동 */
                 MovePanel();
+                Entity.ChangeState(QnAContentsBase.State.Select);
             }
 
         }
         public override void Exit()
         {
+            //AnswerPanel.transform.position = new Vector2(0, 0f);
         }
 
         public void MovePanel()
         {
             DOTween.Sequence().Append(AnswerPanel.transform.DOMoveY(0, 1.5f));
-            Entity.ChangeState(QnAContentsBase.State.Select);
         }
         
     }
