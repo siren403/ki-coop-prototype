@@ -11,14 +11,25 @@ namespace MiniGame3
 
         public GameObject InstMiniGamePanel = null;
         public GameObject InstCoinShopPanel = null;
+        public SlectionButton PFItemBtn = null;
 
         private SceneMiniGame3 mScene = null;
 
+        private Item[] mItem = null;
 
 
         void Start()
         {
+            mItem = new Item[]{};
+
+            for (int i = 0; i < mItem.Length; i++)
+            {
+                //Instantiate<SlectionButton>(PFItemBtn, new Vector2(10, 10));
+            }
            
+
+
+
         }
 
         void Update()
