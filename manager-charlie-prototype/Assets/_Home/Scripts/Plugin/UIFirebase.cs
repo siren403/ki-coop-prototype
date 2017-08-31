@@ -17,6 +17,7 @@ namespace Examples.Plugin
         public GameObject InstPanelNavigation = null;
         public Button InstBtnOpenEmail = null;
         public Button InstBtnOpenGuest = null;
+        public Button InstBtnOpenPhone = null;
 
         /** @brief Email*/
         public GameObject InstPanelEmail = null;
@@ -31,6 +32,12 @@ namespace Examples.Plugin
         public GameObject InstPanelGuest = null;
         public Button InstBtnGuestLogin = null;
 
+
+        /** @brief phone */
+        public GameObject InstPanelPhone = null;
+        public Button InstBtnReqCode = null;
+        public InputField InstInputPhoneAuthCode = null;
+        public Button InstBtnPhoneAuth = null;
 
         public void SetScene(SceneFirebase scene)
         {
@@ -62,6 +69,17 @@ namespace Examples.Plugin
             InstBtnGuestLogin.OnClickAsObservable().Subscribe(_ => 
             {
                 mScene.CreateGuest();
+            });
+
+            InstBtnOpenPhone.OnClickAsObservable().Subscribe(_ => 
+            {
+                InstPanelNavigation.SetActive(false);
+                InstPanelPhone.SetActive(true);
+            });
+            InstBtnReqCode.OnClickAsObservable().Subscribe(_ => mScene.RequestPhoneAuthCode());
+            InstBtnPhoneAuth.OnClickAsObservable().Subscribe(_ => 
+            {
+                mScene.AuthPhone(InstInputPhoneAuthCode.text.Trim());
             });
         }
 

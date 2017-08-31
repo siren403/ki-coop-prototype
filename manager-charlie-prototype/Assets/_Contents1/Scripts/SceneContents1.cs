@@ -6,7 +6,6 @@ using Contents.QnA;
 using LitJson;
 using System.Linq;
 using Util;
-using NUnit.Framework;
 
 namespace Contents1
 {
@@ -373,7 +372,7 @@ namespace Contents1
         }
         public void RecycleCurrentQuestion()
         {
-            Assert.IsNotNull(mCurrentCorrect, "현재 출제되어 있는 문제가 없습니다.");
+            //NUnit.Framework.Assert.IsNotNull(mCurrentCorrect, "현재 출제되어 있는 문제가 없습니다.");
 
             if (mQuestionData.ContainsKey(mCurrentCorrect.Question))
             {
