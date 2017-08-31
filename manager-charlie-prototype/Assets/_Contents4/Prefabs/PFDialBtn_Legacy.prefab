@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114170644782169592}
   - component: {fileID: 58424790775848988}
   m_Layer: 0
-  m_Name: PFDialBtn
+  m_Name: PFDialBtn_Legacy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

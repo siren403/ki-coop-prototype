@@ -11,22 +11,22 @@ namespace Contents4
     {
 
 
-        private bool mIsBtnStart = false;
+        private bool mIsMusicStart = false;
 
         private SimpleTimer Timer = SimpleTimer.Create();
 
         [SerializeField]
         private float mCheckTime = 3.0f;
 
-        public bool IsBtnStart
+        public bool IsMusicStart
         {
             get
             {
-                return mIsBtnStart;
+                return mIsMusicStart;
             }
             set
             {
-                mIsBtnStart = value;
+                mIsMusicStart = value;
             }
         }
 
@@ -47,7 +47,7 @@ namespace Contents4
 
             if (Timer.Check(mCheckTime))
             {
-                IsBtnStart = true;
+                IsMusicStart = true;
                 HidePanelLock();
             }
         }
@@ -66,7 +66,7 @@ namespace Contents4
         {
             CDebug.Log("OnClick StartAlarm");
 
-            IsBtnStart = true;
+            IsMusicStart = true;
             HidePanelLock();
         }
 
