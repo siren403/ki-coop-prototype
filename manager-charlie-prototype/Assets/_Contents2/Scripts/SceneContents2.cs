@@ -165,7 +165,7 @@ namespace Contents2
 
         public void SelectEpisode(int episodeID)
         {
-            mCorrectCount = 0;
+            mCorrectCount = 8;
             //* Episode id를 받아  옴*/
             CDebug.Log("Episode Id " + episodeID + "이 선택되었습니다.");
             //* 현재 선택된 에피소드 값을 mCurrentEpisode 에 저장한다*/
