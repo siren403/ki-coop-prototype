@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Contents4
 {
 
-    public class UIContents4 : MonoBehaviour
+    public class ViewContents4 : MonoBehaviour
     {
 
 

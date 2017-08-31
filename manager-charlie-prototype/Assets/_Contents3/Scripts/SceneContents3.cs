@@ -39,7 +39,7 @@ namespace Contents3
 
         //** UI 및 리소스 관리자 */
         [SerializeField]
-        public UIContents3 mInstUI = null;                      // UI 연결용
+        public ViewContents3 mInstUI = null;                      // UI 연결용
 
         public override IQnAView View
         {

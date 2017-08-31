@@ -12,7 +12,7 @@ using UniRx;
 
 namespace Contents2
 {
-    public class UIContents2 : MonoBehaviour, IQnAView, IViewInitialize
+    public class ViewContents2 : MonoBehaviour, IQnAView, IViewInitialize
     {
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;

@@ -38,7 +38,7 @@ namespace Contents3
                 if (Timer.Check(10.0f))
                 {
                     CDebug.Log("After 10.0s, Don't Answer");
-                    (Entity.View as UIContents3).Blackout();
+                    (Entity.View as ViewContents3).Blackout();
 
                     Requestion();
                 }
@@ -51,7 +51,7 @@ namespace Contents3
 
                     // 다시 Answer 진입
                     Entity.ChangeState(QnAContentsBase.State.Answer);
-                    (Entity.View as UIContents3).HideBalckout();
+                    (Entity.View as ViewContents3).HideBalckout();
                 }
             }
         }

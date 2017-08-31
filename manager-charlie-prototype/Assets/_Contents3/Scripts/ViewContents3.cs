@@ -12,7 +12,7 @@ using DG.Tweening;
 namespace Contents3
 {
 
-    public class UIContents3 : MonoBehaviour, IQnAView, IViewInitialize
+    public class ViewContents3 : MonoBehaviour, IQnAView, IViewInitialize
     {
 
         public GridSwipe InstPanelEpisodeList = null;

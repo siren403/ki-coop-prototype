@@ -21,7 +21,7 @@ namespace Contents2
         public List<QnaContents2Data> QnAList = new List<QnaContents2Data>();
 
         [SerializeField]
-        private UIContents2 mInstUI = null;
+        private ViewContents2 mInstUI = null;
 
         /** @brief 리소스 외부 Attach */
         [SerializeField]
