@@ -15,8 +15,7 @@ namespace Contents2
     {
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;
-        //* 정답 버튼*/
-        public List<Button> InstEpisodeBtnList = new List<Button>();
+
         public Sprite InstLockImage;
 
         public CorrectGuage InstCorrectGuage = null;
@@ -73,13 +72,10 @@ namespace Contents2
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
-                InstEpisodeBtnList[i] = btn.gameObject.GetComponent<Button>();
                 btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 
-            //*EpisodeLock : 에피소드 잠금 설정하는 함수 호출*/
-            CheckEpisodeClear();
 
 
             // 정답 선택 버튼 2개
@@ -94,27 +90,14 @@ namespace Contents2
         }
 
 
-        //*EpisodeLock : 클리어한 episode를 체크해서 잠금 on, off 에 따라 버튼 이미지를 설정해준다*/
-        private void CheckEpisodeClear()
-        {
-            InstEpisodeBtnList[0].image.overrideSprite = InstLockImage;
-        }
 
-        //*EpisodeLock : 버튼 클릭 시 잠겨있는지 판단 */
+
         private void OnBtnSelectEpisodeEvent(int episodeID)
         {
             Debug.Log(episodeID);
             mScene.SelectEpisode(episodeID);
             InstPanelEpisodeList.gameObject.SetActive(false);
-            
-            //if (Contents2LockSystem.instance.CheckClearEpisode(episodeID) == true)
-            //{
-            //    CDebug.Log("clear 된 스테이지");
-            //}
-            //else
-            //{
-            //    CDebug.Log("clear 안 된 스테이지");
-            //}
+
         }
 
 
@@ -153,7 +136,7 @@ namespace Contents2
                 CDebug.Log("Next Episode");
                 //* 게이지 바 초기화 한 후 다음 에피소드 선택 함수를 호출 한다*/
                 InitGaugeBar();
-                if (mScene.CurrentEpisode < 4)
+                if (mScene.CurrentEpisode < 5)
                 {
                     mScene.SelectEpisode(mScene.CurrentEpisode + 1);
                 }

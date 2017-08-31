@@ -134,3 +134,183 @@ MonoBehaviour:
     correct: glass
     wrong: metal
     objectstate: broken
+  - id: 21
+    episode: 3
+    question: tub
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 22
+    episode: 3
+    question: gabage bin
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 23
+    episode: 3
+    question: tin
+    correct: metal
+    wrong: plastic
+    objectstate: finished
+  - id: 24
+    episode: 3
+    question: bicycle
+    correct: metal
+    wrong: paper
+    objectstate: broken
+  - id: 25
+    episode: 3
+    question: spray
+    correct: metal
+    wrong: paper
+    objectstate: finished
+  - id: 26
+    episode: 3
+    question: paper cup
+    correct: paper
+    wrong: plastic
+    objectstate: finished
+  - id: 27
+    episode: 3
+    question: juice box
+    correct: plastic
+    wrong: metal
+    objectstate: finished
+  - id: 28
+    episode: 3
+    question: poster
+    correct: paper
+    wrong: metal
+    objectstate: broken
+  - id: 29
+    episode: 3
+    question: jar
+    correct: glass
+    wrong: metal
+    objectstate: broken
+  - id: 30
+    episode: 3
+    question: crystal ball
+    correct: glass
+    wrong: paper
+    objectstate: broken
+  - id: 31
+    episode: 4
+    question: rigid plastic
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 32
+    episode: 4
+    question: basket
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 33
+    episode: 4
+    question: pot
+    correct: metal
+    wrong: paper
+    objectstate: broken
+  - id: 34
+    episode: 4
+    question: foil
+    correct: metal
+    wrong: paper
+    objectstate: finished
+  - id: 35
+    episode: 4
+    question: pipe
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 36
+    episode: 4
+    question: news paper
+    correct: paper
+    wrong: metal
+    objectstate: finished
+  - id: 37
+    episode: 4
+    question: card board
+    correct: paper
+    wrong: glass
+    objectstate: broken
+  - id: 38
+    episode: 4
+    question: box
+    correct: plastic
+    wrong: glass
+    objectstate: broken
+  - id: 39
+    episode: 4
+    question: wine bottle
+    correct: glass
+    wrong: paper
+    objectstate: finished
+  - id: 40
+    episode: 4
+    question: perfume
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 41
+    episode: 5
+    question: milk jug
+    correct: glass
+    wrong: plastic
+    objectstate: broken
+  - id: 42
+    episode: 5
+    question: straws
+    correct: paper
+    wrong: glass
+    objectstate: finished
+  - id: 43
+    episode: 5
+    question: nail
+    correct: plastic
+    wrong: glass
+    objectstate: broken
+  - id: 44
+    episode: 5
+    question: frypan
+    correct: metal
+    wrong: paper
+    objectstate: broken
+  - id: 45
+    episode: 5
+    question: fork
+    correct: metal
+    wrong: glass
+    objectstate: broken
+  - id: 46
+    episode: 5
+    question: catalog
+    correct: paper
+    wrong: glass
+    objectstate: broken
+  - id: 47
+    episode: 5
+    question: container
+    correct: plastic
+    wrong: glass
+    objectstate: broken
+  - id: 48
+    episode: 5
+    question: glass cup
+    correct: glass
+    wrong: metal
+    objectstate: broken
+  - id: 49
+    episode: 5
+    question: empty1
+    correct: Correct
+    wrong: wrong
+    objectstate: broken
+  - id: 50
+    episode: 5
+    question: empty2
+    correct: Correct
+    wrong: wrong
+    objectstate: broken

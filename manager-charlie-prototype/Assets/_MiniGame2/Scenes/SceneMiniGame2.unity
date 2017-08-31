@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 478447243}
   - component: {fileID: 478447242}
   m_Layer: 5
-  m_Name: InstImgPollen1
+  m_Name: InstImgPollen2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,7 +462,7 @@ RectTransform:
   m_Children:
   - {fileID: 267470760}
   m_Father: {fileID: 1779566321}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 521248506}
   - component: {fileID: 521248505}
   m_Layer: 5
-  m_Name: InstImgPollen3
+  m_Name: InstImgPollen4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ RectTransform:
   m_Children:
   - {fileID: 636567729}
   m_Father: {fileID: 1779566321}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 539654101}
   - component: {fileID: 539654100}
   m_Layer: 5
-  m_Name: InstImgPollen2
+  m_Name: InstImgPollen1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +731,7 @@ RectTransform:
   m_Children:
   - {fileID: 331131804}
   m_Father: {fileID: 1779566321}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -782,12 +782,12 @@ GameObject:
   - component: {fileID: 615824827}
   - component: {fileID: 615824826}
   m_Layer: 5
-  m_Name: InstPanelMyGarden
+  m_Name: InstPanelGarden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &615824825
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1110,6 +1110,7 @@ GameObject:
   - component: {fileID: 1250663225}
   - component: {fileID: 1250663227}
   - component: {fileID: 1250663226}
+  - component: {fileID: 1250663228}
   m_Layer: 5
   m_Name: InstImgFertilizer
   m_TagString: Untagged
@@ -1169,6 +1170,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250663224}
+--- !u!114 &1250663228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250663224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b0fad6ea68dbd4aaed441d765bd1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1658707865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1266,7 @@ GameObject:
   - component: {fileID: 1765491672}
   - component: {fileID: 1765491671}
   m_Layer: 5
-  m_Name: InstImgPollen4
+  m_Name: InstImgPollen3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1272,7 +1284,7 @@ RectTransform:
   m_Children:
   - {fileID: 1658707866}
   m_Father: {fileID: 1779566321}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1320,6 +1332,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1779566321}
+  - component: {fileID: 1779566322}
   m_Layer: 5
   m_Name: InstImgPollenGroup
   m_TagString: Untagged
@@ -1337,10 +1350,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 478447241}
   - {fileID: 539654099}
-  - {fileID: 521248504}
+  - {fileID: 478447241}
   - {fileID: 1765491670}
+  - {fileID: 521248504}
   m_Father: {fileID: 615824825}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1349,6 +1362,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1779566322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1779566320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9a906bbf4a16b4ba145bb1a3dc6df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pollen:
+  - {fileID: 478447240}
+  - {fileID: 539654098}
+  - {fileID: 521248503}
+  - {fileID: 1765491669}
 --- !u!1 &1825594987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,7 +1441,7 @@ Canvas:
   m_GameObject: {fileID: 1825594987}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 2036669450}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1454,6 +1483,7 @@ GameObject:
   - component: {fileID: 1858361419}
   - component: {fileID: 1858361421}
   - component: {fileID: 1858361420}
+  - component: {fileID: 1858361422}
   m_Layer: 5
   m_Name: InstImgWarteringCan
   m_TagString: Untagged
@@ -1467,7 +1497,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858361418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1493,7 +1523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1513,6 +1543,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858361418}
+--- !u!114 &1858361422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858361418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b0fad6ea68dbd4aaed441d765bd1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1956239465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,9 +1562,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1956239466}
-  - component: {fileID: 1956239467}
   m_Layer: 5
-  m_Name: InstImgNutrient
+  m_Name: InstImgNutrientGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1549,18 +1589,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1956239467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1956239465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5828fe6a47df44741bc661bc01d9f7cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Pollen: []
 --- !u!1 &2036669446
 GameObject:
   m_ObjectHideFlags: 0
