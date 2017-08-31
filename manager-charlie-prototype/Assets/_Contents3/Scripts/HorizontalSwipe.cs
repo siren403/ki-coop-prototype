@@ -105,9 +105,9 @@ public class HorizontalSwipe : MonoBehaviour {
     //Vector2 SwipeDirection;       // 스왑 방향
     float SwipeDirection;
 
-
     Vector2 mouseDownPos;
     Vector2 mouseUpPos;
+
     // 스와이프 기능
     void SwipeUpdate()
     {
