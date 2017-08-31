@@ -19,7 +19,6 @@ namespace MiniGame3
         {
             for(int ti = 0; ti< ItemData.Length;ti++)
             {
-
                 ItemData[ti].Id = ti;
                 ItemData[ti].Price = ti * 100;
             }
