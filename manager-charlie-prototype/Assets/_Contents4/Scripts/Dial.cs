@@ -2,23 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using CustomDebug;
 
 
 namespace Contents4
 {
 
-    public class Swipe : MonoBehaviour
+    public class Dial : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHandler
     {
-
-
-        public DialBtn[] DialBtns;
-
-        public float Radius = 3.2f;
-        public const float ScreenHeight = 400.0f;
-        public float Angle = 0.0f;
-        public float[] PositionAngle =
+        
+        public enum Direction
         {
+            up,
+            down,
+            stop
+        }
+
+        private float[] mPositionAngle =
+       {
         337.5f,
         292.5f,
         247.5f,
@@ -27,65 +29,49 @@ namespace Contents4
         112.5f,
         67.5f,
         22.5f,
-    };
-        /*
-                -22.5f,
-            -67.5f,
-            -112.5f,
-            -157.5f,
-            -202.5f,
-            -247.5f,
-            -292.5f,
-            -337.5f
-            */
+       };
 
+        public DialBtn[] DialBtns;
+
+        private float mRadius = 0.0f;
+        public float Angle = 0.0f;
+       
+        public Direction Dir = Direction.stop;
         public LinkedList<DialBtn> DialIndex = null;
                         
-        public Vector3 Direction = Vector3.zero;
-        public Ray2D DialRay;
-        public RaycastHit2D HitInfo;
-        public bool IsBtnTouch = false;
-
-        public Vector2 NowPosition = Vector3.zero;
-        public Vector2 PreviousPosition = Vector3.zero;
-        public float Power = 0.0f;
-        public float Sensitivity = 0.45f;
-        public int StandardDialNum = 0;
-        public enum EnumDirection
-        {
-            up,
-            down,
-            stop
-        }
-        public EnumDirection EnumDir = EnumDirection.stop;
-        private bool IsMouseDown = false;
+        private Vector3 mDirection = Vector3.zero;                
+        private Vector2 mNowPosition = Vector3.zero;        
+        private Vector2 mPreviousPosition = Vector3.zero;
+        private float mPower = 0.0f;
+        public float Sensitivity = 0.0f;
+        private int mStandardDialNum = 0;
+        private bool mIsMouseDown = false;
+        public int Hour = 0;
                 
         private void Awake()
         {
-            Radius = 3.2f;
-            Angle = 112.5f;
-            
+            mRadius = 3.2f;
+            //Angle = 112.5f;
+            Angle = 67.5f;
             DialIndex = new LinkedList<DialBtn>();
-            
+
+            for (int ti = 0; ti < DialBtns.Length; ti++)
+            {
+                DialIndex.AddLast(DialBtns[ti]);
+            }
+
+            foreach (DialBtn StandardDial in DialBtns)
+            {
+                StandardDial.Index = mStandardDialNum;
+                mStandardDialNum++;
+            }
+
+            Positioning();
         }
         // Use this for initialization
         void Start()
-        {
-            for (int ti = 0; ti < DialBtns.Length; ti++)
-            {
-
-                DialIndex.AddLast(DialBtns[ti]);
-            }
+        {   
             
-            foreach (DialBtn AA in DialBtns)
-            {
-
-                AA.Index = StandardDialNum;
-                StandardDialNum++;
-            }
-            
-            Positioning();
-
         }
 
         // Update is called once per frame
@@ -94,45 +80,44 @@ namespace Contents4
 
         }
 
-        private void OnMouseDown()
+        public void OnBeginDrag(PointerEventData eventData)
         {
+            mIsMouseDown = true;
 
-            IsMouseDown = true;
+            Dir = Direction.stop;
 
-            EnumDir = EnumDirection.stop;
-
-            Direction = Vector3.zero;
-            Power = 0.0f;
-
-            PreviousPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            NowPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mDirection = Vector3.zero;
+            mPower = 0.0f;
+                        
+            mPreviousPosition = eventData.position;
+            mNowPosition = eventData.position;
         }
 
-        private void OnMouseDrag()
+        public void OnDrag(PointerEventData eventData)
         {
-            NowPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mNowPosition = eventData.position;
             DoDrag();
-            PreviousPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mPreviousPosition = eventData.position;
         }
 
-        private void OnMouseUp()
+        public void OnEndDrag(PointerEventData eventData)
         {
-            IsMouseDown = false;
+            mIsMouseDown = false;
 
-            Power = Mathf.Abs(Direction.y);
-            if (Power > 0.0f)
+            mPower = Mathf.Abs(mDirection.y);
+            if (mPower > 0.0f)
             {
-                if (Direction.y > 0.0f)
+                if (mDirection.y > 0.0f)
                 {
-                    EnumDir = EnumDirection.up;
+                    Dir = Direction.up;
                 }
-                else if (Direction.y < 0.0f)
+                else if (mDirection.y < 0.0f)
                 {
-                    EnumDir = EnumDirection.down;
+                    Dir = Direction.down;
                 }
                 else
                 {
-                    EnumDir = EnumDirection.stop;
+                    Dir = Direction.stop;
                 }
                 StartCoroutine(DoSlide());
             }
@@ -140,7 +125,7 @@ namespace Contents4
 
         public void DoDrag()
         {
-            Direction = (NowPosition - PreviousPosition)*Sensitivity;
+            mDirection = (mNowPosition - mPreviousPosition)*Sensitivity;
 
             if (Angle >= 360.0f)
             {
@@ -151,23 +136,20 @@ namespace Contents4
                 Angle += 360.0f;
             }
 
-            Angle += Direction.y * 1500.0f * Time.deltaTime;
+            Angle += mDirection.y * 1500.0f * Time.deltaTime;
 
             Positioning();
 
         }
 
-
-
         public void Positioning()
         {
             float TempAngle = Angle;
             for (int ti = 0; ti < DialBtns.Length; ti++)
-            {
-                DialBtns[ti].transform.position = new Vector3(Radius * Mathf.Cos(TempAngle * Mathf.Deg2Rad), Radius * Mathf.Sin(TempAngle * Mathf.Deg2Rad), -1.0f);
-
+            {                
+                DialBtns[ti].transform.position = Camera.main.WorldToScreenPoint(new Vector3(mRadius * Mathf.Cos(TempAngle * Mathf.Deg2Rad), mRadius * Mathf.Sin(TempAngle * Mathf.Deg2Rad), -20.0f));                
                 DialBtns[ti].Angle = TempAngle;
-
+                
                 TempAngle -= 45.0f;
 
                 if (TempAngle < 0.0f)
@@ -184,15 +166,14 @@ namespace Contents4
                 DialIndex.RemoveFirst();               
                 if(DialIndex.Last.Value.Index > 24)
                 {
-                    StandardDialNum = 0;
+                    mStandardDialNum = 0;
                 }
                 else
                 {
-                    StandardDialNum = DialIndex.Last.Value.Index + 1;
+                    mStandardDialNum = DialIndex.Last.Value.Index + 1;
                 }                
-                temp.Value.Index = StandardDialNum;
+                temp.Value.Index = mStandardDialNum;
                 DialIndex.AddLast(temp);
-
                 
             }
             else if (DialIndex.Last.Value.Angle < 112.5f)
@@ -202,27 +183,24 @@ namespace Contents4
                 DialIndex.RemoveLast();                
                 if(DialIndex.First.Value.Index < 1)
                 {
-                    StandardDialNum = 25;
+                    mStandardDialNum = 25;
                 }
                 else
                 {
-                    StandardDialNum = DialIndex.First.Value.Index - 1;
+                    mStandardDialNum = DialIndex.First.Value.Index - 1;
                 }
-                temp.Value.Index = StandardDialNum;
+                temp.Value.Index = mStandardDialNum;
                 DialIndex.AddFirst(temp);
 
             }
         }
-
-
-
-
+        
         IEnumerator DoSlide()
         {            
-            float TempPower = Power;
+            float TempPower = mPower;
             for (; ; )
             {
-                if (IsMouseDown)
+                if (mIsMouseDown)
                 {
                     break;
                 }
@@ -238,19 +216,19 @@ namespace Contents4
                         Angle += 360.0f;
                     }
                     
-                    switch (EnumDir)
+                    switch (Dir)
                     {
-                        case EnumDirection.up:
+                        case Direction.up:
                             {
                                 Angle += TempPower * 1500.0f * Time.deltaTime;
                                 break;
                             }
-                        case EnumDirection.down:
+                        case Direction.down:
                             {
                                 Angle -= TempPower * 1500.0f * Time.deltaTime;
                                 break;
                             }
-                        case EnumDirection.stop:
+                        case Direction.stop:
                             {
 
                                 break;
@@ -260,13 +238,13 @@ namespace Contents4
                     TempPower -= 0.001f;
                     if (TempPower < 0.005f)
                     {
-                        StartCoroutine(FindPosition(TempPower));
+                        //StartCoroutine(FindPosition(TempPower));
                         break;
                     }
                 }
                 else
                 {
-                    EnumDir = EnumDirection.stop;
+                    Dir = Direction.stop;
                     break;
                 }
                 yield return null;
@@ -277,35 +255,35 @@ namespace Contents4
         {            
             List<float> ListResult = new List<float>();
             float CalculateResult = 0;
-            for (int ti = 0; ti < PositionAngle.Length; ti++)
+            for (int ti = 0; ti < mPositionAngle.Length; ti++)
             {
-                CalculateResult = Mathf.Abs(Angle - PositionAngle[ti]);
+                CalculateResult = Mathf.Abs(Angle - mPositionAngle[ti]);
                 ListResult.Add(CalculateResult);
             }
 
             int PositionIndex = CalculateSmallest(ListResult);
 
-            if (Angle - PositionAngle[PositionIndex] > 0.0f)
+            if (Angle - mPositionAngle[PositionIndex] > 0.0f)
             {
-                EnumDir = EnumDirection.down;
+                Dir = Direction.down;
             }
-            else if (Angle - PositionAngle[PositionIndex] < 0.0f)
+            else if (Angle - mPositionAngle[PositionIndex] < 0.0f)
             {
-                EnumDir = EnumDirection.up;
+                Dir = Direction.up;
             }
             else
             {
-                EnumDir = EnumDirection.stop;
+                Dir = Direction.stop;
             }
             
             for (; ; )
             {
-                if (IsMouseDown)
+                if (mIsMouseDown)
                 {
                     break;
                 }
                 
-                if (Mathf.Abs(Angle - PositionAngle[PositionIndex]) > 0.1f)
+                if (Mathf.Abs(Angle - mPositionAngle[PositionIndex]) > 0.1f)
                 {
                     if (Angle >= 360.0f)
                     {
@@ -315,19 +293,19 @@ namespace Contents4
                     {
                         Angle += 360.0f;
                     }
-                    switch (EnumDir)
+                    switch (Dir)
                     {
-                        case EnumDirection.up:
+                        case Direction.up:
                             {
                                 Angle += TempPower * 1500.0f * Time.deltaTime;
                                 break;
                             }
-                        case EnumDirection.down:
+                        case Direction.down:
                             {
                                 Angle -= TempPower * 1500.0f * Time.deltaTime;
                                 break;
                             }
-                        case EnumDirection.stop:
+                        case Direction.stop:
                             {
 
                                 break;
@@ -337,16 +315,16 @@ namespace Contents4
                 }
                 else
                 {
-                    Angle = PositionAngle[PositionIndex];
+                    Angle = mPositionAngle[PositionIndex];
                     Positioning();
-                    EnumDir = EnumDirection.stop;
+                    Dir = Direction.stop;
                     break;
                 }
                 yield return null;
             }//for(;;)
 
         }
-
+        
         int CalculateSmallest(List<float> TempListResult)
         {
             int Result = 0;
@@ -362,6 +340,64 @@ namespace Contents4
 
             return Result;
         }
-    }
 
+        public void GetHour(int Time)
+        {
+            Hour = Time;
+        }
+
+        public void BringCenter(float TempAngle)
+        {
+            float degree = TempAngle;
+            if (TempAngle < 110)
+            {
+                degree = TempAngle;
+                Dir = Direction.down;
+            }
+            else if(TempAngle > 250)
+            {
+                degree = 360 - TempAngle;
+                Dir = Direction.up;
+            }
+                        
+            while (degree > 0)
+            {
+                if (Angle >= 360.0f)
+                {
+                    Angle -= 360.0f;
+                }
+                if (Angle <= 0)
+                {
+                    Angle += 360.0f;
+                }
+
+                switch (Dir)
+                {                    
+                    case Direction.up:
+                        {                            
+                            Angle += 1.0f;
+                            break;
+                        }
+                    case Direction.down:
+                        {                            
+                            Angle -= 1.0f;
+                            break;
+                        }
+                    case Direction.stop:
+                        {
+                            break;
+                        }
+                    default:                        
+                        break;
+                }
+                
+                Positioning();
+                degree -= 1;
+            }
+
+            Dir = Direction.stop;
+        }
+
+        
+    }
 }

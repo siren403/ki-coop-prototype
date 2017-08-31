@@ -9,7 +9,7 @@ namespace Contents4
     {
 
 
-        public GameObject Sticker = null;
+        public GameObject ImgSticker = null;
 
         // Use this for initialization
         void Start()
@@ -25,12 +25,12 @@ namespace Contents4
 
         public void HideSticker()
         {
-            Sticker.SetActive(false);
+            ImgSticker.SetActive(false);
         }
 
         public void ShowSticker()
         {
-            Sticker.SetActive(true);
+            ImgSticker.SetActive(true);
         }
 
         public void OnClickBtnGetGift()
