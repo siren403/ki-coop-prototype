@@ -28,7 +28,7 @@ namespace Contents3
             // 캐릭터를 순서대로 만남.
             // 조이 -> 브루스 -> 토니 (반복)
 
-            CDebug.Log("Situation");
+            CDebug.Log("Enter: Situation ");
             Timer.Start();
 
             Entity.UI.ShowSituation();
@@ -42,7 +42,6 @@ namespace Contents3
                 CDebug.Log("Situation Excute : After 4.0f change state to Question");
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
-        
         }
         
         public override void Exit()

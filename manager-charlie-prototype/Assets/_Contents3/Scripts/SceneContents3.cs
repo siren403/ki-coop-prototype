@@ -75,6 +75,9 @@ namespace Contents3
         private int mCorrectCount = 0;                              // 맞은 수
         private int mWrongCount = 0;                                // 틀린 수
 
+        private int mSetAnswerId = 0;                               // 선택지ID
+        private int mRandomCorrectAnswerID = 0; //* 0,1,중 하나 선택 -> 0이면 왼쪽, 1이면 오른쪽에 배치 */
+
         private List<int> mUsedQuestionID = new List<int>();        // 사용된 문제 번호
         private int SelectAnswerID;
 
@@ -121,7 +124,7 @@ namespace Contents3
         {
             CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
 
-            //GetData(episodeID);
+            GetData(episodeID);
 
             ChangeState(State.Situation);
         }
@@ -140,7 +143,6 @@ namespace Contents3
         private string[] mAnswer = new string[] { };
 
         private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQnA = null;
-        private QuickSheet.Contents3Data[] mAnswers = new QuickSheet.Contents3Data[2];
 
         private QuickSheet.Contents3Data mCurrentCorrect = null;        // 현재 제출문제의 정답 데이터
         private QuickSheet.Contents3Data mSelectedAnswer = null;        // 현재 제출 선택지 중 유저가 선택한 데이터
@@ -170,36 +172,54 @@ namespace Contents3
         //* 데이터 로드 */
         public void GetData(int episodeID)
         {
+            mSelectedEpisode = episodeID;
             var table = TableFactory.LoadContents3Table().dataArray
                                     .Where((data) => data.Episode == mSelectedEpisode).ToList();
+
 
             foreach (var row in table)
             {
                 QnAList.Add(new QnA(row.ID, row.Episode, row.Question, row.Correct, row.Character));
             }
-
-            Debug.Log(QnAList);
-
-            //mQnA = new Dictionary<string, Queue<QuickSheet.Contents3Data>>();
-
-            //CDebug.Log( QnAList[0].Correct[0].ToString());
-
-            /*
+            
+          
+            mQnA = new Dictionary<string, Queue<QuickSheet.Contents3Data>>();
             foreach (var row in table)
             {
                 if (mQnA.ContainsKey(row.Question) == false)
                 {
-                    mQuestion.Add(row.Question);            // List에 Question 추가
-                    //CDebug.LogFormat("Question : {0}", mQuestion);
+                    mQuestion.Add(row.Question);                    // List에 Question 추가
                     mQnA.Add(row.Question, new Queue<QuickSheet.Contents3Data>(3));
                 }
                mQnA[row.Question].Enqueue(row);
-               //CDebug.LogFormat("Question : {0}", mQnA[row.Question].ToString());
             }
-            */
+        }
 
+        string currentQuestion = "";
+        // 출제 문제를 결정
+        public void SetQuestion()
+        {
+            currentQuestion = QnAList[mSubmitQuestionCount % 3].Question;        // 문제 선택 후 플레이 (사운드 예정)
+            CDebug.Log(currentQuestion);
+        }
+
+        public string GetRightAnswer()
+        {
+            string Answer = "";
+            if (mQnA.ContainsKey(currentQuestion))
+            {
+                //Answer = mQnA[currentQuestion];
+            }
+
+
+            return Answer;
+        }
+        public void GetWrongAnswer()
+        {
 
         }
+
+        /*
         public QuickSheet.Contents3Data[] GetAnswers()
         {
             for (int i = 0; i < mAnswers.Length; i++)
@@ -207,19 +227,19 @@ namespace Contents3
                 mAnswers[i] = null;
             }
             
-            //int answersIndex = 0;
-            //mCurrentCorrect = mQnA["Hi"].Dequeue();
-            //mAnswers[answersIndex] = mCurrentCorrect;
+            int answersIndex = 0;
+            mCurrentCorrect = mQnA["hi"].Dequeue();
+            mAnswers[answersIndex] = mCurrentCorrect;
 
-            CDebug.Log(mQnA["Hi"]);
+            CDebug.Log(mQnA["hi"]);
             CDebug.Log(mCurrentCorrect);
-            CDebug.LogFormat("CurrentQuestion : {0}", mCurrentCorrect.Question);
+            //CDebug.LogFormat("CurrentQuestion : {0}", mCurrentCorrect.Question);
 
 
-            //answersIndex++;
+            answersIndex++;
 
 
-            /*
+            
             for (int i = 0; i < CurrentEpisode["question"].Count; i++)
             {
                 if (answersIndex < 2)
@@ -237,13 +257,13 @@ namespace Contents3
                     break;
                 }
             }
-            */
 
             mSubmitQuestionCount++;             //문제 인덱스 증가
             
             return mAnswers;
         }
         
+            */
 
         public void IncreaseCorrectCount()
         {

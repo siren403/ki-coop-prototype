@@ -80,12 +80,12 @@ namespace Contents3
             InstBtnAnswerList[0].onClick.AddListener(() => OnBtnSelectAnswer(0));
             InstBtnAnswerList[1].onClick.AddListener(() => OnBtnSelectAnswer(1));
 
+            // Outro Btn
             InstBtnHome.onClick.AddListener(() => CDebug.Log("Home"));
             InstBtnMiniGame.onClick.AddListener(() => CDebug.Log("MiniGame"));
             InstBtnReplay.onClick.AddListener(() => CDebug.Log("Replay"));
             InstBtnNext.onClick.AddListener(() => CDebug.Log("Next"));
 
-           // mScene.GetAnswers();
         }
 
         private void ButtonChangeState(Button btn, bool enable)
@@ -124,6 +124,7 @@ namespace Contents3
         }
         public void ShowQuestion()                                                  // 문제 연출
         {
+            mScene.SetQuestion();
             CDebug.Log("ShowQuestion");
 
         }
@@ -134,18 +135,20 @@ namespace Contents3
 
             /*
             var answers = mScene.GetAnswers();
+            
             for (int i = 0; i < answers.Length; i++ )
             {
-                InstBtnAnswerList[i].GetComponentInChildren<Text>().text = answers[i].Correct[i];
+               // InstBtnAnswerList[i].GetComponentInChildren<Text>().text = answers[i].Correct[i];
+                CDebug.LogFormat("answers[{0}] = {1}", i, answers[i].ID);
             }
-            */
+            
 
             InstPanelAnswer.SetActive(true);
             mAnswerIndexSet.Clear();
             for(int i = 0; i < InstBtnAnswerList.Count; i++)
             {
-                //InstBtnAnswerList[i].GetComponent<Button>().interactable = true;        // 버튼 활성화
-                //InstBtnAnswerList[i].GetComponent<Button>().interactable = true;        // interactable
+                InstBtnAnswerList[i].GetComponent<Button>().interactable = true;        // 버튼 활성화
+                InstBtnAnswerList[i].GetComponent<Button>().interactable = true;        // interactable
 
                 ButtonChangeState(InstBtnAnswerList[i], true);
                 mAnswerIndexSet.Add(i);
@@ -153,7 +156,7 @@ namespace Contents3
             
             mScene.ChangeState(QnAContentsBase.State.Select);
             
-            
+            */
         }
         public void SelectAnswer()                                                  // 답변 선택
         {
@@ -172,12 +175,12 @@ namespace Contents3
                         {
                             if (mScene.HasNextQuestion)
                             {
-                               // mScene.ChangeState(QnAContentsBase.State.Question);
+                                //mScene.ChangeState(QnAContentsBase.State.Question);
                                 CDebug.Log("Gauge = Next Q");
                             }
                             else
                             {
-                               // mScene.ChangeState(QnAContentsBase.State.Reward);
+                                //mScene.ChangeState(QnAContentsBase.State.Reward);
                                 CDebug.Log("Gauge full");
                             }
                         } );
@@ -192,16 +195,36 @@ namespace Contents3
             
             InstBtnAnswerList[1].GetComponent<Button>().interactable = false;       // 버튼 비활성화
 
-            //ShowQuestion();
             //mScene.ChangeState(QnAContentsBase.State.Select);
         }
 
         public void ShowReward()                                                    // 보상 연출
         {
+
             CDebug.Log("Play Reward Animation");
             InstCorrectGauge.gameObject.SetActive(false);
 
-            mScene.ChangeState(QnAContentsBase.State.Clear);
+
+            if (mScene.CorrectProgress == 1)//모든 문제 정답시의 값
+            {
+                //스티커 연출 후 ClearEpisode상태로 이행
+                InstImageRewardSticker.transform.DOScale(1.0f, 1.0f)
+                    .OnStart(() =>
+                    {
+                        InstImageRewardSticker.gameObject.SetActive(true); ;
+                    })
+                    .SetDelay(1.5f)
+                    .OnComplete(() =>
+                    {
+                        mScene.ChangeState(QnAContentsBase.State.Clear);
+                    });
+            }
+            else
+                mScene.ChangeState(QnAContentsBase.State.Clear);
+            
+
+
+            
         }
         public void ClearEpisode()                                                  // 에피소드 클리어
         {

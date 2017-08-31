@@ -14,21 +14,123 @@ MonoBehaviour:
   SheetName: Assets/_Home/DataResources/Contents/QnAContents.xlsx
   WorksheetName: Contents2
   dataArray:
-  - id: 0
-    episode: 0
-    question: 
-    correct: 
-    wrong: 
-    objectstate: 
-  - id: 0
-    episode: 0
-    question: 
-    correct: 
-    wrong: 
-    objectstate: 
-  - id: 0
-    episode: 0
-    question: 
-    correct: 
-    wrong: 
-    objectstate: 
+  - id: 1
+    episode: 1
+    question: toothbrush
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 2
+    episode: 1
+    question: toothpaste
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 3
+    episode: 1
+    question: telephone
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 4
+    episode: 1
+    question: hairdryer
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 5
+    episode: 1
+    question: shampoo
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 6
+    episode: 1
+    question: kettle
+    correct: metal
+    wrong: plastic
+    objectstate: broken
+  - id: 7
+    episode: 1
+    question: tunacan
+    correct: metal
+    wrong: plastic
+    objectstate: finished
+  - id: 8
+    episode: 1
+    question: picturebook
+    correct: paper
+    wrong: metal
+    objectstate: torn
+  - id: 9
+    episode: 1
+    question: magazine
+    correct: paper
+    wrong: metal
+    objectstate: torn
+  - id: 10
+    episode: 1
+    question: vase
+    correct: glass
+    wrong: plastic
+    objectstate: broken
+  - id: 11
+    episode: 2
+    question: pen
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 12
+    episode: 2
+    question: legoblocks
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 13
+    episode: 2
+    question: button
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 14
+    episode: 2
+    question: key
+    correct: metal
+    wrong: glass
+    objectstate: broken
+  - id: 15
+    episode: 2
+    question: paint
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 16
+    episode: 2
+    question: wirehangers
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 17
+    episode: 2
+    question: notebook
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 18
+    episode: 2
+    question: book
+    correct: paper
+    wrong: plastic
+    objectstate: torn
+  - id: 19
+    episode: 2
+    question: paperbag
+    correct: paper
+    wrong: plastic
+    objectstate: torn
+  - id: 20
+    episode: 2
+    question: glassbottle
+    correct: glass
+    wrong: metal
+    objectstate: broken
