@@ -1,14 +1,15 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'//application을 library로 변경
 
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.kids.charlie"
-        minSdkVersion 16
+        //applicationId, versionCode, versionName을 지운다
+        //applicationId "com.kids.charlie"
+        minSdkVersion 24
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        //versionCode 1
+        //versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,5 +27,22 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+    //라이브러리를 추가하면 다음 라인이 추가된다
     compile files('libs/classes.jar')
 }
+//task: 이전 jar 파일을 지운다. 여기서는 AndroidPlugin.jar 파일이다.
+task deleteOldJar(type: Delete) {
+    delete 'release/AndroidPlugin.jar'
+}
+
+//task: jar 파일로 익스포트 한다. 여기서는 AndroidPlugin.jar 파일이다.
+task exportJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('release/')
+    include('classes.jar')
+    ///Rename the jar
+    rename('classes.jar', 'AndroidPlugin.jar')
+}
+
+//exportJar 작업은 ,deleteOldJar 작업에 의존한다.
+exportJar.dependsOn(deleteOldJar, build)

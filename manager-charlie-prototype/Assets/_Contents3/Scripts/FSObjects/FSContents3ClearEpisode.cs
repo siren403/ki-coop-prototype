@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Contents.QnA;
-using CustomDebug;
-
 
 namespace Contents3
 {
@@ -19,23 +16,10 @@ namespace Contents3
             }
         }
 
-        public override void Initialize()
-        {
-
-        }
         public override void Enter()
-    {
-        CDebug.Log("Enter: ClearEpisode");
-        Entity.UI.ClearEpisode();
-        Entity.ChangeState(QnAContentsBase.State.None);
-    }
-        public override void Exit()
         {
-
+            Entity.View.ClearEpisode();
         }
-        public override void Excute()
-        {
-
-        }
+       
     }
 }

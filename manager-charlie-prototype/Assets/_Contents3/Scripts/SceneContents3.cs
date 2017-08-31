@@ -39,9 +39,9 @@ namespace Contents3
 
         //** UI 및 리소스 관리자 */
         [SerializeField]
-        public UIContents3 mInstUI = null;                      // UI 연결용
+        public ViewContents3 mInstUI = null;                      // UI 연결용
 
-        public override IQnAView UI
+        public override IQnAView View
         {
             get
             {
@@ -49,6 +49,16 @@ namespace Contents3
             }
         }
 
+        #region QnAContents를 구성하는 기본적인 State객체
+        protected override QnAFiniteState FSEpisode { get { return new FSContents3ShowEpisode(); } }
+        protected override QnAFiniteState FSSituation { get { return new FSContents3ShowSituation(); } }
+        protected override QnAFiniteState FSQuestion { get { return new FSContents3ShowQuestion(); } }
+        protected override QnAFiniteState FSAnswer { get { return new FSContents3ShowAnswer(); } }
+        protected override QnAFiniteState FSSelect { get { return new FSContents3SelectAnswer(); } }
+        protected override QnAFiniteState FSEvaluate { get { return new FSContents3EvaluteAnswer(); } }
+        protected override QnAFiniteState FSReward { get { return new FSContents3ShowReward(); } }
+        protected override QnAFiniteState FSClear { get { return new FSContents3ClearEpisode(); } }
+        #endregion
 
         public float CorrectProgress
         {
@@ -272,15 +282,7 @@ namespace Contents3
 
         
 
-        /** Finite State Machine */
-        protected override QnAFiniteState CreateShowEpisode() { return new FSContents3ShowEpisode(); }
-        protected override QnAFiniteState CreateShowSituation() { return new FSContents3ShowSituation(); }
-        protected override QnAFiniteState CreateShowQuestion() { return new FSContents3ShowQuestion(); }
-        protected override QnAFiniteState CreateShowAnswer() { return new FSContents3ShowAnswer(); }
-        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents3SelectAnswer(); }
-        protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents3EvaluteAnswer(); }
-        protected override QnAFiniteState CreateShowReward() { return new FSContents3ShowReward(); }
-        protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents3ClearEpisode(); }
+        
 
     }
 }

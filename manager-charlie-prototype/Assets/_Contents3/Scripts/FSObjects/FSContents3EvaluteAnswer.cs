@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Contents.QnA;
 using CustomDebug;
 using Util;
@@ -22,10 +21,6 @@ namespace Contents3
 
         int randomCorrectAnswerID;
 
-        public override void Initialize()
-        {
-
-        }
         public override void Enter()
         {
             CDebug.Log("Enter: Evaluation");
@@ -35,31 +30,23 @@ namespace Contents3
             if(scene.CurrentCorrect.ID == scene.SelectedAnswer.ID)
             {
                 scene.IncreaseCorrectCount();
-                Entity.UI.CorrectAnswer();
+                Entity.View.CorrectAnswer();
               
               // 정답 사운드 출력
             }
             else
             {
                 (Entity as SceneContents3).WrongCount++;
-                Entity.UI.WrongAnswer();
+                Entity.View.WrongAnswer();
               
               // 오답 사운드 출력
             }
             
-
             mQuestionCount++;
             CheckFinished();
-            
-        }
-        public override void Exit()
-        {
-            
-        }
-        public override void Excute()
-        {
 
         }
+       
 
         public void CheckFinished()
         {

@@ -17,15 +17,11 @@ namespace Contents2
         }
         private SimpleTimer Timer = SimpleTimer.Create();
 
-        public override void Initialize()
-        {
-            
-        }
-
         public override void Enter()
         {
+            CDebug.Log(" ----------------------------------------------- ShowReward----------------------------------");
             CDebug.Log("[FSM] Show Reward");
-            Entity.UI.ShowReward();
+            Entity.View.ShowReward();
             CDebug.Log("[FSM] Send Clear Data");
         }
 
@@ -35,14 +31,10 @@ namespace Contents2
             if (Timer.Check(1.5f))
             {
                 CDebug.Log("[FSM] Receive Reward Data");
-                Entity.UI.ShowReward();
+                Entity.View.ShowReward();
             }
         }
 
-        public override void Exit()
-        {
-            
-        }
     }
 
 }

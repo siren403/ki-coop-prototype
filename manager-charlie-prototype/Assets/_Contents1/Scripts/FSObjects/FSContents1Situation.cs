@@ -15,13 +15,9 @@ namespace Contents1
         }
         private SimpleTimer mTimer = SimpleTimer.Create();
 
-
-        public override void Initialize()
-        {
-        }
         public override void Enter()
         {
-            Entity.UI.ShowSituation();
+            Entity.View.ShowSituation();
             mTimer.Start();
         }
         public override void Excute()
@@ -31,9 +27,6 @@ namespace Contents1
             {
                 Entity.ChangeState(QnAContentsBase.State.Question);
             }
-        }
-        public override void Exit()
-        {
         }
     }
 }

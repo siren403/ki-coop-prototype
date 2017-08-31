@@ -3,40 +3,26 @@ using CustomDebug;
 using Util;
 using Contents.QnA;
 
-
-public class FSContents2ShowAnswer : QnAFiniteState
+namespace Contents2
 {
-    public override QnAContentsBase.State StateID
+    public class FSContents2ShowAnswer : QnAFiniteState
     {
-        get
+        public override QnAContentsBase.State StateID
         {
-            return QnAContentsBase.State.Answer;
+            get
+            {
+                return QnAContentsBase.State.Answer;
+            }
         }
-    }
-    private SimpleTimer Timer = SimpleTimer.Create();
+        private SimpleTimer Timer = SimpleTimer.Create();
 
-    public override void Initialize()
-    {
-
-    }
-
-    public override void Enter()
-    {
-        Entity.UI.ShowAnswer();
-    }
-
-    public override void Excute()
-    {
-        Timer.Update();
-        if(Timer.Check(1.5f))
+        public override void Enter()
         {
-            CDebug.Log("[FSM] Stop Show Answer Animation");
-            Entity.ChangeState(QnAContentsBase.State.Situation);
-        }
-    }
+            CDebug.Log(" ----------------------------------------------- ShowAnswer----------------------------------");
+            Entity.View.ShowAnswer();
+            Entity.ChangeState(QnAContentsBase.State.Select);
 
-    public override void Exit()
-    {
+        }
 
     }
 }

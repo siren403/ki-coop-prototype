@@ -14,23 +14,23 @@ namespace Contents2
                 return QnAContentsBase.State.Question;
             }
         }
+        private SimpleTimer Timer = SimpleTimer.Create();
+        private float duration = 6.0f;
 
-        public override void Initialize()
-        {
-
-        }
         public override void Enter()
         {
-            Entity.UI.ShowQuestion();
-            (Entity as QnAContentsBase).ChangeState(QnAContentsBase.State.Select);
+            CDebug.Log(" ----------------------------------------------- ShowQuestion----------------------------------");
+            Timer.Start();
+            Entity.View.ShowQuestion();
         }
         public override void Excute()
         {
-
+            Timer.Update();
+            if (Timer.Check(duration))
+            {
+                Entity.ChangeState(QnAContentsBase.State.Answer);
+            }
         }
-        public override void Exit()
-        {
-
-        }
+       
     }
 }

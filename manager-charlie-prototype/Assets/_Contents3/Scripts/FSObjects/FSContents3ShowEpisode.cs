@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Contents.QnA;
 using CustomDebug;
 
@@ -19,21 +18,9 @@ namespace Contents3
         }
 
 
-        public override void Initialize()
-        {
-
-        }
         public override void Enter()
         {
-            Entity.UI.ShowEpisode();
-        }
-        public override void Excute()
-        {
-
-        }
-        public override void Exit()
-        {
-
+            Entity.View.ShowEpisode();
         }
 
     }

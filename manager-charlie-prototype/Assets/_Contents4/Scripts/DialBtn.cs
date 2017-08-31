@@ -1,23 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using CustomDebug;
 
-public class DialBtn : MonoBehaviour {
+namespace Contents4
+{
+    public class DialBtn : MonoBehaviour
+    {
+                
+        public int Index = 0;
+        public float Angle = 0.0f;
+        
+        public void OnClickTest()
+        {
+            if(Index > 0 && Index < 13)
+            {
+                this.transform.parent.GetComponent<Dial>().GetHour(Index);
+                this.transform.parent.GetComponent<Dial>().BringCenter(Angle);
+            }
+            else if(Index > 13)
+            {
+                this.transform.parent.GetComponent<Dial>().GetHour(Index-1);
+                this.transform.parent.GetComponent<Dial>().BringCenter(Angle);
+            }            
+        }
 
-    public int Index = 0;
-    public Sprite InstBody;
-    //public float Angle;
+        public void ChangeSprite()
+        {
+            //this.GetComponent<Image>().sprite = ;
+        }
+    }
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        //Angle += 0.1f;
-
-        //transform.position =new Vector2(3.2f * Mathf.Cos(0), 3.2f * Mathf.Sin(0)) ;
-
-	}
 }
+

@@ -15,22 +15,9 @@ namespace Contents1
             }
         }
 
-        public override void Initialize()
-        {
-            
-        }
-
         public override void Enter()
         {
-            Entity.UI.ShowAnswer();
-        }
-
-        public override void Excute()
-        {
-        }
-
-        public override void Exit()
-        {
+            Entity.View.ShowAnswer();
         }
     }
 }

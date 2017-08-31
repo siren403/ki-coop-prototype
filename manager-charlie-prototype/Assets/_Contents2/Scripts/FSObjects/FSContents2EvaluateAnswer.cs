@@ -24,14 +24,9 @@ namespace Contents2
         }
         private SimpleTimer Timer = SimpleTimer.Create();
 
-        public override void Initialize()
-        {
-
-        }
-
         public override void Enter()
         {
-
+            CDebug.Log(" ----------------------------------------------- EvaluateAnswer----------------------------------");
             Timer.Start();
 
             evalAnswer++;
@@ -46,48 +41,15 @@ namespace Contents2
 
             if (selectedId == randomCorrectAnswerID)
             {
-                Entity.UI.CorrectAnswer();
+                Entity.View.CorrectAnswer();
             }
             //* 오답일 때*/
             else
             {
-                Entity.UI.WrongAnswer();
+                Entity.View.WrongAnswer();
                 Entity.ChangeState(QnAContentsBase.State.Select);
             }
         }
     
-
-        public override void Excute()
-        {
-            //Timer.Update();
-            //if (Timer.Check(duration))
-            //{
-            //    //* 정답일 때*/
-            //    if (selectedId == randomCorrectAnswerID)
-            //    {
-            //        Debug.Log("mCorrectCount ->>>> " + evalAnswer);
-            //        if (evalAnswer == 10)
-            //        {
-            //            evalAnswer = 0;
-                        
-            //            Entity.ChangeState(QnAContentsBase.State.Reward);
-            //        }
-            //        else
-            //        {
-            //            Entity.ChangeState(QnAContentsBase.State.Situation);
-            //        }
-            //    }
-            //    //* 오답일 때*/
-            //    else
-            //    {
-                    
-            //    }
-            //}
-        }
-
-        public override void Exit()
-        {
- 
-        }
     }
 }

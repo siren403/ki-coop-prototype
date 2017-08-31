@@ -18,15 +18,11 @@ namespace Contents2
         private SimpleTimer Timer = SimpleTimer.Create();
         private float duration = 6.0f;
 
-        public override void Initialize()
-        {
-
-        }
-
         public override void Enter()
         {
+            CDebug.Log(" ----------------------------------------------- ShowSituation----------------------------------");
             CDebug.Log("[FSM] Show Situation and Wating Animation // ");
-            Entity.UI.ShowSituation();
+            Entity.View.ShowSituation();
             Timer.Start();
         }
 
@@ -39,9 +35,5 @@ namespace Contents2
             }
         }
 
-        public override void Exit()
-        {
-
-        }
     }
 }

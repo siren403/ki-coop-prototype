@@ -15,26 +15,12 @@ namespace Contents2
             }
         }
 
-        public override void Initialize()
-        {
-
-        }
-
         public override void Enter()
         {
             CDebug.Log("[FSM] Clear Episode");
-            Entity.UI.ClearEpisode();
+            Entity.View.ClearEpisode();
             Entity.ChangeState(QnAContentsBase.State.None);
         }
 
-        public override void Excute()
-        {
-        
-        }
-
-        public override void Exit()
-        {
-            
-        }
     }
 }

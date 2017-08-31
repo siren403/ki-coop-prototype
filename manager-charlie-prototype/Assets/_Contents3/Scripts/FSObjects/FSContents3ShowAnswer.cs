@@ -21,16 +21,14 @@ namespace Contents3
         private SimpleTimer Timer = SimpleTimer.Create();
         private GameObject AnswerPanel = null;
 
-        public override void Initialize()
-        {
-        }
+       
         public override void Enter()
         {
             CDebug.Log("선택지 출력");
 
             // 데이터를 받아서 답지 출력
 
-            Entity.UI.ShowAnswer();
+            Entity.View.ShowAnswer();
             CDebug.Log("ShowAnswer : 이미지 확대 + 대사 출력");
 
             AnswerPanel = GameObject.FindGameObjectWithTag("PanelAnswer");
@@ -50,10 +48,7 @@ namespace Contents3
             }
 
         }
-        public override void Exit()
-        {
-            //AnswerPanel.transform.position = new Vector2(0, 0f);
-        }
+       
 
         public void MovePanel()
         {

@@ -25,13 +25,8 @@ namespace Contents1
         // 타이머 생성
         private SimpleTimer mTimer = SimpleTimer.Create();
 
-        public override void Initialize()
-        {            
-        }
-
         public override void Enter()
         {
-            CDebug.Log("Enter Select");
             mTimer.Start();
         }
 
@@ -57,7 +52,6 @@ namespace Contents1
         public override void Exit()
         {
             mTimer.Stop();
-            //CDebug.Log("I Loop exit!");
         }
     }
 }

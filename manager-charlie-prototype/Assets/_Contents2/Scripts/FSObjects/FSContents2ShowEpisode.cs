@@ -15,24 +15,11 @@ namespace Contents2
             }
         }
 
-        public override void Initialize()
-        {
-
-        }
-
         public override void Enter()
         {
-            Entity.UI.ShowEpisode();
+            Entity.View.ShowEpisode();
+            CDebug.Log(" ----------------------------------------------- ShowEpisode----------------------------------");
         }
 
-        public override void Excute()
-        {
- 
-        }
-
-        public override void Exit()
-        {
-
-        }
     }
 }
