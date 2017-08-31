@@ -38,7 +38,7 @@ public class FSContents3ShowReward : QnAFiniteState
         if (Timer.Check(3.0f))
         {
             CDebug.Log("Reward Sticker");   // 나중에 변수 추가하여 전달
-            Entity.UI.ShowReward();
+            Entity.View.ShowReward();
         }
     }
 }

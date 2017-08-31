@@ -35,21 +35,21 @@ namespace Contents3
             if(scene.CurrentCorrect.ID == scene.SelectedAnswer.ID)
             {
                 scene.IncreaseCorrectCount();
-                Entity.UI.CorrectAnswer();
+                Entity.View.CorrectAnswer();
               
               // 정답 사운드 출력
             }
             else
             {
                 (Entity as SceneContents3).WrongCount++;
-                Entity.UI.WrongAnswer();
+                Entity.View.WrongAnswer();
               
               // 오답 사운드 출력
             }
             
 
             //(Entity.UI as UIContents3).mScene.GetQuestionCount();
-            (Entity.View as UIContents3).AnswerBlackout();
+            //(Entity.View as UIContents3).AnswerBlackout();
 
             mQuestionCount++;
             CheckFinished();

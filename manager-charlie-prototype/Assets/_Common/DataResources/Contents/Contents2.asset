@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74d0c7848d2ae644894e1cdcd3dd1b8, type: 3}
+  m_Name: Contents2
+  m_EditorClassIdentifier: 
+  SheetName: Assets/_Common/DataResources/Contents/QnAContents.xlsx
+  WorksheetName: Contents2
+  dataArray:
+  - id: 1
+    episode: 1
+    question: toothbrush
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 2
+    episode: 1
+    question: toothpaste
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 3
+    episode: 1
+    question: telephone
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 4
+    episode: 1
+    question: hairdryer
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 5
+    episode: 1
+    question: shampoo
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 6
+    episode: 1
+    question: kettle
+    correct: metal
+    wrong: plastic
+    objectstate: broken
+  - id: 7
+    episode: 1
+    question: tunacan
+    correct: metal
+    wrong: plastic
+    objectstate: finished
+  - id: 8
+    episode: 1
+    question: picturebook
+    correct: paper
+    wrong: metal
+    objectstate: torn
+  - id: 9
+    episode: 1
+    question: magazine
+    correct: paper
+    wrong: metal
+    objectstate: torn
+  - id: 10
+    episode: 1
+    question: vase
+    correct: glass
+    wrong: plastic
+    objectstate: broken
+  - id: 11
+    episode: 2
+    question: pen
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 12
+    episode: 2
+    question: legoblocks
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 13
+    episode: 2
+    question: button
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 14
+    episode: 2
+    question: key
+    correct: metal
+    wrong: glass
+    objectstate: broken
+  - id: 15
+    episode: 2
+    question: paint
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 16
+    episode: 2
+    question: wirehangers
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 17
+    episode: 2
+    question: notebook
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 18
+    episode: 2
+    question: book
+    correct: paper
+    wrong: plastic
+    objectstate: torn
+  - id: 19
+    episode: 2
+    question: paperbag
+    correct: paper
+    wrong: plastic
+    objectstate: torn
+  - id: 20
+    episode: 2
+    question: glassbottle
+    correct: glass
+    wrong: metal
+    objectstate: broken
+  - id: 21
+    episode: 3
+    question: tub
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 22
+    episode: 3
+    question: gabage bin
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 23
+    episode: 3
+    question: tin
+    correct: metal
+    wrong: plastic
+    objectstate: finished
+  - id: 24
+    episode: 3
+    question: bicycle
+    correct: metal
+    wrong: paper
+    objectstate: broken
+  - id: 25
+    episode: 3
+    question: spray
+    correct: metal
+    wrong: paper
+    objectstate: finished
+  - id: 26
+    episode: 3
+    question: paper cup
+    correct: paper
+    wrong: plastic
+    objectstate: finished
+  - id: 27
+    episode: 3
+    question: juice box
+    correct: plastic
+    wrong: metal
+    objectstate: finished
+  - id: 28
+    episode: 3
+    question: poster
+    correct: paper
+    wrong: metal
+    objectstate: broken
+  - id: 29
+    episode: 3
+    question: jar
+    correct: glass
+    wrong: metal
+    objectstate: broken
+  - id: 30
+    episode: 3
+    question: crystal ball
+    correct: glass
+    wrong: paper
+    objectstate: broken
+  - id: 31
+    episode: 4
+    question: rigid plastic
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 32
+    episode: 4
+    question: basket
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 33
+    episode: 4
+    question: pot
+    correct: metal
+    wrong: paper
+    objectstate: broken
+  - id: 34
+    episode: 4
+    question: foil
+    correct: metal
+    wrong: paper
+    objectstate: finished
+  - id: 35
+    episode: 4
+    question: pipe
+    correct: plastic
+    wrong: paper
+    objectstate: broken
+  - id: 36
+    episode: 4
+    question: news paper
+    correct: paper
+    wrong: metal
+    objectstate: finished
+  - id: 37
+    episode: 4
+    question: card board
+    correct: paper
+    wrong: glass
+    objectstate: broken
+  - id: 38
+    episode: 4
+    question: box
+    correct: plastic
+    wrong: glass
+    objectstate: broken
+  - id: 39
+    episode: 4
+    question: wine bottle
+    correct: glass
+    wrong: paper
+    objectstate: finished
+  - id: 40
+    episode: 4
+    question: perfume
+    correct: plastic
+    wrong: paper
+    objectstate: finished
+  - id: 41
+    episode: 5
+    question: milk jug
+    correct: glass
+    wrong: plastic
+    objectstate: broken
+  - id: 42
+    episode: 5
+    question: straws
+    correct: paper
+    wrong: glass
+    objectstate: finished
+  - id: 43
+    episode: 5
+    question: nail
+    correct: plastic
+    wrong: glass
+    objectstate: broken
+  - id: 44
+    episode: 5
+    question: frypan
+    correct: metal
+    wrong: paper
+    objectstate: broken
+  - id: 45
+    episode: 5
+    question: fork
+    correct: metal
+    wrong: glass
+    objectstate: broken
+  - id: 46
+    episode: 5
+    question: catalog
+    correct: paper
+    wrong: glass
+    objectstate: broken
+  - id: 47
+    episode: 5
+    question: container
+    correct: plastic
+    wrong: glass
+    objectstate: broken
+  - id: 48
+    episode: 5
+    question: glass cup
+    correct: glass
+    wrong: metal
+    objectstate: broken
+  - id: 49
+    episode: 5
+    question: empty1
+    correct: Correct
+    wrong: wrong
+    objectstate: broken
+  - id: 50
+    episode: 5
+    question: empty2
+    correct: Correct
+    wrong: wrong
+    objectstate: broken

@@ -8,6 +8,7 @@ using LitJson;
 using CustomDebug;
 using DG.Tweening;
 using UIComponent;
+using UniRx;
 
 namespace Contents2
 {
@@ -50,20 +51,24 @@ namespace Contents2
 
         public GameObject InstPanelClear = null;
 
-        public GameObject InstPanelOutro = null;
 
         //* 10초이상 아무 선택 없을 시 나오는 Panel*/
         public GameObject InstPanelSelectAnswer = null;
 
-        //*게임 끝난 후 나오는  버튼 리스트 */
-        public List<Button> InstBtnOutroList = new List<Button>();
 
+        /** @brief Outro UI*/
+        public MenuOutro InstOutro = null;
 
-
-        public SceneContents2 mScene = null;                                       // 씬 로더
+        /** @brief 컨텐츠2 Scene 클래스 */
+        private SceneContents2 mScene = null;
 
         public string[] mAnswerData = null;                                        // 정답 데이터를 로드
-     
+
+
+        /** @brief Debuggin */
+        public Button InstBtnDoubleSpeed = null;
+        private int mDebugTimeScale = 1;
+
 
         public void Initialize(QnAContentsBase scene)
         {
@@ -76,17 +81,38 @@ namespace Contents2
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 
-
-
             // 정답 선택 버튼 2개
             InstBtnAnswerList[0].onClick.AddListener(() => EvaluationEvent(0));
             InstBtnAnswerList[1].onClick.AddListener(() => EvaluationEvent(1));
 
-            // Outro 버튼 4개
-            InstBtnOutroList[0].onClick.AddListener(() => OnClickOutroBtnEvent(0));
-            InstBtnOutroList[1].onClick.AddListener(() => OnClickOutroBtnEvent(1));
-            InstBtnOutroList[2].onClick.AddListener(() => OnClickOutroBtnEvent(2));
-            InstBtnOutroList[3].onClick.AddListener(() => OnClickOutroBtnEvent(3));
+            //Outro
+            InstOutro.Initialize(
+                onLoadMiniGame: () =>
+                {
+                    //todo : 미니게임 Scene 구현 후 전환 코드 추가 필요
+                    OnClickOutroBtnEvent(1);
+                },
+                onRetryEpisode: () =>
+                {
+                    OnClickOutroBtnEvent(2);
+                },
+                onNextEpisode: () =>
+                {
+                    OnClickOutroBtnEvent(3);
+                },
+                hasEnableNextEpisode: ()=> 
+                {
+                    //todo : 테이블에서 에피소드 데이터가 추가 될 시 코드 변경 일어남
+                    return mScene.CurrentEpisode < 5;
+                });
+
+            InstBtnDoubleSpeed.OnClickAsObservable()
+                .Select(_ => mDebugTimeScale = (int)Mathf.Repeat(mDebugTimeScale + 1, 4))
+                .Subscribe(timeScale =>
+                {
+                    Time.timeScale = timeScale;
+                    InstBtnDoubleSpeed.GetComponentInChildren<Text>().text = string.Format("X{0}", timeScale);
+                });
         }
 
 
@@ -164,7 +190,7 @@ namespace Contents2
             InstPanelRightWrong.SetActive(false);
             InstPanelReward.SetActive(false);
             InstPanelClear.SetActive(false);
-            InstPanelOutro.SetActive(false);
+            InstOutro.Hide();
 
             InstPanelSituation.SetActive(true);
             InstCorrectGuage.gameObject.SetActive(true);
@@ -310,7 +336,7 @@ namespace Contents2
         IEnumerator SeqClearEpisode()
         {
             yield return new WaitForSeconds(1.0f);
-            InstPanelOutro.SetActive(true);
+            InstOutro.Show();
         }
 
         public void InitGaugeBar()

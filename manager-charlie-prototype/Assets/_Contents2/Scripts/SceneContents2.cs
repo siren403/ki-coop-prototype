@@ -18,11 +18,15 @@ namespace Contents2
         /** 콘텐츠 관련 멤버 */
         private int mSelectedEpisode = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
 
-        public List<QnaContents2Data> QnaList = new List<QnaContents2Data>();
+        public List<QnaContents2Data> QnAList = new List<QnaContents2Data>();
 
         [SerializeField]
         private UIContents2 mInstUI = null;
-   
+
+        /** @brief 리소스 외부 Attach */
+        [SerializeField]
+        private QuickSheet.Contents2 mQnATable = null;
+
         public override IQnAView View
         {
             get
@@ -130,42 +134,17 @@ namespace Contents2
             ChangeState(State.Episode);
         }
 
-        protected override QnAFiniteState CreateShowAnswer()
-        {
-            return new FSContents2ShowAnswer();
-        }
-        protected override QnAFiniteState CreateShowClearEpisode()
-        {
-            return new FSContents2ClearEpisode();
-        }
-        protected override QnAFiniteState CreateShowEpisode()
-        {
-            return new FSContents2ShowEpisode();
-        }
-        protected override QnAFiniteState CreateShowEvaluateAnswer()
-        {
-            return new FSContents2EvaluateAnswer();
-        }
-        protected override QnAFiniteState CreateShowQuestion()
-        {
-            return new FSContents2ShowQuestion();
-        }
-        protected override QnAFiniteState CreateShowReward()
-        {
-            return new FSContents2ShowReward();
-        }
-        protected override QnAFiniteState CreateShowSelectAnswer()
-        {
-            return new FSContents2SelectAnswer();
-        }
-        protected override QnAFiniteState CreateShowSituation()
-        {
-            return new FSContents2ShowSituation();
-        }
+        protected override QnAFiniteState CreateShowAnswer() { return new FSContents2ShowAnswer(); }
+        protected override QnAFiniteState CreateShowClearEpisode() { return new FSContents2ClearEpisode(); }
+        protected override QnAFiniteState CreateShowEpisode() { return new FSContents2ShowEpisode(); }
+        protected override QnAFiniteState CreateShowEvaluateAnswer() { return new FSContents2EvaluateAnswer(); }
+        protected override QnAFiniteState CreateShowQuestion() { return new FSContents2ShowQuestion(); }
+        protected override QnAFiniteState CreateShowReward() { return new FSContents2ShowReward(); }
+        protected override QnAFiniteState CreateShowSelectAnswer() { return new FSContents2SelectAnswer(); }
+        protected override QnAFiniteState CreateShowSituation() { return new FSContents2ShowSituation(); }
 
         public void SelectEpisode(int episodeID)
         {
-            mCorrectCount = 8;
             //* Episode id를 받아  옴*/
             CDebug.Log("Episode Id " + episodeID + "이 선택되었습니다.");
             //* 현재 선택된 에피소드 값을 mCurrentEpisode 에 저장한다*/
@@ -173,16 +152,16 @@ namespace Contents2
             //수정
             //* Episode id별로 data 받아온다 */
             mSelectedEpisode = episodeID;
-            var table = TableFactory.LoadContents2Table().dataArray
-                                    .Where((data) => data.Episode == mSelectedEpisode)
-                                    .ToList();
+            var table = mQnATable.dataArray
+                                 .Where((data) => data.Episode == mSelectedEpisode)
+                                 .ToList();
 
             //* QnaList에 있는 정보들 초기화*/
-            QnaList.Clear();
+            QnAList.Clear();
             //* 받아온 데이터를 QnaList에 넣는다 */
             foreach (var row in table)
             {
-                QnaList.Add(new QnaContents2Data(row.ID, row.Episode, row.Question, row.Correct, row.Wrong, row.Objectstate));
+                QnAList.Add(new QnaContents2Data(row.ID, row.Episode, row.Question, row.Correct, row.Wrong, row.Objectstate));
             }
 
             
@@ -202,17 +181,17 @@ namespace Contents2
         public void SetQuestion()
         {
             mQuestionCount = mQuestionCount + 1;
-            mSetAnswerId = UnityEngine.Random.Range(0, QnaList.Count);
+            mSetAnswerId = UnityEngine.Random.Range(0, QnAList.Count);
 
-            for (int i = 0; i < QnaList.Count; i++)
+            for (int i = 0; i < QnAList.Count; i++)
             {
-                CDebug.Log(i + "번째 item  :" + QnaList[i].Question);
+                CDebug.Log(i + "번째 item  :" + QnAList[i].Question);
             }
 
             CDebug.Log(mSetAnswerId + " 번째 QnA ID 설정됨");
-            mCorrectAnswer = QnaList[mSetAnswerId].Correct;
-            mWrongAnswer = QnaList[mSetAnswerId].Wrong;
-            mQuestionObject = QnaList[mSetAnswerId].Question;
+            mCorrectAnswer = QnAList[mSetAnswerId].Correct;
+            mWrongAnswer = QnAList[mSetAnswerId].Wrong;
+            mQuestionObject = QnAList[mSetAnswerId].Question;
 
             mRandomCorrectAnswerID = UnityEngine.Random.Range(0,2);
             if (mRandomCorrectAnswerID == 0)
@@ -236,7 +215,7 @@ namespace Contents2
         public void EraseData()
         {
             CDebug.Log(mSetAnswerId + " 번째 data 지워줌");
-            QnaList.RemoveAt(mSetAnswerId);
+            QnAList.RemoveAt(mSetAnswerId);
         
         }
 

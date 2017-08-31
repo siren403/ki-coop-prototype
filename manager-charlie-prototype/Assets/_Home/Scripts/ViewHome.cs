@@ -48,26 +48,30 @@ namespace Home
         private void SelectContents(int id, IDButton button)
         {
             InstEventSystem.enabled = false;
-
             button.transform.SetAsLastSibling();
             button.transform.DOMove(Vector2.zero, 0.3f);
-            button.transform.DOScale(2.6f, 0.3f).OnComplete(()=> 
-            {
-                switch(id)
-                {
-                    case 1:
-                        Loader.LoadScene(BuildScene.SceneContents1);
-                        break;
-                    case 2:
-                        Loader.LoadScene(BuildScene.SceneContents2);
-                        break;
-                    case 3:
-                        Loader.LoadScene(BuildScene.SceneContents3);
-                        break;
-                }
-            });
-            CDebug.Log(id);
+            button.transform.DOScale(2.6f, 0.3f).OnComplete(() => LoadContentsScene(id));
 
+        }
+
+        private void LoadContentsScene(int id)
+        {
+            CDebug.LogFormat("Selected Contents{0}", id);
+            switch (id)
+            {
+                case 1:
+                    SceneLoadWrapper.LoadScene(BuildScene.SceneContents1);
+                    break;
+                case 2:
+                    SceneLoadWrapper.LoadScene(BuildScene.SceneContents2);
+                    break;
+                case 3:
+                    SceneLoadWrapper.LoadScene(BuildScene.SceneContents3);
+                    break;
+                case 4:
+                    SceneLoadWrapper.LoadScene(BuildScene.SceneContents4);
+                    break;
+            }
         }
     }
 }

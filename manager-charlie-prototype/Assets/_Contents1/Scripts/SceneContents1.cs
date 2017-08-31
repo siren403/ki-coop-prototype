@@ -22,22 +22,71 @@ namespace Contents1
         /** @brief 파닉스 세트의 순회 횟수 (1회차,2회차) */
         private const int TURN_COUNT = 2;
 
-        /** @brief 유저가 선택한 에피소드 */
-        private int mSelectedEpisode = 0;             
-
         /** @brief View 관리 클래스 */
         [SerializeField]
         private ViewContents1 mInstView = null;
+        /** @brief 리소스 외부 Attach */
+        [SerializeField]
+        private QuickSheet.Contents1 mQnATable = null;
 
-        #region Create by seongho
+        public override IQnAView View
+        {
+            get
+            {
+                return mInstView;
+            }
+        }
 
-        //데이터 구성요소가 잡히기 전까지 사용할 데이터 객체
-        //private JsonData mContentsData = null;
+        /** @brief 유저가 선택한 에피소드 */
+        private int mSelectedEpisode = 0;
+        
+        /** @brief 테이블 데이터로 추출한 선택한 에피소드의 파닉스 데이터*/
+        private string[] mPhonicsSet = null;
+        /** @brief 현재 에피소드에서 출제 될 문제 */
+        private Dictionary<string,Queue<QuickSheet.Contents1Data>> mQuestionData = new Dictionary<string, Queue<QuickSheet.Contents1Data>>();
+        /** @brief 출제된 문제의 선택지를 담는 배열 */
+        private QuickSheet.Contents1Data[] mAnswers = new QuickSheet.Contents1Data[4];
+        
+
+        #region Question State Members
 
         /** @brief 현재 제출문제의 정답 데이터 */
         private QuickSheet.Contents1Data mCurrentCorrect = null;
         /** @brief 현재 제출 선택지 중 유저가 선택한 데이터 */
         private QuickSheet.Contents1Data mSelectedAnswer = null;
+        
+        /** @brief 유저에게 제출한 문제의 개수 */
+        private int mSubmitQuestionCount = 0;
+        /** @brief 유저가 올바른 정답을 선택한 횟수 */
+        private int mCorrectCount = 0;
+        /** @brief 제출한 선택지 중 오답 선택 횟수 */
+        private int mWrongCount = 0;
+
+        #endregion
+
+
+        #region Property
+        /**
+        @property  public int EpisodeCount
+       
+        @brief 에피소드 버튼의 동적생성을 위한 에피소드 개수
+       
+        @return    The number of episodes.
+        */
+        public int EpisodeCount
+        {
+            get
+            {
+                //case 1 : 에피소드 아이디를 수집 후 중복을 제거하여 결과의 개수로서 에피소드 개수를 추측
+                //return mQnATable.dataArray
+                //                .Select((data) => data.Episode)
+                //                .Distinct()
+                //                .Count();
+
+                //case 2 : 에피소드 순으로 정렬되있다는 가정하에 가장 마지막 데이터로 에피소드 개수를 추측
+                return mQnATable.dataArray.Last().Episode;
+            }
+        }
         public QuickSheet.Contents1Data CurrentCorrect
         {
             get
@@ -52,29 +101,6 @@ namespace Contents1
                 return mSelectedAnswer;
             }
         }
-
-        /**
-         @property  public int EpisodeCount
-        
-         @brief 에피소드 버튼의 동적생성을 위한 에피소드 개수
-        
-         @return    The number of episodes.
-         */
-        public int EpisodeCount
-        {
-            get
-            {
-                //case 1 : 에피소드 아이디를 수집 후 중복을 제거하여 결과의 개수로서 에피소드 개수를 추측
-                //return mQnATable.dataArray
-                //                .Select((data) => data.Episode)
-                //                .Distinct()
-                //                .Count();
-                               
-                //case 2 : 에피소드 순으로 정렬되있다는 가정하에 가장 마지막 데이터로 에피소드 개수를 추측
-                return mQnATable.dataArray.Last().Episode;
-            }
-        }
-
         /**
          @property  public string CurrentPhonics
         
@@ -89,15 +115,6 @@ namespace Contents1
                 return mPhonicsSet[mSubmitQuestionCount % mPhonicsSet.Length].ToString();
             }
         }
-
-        /** @brief 현재 에피소드에서 출제 될 문제 */
-        private Dictionary<string,Queue<QuickSheet.Contents1Data>> mQuestionData = new Dictionary<string, Queue<QuickSheet.Contents1Data>>();
-
-        //private List<int> mIncorrectArr = new List<int>();
-
-        /** @brief 출제된 문제의 선택지를 담는 배열 */
-        private QuickSheet.Contents1Data[] mAnswers = new QuickSheet.Contents1Data[4];
-
         /**
          @property  private int mMaximumQuestion
         
@@ -112,11 +129,6 @@ namespace Contents1
                 return mPhonicsSet.Length * TURN_COUNT;
             }
         }
-        /** @brief 유저에게 제출한 문제의 개수 */
-        private int mSubmitQuestionCount = 0;
-        /** @brief 유저가 올바른 정답을 선택한 횟수 */
-        private int mCorrectCount = 0;
-
         /**
          @property  public float CorrectProgress
         
@@ -131,14 +143,21 @@ namespace Contents1
                 return (float)mCorrectCount / mMaximumQuestion;
             }
         }
-
         /**
-         @property  public bool HasNextQuestion
+         @property  public int WrongCount
         
-         @brief 다음 문제가 있는지?
+         @brief 제출한 선택지 중 오답 선택 횟수
         
-         @return    True if this object has next question, false if not.
+         @return    The number of wrongs.
          */
+        public int WrongCount { get { return mWrongCount; } }
+        /**
+        @property  public bool HasNextQuestion
+       
+        @brief 다음 문제가 있는지?
+       
+        @return    True if this object has next question, false if not.
+        */
         public bool HasNextQuestion
         {
             get
@@ -146,33 +165,8 @@ namespace Contents1
                 return mSubmitQuestionCount < mMaximumQuestion;
             }
         }
-
-        private int mWrongCount = 0;
-
-        /**
-         @property  public int WrongCount
-        
-         @brief 메소드 형태로 제어하는게 좀 더 직관적일 듯
-        
-         @return    The number of wrongs.
-         */
-        public int WrongCount { get { return mWrongCount; } }
-
-        /** @brief 테이블 데이터로 추출한 선택한 에피소드의 파닉스 데이터*/
-        private string[] mPhonicsSet = null;
-
-        /** @brief 리소스 외부 Attach */
-        [SerializeField]
-        private QuickSheet.Contents1 mQnATable = null; 
         #endregion
-
-        public override IQnAView View
-        {
-            get
-            {
-                return mInstView;
-            }
-        }
+      
 
         protected override void Initialize()
         {            
@@ -215,69 +209,6 @@ namespace Contents1
             // 테이블을 순회하며 원하는 데이터를 추출(Select). 중복제거 후(Distinct) 배열로 변환(ToArray)
             mPhonicsSet = table.Select((data) => data.Question).Distinct().ToArray();
 
-            #region Byeong
-            //CDebug.Log("------ Byeong : Debug Start -------");
-
-            //// 사용된 단어 걸러내기
-            //for(int i=0; i<mIncorrectArr.Count; i++)
-            //{
-            //    CDebug.Log("Jhaneys Comming!");
-
-            //    if(mIncorrectArr[i] == table[i].ID)
-            //    {
-            //        CDebug.Log("this word Use!");
-
-            //        table.RemoveAt(i);
-            //    }
-            //}
-
-            //// 리스트로 단어 섞기
-            //int phonicsIndexer = 0;     // 파닉스 알파벳 카운트
-            //int wordIndexer = 0;       // 단어 카운트
-            //int tableIndexer = 0;       // 테이블 인덱스 변수
-
-            //List<QuickSheet.Contents1Data> words = new List<QuickSheet.Contents1Data>();           // 각 파닉스 별로 추출된 단어를 저장하는 리스트
-
-            //CDebug.Log("table length : " + table.Count);
-
-            //// 반복문을 사용하여 섞기
-            //for (int i = 0; i < table.Count; i++)                                                  // 각 에피소드별 파닉스 알파벳 개수를 중심으로
-            //{
-            //    // 현재 테이블의 Question 값과 현재 추출하고 있는 파닉스 알파벳의 값과 같을 경우
-            //    if (table[i].Question == CurrentEpisode["phonics"][phonicsIndexer % CurrentEpisode["phonics"].Count].ToString())
-            //    {
-            //        words.Add(table[i]);
-            //        wordIndexer++;
-            //    }
-
-            //    if (wordIndexer >= 3)                                                             //  파닉스 알파벳 카운트의 값이 3 이상일 경우
-            //    {
-            //        ShuffleMachine<List<QuickSheet.Contents1Data>> shuffle = new ShuffleMachine<List<QuickSheet.Contents1Data>>(words);     // 추출된 단어를 저장한 리스트를 보내
-            //        shuffle.DoShuffle();                                                                                                    // 섞기
-
-            //        // 섞인 리스트를 테이블에 다시 저장
-            //        for (int j = 0; j < words.Count; j++)
-            //        {
-            //            table[tableIndexer] = words[j];
-
-            //            tableIndexer++;
-            //        }
-
-            //        words.Clear();                                                                  // 배열 초기화
-
-            //        phonicsIndexer++;                                                              // 다음 알파벳으로 이동
-            //        wordIndexer = 0;                                                               // 다음 알파벳의 파닉스 단어를 카운트하기 전 초기화
-            //    }
-            //}
-
-            //// for Debug
-            //for (int i = 0; i < table.Count; i++)
-            //{
-            //    CDebug.Log(table[i].Correct);
-            //}
-
-            //CDebug.Log("------ Byeong : Debug End -------");
-            #endregion
 
             // 문제 데이터 초기화
             mQuestionData.Clear();
@@ -409,6 +340,26 @@ namespace Contents1
             mSelectedAnswer = mAnswers[answer];
             ChangeState(State.Evaluation);
            
+        }
+
+        public void RetryEpisode()
+        {
+            ResetQuestionState();
+            SelectEpisode(mSelectedEpisode);
+        }
+        public void NextEpisode()
+        {
+            ResetQuestionState();
+            mSelectedEpisode = Mathf.Clamp(mSelectedEpisode + 1, 1, EpisodeCount);
+            SelectEpisode(mSelectedEpisode);
+        }
+        private void ResetQuestionState()
+        {
+            mCurrentCorrect = null;
+            mSelectedAnswer = null;
+            mSubmitQuestionCount = 0;
+            mCorrectCount = 0;
+            mWrongCount = 0;
         }
 
         // 보상 확인 함수

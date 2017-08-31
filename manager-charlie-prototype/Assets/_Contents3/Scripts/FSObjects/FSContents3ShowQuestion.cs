@@ -31,7 +31,7 @@ namespace Contents3
 
 
             (Entity as SceneContents3).WrongCount = 0;
-            Entity.UI.ShowQuestion();
+            Entity.View.ShowQuestion();
             
 
             Timer.Start();

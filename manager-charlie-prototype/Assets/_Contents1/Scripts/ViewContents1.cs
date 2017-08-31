@@ -25,8 +25,6 @@ namespace Contents1
     {
         private SceneContents1 mScene = null;
 
-        #region create by seongho
-
         // 에피소드 버튼 동적 생성을 위해 기능성 컴포넌트로 교체
         // PFEpisodeButton에 링크시킨 Prefab은 구현을 위해 만든 임시 Prefab
         public GridSwipe InstPanelEpisodeList = null;
@@ -35,24 +33,19 @@ namespace Contents1
         public CorrectGuage InstCorrectGuage = null;
         public Image InstImgRewardSticker = null;
         public GameObject InstPanelClear = null;
-        public GameObject InstOutro = null;
+        public MenuOutro InstOutro = null;
 
         private int mSelectedAnswerIndex = 0;
 
-        //Outro 버튼
-        public Button InstBtnHome = null;
-        public Button InstBtnMiniGame = null;
-        public Button InstBtnReplay = null;
-        public Button InstBtnNext = null;
-
         private HashSet<int> mAnswerIndexSet = new HashSet<int>();
 
+        /** @brief UI Input 제어를 위한 멤버 */
         public EventSystem InstEventSystem = null;
-        #endregion
+        /** @brief 선택지 패널 */
         public GameObject InstPanelAnswer = null;
+        /** @brief 선택지 버튼 리스트 */
         public List<Button> InstBtnAnswerList = null;
 
-        //public List<GameObject> InstImgBlockList = null;
 
         /**
          @fn    public void Initialize(QnAContentsBase scene)
@@ -83,10 +76,27 @@ namespace Contents1
             InstBtnAnswerList[2].onClick.AddListener(() => OnBtnSelectAnswer(2));
             InstBtnAnswerList[3].onClick.AddListener(() => OnBtnSelectAnswer(3));
 
-            InstBtnHome.onClick.AddListener(() => CDebug.Log("Home"));
-            InstBtnMiniGame.onClick.AddListener(() => CDebug.Log("MiniGame"));
-            InstBtnReplay.onClick.AddListener(() => OutroMove(3));
-            InstBtnNext.onClick.AddListener(() => CDebug.Log("Next"));
+            InstOutro.Initialize(
+                onLoadMiniGame: () => 
+                {
+                    CDebug.Log("Load MiniGame");
+                },
+                onRetryEpisode: ()=> 
+                {
+                    CDebug.Log("Retry");
+                    InstOutro.Hide();
+                    InstCorrectGuage.Value = 0;
+                    mScene.RetryEpisode();
+                },
+                onNextEpisode: ()=> 
+                {
+                    InstOutro.Hide();
+                    mScene.NextEpisode();
+                },
+                hasEnableNextEpisode: ()=> 
+                {
+                    return false;
+                });
         }
 
         /**
@@ -165,7 +175,7 @@ namespace Contents1
         public void ShowSituation()
         {
             InstCorrectGuage.gameObject.SetActive(true);
-            CDebug.Log("Play Animation");
+            CDebug.Log("Play Situation");
         }
 
         /**
@@ -348,7 +358,7 @@ namespace Contents1
         public void ShowOutro()
         {
             InstPanelClear.gameObject.SetActive(false);
-            InstOutro.SetActive(true);
+            InstOutro.Show();
         }
     }
 }
