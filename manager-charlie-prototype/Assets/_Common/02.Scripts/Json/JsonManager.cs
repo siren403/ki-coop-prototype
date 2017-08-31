@@ -5,7 +5,6 @@ using UnityEngine;
 using LitJson;
 using CustomDebug;
 
-
 //* Json 개인 테스트용 스크립트*/
 public class Qna
 {
@@ -74,8 +73,6 @@ public class JsonManager : MonoBehaviour
         JsonData qnaJson = JsonMapper.ToJson(QnaList);
 
         File.WriteAllText(Application.dataPath + "/_Common/Resource/ItemData.json", qnaJson.ToString());
-
-      
     }
 
     public void OnClickLoadFunc()

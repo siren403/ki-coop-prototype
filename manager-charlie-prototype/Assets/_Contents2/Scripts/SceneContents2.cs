@@ -124,7 +124,6 @@ namespace Contents2
 
         protected override void Initialize()
         {
-
             string json = Resources.Load<TextAsset>("ContentsData/Contents2").text;
             mContentsData = JsonMapper.ToObject(json);
             ChangeState(State.Episode);
