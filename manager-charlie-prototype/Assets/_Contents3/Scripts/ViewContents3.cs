@@ -19,7 +19,7 @@ namespace Contents3
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;
 
-        public CorrectGuage InstCorrectGauge = null;
+        public CorrectGauge InstCorrectGauge = null;
         public Image InstImgRewardSticker = null;
         public GameObject InstPanelClear = null;
         public MenuOutro InstOutro = null;

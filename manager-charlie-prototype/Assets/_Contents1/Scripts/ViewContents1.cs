@@ -30,7 +30,7 @@ namespace Contents1
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;
 
-        public CorrectGuage InstCorrectGuage = null;
+        public CorrectGauge InstCorrectGuage = null;
         public Image InstImgRewardSticker = null;
         public GameObject InstPanelClear = null;
         public MenuOutro InstOutro = null;
@@ -267,8 +267,8 @@ namespace Contents1
             // 블랙알파 후 캐릭터 애니메이션을 재생해야 하지만 현재는 리소스가 없으니
             // 선택지 패널 off
             InstPanelAnswer.gameObject.SetActive(false);
-            DOTween.To(() => InstCorrectGuage.Value, (x) => InstCorrectGuage.Value = x, mScene.CorrectProgress, 0.3f)
-                .OnComplete(()=> 
+            InstCorrectGuage.TweenValue(mScene.CorrectProgress,0.3f)
+                .OnComplete(() =>
                 {
                     if (mScene.HasNextQuestion)
                     {
@@ -282,6 +282,7 @@ namespace Contents1
                     }
                     InstEventSystem.enabled = true;
                 });
+                
             
         }
 
