@@ -174,8 +174,8 @@ namespace Contents1
          */
         public void ShowSituation()
         {
-            InstCorrectGuage.gameObject.SetActive(true);
             CDebug.Log("Play Situation");
+            InstCorrectGuage.gameObject.SetActive(true);
         }
 
         /**
@@ -233,18 +233,18 @@ namespace Contents1
          *
          * @param   selection   The selection.
          */
-        public void OnBtnSelectAnswer(int selection)
+        public void OnBtnSelectAnswer(int answerIndex)
         {
-            mSelectedAnswerIndex = selection;
+            mSelectedAnswerIndex = answerIndex;
             CDebug.LogFormat("Select Answer Index : {0}",mSelectedAnswerIndex);
-            mScene.SelectAnswer(mSelectedAnswerIndex);
             //선택한 선택지 인덱스를 HashSet에서 제거
             if (mAnswerIndexSet.Contains(mSelectedAnswerIndex))
             {
                 mAnswerIndexSet.Remove(mSelectedAnswerIndex);
             }
-            //* 2. 선택한 번호 전달 */
-            //* 2. SceneContents1.cs  __ 함수 호출*/
+
+
+            mScene.SelectAnswer(mSelectedAnswerIndex);
         }
 
         //현재는 사용할일이 없을거라 예상
