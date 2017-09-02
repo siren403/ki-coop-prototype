@@ -267,8 +267,8 @@ namespace Examples.Plugin
                 }
 
                 Firebase.Auth.FirebaseUser newUser = task.Result;
-                Print(string.Format("User signed in successfully: {0} ({1})",
-                    newUser.DisplayName, newUser.UserId));
+                Print(string.Format("User signed in successfully: {0} \n UserID : {1} \n Provider : {2}",
+                    newUser.DisplayName, newUser.UserId, newUser.ProviderId));
             });
         }
 
@@ -284,6 +284,10 @@ namespace Examples.Plugin
             mResultText.Value = str;
         }
 
+        public void SignOut()
+        {
+            mAuth.SignOut();
+        }
 
         #region
         public const string UNITY_PLAYER_CLASS = "com.unity3d.player.UnityPlayer";

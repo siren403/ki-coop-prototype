@@ -31,7 +31,7 @@ namespace Examples.Plugin
         /** @brief Guest */
         public GameObject InstPanelGuest = null;
         public Button InstBtnGuestLogin = null;
-
+        public Button InstBtnGuestSignOut = null;
 
         /** @brief phone */
         public GameObject InstPanelPhone = null;
@@ -61,6 +61,7 @@ namespace Examples.Plugin
                 .Subscribe(_ => mScene.Login());
             InstBtnLogout.OnClickAsObservable().Subscribe(_ => mScene.Logout());
 
+
             InstBtnOpenGuest.OnClickAsObservable().Subscribe(_ =>
             {
                 InstPanelNavigation.SetActive(false);
@@ -70,6 +71,8 @@ namespace Examples.Plugin
             {
                 mScene.CreateGuest();
             });
+            InstBtnGuestSignOut.OnClickAsObservable().Subscribe(_ => mScene.SignOut());
+
 
             InstBtnOpenPhone.OnClickAsObservable().Subscribe(_ => 
             {
