@@ -1,43 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace MiniGame3
 {
-    public class Item
+    public class Item : MonoBehaviour
     {
         [SerializeField]
-        private int mId;
-        public int Id
-        {
-            get { return mId; }
-            set { mId = Id; }
-        }
+        private int mId;                 // 아이템 번호
+        public int GetId()
+        { return mId; }
+        public void SetId(int tId)
+        { mId = tId; }
 
         [SerializeField]
-        private int mPrice;
-        public int Price
-        {
-            get { return mPrice; }
-            set { mPrice = Price; }
-        }
-
-        public enum ItemType
-        {
-            hat = 0,
-            Glasses = 1,
-            Dress = 2,
-            None = 3,
-        }
-
-        public Vector2[] pos = { new Vector2(10, 10), new Vector2(20, 20), new Vector2(30, 30) };
-
-        public ItemType ItemKind;
+        private int mPrice;              // 아이템 가격
+        public int GetPrice()
+        { return mPrice; }
+        public void SetPrice(int tPrice)
+        { mPrice = tPrice; }
 
         public GameObject Image = null;
 
-        bool isBought = false;
+        public Vector2 posImg;          // 이미지 위치
 
+        public bool isBought = false;   // 아이템 구매여부
+        public bool isWearing = false;
+
+        public void GetImg(Sprite tSpr)
+        {
+            this.gameObject.GetComponent<Image>().sprite = tSpr;
+        }
     }
 }
