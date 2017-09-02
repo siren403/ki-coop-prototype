@@ -52,13 +52,12 @@ namespace Contents1
         /** @brief 유저가 선택한 에피소드 */
         private int mSelectedEpisode = 0;
         
-        /** @brief 테이블 데이터로 추출한 선택한 에피소드의 파닉스 데이터*/
+        /** @brief 테이블 데이터로 추출한 선택한 에피소드의 파닉스 데이터 */
         private string[] mPhonicsSet = null;
         /** @brief 현재 에피소드에서 출제 될 문제 */
         private Dictionary<string,Queue<QuickSheet.Contents1Data>> mQuestionData = new Dictionary<string, Queue<QuickSheet.Contents1Data>>();
         /** @brief 출제된 문제의 선택지를 담는 배열 */
-        private QuickSheet.Contents1Data[] mAnswers = new QuickSheet.Contents1Data[4];
-        
+        private QuickSheet.Contents1Data[] mAnswers = new QuickSheet.Contents1Data[4];        
 
         #region Question State Members
 
@@ -184,8 +183,6 @@ namespace Contents1
         {            
             ChangeState(State.Episode);
         }
-
-
 
         /**
          * @fn  public void SelectEpisode(int episodeID)

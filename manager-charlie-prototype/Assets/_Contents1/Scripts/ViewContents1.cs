@@ -243,7 +243,6 @@ namespace Contents1
                 mAnswerIndexSet.Remove(mSelectedAnswerIndex);
             }
 
-
             mScene.SelectAnswer(mSelectedAnswerIndex);
         }
 
