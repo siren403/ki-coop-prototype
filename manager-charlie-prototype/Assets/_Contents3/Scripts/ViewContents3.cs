@@ -142,7 +142,7 @@ namespace Contents3
         }
 
 
-        public void SelectAnswer()                                                  // 답변 선택
+        public void HurryUpAnswer()                                                  // 답변 선택
         {
         }
 

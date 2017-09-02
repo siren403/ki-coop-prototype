@@ -247,7 +247,7 @@ namespace Contents1
         }
 
         //현재는 사용할일이 없을거라 예상
-        public void SelectAnswer()
+        public void HurryUpAnswer()
         {
             
         }

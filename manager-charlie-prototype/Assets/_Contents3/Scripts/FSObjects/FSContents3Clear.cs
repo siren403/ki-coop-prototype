@@ -26,7 +26,7 @@ namespace Contents3
             if (TouchInput.Begin())
             {
                 //Outro 활성화
-                (Entity.View as ViewContents3).ShowOutro();
+                Entity.View.ShowOutro();
                 Entity.ChangeState(QnAContentsBase.State.None);
             }
         }

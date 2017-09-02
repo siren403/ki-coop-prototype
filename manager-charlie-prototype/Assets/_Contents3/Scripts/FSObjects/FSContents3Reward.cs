@@ -20,7 +20,6 @@ namespace Contents3
 
         public override void Enter()
         {
-            CDebug.Log("Enter Reward");
             Entity.View.ShowReward();
         }
        

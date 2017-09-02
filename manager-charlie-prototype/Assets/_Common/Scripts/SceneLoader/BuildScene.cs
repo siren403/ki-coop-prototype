@@ -8,5 +8,8 @@ namespace SceneLoader
 		SceneContents3,
 		SceneContents4,
 		SceneFirebase,
+		SceneTest,
+		SceneSingleAnim,
+		SceneObjects,
 	}
 }

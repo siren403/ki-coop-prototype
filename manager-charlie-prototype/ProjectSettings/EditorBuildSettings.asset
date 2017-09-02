@@ -20,6 +20,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Contents4/Scenes/SceneContents4.unity
     guid: c568be2359163b04592d71522163ab0a
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Home/Scenes/SceneFirebase.unity
     guid: d2287bc7ec90f9a49a7bf99457538b38
+  - enabled: 1
+    path: Assets/_Common/Test/Scenes/SceneTest.unity
+    guid: fdc2ad5d361d6ee41bec1abfc7734f9a
+  - enabled: 1
+    path: Assets/_Common/Test/Scenes/SceneSingleAnim.unity
+    guid: 438100acd1ebe6a4cb0d3356bb03db67
+  - enabled: 1
+    path: Assets/_Common/Test/Scenes/SceneObjects.unity
+    guid: 6189e5b9b3621f241ad86ae7b2943dbb
+  - enabled: 1
+    path: Assets/_Home/Scenes/SceneAndroid.unity
+    guid: 00000000000000000000000000000000

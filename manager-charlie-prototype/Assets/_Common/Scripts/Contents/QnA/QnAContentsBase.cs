@@ -4,7 +4,6 @@ using UnityEngine;
 using FSM;
 using System;
 using CustomDebug;
-using Contents.Data;
 
 namespace Contents.QnA
 {
@@ -28,14 +27,14 @@ namespace Contents.QnA
         }
 
         public abstract IQnAView View { get; }
-        protected virtual QnAFiniteState FSEpisode { get { return EmptyQnAState; } }
-        protected virtual QnAFiniteState FSSituation { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSEpisode { get { return new FSBasicEpisode(); } }
+        protected virtual QnAFiniteState FSSituation { get { return new FSBasicSituation(); } }
         protected virtual QnAFiniteState FSQuestion { get { return EmptyQnAState; } }
-        protected virtual QnAFiniteState FSAnswer { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSAnswer { get { return new FSBasicAnswer(); } }
         protected virtual QnAFiniteState FSSelect { get { return EmptyQnAState; } }
         protected virtual QnAFiniteState FSEvaluate { get { return EmptyQnAState; } }
-        protected virtual QnAFiniteState FSReward { get { return EmptyQnAState; } }
-        protected virtual QnAFiniteState FSClear { get { return EmptyQnAState; } }
+        protected virtual QnAFiniteState FSReward { get { return new FSBasicReward(); } }
+        protected virtual QnAFiniteState FSClear { get { return new FSBasicClear(); } }
 
 
         /**
