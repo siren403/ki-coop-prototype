@@ -32,3 +32,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Common/Test/Scenes/SceneObjects.unity
     guid: 6189e5b9b3621f241ad86ae7b2943dbb
+  - enabled: 1
+    path: Assets/_Home/Scenes/SceneAndroid.unity
+    guid: 00000000000000000000000000000000

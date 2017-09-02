@@ -3,7 +3,6 @@ using UnityEngine;
 using LitJson;
 using Contents.QnA;
 using CustomDebug;
-using Contents.Data;
 using System.Linq;
 using Util;
 using Util.Inspector;

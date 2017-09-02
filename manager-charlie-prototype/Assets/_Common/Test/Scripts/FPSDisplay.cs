@@ -1,30 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FPSDisplay : MonoBehaviour
+namespace KidsTest
 {
-    float deltaTime = 0.0f;
-    public GUIStyle style = new GUIStyle();
-
-    private void Awake()
+    public class FPSDisplay : MonoBehaviour
     {
-        Application.targetFrameRate = 60;
-    }
+        float deltaTime = 0.0f;
+        public GUIStyle style;
+        Rect rect;
+        float msec;
+        float fps;
+        float worstFps = 100f;
+        string text;
+        void Awake()
+        {
+            Application.targetFrameRate = 60;
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-    void Update()
-    {
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-    }
+            int w = Screen.width, h = Screen.height;
+            rect = new Rect(0, 0, w, h * 4 / 100);
+            StartCoroutine("worstReset");
+        }
 
-    void OnGUI()
-    {
-        int w = Screen.width, h = Screen.height;
+        IEnumerator worstReset() //코루틴으로 15초 간격으로 최저 프레임 리셋해줌.
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(15f);
+                worstFps = 100f;
+            }
+        }
 
-        Rect rect = new Rect(0, 0, w, h * 2 / 100);
-       
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
-        GUI.Label(rect, text, style);
+        void Update()
+        {
+            deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        }
+
+        void OnGUI()//소스로 GUI 표시.
+        {
+            msec = deltaTime * 1000.0f;
+            fps = 1.0f / deltaTime;  //초당 프레임 - 1초에
+            if (fps < worstFps)  //새로운 최저 fps가 나왔다면 worstFps 바꿔줌.
+                worstFps = fps;
+            text = msec.ToString("F1") + "ms FPS:(" + fps.ToString("F1") + ") \nworst : " + worstFps.ToString("F1");
+            GUI.Label(rect, text, style);
+        }
     }
 }

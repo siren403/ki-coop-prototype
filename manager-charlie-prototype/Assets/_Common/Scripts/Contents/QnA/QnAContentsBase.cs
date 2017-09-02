@@ -4,7 +4,6 @@ using UnityEngine;
 using FSM;
 using System;
 using CustomDebug;
-using Contents.Data;
 
 namespace Contents.QnA
 {
