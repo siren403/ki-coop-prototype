@@ -80,7 +80,7 @@ namespace Examples
             }
             InstPanelAnswer.SetActive(true);
         }
-        public void SelectAnswer()
+        public void HurryUpAnswer()
         {
             CDebug.Log("Wait Show Answers Animation... \n Input Open");
         }
@@ -103,6 +103,10 @@ namespace Examples
             CDebug.Log("Play Clear Animation");
             CDebug.Log("Stop Clear Animation by Show Outro");
 
+        }
+
+        public void ShowOutro()
+        {
         }
     }
 }

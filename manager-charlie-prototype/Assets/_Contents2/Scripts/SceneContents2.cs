@@ -5,7 +5,6 @@ using CustomDebug;
 using Contents.QnA;
 using FSM;
 using System;
-using Contents.Data;
 using Util.Inspector;
 using LitJson;
 using System.Linq;
@@ -144,11 +143,12 @@ namespace Contents2
             mContentsData = JsonMapper.ToObject(json);
             ChangeState(State.Episode);
         }
-
-       
+        
+      
 
         public void SelectEpisode(int episodeID)
         {
+            mCorrectCount = 0;
             //* Episode id를 받아  옴*/
             CDebug.Log("Episode Id " + episodeID + "이 선택되었습니다.");
             //* 현재 선택된 에피소드 값을 mCurrentEpisode 에 저장한다*/

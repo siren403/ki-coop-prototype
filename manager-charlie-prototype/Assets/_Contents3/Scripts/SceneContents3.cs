@@ -3,43 +3,29 @@ using UnityEngine;
 using LitJson;
 using Contents.QnA;
 using CustomDebug;
-using Contents.Data;
 using System.Linq;
+using Util;
+using Util.Inspector;
 
 namespace Contents3
 {
-    public class QnA
-    {
-        public int Id;
-        public int Episode;
-        public string Question;
-
-        public string[] Correct;
-        public string Character;
-
-
-        public QnA(int id, int episode, string question, string[] correct, string character)
-        {
-            Id = id;
-            Episode = episode;
-            Question = question;
-            Correct = correct;
-            Character = character;
-        }
-    }
     
-
     /// <summary>
     /// 컨텐츠3 게임루프 클래스
     /// </summary>
     public class SceneContents3 : QnAContentsBase
     {
-        private const int CONTENTS_ID = 3;                      // 콘텐츠 번호
-        private int mSelectedEpisode = 0;                       // 유저가 위치하고 있는 에피소드
+        
+        /** @brief 카테고리의 순회 횟수 (1회차,2회차) */
+        private const int TURN_COUNT = 2;
+
+        private int mSelectedEpisode = 0;
 
         //** UI 및 리소스 관리자 */
         [SerializeField]
-        public ViewContents3 mInstUI = null;                      // UI 연결용
+        public ViewContents3 mInstUI = null;
+        [SerializeField]
+        private QuickSheet.Contents3 mQnATable = null;
 
         public override IQnAView View
         {
@@ -49,16 +35,9 @@ namespace Contents3
             }
         }
 
-        #region QnAContents를 구성하는 기본적인 State객체
-        protected override QnAFiniteState FSEpisode { get { return new FSContents3ShowEpisode(); } }
-        protected override QnAFiniteState FSSituation { get { return new FSContents3ShowSituation(); } }
-        protected override QnAFiniteState FSQuestion { get { return new FSContents3ShowQuestion(); } }
-        protected override QnAFiniteState FSAnswer { get { return new FSContents3ShowAnswer(); } }
-        protected override QnAFiniteState FSSelect { get { return new FSContents3SelectAnswer(); } }
-        protected override QnAFiniteState FSEvaluate { get { return new FSContents3EvaluteAnswer(); } }
-        protected override QnAFiniteState FSReward { get { return new FSContents3ShowReward(); } }
-        protected override QnAFiniteState FSClear { get { return new FSContents3ClearEpisode(); } }
-        #endregion
+        protected override QnAFiniteState FSQuestion { get { return new FSContents3Question(); } }
+        protected override QnAFiniteState FSSelect { get { return new FSContents3Select(); } }
+        protected override QnAFiniteState FSEvaluate { get { return new FSContents3Evaluation(); } }
 
         public float CorrectProgress
         {
@@ -71,88 +50,52 @@ namespace Contents3
         {
             get
             {
-                return mCorrectCount < mMaximumQuestion;
+                return mSubmitQuestionCount < mMaximumQuestion;
             }
         }
 
-        public List<QnA> QnAList = new List<QnA>();
 
-        //* 문제 연출 변수 */
-        
+        private string[] mCategorys = null;
+        /** @brief 최대 문제 수 */
+        private int mMaximumQuestion
+        {
+            get
+            {
+                return mCategorys.Length * TURN_COUNT;
+            }
+        }
+        /** @brief 제출된 문제 수 */
+        private int mSubmitQuestionCount = 0;
+        /** @brief 맞은 수 */
+        private int mCorrectCount = 0;
+        /** @brief 틀린 수 */
+        private int mWrongCount = 0;
 
-        private int mMaximumQuestion = 6;                           // 최대 문제 수
-        private int mSubmitQuestionCount = 0;                       // 제출된 문제 수
-        private int mCorrectCount = 0;                              // 맞은 수
-        private int mWrongCount = 0;                                // 틀린 수
-
-        private int mSetAnswerId = 0;                               // 선택지ID
-        private int mRandomCorrectAnswerID = 0; //* 0,1,중 하나 선택 -> 0이면 왼쪽, 1이면 오른쪽에 배치 */
-
-        private List<int> mUsedQuestionID = new List<int>();        // 사용된 문제 번호
-        private int SelectAnswerID;
 
         public int WrongCount
         {
             get { return mWrongCount; } 
-            set { mWrongCount = value; } 
         }
-
-        protected override void Initialize()
-        {
-            string json = Resources.Load<TextAsset>("ContentsData/Contents3").text;
-            mContentsData = JsonMapper.ToObject(json);
-
-            ChangeState(State.Episode);
-        }
-        public void SelectAnswer(int answerID)
-        {
-            CDebug.LogFormat("answerID: {0}", answerID);
-            this.SelectAnswerID = answerID;
-            if (SelectAnswerID == 0)
-            {
-
-                ChangeState(State.Evaluation);
-            }
-        }
-
-        // 에피소드 버튼 동적생성을 위한 데이터
         public int EpisodeCount
         {
             get
             {
-                return mContentsData["episode"].Count;
+                return mQnATable.dataArray.Last().Episode;
             }
         }
-        public JsonData CurrentEpisode
+        private QuickSheet.Contents3Data[] mAnswers = new QuickSheet.Contents3Data[2];
+
+        public string CurrentCategory
         {
             get
             {
-                return mContentsData["episode"][mSelectedEpisode - 1];
+                return mCategorys[mSubmitQuestionCount % mCategorys.Length];
             }
         }
-       public void SelectEpisode(int episodeID)
-        {
-            CDebug.Log(string.Format("EpisodeID : {0}", episodeID));
 
-            GetData(episodeID);
+        private Queue<QuickSheet.Contents3Data> mWrongAnswers = null;
 
-            ChangeState(State.Situation);
-        }
-        public void SetSituation()
-        {
-            // 문제 상황 캐릭터
-            //Character[0] = Resources.Load("Joy") as GameObject;
-            //Character[1] = Resources.Load("Joy") as GameObject;
-            //Character[2] = Resources.Load("Joy") as GameObject;
-        }
-
-
-        private JsonData mContentsData = null;                          // 데이터 구성요소가 잡히기 전까지 사용할 데이터 객체
-
-        private List<string> mQuestion = new List<string>();              // 사운드로 바뀔 예정
-        private string[] mAnswer = new string[] { };
-
-        private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQnA = null;
+        private Dictionary<string, Queue<QuickSheet.Contents3Data>> mQuestionData = new Dictionary<string, Queue<QuickSheet.Contents3Data>>();
 
         private QuickSheet.Contents3Data mCurrentCorrect = null;        // 현재 제출문제의 정답 데이터
         private QuickSheet.Contents3Data mSelectedAnswer = null;        // 현재 제출 선택지 중 유저가 선택한 데이터
@@ -170,119 +113,161 @@ namespace Contents3
                 return mSelectedAnswer;
             }
         }
-        public string CurrentQuestion
+
+
+        protected override void Initialize()
         {
-            get
-            {
-                return CurrentEpisode["question"][mSubmitQuestionCount % CurrentEpisode["question"].Count].ToString();
-            }
+            ChangeState(State.Episode);
         }
+       
 
-
-        //* 데이터 로드 */
-        public void GetData(int episodeID)
+       /**
+        @fn public void SelectEpisode(int episodeID)
+       
+        @brief  선택한 에피소드에 필요한 데이터를 세팅
+                제어구조 별 내용은 SceneContents1 주석 참고
+       
+        @author SEONG
+        @date   2017-09-02
+       
+        @param  episodeID   Identifier for the episode.
+        */
+       public void SelectEpisode(int episodeID)
         {
             mSelectedEpisode = episodeID;
-            var table = TableFactory.LoadContents3Table().dataArray
-                                    .Where((data) => data.Episode == mSelectedEpisode).ToList();
 
+            var table = mQnATable.dataArray
+                                 .Where((data) => data.Episode == mSelectedEpisode)
+                                 .ToList();
 
-            foreach (var row in table)
+            mCategorys = table.Select((data) => data.Category).Distinct().ToArray();
+
+            mQuestionData.Clear();
+
+            foreach(var row in table)
             {
-                QnAList.Add(new QnA(row.ID, row.Episode, row.Question, row.Correct, row.Character));
-            }
-            
-          
-            mQnA = new Dictionary<string, Queue<QuickSheet.Contents3Data>>();
-            foreach (var row in table)
-            {
-                if (mQnA.ContainsKey(row.Question) == false)
+                if(mQuestionData.ContainsKey(row.Category) == false)
                 {
-                    mQuestion.Add(row.Question);                    // List에 Question 추가
-                    mQnA.Add(row.Question, new Queue<QuickSheet.Contents3Data>(3));
+                    mQuestionData.Add(row.Category, new Queue<QuickSheet.Contents3Data>());
                 }
-               mQnA[row.Question].Enqueue(row);
+                mQuestionData[row.Category].Enqueue(row);
             }
-        }
 
-        string currentQuestion = "";
-        // 출제 문제를 결정
-        public void SetQuestion()
-        {
-            currentQuestion = QnAList[mSubmitQuestionCount % 3].Question;        // 문제 선택 후 플레이 (사운드 예정)
-            CDebug.Log(currentQuestion);
-        }
-
-        public string GetRightAnswer()
-        {
-            string Answer = "";
-            if (mQnA.ContainsKey(currentQuestion))
+            foreach (var category in mCategorys)
             {
-                //Answer = mQnA[currentQuestion];
+                if (mQuestionData.ContainsKey(category))
+                {
+                    var array = mQuestionData[category].ToArray();
+                    array.Shuffle();
+                    mQuestionData[category] = new Queue<QuickSheet.Contents3Data>(array);
+                }
             }
 
+            int nextEpisodeID = mSelectedEpisode + 1;
+            nextEpisodeID = nextEpisodeID > EpisodeCount ? 1 : nextEpisodeID;
+            CDebug.LogFormat("Wrong Episode ID : {0}", nextEpisodeID);
+            var wrongs = mQnATable.dataArray
+                                     .Where((data) => data.Episode == nextEpisodeID)
+                                     .ToArray();
+            wrongs.Shuffle();
+            mWrongAnswers = new Queue<QuickSheet.Contents3Data>(wrongs);
 
-            return Answer;
+            //var query = from data in mQnATable.dataArray
+            //            where (data.Episode == mSelectedEpisode) || (data.Episode == nextEpisodeID)
+            //            group data by data.Episode == mSelectedEpisode;
+            //foreach(var data in query)
+            //{
+            //    if (data.Key)
+            //    {
+            //        foreach(var select in data)
+            //        {
+            //            CDebug.LogFormat("Select Episode Data {0}", select.Correct);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        foreach (var next in data)
+            //        {
+            //            CDebug.LogFormat("Next Episode Data {0}", select.Correct);
+            //        }
+            //    }
+            //}
+
+            ChangeState(State.Situation);
         }
-        public void GetWrongAnswer()
-        {
 
-        }
+       
 
-        /*
         public QuickSheet.Contents3Data[] GetAnswers()
         {
             for (int i = 0; i < mAnswers.Length; i++)
             {
                 mAnswers[i] = null;
             }
-            
+
             int answersIndex = 0;
-            mCurrentCorrect = mQnA["hi"].Dequeue();
+            mCurrentCorrect = mQuestionData[CurrentCategory].Dequeue();
             mAnswers[answersIndex] = mCurrentCorrect;
-
-            CDebug.Log(mQnA["hi"]);
-            CDebug.Log(mCurrentCorrect);
-            //CDebug.LogFormat("CurrentQuestion : {0}", mCurrentCorrect.Question);
-
-
             answersIndex++;
+            CDebug.LogFormat("CurrentCategory : {0}", mCurrentCorrect.Category);
 
+            mAnswers[answersIndex] = mWrongAnswers.Dequeue();
 
-            
-            for (int i = 0; i < CurrentEpisode["question"].Count; i++)
-            {
-                if (answersIndex < 2)
-                {
-                    CDebug.LogFormat("{0}/{1}", CurrentEpisode["question"][i].ToString(), mCurrentCorrect.Question);
-                    if (CurrentEpisode["question"][i].ToString().Equals(mCurrentCorrect.Question) == false)
-                    {
-                        mAnswers[answersIndex] = mQnA[CurrentEpisode["question"][i].ToString()].First();
-                        CDebug.Log("Answers : " + mAnswers[i].Correct[i]);
-                        answersIndex++;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
+            mAnswers.Shuffle();
 
-            mSubmitQuestionCount++;             //문제 인덱스 증가
-            
+            mSubmitQuestionCount++;
+
             return mAnswers;
         }
-        
-            */
 
-        public void IncreaseCorrectCount()
+        public void IncrementCorrectCount()
         {
             mCorrectCount++;
         }
+        public void IncrementWrongCount()
+        {
+            mWrongCount++;
+        }
+        public void ResetWrongCount()
+        {
+            mWrongCount = 0;
+        }
 
+
+        /**
+         @fn    public void SelectAnswer(int answer)
         
-
+         @brief 정답 선택 
         
+         @author    SEONG
+         @date  2017-08-31
+        
+         @param answer  The answer.
+         */
+        public void SelectAnswer(int answer)
+        {
+            mSelectedAnswer = mAnswers[answer];
+            ChangeState(State.Evaluation);
+        }
 
+        public void RetryEpisode()
+        {
+            ResetQuestionState();
+            SelectEpisode(mSelectedEpisode);
+        }
+        public void NextEpisode()
+        {
+            ResetQuestionState();
+            mSelectedEpisode = Mathf.Clamp(mSelectedEpisode + 1, 1, EpisodeCount);
+            SelectEpisode(mSelectedEpisode);
+        }
+        private void ResetQuestionState()
+        {
+            mCurrentCorrect = null;
+            mSelectedAnswer = null;
+            mSubmitQuestionCount = 0;
+            mCorrectCount = 0;
+            mWrongCount = 0;
+        }
     }
 }

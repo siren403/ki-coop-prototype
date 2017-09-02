@@ -7,6 +7,9 @@ using CustomDebug;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using SceneLoader;
+using UniRx;
+using SceneLoader;
+
 namespace Home
 {
 
@@ -20,6 +23,8 @@ namespace Home
 
         private SceneHome mScene = null;
 
+        public Button InstBtnSceneTest = null;
+
         public void SetScene(SceneHome scene)
         {
             mScene = scene;
@@ -30,6 +35,8 @@ namespace Home
             }
 
             InstEventSystem.enabled = false;
+
+            InstBtnSceneTest.OnClickAsObservable().Subscribe(_ => SceneLoadWrapper.LoadScene(BuildScene.SceneTest));
 
             StartCoroutine(SeqStartHome());
         }
