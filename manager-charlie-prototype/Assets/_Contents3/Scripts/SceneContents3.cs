@@ -36,16 +36,9 @@ namespace Contents3
             }
         }
 
-        #region QnAContents를 구성하는 기본적인 State객체
-        protected override QnAFiniteState FSEpisode { get { return new FSContents3Episode(); } }
-        protected override QnAFiniteState FSSituation { get { return new FSContents3Situation(); } }
         protected override QnAFiniteState FSQuestion { get { return new FSContents3Question(); } }
-        protected override QnAFiniteState FSAnswer { get { return new FSContents3Answer(); } }
         protected override QnAFiniteState FSSelect { get { return new FSContents3Select(); } }
         protected override QnAFiniteState FSEvaluate { get { return new FSContents3Evaluation(); } }
-        protected override QnAFiniteState FSReward { get { return new FSContents3Reward(); } }
-        protected override QnAFiniteState FSClear { get { return new FSContents3Clear(); } }
-        #endregion
 
         public float CorrectProgress
         {
@@ -200,8 +193,6 @@ namespace Contents3
             //        }
             //    }
             //}
-
-
 
             ChangeState(State.Situation);
         }

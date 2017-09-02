@@ -37,16 +37,9 @@ namespace Contents1
             }
         }
 
-        #region QnAContents를 구성하는 기본적인 State객체
-        protected override QnAFiniteState FSEpisode { get { return new FSContents1Episode(); } }
-        protected override QnAFiniteState FSSituation { get { return new FSContents1Situation(); } }
         protected override QnAFiniteState FSQuestion { get { return new FSContents1Question(); } }
-        protected override QnAFiniteState FSAnswer { get { return new FSContents1Answer(); } }
         protected override QnAFiniteState FSSelect { get { return new FSContents1Select(); } }
         protected override QnAFiniteState FSEvaluate { get { return new FSContents1Evaluation(); } }
-        protected override QnAFiniteState FSReward { get { return new FSContents1Reward(); } }
-        protected override QnAFiniteState FSClear { get { return new FSContents1Clear(); } }
-        #endregion
 
 
         /** @brief 유저가 선택한 에피소드 */

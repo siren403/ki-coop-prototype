@@ -1,15 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents.QnA;
-using CustomDebug;
-using Util;
 
-namespace Contents3
+namespace Contents.QnA
 {
-    public class FSContents3Reward : QnAFiniteState
+    public class FSBasicReward : QnAFiniteState
     {
-
         public override QnAContentsBase.State StateID
         {
             get
@@ -22,6 +18,5 @@ namespace Contents3
         {
             Entity.View.ShowReward();
         }
-       
     }
 }

@@ -1,27 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Contents.QnA;
-using CustomDebug;
-using Util;
 
-namespace Contents3
+namespace Contents.QnA
 {
-    public class FSContents3Reward : QnAFiniteState
+    public class FSBasicAnswer : QnAFiniteState
     {
-
         public override QnAContentsBase.State StateID
         {
             get
             {
-                return QnAContentsBase.State.Reward;
+                return QnAContentsBase.State.Answer;
             }
         }
 
         public override void Enter()
         {
-            Entity.View.ShowReward();
+            Entity.View.ShowAnswer();
         }
-       
     }
 }
