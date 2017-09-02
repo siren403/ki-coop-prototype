@@ -84,6 +84,7 @@ public class UIMiniGame2CoinShop : MonoBehaviour {
         }
     }
 
+    //*아이템을 구매하시겠습니까 판넬에서 Yes or No  OnClick */
     private void OnClickBuyCheck(int checkNum)
     {
         if (checkNum == 0)

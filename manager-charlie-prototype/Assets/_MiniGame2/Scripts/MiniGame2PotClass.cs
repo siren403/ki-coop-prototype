@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniGame2PotClass : MonoBehaviour {
-
+public class MiniGame2PotClass
+{
     public int PotID;
     public bool IsEmpty;
-    public Vector3 PotPosition;
     public int FlowerInfo;
-    public float WarterInfo;
-    public float FertilizerInfo;
+    public int WaterInfo;
+    public int FertilizerInfo;
     public bool IsDead;
 
 
-    public MiniGame2PotClass(int podId, bool isEmpty,Vector3 potPosition ,int flowerInfo, float warterInfo, float fertilizerInfo, bool isDead)
+    public MiniGame2PotClass(int podId, bool isEmpty, int flowerInfo, int waterInfo, int fertilizerInfo, bool isDead)
     {
         PotID = podId;
         IsEmpty = isEmpty;
-        PotPosition = potPosition;
         FlowerInfo = flowerInfo;
-        WarterInfo = warterInfo;
+        WaterInfo = waterInfo;
         FertilizerInfo = fertilizerInfo;
         IsDead = isDead;
     }
 }
+
+
