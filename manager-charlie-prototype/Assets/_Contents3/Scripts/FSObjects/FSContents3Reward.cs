@@ -7,7 +7,7 @@ using Util;
 
 namespace Contents3
 {
-    public class FSContents3ShowReward : QnAFiniteState
+    public class FSContents3Reward : QnAFiniteState
     {
 
         public override QnAContentsBase.State StateID
@@ -17,24 +17,12 @@ namespace Contents3
                 return QnAContentsBase.State.Reward;
             }
         }
-        private SimpleTimer Timer = SimpleTimer.Create();
 
         public override void Enter()
         {
-
+            CDebug.Log("Enter Reward");
             Entity.View.ShowReward();
-            Timer.Start();
-
         }
        
-        public override void Excute()
-        {
-            Timer.Update();
-            if (Timer.Check(3.0f))
-            {
-                CDebug.Log("Reward Sticker");   // 나중에 변수 추가하여 전달
-                Entity.View.ShowReward();
-            }
-        }
     }
 }

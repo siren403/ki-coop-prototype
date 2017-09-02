@@ -30,7 +30,7 @@ namespace Contents1
         public GridSwipe InstPanelEpisodeList = null;
         public EpisodeButton PFEpisodeButton = null;
 
-        public CorrectGuage InstCorrectGuage = null;
+        public CorrectGauge InstCorrectGuage = null;
         public Image InstImgRewardSticker = null;
         public GameObject InstPanelClear = null;
         public MenuOutro InstOutro = null;
@@ -174,8 +174,8 @@ namespace Contents1
          */
         public void ShowSituation()
         {
-            InstCorrectGuage.gameObject.SetActive(true);
             CDebug.Log("Play Situation");
+            InstCorrectGuage.gameObject.SetActive(true);
         }
 
         /**
@@ -233,18 +233,18 @@ namespace Contents1
          *
          * @param   selection   The selection.
          */
-        public void OnBtnSelectAnswer(int selection)
+        public void OnBtnSelectAnswer(int answerIndex)
         {
-            mSelectedAnswerIndex = selection;
+            mSelectedAnswerIndex = answerIndex;
             CDebug.LogFormat("Select Answer Index : {0}",mSelectedAnswerIndex);
-            mScene.SelectAnswer(mSelectedAnswerIndex);
             //선택한 선택지 인덱스를 HashSet에서 제거
             if (mAnswerIndexSet.Contains(mSelectedAnswerIndex))
             {
                 mAnswerIndexSet.Remove(mSelectedAnswerIndex);
             }
-            //* 2. 선택한 번호 전달 */
-            //* 2. SceneContents1.cs  __ 함수 호출*/
+
+
+            mScene.SelectAnswer(mSelectedAnswerIndex);
         }
 
         //현재는 사용할일이 없을거라 예상
@@ -267,8 +267,8 @@ namespace Contents1
             // 블랙알파 후 캐릭터 애니메이션을 재생해야 하지만 현재는 리소스가 없으니
             // 선택지 패널 off
             InstPanelAnswer.gameObject.SetActive(false);
-            DOTween.To(() => InstCorrectGuage.Value, (x) => InstCorrectGuage.Value = x, mScene.CorrectProgress, 0.3f)
-                .OnComplete(()=> 
+            InstCorrectGuage.TweenValue(mScene.CorrectProgress,0.3f)
+                .OnComplete(() =>
                 {
                     if (mScene.HasNextQuestion)
                     {
@@ -282,6 +282,7 @@ namespace Contents1
                     }
                     InstEventSystem.enabled = true;
                 });
+                
             
         }
 

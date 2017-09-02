@@ -6,7 +6,7 @@ namespace Util
 {
     public static class ArrayExtension
     {
-        public static void DoShuffle<T>(this IList<T> self)
+        public static void Shuffle<T>(this IList<T> self)
         {
             for (int i = 0; i < self.Count; i++)
             {
@@ -16,7 +16,7 @@ namespace Util
                 self[i] = temp;
             }
         }
-        public static void DoShuffle<T>(this IList<T> self,int shuffleCount)
+        public static void Shuffle<T>(this IList<T> self,int shuffleCount)
         {
             for (int i = 0; i < shuffleCount; i++)
             {

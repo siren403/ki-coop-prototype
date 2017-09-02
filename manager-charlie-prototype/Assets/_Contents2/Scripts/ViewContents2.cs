@@ -19,7 +19,7 @@ namespace Contents2
 
         public Sprite InstLockImage;
 
-        public CorrectGuage InstCorrectGuage = null;
+        public CorrectGauge InstCorrectGuage = null;
 
         //* 문제 Situation panel*/
 

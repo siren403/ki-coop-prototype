@@ -17,6 +17,10 @@ public class Contents3Data
   public int Episode { get {return episode; } set { episode = value;} }
   
   [SerializeField]
+  string category;
+  public string Category { get {return category; } set { category = value;} }
+  
+  [SerializeField]
   string question;
   public string Question { get {return question; } set { question = value;} }
   
