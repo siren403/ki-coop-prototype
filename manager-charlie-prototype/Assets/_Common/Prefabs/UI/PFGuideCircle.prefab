@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222825928642655918}
   - component: {fileID: 114057710298905468}
   m_Layer: 5
-  m_Name: PFScreenCircle
+  m_Name: PFGuideCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

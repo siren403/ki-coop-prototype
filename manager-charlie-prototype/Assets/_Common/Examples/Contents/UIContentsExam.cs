@@ -31,7 +31,8 @@ namespace Examples
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
-                btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
+                btn.ID = i + 1;
+                btn.OnButtonUp = OnBtnSelectEpisodeEvent;
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 
@@ -43,7 +44,7 @@ namespace Examples
         }
 
         #region 유저 입력 시 이벤트 처리 함수(ex. animation, sound play...)
-        private void OnBtnSelectEpisodeEvent(int episodeID)
+        private void OnBtnSelectEpisodeEvent(int episodeID, IDButton sender)
         {
             Debug.Log(episodeID);
             mScene.StartEpisode(episodeID);
