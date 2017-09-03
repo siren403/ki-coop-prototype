@@ -20,8 +20,6 @@ namespace MiniGame1
         private ViewMiniGame1 mView = null;
 
         private List<QuickSheet.MiniGame1Data> mItemData = null;
-        private List<HaveItemInfo> mHaveInfo = new List<HaveItemInfo>();
-        private JsonData mJsonInfo;
 
         public int ItemCount
         {
@@ -29,24 +27,23 @@ namespace MiniGame1
             {
                 return mGameItem.dataArray.Length;
             }
-        }        
+        }
 
         void Awake()
         {
-            //mItemData = new List<QuickSheet.MiniGame1Data>();
+            mItemData = new List<QuickSheet.MiniGame1Data>();
 
-            //SimpleIO io = new SimpleIO();
+            List<HaveItemInfo> mHaveInfo = new List<HaveItemInfo>();
+            JsonData mJsonInfo;
 
-            //JsonData tempJson = new JsonData();
-            //tempJson["ID"] = "Test";
+            string jsonPath = File.ReadAllText(Application.persistentDataPath + "/_MiniGame1/Resources/MiniGame1Info.json");
 
-            string jsonData = File.ReadAllText(Application.persistentDataPath + "/_MiniGame1/Resources/MiniGame1Info.json");
+            mJsonInfo = JsonMapper.ToObject(jsonPath);
 
-            mJsonInfo = JsonMapper.ToObject(jsonData);
-            
-            for(int i=0; i<mItemData.Count; i++)
+            for(int i=0; i<mJsonInfo.Count; i++)
             {
-                CDebug.Log(mJsonInfo[i].ToString());
+                mHaveInfo.Add(new HaveItemInfo(mJsonInfo[i]["Name"].ToString(), mJsonInfo[i]["haveItem"].ToString()));
+                //CDebug.Log(mHaveInfo[i].ItemName + " ? : " + mHaveInfo[i].HaveItem);
             }
         }
 

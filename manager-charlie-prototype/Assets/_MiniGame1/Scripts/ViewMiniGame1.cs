@@ -59,7 +59,11 @@ namespace MiniGame1
             BuyCancleButton.onClick.AddListener(() => BuyCancle());
 
             //CDebug.Log(mScene.ItemCount);
+        }
 
+        // Use this for initialization
+        void Start()
+        {
             // Scene에서 가져온 아이템 개수를 사용하여 버튼 동적생성 및 ID 부여
             // Grid가 Attach되어있는 오브젝트 하위에 위치시킨 후 Reposition을 통해 정렬
             for (int i = 0; i < mScene.ItemCount; i++)
@@ -68,12 +72,6 @@ namespace MiniGame1
                 btn.Initialize(i + 1, OnBtnSelectItem);
             }
             mPanelShopItemList.TargetGrid.Reposition();
-        }
-
-        // Use this for initialization
-        void Start()
-        {
-
         }
 
         /**
@@ -86,7 +84,7 @@ namespace MiniGame1
          */
         private void EnterShop()
         {
-            CDebug.Log("Welcome! Stupid Customer!");
+            CDebug.Log("Welcome! Customer!");
 
             mPanelCitrus.SetActive(false);
             mPanelStawberry.SetActive(false);

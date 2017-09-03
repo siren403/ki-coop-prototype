@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace MiniGame1
@@ -6,7 +7,7 @@ namespace MiniGame1
     public class HaveItemInfo
     {
         private string mItemName;
-        private bool mhaveItem;
+        private string mhaveItem;
 
         public string ItemName
         {
@@ -14,14 +15,14 @@ namespace MiniGame1
             set { mItemName = value; }
         }
 
-        public bool HaveItem
+        public string HaveItem
         {
             get { return mhaveItem; }
             set { mhaveItem = value; }
         }
 
         // initializer
-        public HaveItemInfo(string name, bool have)
+        public HaveItemInfo(string name, string have)
         {
             ItemName = name;
             HaveItem = have;
