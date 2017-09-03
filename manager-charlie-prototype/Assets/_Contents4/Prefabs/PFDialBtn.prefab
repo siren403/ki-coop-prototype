@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114615593877220916}
   - component: {fileID: 114424378359742800}
   m_Layer: 5
-  m_Name: InstDialBtn
+  m_Name: PFDialBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

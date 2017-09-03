@@ -9,7 +9,7 @@ using CustomDebug;
 namespace Contents4
 {
 
-    public class Dial : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHandler
+    public class OldDial : MonoBehaviour, IBeginDragHandler,IDragHandler,IEndDragHandler
     {
         
         public enum Direction

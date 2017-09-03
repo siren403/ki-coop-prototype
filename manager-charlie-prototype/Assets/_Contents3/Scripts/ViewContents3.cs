@@ -45,7 +45,8 @@ namespace Contents3
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
-                btn.Initialize(i + 1, OnBtnSelectEpisode);
+                btn.ID = i + 1;
+                btn.OnButtonUp = OnBtnSelectEpisode;
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 
@@ -99,7 +100,7 @@ namespace Contents3
             InstCorrectGauge.gameObject.SetActive(false);
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
-        private void OnBtnSelectEpisode(int episodeID)
+        private void OnBtnSelectEpisode(int episodeID,IDButton sender)
         {
             mScene.SelectEpisode(episodeID);
             InstPanelEpisodeList.gameObject.SetActive(false);

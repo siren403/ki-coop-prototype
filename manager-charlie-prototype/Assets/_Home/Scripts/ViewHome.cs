@@ -31,7 +31,8 @@ namespace Home
 
             for(int i = 0; i < InstBtnContentsList.Count; i++)
             {
-                InstBtnContentsList[i].Initialize(i + 1, SelectContents);
+                InstBtnContentsList[i].ID = i + 1;
+                InstBtnContentsList[i].OnButtonUp = SelectContents;
             }
 
             InstEventSystem.enabled = false;
