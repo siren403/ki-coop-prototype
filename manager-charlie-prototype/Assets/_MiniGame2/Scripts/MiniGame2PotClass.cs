@@ -2,25 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniGame2PotClass
+namespace MiniGame2
 {
-    public int PotID;
-    public bool IsEmpty;
-    public int FlowerInfo;
-    public int WaterInfo;
-    public int FertilizerInfo;
-    public bool IsDead;
-
-
-    public MiniGame2PotClass(int podId, bool isEmpty, int flowerInfo, int waterInfo, int fertilizerInfo, bool isDead)
+    public class MiniGame2PotClass
     {
-        PotID = podId;
-        IsEmpty = isEmpty;
-        FlowerInfo = flowerInfo;
-        WaterInfo = waterInfo;
-        FertilizerInfo = fertilizerInfo;
-        IsDead = isDead;
+        //* 화분 ID 값 */
+        public int PotID;
+        //* 비어있는지 체크*/
+        public bool IsEmpty;
+
+
+        //*꽃의 정보 */
+        public int FlowerInfo;
+        //* 물을 준 횟수*/
+        public int WaterInfo;
+        //* 비료 준 횟수*/
+        public int FertilizerInfo;
+
+        //* 물, 비료 타이머*/
+        public int WaterTimer;
+        public int FertilizerTimer;
+
+        //*현재 꽃의 단계 */
+        public int FlowerStep;
+
+
+        public MiniGame2PotClass(int potId, bool isEmpty, int flowerInfo, int waterInfo, int fertilizerInfo, int waterTimer, int fertilizerTimer, int flowerStep)
+        {
+            PotID = potId;
+            IsEmpty = isEmpty;
+            FlowerInfo = flowerInfo;
+            WaterInfo = waterInfo;
+            FertilizerInfo = fertilizerInfo;
+            WaterTimer = waterTimer;
+            FertilizerTimer = fertilizerTimer;
+            FlowerStep = flowerStep;
+        }
     }
 }
-
 

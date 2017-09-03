@@ -28,9 +28,11 @@ namespace MiniGame2
 
         public Vector3 ImgWaterPosition;
 
+        public Button InstBtnExit;
 
         public void Start()
         {
+            InstBtnExit.onClick.AddListener(() => OnClickExit());
             ImgWaterPosition = InstImgWater.transform.position;
 
             InstBtnPotList[0].onClick.AddListener(() => OnClickBtnPot(0));
@@ -40,11 +42,16 @@ namespace MiniGame2
 
             TitleFade();
         }
+        void OnClickExit()
+        {
+            CDebug.Log("나가기 버튼 누르면 데이터 저장이 되고 씬 변경");
+            SceneMiniGame2.instance.SaveJsonData();
+        }
+
         void TitleFade()
         {
             InstPanelTitle.GetComponent<Image>().DOFade(0, 1).OnComplete(() =>
             InstPanelTitle.SetActive(false));
-
         }
         public void OnClickBtnPot(int potNumber)
         {
