@@ -263,7 +263,7 @@ namespace MiniGame2
 
                     case FlowerStep.FlowerStep5:
                         CDebug.Log("죽음");
-                        SceneMiniGame2.instance.DeadFlower(PotNumber);
+                        DeadFlower();
                         InitFlowerInfo();
                         flowerStep = FlowerStep.None;
                         break;
@@ -303,7 +303,7 @@ namespace MiniGame2
         //* 죽었을 때 호출 -> 화분의 정보를 초기화 한다*/
         void DeadFlower()
         {
-            SceneMiniGame2.instance.ErasePotInfo(PotNumber);
+            SceneMiniGame2.instance.DeadFlower(PotNumber);
         }
 
         //* 물이나 비료를 줄 때마다 업그레이드 될 수 있는 상태인지 체크를 해준다*/
