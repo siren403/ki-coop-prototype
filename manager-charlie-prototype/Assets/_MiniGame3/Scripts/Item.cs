@@ -27,7 +27,7 @@ namespace MiniGame3
         public Vector2 posImg;          // 이미지 위치
 
         public bool isBought = false;   // 아이템 구매여부
-        public bool isWearing = false;
+        public bool isWearing = false;  // 아이템 착용여부
 
         public void GetImg(Sprite tSpr)
         {

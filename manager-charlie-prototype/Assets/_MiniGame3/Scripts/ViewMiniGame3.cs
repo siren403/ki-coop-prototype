@@ -10,26 +10,29 @@ namespace MiniGame3
     public class ViewMiniGame3 : MonoBehaviour
     {
 
-        
+
         public GameObject InstMiniGamePanel = null;                 // 미니겜 패널
         public GameObject InstCoinShopPanel = null;                 // 코인샵 패널
-        
+
         public Button PFItemBtn = null;                             // 버튼 프리팹
         public List<Button> PFItemBtnList = null;
+
+        public GameObject PFPagePanel = null;                       // 페이지 프리팹
+        public List<GameObject> PFPagePanelList = null;
 
         private SceneMiniGame3 mScene = null;
         private int mCoin;                                          // 소지 코인
 
 
-        private Item[] mItemImg = new Item[4];
-        private ItemButton[] mItemBtn = new ItemButton[4];
+        private Item[] mItemImg = new Item[10];
+        private ItemButton[] mItemBtn = new ItemButton[10];
 
         public List<ItemButton> ItemBtnList = new List<ItemButton>();
         public List<Item> ImageList = new List<Item>();
 
         private Vector2[] mButtonPos = new Vector2[4];
 
-        void Start()
+        void Awake()
         {
             mButtonPos[0] = new Vector2(0, 65);
             mButtonPos[1] = new Vector2(100, 65);
@@ -37,8 +40,19 @@ namespace MiniGame3
             mButtonPos[3] = new Vector2(100, -65);
 
             GetmItemImg();
+
+            CreatePanel();
             CreateButtons();
+
+            this.GetComponent<MainUISwipe>().SetPage(PFPagePanelList);
+            //InstMiniGamePanel.GetComponent<MainUISwipe>().SetPage(PFPagePanelList);
+            InstCoinShopPanel.GetComponent<CoinShopSwipe>().SetItemList(ImageList);
+        }
+
+        void Start()
+        {
             
+
         }
 
         void Update()
@@ -51,22 +65,40 @@ namespace MiniGame3
             mScene = scene;
         }
 
-        
+        public void CreatePanel()
+        {
+            int tIndex = 0;
+            if (0 == ItemBtnList.Count % 4)
+            {
+                tIndex = ItemBtnList.Count / 4;
+            }
+            else
+            {
+                tIndex = (ItemBtnList.Count / 4) + 1;
+            }
 
+            for (int j = 0; j < tIndex; j++)
+            {
+                Vector2 tPos = Vector2.zero;
+                var tempPanel = Instantiate(PFPagePanel, tPos, Quaternion.identity, InstMiniGamePanel.transform);
+                tempPanel.transform.localPosition = new Vector2(j * 400, 0);
+                PFPagePanelList.Add(tempPanel);
+            }
+
+        }
         public void CreateButtons()
         {
             for (int i = 0; i < ItemBtnList.Count; i++)
             {
-                var tA = Instantiate(PFItemBtn, Vector2.zero, Quaternion.identity, InstMiniGamePanel.transform.GetChild(0));
-                tA.transform.localPosition = mButtonPos[i];
-                CDebug.Log(mButtonPos[i]);
-                PFItemBtnList.Add(tA);
-
+                var tempBtn = Instantiate(PFItemBtn, Vector2.zero, Quaternion.identity, PFPagePanelList[i / 4].transform);
+                tempBtn.transform.localPosition = mButtonPos[i % 4];
+                //CDebug.Log(mButtonPos[i]);
+                PFItemBtnList.Add(tempBtn);
             }
 
             for (int ti = 0; ti < PFItemBtnList.Count; ti++)
             {
-                PFItemBtnList[ti].onClick.AddListener(() => OnBtnItem(ImageList[ti].GetId()));
+                //PFItemBtnList[ti].onClick.AddListener(() => OnBtnItem(ImageList[ti].GetId()));
             }
         }
 
@@ -74,7 +106,7 @@ namespace MiniGame3
         private void OnBtnItem(int ti)
         {
             CDebug.LogFormat("Item ID: {0}", ImageList[ti].GetId());
-            if (true == ImageList[ti].isBought)
+            if (true == ImageList[ti].isWearing)
             {
                 if (PFItemBtnList[ti])
                 {
@@ -82,10 +114,10 @@ namespace MiniGame3
                 }
             }
             // 코인 체크 && 구매 체크
-            else if (ImageList[ti].GetPrice() > mCoin && false == ImageList[ti].isBought)
+            else if (ImageList[ti].GetPrice() > mCoin && false == ImageList[ti].isWearing)
             {
                 Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
-                ImageList[ti].isBought = true;
+                ImageList[ti].isWearing = true;
                 mCoin -= ImageList[ti].GetPrice();
             }
         }
@@ -103,10 +135,10 @@ namespace MiniGame3
                 ItemBtnList.Add(mItemBtn[ti]);
             }
             // 버튼 생성 위치 저장
-            mItemBtn[0].SetPos(Camera.main.WorldToScreenPoint(new Vector3(0, 65, 0)));
-            mItemBtn[1].SetPos(Camera.main.WorldToScreenPoint(new Vector3(100, 65, 0)));
-            mItemBtn[2].SetPos(Camera.main.WorldToScreenPoint(new Vector3(0, -65, 0)));
-            mItemBtn[3].SetPos(Camera.main.WorldToScreenPoint(new Vector3(100, -65, 0)));
+            //mItemBtn[0].SetPos(Camera.main.WorldToScreenPoint(new Vector3(0, 65, 0)));
+            //mItemBtn[1].SetPos(Camera.main.WorldToScreenPoint(new Vector3(100, 65, 0)));
+            //mItemBtn[2].SetPos(Camera.main.WorldToScreenPoint(new Vector3(0, -65, 0)));
+            //mItemBtn[3].SetPos(Camera.main.WorldToScreenPoint(new Vector3(100, -65, 0)));
 
 
 
@@ -129,10 +161,6 @@ namespace MiniGame3
 
             //mItemImg[0].GetImg("")
 
-            for (int ti = 0; ti < mItemImg.Length; ti++)
-            {
-                ImageList.Add(mItemImg[ti]);
-            }
         }
 
 
@@ -142,6 +170,7 @@ namespace MiniGame3
         {
             InstMiniGamePanel.SetActive(false);
             InstCoinShopPanel.SetActive(true);
+            InstCoinShopPanel.GetComponent<CoinShopSwipe>().SetItemList(ImageList);
         }
         public void OnClickGoMain()
         {
