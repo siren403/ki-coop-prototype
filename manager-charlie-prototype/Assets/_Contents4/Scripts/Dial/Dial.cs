@@ -59,6 +59,7 @@ namespace Contents4
             }
         }
 
+
         private void Awake()
         {
             for (int i = 0; i < Count; i++)
@@ -119,20 +120,15 @@ namespace Contents4
             }
             for(int i = mCurrentIndex - 2; i <= mCurrentIndex + 2; i++)
             {
-                Items[(int)Mathf.Repeat(i, Count)].GetComponent<Image>().color = Color.red;
+                int n = (int)Mathf.Repeat(i, Count);
+                Items[n].GetComponent<Image>().color = Color.red;
             }
 
+
             CurrentItem.GetComponent<Image>().color = Color.green;
-
         }
 
-        public int n = 0;
-        [Util.Inspector.Button]
-        public void CheckIndex()
-        {
-            CDebug.Log(Mathf.Repeat(n, Count));
-        }
-
+        private int[] mHours = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
         /*
             for i in range(count):
