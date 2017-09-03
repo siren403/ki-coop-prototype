@@ -11,32 +11,35 @@ namespace MiniGame2
         //* 비어있는지 체크*/
         public bool IsEmpty;
 
-
         //*꽃의 정보 */
-        public int FlowerInfo;
+        public int FlowerNumber;
+
         //* 물을 준 횟수*/
-        public int WaterInfo;
+        public int AmountOfWater;
         //* 비료 준 횟수*/
-        public int FertilizerInfo;
+        public int AmountOfFertilizer;
 
         //* 물, 비료 타이머*/
         public int WaterTimer;
         public int FertilizerTimer;
 
-        //*현재 꽃의 단계 */
-        public int FlowerStep;
+        //*꽃 상태 */
+        public int FlowerState;
 
+        //*꽃 레벨*/
+        public int FlowerLevel;
 
-        public MiniGame2PotClass(int potId, bool isEmpty, int flowerInfo, int waterInfo, int fertilizerInfo, int waterTimer, int fertilizerTimer, int flowerStep)
+        public MiniGame2PotClass(int potId, bool isEmpty, int flowerNumber, int amountOfWater, int amountOfFertilizer, int waterTimer, int fertilizerTimer, int flowerState, int flowerLevel)
         {
             PotID = potId;
             IsEmpty = isEmpty;
-            FlowerInfo = flowerInfo;
-            WaterInfo = waterInfo;
-            FertilizerInfo = fertilizerInfo;
+            FlowerNumber = flowerNumber;
+            AmountOfWater = amountOfWater;
+            AmountOfFertilizer = amountOfFertilizer;
             WaterTimer = waterTimer;
             FertilizerTimer = fertilizerTimer;
-            FlowerStep = flowerStep;
+            FlowerState = flowerState;
+            FlowerLevel = flowerLevel;
         }
     }
 }
