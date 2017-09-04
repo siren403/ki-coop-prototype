@@ -59,12 +59,14 @@ namespace Contents4
             }
         }
 
+
         private void Awake()
         {
             for (int i = 0; i < Count; i++)
             {
                 Items.Add(Instantiate(PFItem, this.transform).GetComponent<DialButton>());
             }
+            OnChangeIndex();
         }
 
       
@@ -101,38 +103,47 @@ namespace Contents4
             //최근 인덱스 업데이트
             mLatestIndex = mCurrentIndex;
 
-
             Accel *= 0.9f;
             if (Mathf.Abs(Accel) < 0.01f)
             {
                 Accel = 0;
             }
+
+
         }
 
+        /**
+         @fn    private void OnChangeIndex()
+        
+         @brief 현재 기준 인덱스가 바뀌면 호출
+        
+         @author    SEONG
+         @date  2017-09-04
+         */
         private void OnChangeIndex()
         {
-            //Items[mLatestIndex].GetComponent<Image>().color = Color.black;
 
             foreach(var item in Items)
             {
                 item.GetComponent<Image>().color = Color.black;
             }
-            for(int i = mCurrentIndex - 2; i <= mCurrentIndex + 2; i++)
+            for (int i = -2; i <= 2; i++)
             {
-                Items[(int)Mathf.Repeat(i, Count)].GetComponent<Image>().color = Color.red;
+                int hourIndex = Mathf.RoundToInt(Mathf.Repeat(mAccumulateAccel * Count + i, mHours.Length));
+                hourIndex = hourIndex == mHours.Length ? 0 : hourIndex;
+                int hour = mHours[hourIndex];
+
+                int n = (int)Mathf.Repeat(mCurrentIndex + i, Count);
+                Items[n].GetComponent<Image>().color = Color.red;
+                Items[n].ID = hour;
             }
-
             CurrentItem.GetComponent<Image>().color = Color.green;
-
         }
 
-        public int n = 0;
-        [Util.Inspector.Button]
-        public void CheckIndex()
+        private int[] mHours = new int[]
         {
-            CDebug.Log(Mathf.Repeat(n, Count));
-        }
-
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+        };
 
         /*
             for i in range(count):

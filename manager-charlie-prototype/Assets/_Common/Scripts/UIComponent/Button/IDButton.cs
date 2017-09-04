@@ -35,6 +35,11 @@ namespace UIComponent
             }
         }
 
+        private void Awake()
+        {
+            OnChangedID();
+        }
+
         protected virtual void OnChangedID() { }
        
 

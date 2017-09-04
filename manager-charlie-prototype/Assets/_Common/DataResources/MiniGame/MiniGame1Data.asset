@@ -33,6 +33,13 @@ MonoBehaviour:
     name: Price
     isEnable: 0
     isArray: 0
+<<<<<<< HEAD
+=======
+  - type: 8
+    name: IsBuy
+    isEnable: 0
+    isArray: 0
+>>>>>>> master
   excelFilePath: Assets/_Common/DataResources/MiniGame/MiniGameItem.xlsx
   SheetNames:
   - MiniGame1

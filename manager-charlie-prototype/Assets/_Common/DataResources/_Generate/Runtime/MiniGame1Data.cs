@@ -24,5 +24,12 @@ public class MiniGame1Data
   int price;
   public int Price { get {return price; } set { price = value;} }
   
+<<<<<<< HEAD
+=======
+  [SerializeField]
+  bool isbuy;
+  public bool Isbuy { get {return isbuy; } set { isbuy = value;} }
+  
+>>>>>>> master
 }
 }

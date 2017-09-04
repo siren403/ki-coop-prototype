@@ -8,7 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 28b43f19db505274e87d693ac41934f4, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: 965dd865889c2494982e86f56ffb7c56, type: 3}
+>>>>>>> master
   m_Name: MiniGame1
   m_EditorClassIdentifier: 
   SheetName: Assets/_Common/DataResources/MiniGame/MiniGameItem.xlsx
@@ -18,63 +22,127 @@ MonoBehaviour:
     category: Fruits1
     name: TXT_M1_ITEM_1
     price: 100
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 2
     category: Fruits2
     name: TXT_M1_ITEM_2
     price: 200
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 3
     category: Fruits3
     name: TXT_M1_ITEM_3
     price: 200
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 4
     category: Fruits4
     name: TXT_M1_ITEM_4
     price: 200
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 5
     category: Fruits5
     name: TXT_M1_ITEM_5
     price: 100
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 6
     category: Fruits6
     name: TXT_M1_ITEM_6
     price: 200
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 7
     category: Fruits7
     name: TXT_M1_ITEM_7
     price: 200
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 8
     category: Fruits8
     name: TXT_M1_ITEM_8
     price: 200
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 9
     category: Color
     name: TXT_M1_ITEM_9
     price: 100
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 10
     category: Color
     name: TXT_M1_ITEM_10
     price: 100
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 11
     category: Color
     name: TXT_M1_ITEM_11
     price: 100
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 12
     category: Color
     name: TXT_M1_ITEM_12
     price: 300
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 13
     category: Candle
     name: TXT_M1_ITEM_13
     price: 300
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 14
     category: Candle
     name: TXT_M1_ITEM_14
     price: 300
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 15
     category: Candle
     name: TXT_M1_ITEM_15
     price: 300
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
   - id: 16
     category: Candle
     name: TXT_M1_ITEM_16
     price: 300
+<<<<<<< HEAD
+=======
+    isbuy: 0
+>>>>>>> master
