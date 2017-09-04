@@ -9,9 +9,10 @@ namespace MiniGame1
 {
     public class ItemButton : IDButton
     {
-        public override void Initialize(int id, Action<int> onSelect)
+        public void Initialize(int id, Action<int> onSelect)
         {
-            base.Initialize(id, onSelect);
+            ID = id;
+            
             GetComponentInChildren<Text>().text = string.Format("{0}", id);
         }
     }

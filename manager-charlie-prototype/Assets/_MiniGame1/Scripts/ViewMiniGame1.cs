@@ -61,7 +61,7 @@ namespace MiniGame1
             //CDebug.Log(mScene.ItemCount);
         }
 
-        // Use this for initialization
+        // Use this for initialization. 
         void Start()
         {
             // Scene에서 가져온 아이템 개수를 사용하여 버튼 동적생성 및 ID 부여
@@ -71,6 +71,7 @@ namespace MiniGame1
                 var btn = Instantiate<ItemButton>(PFItemButton, mPanelShopItemList.TargetGrid.transform);
                 btn.Initialize(i + 1, OnBtnSelectItem);
             }
+
             mPanelShopItemList.TargetGrid.Reposition();
         }
 
@@ -129,6 +130,16 @@ namespace MiniGame1
             mPanelShopItemList.GetComponent<GridSwipe>().enabled = true;
             mPanelBuyConfrim.SetActive(false);
         }
+
+        /**
+         * Executes the button select item action
+         *
+         * @author  Byeongyup
+         * @date    2017-09-04
+         *
+         * @param   selectItem  The select item.
+         */
+
         private void OnBtnSelectItem(int selectItem)
         {
             CDebug.Log(" /(^ㅠ^)/  : " + selectItem);
