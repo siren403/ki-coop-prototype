@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MiniGame2
 {
-    public class NutrientScheduler
+    public class NutrientScheduler : MonoBehaviour
     {
         /** @brief 시간을 재는 변수 */
         private int mTimer = 0;
@@ -16,6 +16,9 @@ namespace MiniGame2
         /** @brief 비료를 주지 않았을 때까지의 죽는 시간 */
         private int mDeadTime = 10;
 
+
+        //*FlowerData start에서 설정해줌 */
+        public int PotNumber;
 
         //*꽃의 단계 설정 */
         enum NutrientState
@@ -35,7 +38,13 @@ namespace MiniGame2
             }
         }
 
-
+        public int Timer
+        {
+            get
+            {
+                return mTimer;
+            }
+        }
 
         /** @brief Flower 스크립트 가져오기 */
         protected FlowerData mFlower;
@@ -63,8 +72,8 @@ namespace MiniGame2
                 case NutrientState.Normal:
                     if (mTimer >= mLackNutrientTime)
                     {
-                        mTimer = 0;
                         LackNutrient();
+                        mTimer = 0;
                         nutrientState = NutrientState.Lack;
                     }
                     break;
@@ -78,52 +87,91 @@ namespace MiniGame2
                     break;
 
                 case NutrientState.Dead:
-
                     DeadFlower();
 
                     break;
             }
         }
 
+
+
         /**
          @fn    public void SetSchedulerData(int timer)
         
-         @brief 저장된 데이터를 로드 할 때 호출
+         @brief 이전에 저장된 데이터가 있을때 데이터 로드에 사용
         
          @author    JT & YT
          @date  2017-09-04
         
          @param timer   The timer.
          */
-        public void SetSchedulerData(int timer)
+        public void SetSchedulerData(int timer, int state)
         {
             mTimer = timer;
+            nutrientState = (NutrientState)state;
+        }
+
+        public void InitNutrient()
+        {
+            mTimer = 0;
+            mLackNutrientTime = 3;
+            nutrientState = NutrientState.Normal;
+        }
+        public virtual void NormalNutrient()
+        {
+            mTimer = 0;
+            nutrientState = NutrientState.Normal;
         }
 
 
+        public virtual void LackNutrient()
+        {
+
+        }
+
+
+        //*Text 형식으로 보여주기 위한 함수 */
+        public virtual void ShowTextNutrientInfo(int currentAmount, int level)
+        {
+
+
+        }
+
 
         /**
-         @fn    void DeadFlower()
-        
-         @brief 영양분이 부족해서 죽었을 때 호출 : FlowerData -> DeadFlower 함수 호출
-        
-         @author    JT & YT
-         @date  2017-09-04
-         */
-        void DeadFlower()
+ @fn    void DeadFlower()
+
+ @brief 영양분이 부족해서 죽었을 때 호출 : FlowerData -> DeadFlower 함수 호출
+
+ @author    JT & YT
+ @date  2017-09-04
+ */
+        public virtual void DeadFlower()
         {
             mTimer = 0;
             nutrientState = NutrientState.Normal;
             mFlower.DeadFlower();
         }
 
-        public void SetStateNormal()
+        public void SetLackTime(int level)
         {
-            nutrientState = NutrientState.Normal;
+            if (level == 0)
+            {
+                mLackNutrientTime = 3;
+            }
+            else if (level == 1)
+            {
+                mLackNutrientTime = 5;
+            }
+            else if (level == 2)
+            {
+                mLackNutrientTime = 8;
+            }
+            else if (level == 3)
+            {
+                mLackNutrientTime = 15;
+            }
         }
-        public virtual void LackNutrient()
-        {
 
-        }
     }
 }

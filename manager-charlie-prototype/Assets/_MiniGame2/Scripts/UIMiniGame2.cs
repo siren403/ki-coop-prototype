@@ -13,35 +13,66 @@ namespace MiniGame2
 {
     public class UIMiniGame2 : MonoBehaviour
     {
+        public List<Text> InstTextCurrentLevel = new List<Text>();
+
+        public List<Image> InstImgLackWater = new List<Image>();
+        public List<Text> InstTextWaterState = new List<Text>();
+        public List<Text> InstTextCurrentWater = new List<Text>();
+        public List<Text> InstTextWaterTimer = new List<Text>();
+
+        public List<Image> InstImgLackFertilizer = new List<Image>();
+        public List<Text> InstTextFerState = new List<Text>();
+        public List<Text> InstTextCurrentFer = new List<Text>();
+        public List<Text> InstTextFerTimer = new List<Text>();
+               
+
+
+
+
 
         private SceneMiniGame2 mScene = null;
 
-        //*GameShop Item 버튼 리스트 */
+        //*GameShop 화분 버튼 리스트 */
         public List<Button> InstBtnPotList = new List<Button>();
+
+        //* 물 뿌리개, 비료 버튼 */
+        public List<Button> InstBtnNutrientsList = new List<Button>();
+
 
         public GameObject InstPanelTitle;
 
         public GameObject InstPanelCoinShop = null;
 
-        //*물뿌리개*/
-        public GameObject InstImgWater;
+  
 
-        //*물뿌리개*/
-        public GameObject InstImgFertilizer;
+        Vector3 mBtnWaterPosition;
 
-        public Vector3 ImgWaterPosition;
-
+        Vector3 mBtnFertilizerPosition;
         public Button InstBtnExit;
 
-        public Image InstImgTouch;
+        public Image InstImgTutorialTouch;
 
         public Transform InstImgSeed;
 
+        int mSelectedNutrient;
+
+        public float NutrientsMoveTime;
+
         public void Start()
         {
-            InstImgTouch.DOFade(0, 1).SetLoops(-1, LoopType.Yoyo);
+            NutrientsMoveTime = 0.3f;
+
+            mSelectedNutrient = 3;
+            InstImgTutorialTouch.DOFade(0, 1).SetLoops(-1, LoopType.Yoyo);
             InstBtnExit.onClick.AddListener(() => OnClickExit());
-            ImgWaterPosition = InstImgWater.transform.position;
+
+            InstBtnNutrientsList[0].onClick.AddListener(() => OnClickNutrients(0));
+            InstBtnNutrientsList[1].onClick.AddListener(() => OnClickNutrients(1));
+
+
+            mBtnWaterPosition = InstBtnNutrientsList[0].transform.position;
+            mBtnFertilizerPosition = InstBtnNutrientsList[1].transform.position;
+
 
             InstBtnPotList[0].onClick.AddListener(() => OnClickBtnPot(0));
             InstBtnPotList[1].onClick.AddListener(() => OnClickBtnPot(1));
@@ -56,6 +87,28 @@ namespace MiniGame2
         {
             mScene = scene;
         }
+
+        //* 물뿌리개 선택하면 mSelectedNutrient = 0 , 비료면 1이됨*/
+        public void OnClickNutrients(int nutrientId)
+        {
+            for (int i = 0; i < InstBtnNutrientsList.Count; i++)
+            {
+                if (i == nutrientId)
+                {
+                    InstBtnNutrientsList[i].transform.DOScale(Vector2.one * 1.5f, 0.5f).SetEase(Ease.OutBounce);
+                    mSelectedNutrient = nutrientId;
+                }
+                else
+                {
+                    InstBtnNutrientsList[i].transform.DOKill();
+                    InstBtnNutrientsList[i].transform.DOScale(Vector2.one , 0.5f).SetEase(Ease.OutBounce);
+                }
+            }
+
+            
+            
+        }
+
 
 
         void OnClickExit()
@@ -84,18 +137,50 @@ namespace MiniGame2
             }
             else
             {
-                InstImgWater.transform.DOMove(InstBtnPotList[potNumber].transform.position, 1).OnComplete(() =>
-            InstImgWaterCallBack(potNumber));
+                //* 물만 선택해서 주기*/
+                if (mSelectedNutrient == 0)
+                {
+                    InstBtnNutrientsList[0].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
+            InstWaterCallBack(potNumber));
+                }
+
+                //* 비료만 선택해서 주기*/
+                else if (mSelectedNutrient == 1)
+                {
+                    InstBtnNutrientsList[1].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
+         InstFertilizerCallBack(potNumber));
+
+                }
+                //* 필요한거 다 주기*/
+                else
+                {
+                    InstBtnNutrientsList[0].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
+         InstWaterCallBack(potNumber));
+
+                    InstBtnNutrientsList[1].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
+         InstFertilizerCallBack(potNumber));
+
+                }
             }
         }
 
-        void InstImgWaterCallBack(int potNumber)
+        void InstWaterCallBack(int potNumber)
         {
             CDebug.Log("물 뿌려주기 시작!");
             mScene.WaterTheFlower(potNumber);
-            InstImgWater.transform.DOMove(ImgWaterPosition, 0);
+            InstBtnNutrientsList[0].transform.DOMove(mBtnWaterPosition, 0);
+            InstBtnNutrientsList[0].transform.DOScale(Vector2.one , 0);
+            mSelectedNutrient = 2;
         }
 
+        void InstFertilizerCallBack(int potNumber)
+        {
+            CDebug.Log("비료 뿌려주기 시작!");
+            mScene.FertilizeTheFlower(potNumber);
+            InstBtnNutrientsList[1].transform.DOMove(mBtnFertilizerPosition, 0);
+            InstBtnNutrientsList[1].transform.DOScale(Vector2.one, 0);
+            mSelectedNutrient = 2;
+        }
 
         //*꽃이 생성되는(심기는) UI 보여주기 */
         public void ShowPlantFlower(int flowerNumber,int potNumber)
@@ -121,9 +206,70 @@ namespace MiniGame2
         {
             InstPanelCoinShop.SetActive(true);
             //*터치 이미지 안보이게 해준다 */
-            InstImgTouch.gameObject.SetActive(false);
+            InstImgTutorialTouch.gameObject.SetActive(false);
+        }
+
+        public void ShowTextWaterInfo(int nutrientState, int timer, int currentAmount, int level, int potNumber)
+        {
+            InstTextWaterTimer[potNumber].text = "w.timer: " + timer;
+            InstTextCurrentWater[potNumber].text = "w.amount :" + currentAmount;
+            if (nutrientState == 0)
+            {
+                InstTextWaterState[potNumber].text = "w. normal";
+            }
+            else
+            {
+                InstTextWaterState[potNumber].text = "w. lack";
+            }
+
+            InstTextCurrentLevel[potNumber].text = "lv : " + level ;            
         }
 
 
+        public void ShowTextFertilizerInfo(int nutrientState, int timer, int currentAmount,  int level, int potNumber)
+        {
+            InstTextFerTimer[potNumber].text = "f.timer: " + timer;
+            InstTextCurrentFer[potNumber].text = "f.amount :" + currentAmount;
+            if (nutrientState == 0)
+            {
+                InstTextFerState[potNumber].text = "f. normal";
+            }
+            else
+            {
+                InstTextFerState[potNumber].text = "f. lack";
+            }
+            InstTextCurrentLevel[potNumber].text = "lv : " + level;
+        }
+
+        public void ActiveUILackFertilizer(int potNumber)
+        {
+            InstImgLackFertilizer[potNumber].DOFade(1, 1).SetLoops(-1, LoopType.Yoyo);
+        }
+        public void InActiveUILackFertilizer(int potNumber)
+        {
+            InstImgLackFertilizer[potNumber].DOKill();
+            InstImgLackFertilizer[potNumber].DOFade(0, 0);
+        }
+
+        public void ActiveUILackWater(int potNumber)
+        {
+            InstImgLackWater[potNumber].DOFade(1, 1).SetLoops(-1, LoopType.Yoyo);
+        }
+
+        public void InActiveUILackWater(int potNumber)
+        {
+            InstImgLackWater[potNumber].DOKill();
+            InstImgLackWater[potNumber].DOFade(0, 0);
+        }
+
+
+        public void InActiveUILackNutrients(int potNumber)
+        {
+            InstImgLackWater[potNumber].DOKill();
+            InstImgLackWater[potNumber].DOFade(0, 0);
+
+            InstImgLackFertilizer[potNumber].DOKill();
+            InstImgLackFertilizer[potNumber].DOFade(0, 0);
+        }
     }
 }

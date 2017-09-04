@@ -13,4 +13,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SheetName: Assets/_Common/DataResources/MiniGame/MiniGameItem.xlsx
   WorksheetName: MiniGame1
-  dataArray: []
+  dataArray:
+  - id: 1
+    category: Fruits1
+    name: TXT_M1_ITEM_1
+    price: 100
+    isbuy: 0
+  - id: 2
+    category: Fruits2
+    name: TXT_M1_ITEM_2
+    price: 200
+    isbuy: 0
+  - id: 3
+    category: Fruits3
+    name: TXT_M1_ITEM_3
+    price: 200
+    isbuy: 0
+  - id: 4
+    category: Fruits4
+    name: TXT_M1_ITEM_4
+    price: 200
+    isbuy: 0
+  - id: 5
+    category: Fruits5
+    name: TXT_M1_ITEM_5
+    price: 100
+    isbuy: 0
+  - id: 6
+    category: Fruits6
+    name: TXT_M1_ITEM_6
+    price: 200
+    isbuy: 0
+  - id: 7
+    category: Fruits7
+    name: TXT_M1_ITEM_7
+    price: 200
+    isbuy: 0
+  - id: 8
+    category: Fruits8
+    name: TXT_M1_ITEM_8
+    price: 200
+    isbuy: 0
+  - id: 9
+    category: Color
+    name: TXT_M1_ITEM_9
+    price: 100
+    isbuy: 0
+  - id: 10
+    category: Color
+    name: TXT_M1_ITEM_10
+    price: 100
+    isbuy: 0
+  - id: 11
+    category: Color
+    name: TXT_M1_ITEM_11
+    price: 100
+    isbuy: 0
+  - id: 12
+    category: Color
+    name: TXT_M1_ITEM_12
+    price: 300
+    isbuy: 0
+  - id: 13
+    category: Candle
+    name: TXT_M1_ITEM_13
+    price: 300
+    isbuy: 0
+  - id: 14
+    category: Candle
+    name: TXT_M1_ITEM_14
+    price: 300
+    isbuy: 0
+  - id: 15
+    category: Candle
+    name: TXT_M1_ITEM_15
+    price: 300
+    isbuy: 0
+  - id: 16
+    category: Candle
+    name: TXT_M1_ITEM_16
+    price: 300
+    isbuy: 0

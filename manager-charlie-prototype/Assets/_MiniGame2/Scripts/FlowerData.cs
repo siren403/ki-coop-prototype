@@ -14,6 +14,11 @@ namespace MiniGame2
         //*꽃 라이프 코루틴 */
         private Coroutine mFlowerLife;
 
+        private Coroutine mRandomNutrients;
+
+        //*0번 : FertilizerScheduler, 1번 WaterScheduler */
+        public List<NutrientScheduler> NutrientSchedulers = new List<NutrientScheduler>();
+
         //*현재 위치한 화분 번호*/
         public int PotNumber;
 
@@ -22,17 +27,6 @@ namespace MiniGame2
         //* 현재 진행 된 비료 상태*/
         public int AmountOfFertilizer;
 
-        public int WaterTimer;
-        public int FertilizerTimer;
-
-        //* 물 부족하다고 알려주는 시간*/
-        public int CountLackWater;
-        public int CountlackFertilizerTimer;
-
-        //*물 부족할때 죽는 시간*/
-        int DeadTime;
-
-
         //*test 용 text ->자식오브젝트*/ 
         Text InstTextWaterInfo;
         Text InstTextWaterTimer;
@@ -40,8 +34,7 @@ namespace MiniGame2
         Text InstTextFlowerLevel;
 
 
-        public Image InstImgLackWater;
-        public Image InstImgLackFer;
+
 
 
         //*물 비료 부족하다는 표시가 화면에 한 떴었는지 체크 :  true면 한번 화면에 나왔다는 뜻 */
@@ -53,52 +46,18 @@ namespace MiniGame2
         int mAmountOfWaterForLvUp;
         int mAmountOfFertilizerForLvUp;
 
-        public List<NutrientScheduler> NutrientSchedulers = new List<NutrientScheduler>();
-
-        bool activeWaterTimer;
-        bool activeFertilizerTimer;
-
-
-        //*꽃의 단계 설정 */
-        enum FlowerState
-        {
-            None =0,//아무것도 없을 때
-            Normal , // 보통 상태
-            Dead, //죽음
-        }
-
-        FlowerState flowerState;
-
-        public int SavedFlowerState
-        {
-            get
-            {
-                return (int)flowerState;
-            }
-        }
+        private bool mActiveWaterTimer;
+        private bool mActiveFertilizerTimer;
 
         private void Start()
         {
             for (int i = 0; i < NutrientSchedulers.Count; i++)
             {
                 NutrientSchedulers[i].SetFlower(this);
+                NutrientSchedulers[i].PotNumber = PotNumber;
             }
-
-
-            //*꽃 죽는시간 초기화 */
-            DeadTime = 10;
-
-            //*코루틴  */
-            mFlowerLife = StartCoroutine(FlowerLife());
-
-            InstTextWaterInfo = transform.FindChild("InstTextWaterInfo").GetComponent<Text>();
-            InstTextWaterTimer = transform.FindChild("InstTextWaterTimer").GetComponent<Text>();
-            InstTextFlowerStep = transform.FindChild("InstTextFlowerStep").GetComponent<Text>();
-            InstTextFlowerLevel = transform.FindChild("InstTextFlowerLevel").GetComponent<Text>();
-           
-            InstImgLackWater.gameObject.SetActive(false);
-            InstImgLackFer.gameObject.SetActive(false);
         }
+
         public void SetScene(SceneMiniGame2 scene)
         {
             mScene = scene;
@@ -107,26 +66,41 @@ namespace MiniGame2
         //* 꽃이 만들어 질 때 SceneMiniGame2 에서 꽃의 진행 정보를 설정해준다*/
         public void SetFlowerState(int loadFlowerStep)
         {
-            //* 물 타이머가 3 이상이면 물 부족하다는 표시가 안나오게 끔 해준다 */
-            if (WaterTimer > 3)
-            {
-                OnImgLackWater = true;
-            }
-            // * 비료 타이머가 5 이상이면 물 부족하다는 표시가 안나오게 끔 해준다 */ 
-            if (FertilizerTimer > 5)
-            {
-                OnImgLackFer = true;
-            }
-            flowerState = (FlowerState)loadFlowerStep;
+            ////* 물 타이머가 3 이상이면 물 부족하다는 표시가 안나오게 끔 해준다 */
+            //if (WaterTimer > 3)
+            //{
+            //    OnImgLackWater = true;
+            //}
+            //// * 비료 타이머가 5 이상이면 물 부족하다는 표시가 안나오게 끔 해준다 */ 
+            //if (FertilizerTimer > 5)
+            //{
+            //    OnImgLackFer = true;
+            //}
         }
 
 
         //* 화분에 새로 심어 질 때 호출이 된다*/
         public void StartFlowerLife()
         {
-            //*이전 코루틴 멈추고 다시 시작 */
-            StopCoroutine(mFlowerLife);
             mFlowerLife = StartCoroutine(FlowerLife());
+            mRandomNutrients = StartCoroutine(NutrientRandom());
+        }
+
+        //* 죽거나 덮어 씌워 질 때 */
+        public void StopFlowerLife()
+        {
+            StopCoroutine(mFlowerLife);
+            StopCoroutine(mRandomNutrients);
+        }
+
+
+        IEnumerator NutrientRandom()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(5.0f);
+                RandomNutrients();
+            }
         }
 
 
@@ -135,45 +109,24 @@ namespace MiniGame2
             while (true)
             {
                 yield return new WaitForSeconds(1.0f);
-
-                switch (flowerState)
-                {
-                    //*아무것도 심겨지지 않음*/
-                    case FlowerState.None:
-
-                    break;
-
-                    //*일반 상태*/
-                    case FlowerState.Normal:
-                        UpdateNutrientsTimer();
-                        break;
-
-
-
-                    case FlowerState.Dead:
-                        CDebug.Log("죽음");
-                        DeadFlower();
-                        InitFlowerInfo();
-                        flowerState = FlowerState.None;
-                        break;
-                }
-
-                SetTestText();
+                UpdateNutrientsTimer();
+                NutrientSchedulers[0].ShowTextNutrientInfo(AmountOfFertilizer, FlowerLevel);
+                NutrientSchedulers[1].ShowTextNutrientInfo(AmountOfWater, FlowerLevel);
             }
         }
 
 
         void UpdateNutrientsTimer()
         {
-            if (activeWaterTimer == true && activeFertilizerTimer == false)
-            {
-                NutrientSchedulers[0].UpdateTimer();
-            }
-            else if (activeWaterTimer == false && activeFertilizerTimer == true)
+            if (mActiveWaterTimer == true && mActiveFertilizerTimer == false)
             {
                 NutrientSchedulers[1].UpdateTimer();
             }
-            if (activeWaterTimer == true && activeFertilizerTimer == true)
+            else if (mActiveWaterTimer == false && mActiveFertilizerTimer == true)
+            {
+                NutrientSchedulers[0].UpdateTimer();
+            }
+            else if (mActiveWaterTimer == true && mActiveFertilizerTimer == true)
             {
                 NutrientSchedulers[0].UpdateTimer();
                 NutrientSchedulers[1].UpdateTimer();
@@ -181,70 +134,52 @@ namespace MiniGame2
         }
 
 
-
-        //*테스트를 위한 정보를 받기위해 text 사용  */
-        void SetTestText()
+        //* timer를 활성화 할 영양분을 선택한다*/
+        void RandomNutrients()
         {
-            InstTextWaterInfo.text = "W Info : " + AmountOfWater;
-            InstTextWaterTimer.text = "W Timer : " + WaterTimer;
-            InstTextFlowerStep.text = "" + flowerState;
-            InstTextFlowerLevel.text = "Lv : " + FlowerLevel;
-        }
-        void CheckDeadTime()
-        {
-            //*내가 설정해준 DeadTime 보다 물,비료 주는 시간이 넘어가면 죽음 상태로 변경 */
-            if (WaterTimer > DeadTime || FertilizerTimer > DeadTime)
+            int randInt = Random.RandomRange(0,2);
+            CDebug.Log("Random :: --- > "+ randInt);
+            if (mActiveWaterTimer == true && mActiveFertilizerTimer == false)
             {
-                flowerState = FlowerState.Dead;
+                if (randInt == 0)
+                {
+                    mActiveFertilizerTimer = true;
+                }
             }
-        }
-
-        //* 물 부족할때 표시해줌*/
-        public void LackWater()
-        {
-            if (OnImgLackWater == false)
+            else if (mActiveWaterTimer == false && mActiveFertilizerTimer == true)
             {
-                CDebug.Log(PotNumber + " 번 꽃 물이 부족합니다 -> 물 부족 이미지 띄워주기");
-                InstImgLackWater.GetComponent<Image>().DOFade(1, 1).SetLoops(-1, LoopType.Yoyo)
-                         .OnStart(() =>
-                         {
-                             InstImgLackWater.gameObject.SetActive(true);
-                             OnImgLackWater = true;
-                         })
-                         .OnComplete(() =>
-                         {
-                             InstImgLackWater.gameObject.SetActive(false);
-                         });
+                if (randInt == 1)
+                {
+                    mActiveWaterTimer = true;
+                }
             }
-        }
-
-        //* 비료 부족할때 표시해줌*/
-        public void LackFertilizer()
-        {
-            if (OnImgLackFer == false)
+            else if (mActiveWaterTimer == false && mActiveFertilizerTimer == false)
             {
-                CDebug.Log(PotNumber + " 번 꽃 비료가 부족합니다 -> 비료 부족 이미지 띄워주기");
-                InstImgLackFer.GetComponent<Image>().DOFade(1, 1).SetLoops(-1, LoopType.Yoyo)
-                         .OnStart(() =>
-                         {
-                             InstImgLackFer.gameObject.SetActive(true);
-                             OnImgLackFer = true;
-                         })
-                         .OnComplete(() =>
-                         {
-                             InstImgLackFer.gameObject.SetActive(false);
-                         });
+                if (randInt == 0)
+                {
+                    mActiveFertilizerTimer = true;
+                }
+                else
+                {
+                    mActiveWaterTimer = true;
+                }
             }
         }
 
         //* 죽었을 때 호출 -> 화분의 정보를 초기화 한다*/
         public void DeadFlower()
         {
+            //* 데이터 지워줌*/
             mScene.ErasePotInfo(PotNumber);
-            InstImgLackWater.gameObject.SetActive(false);
-            InstImgLackFer.gameObject.SetActive(false);
-            //*임시 Text , image 초기화 */
-            transform.FindChild("Text").GetComponent<Text>().text = "None";
+
+            mActiveFertilizerTimer = false;
+            mActiveWaterTimer = false;
+
+            
+            //* 코루딘 정지*/
+            StopFlowerLife();
+
+            //*임시: image 초기화 */
             transform.GetComponent<Image>().color = Color.white;
         }
 
@@ -252,9 +187,9 @@ namespace MiniGame2
         public void CheckLevelUp()
         {
             CDebug.Log("물 , 비료 상태를 보고 업그레이드 할 수 있는지 확인함");
-            if (AmountOfWater >= mAmountOfWaterForLvUp && AmountOfFertilizer >= mAmountOfFertilizerForLvUp )
+            if (AmountOfWater >= mAmountOfWaterForLvUp && AmountOfFertilizer >= mAmountOfFertilizerForLvUp)
             {
-                    LevelUp();   
+                LevelUp();
             }
         }
 
@@ -263,12 +198,16 @@ namespace MiniGame2
             CDebug.Log("레벨 업 !");
             AmountOfWater = 0;
             AmountOfFertilizer = 0;
-            WaterTimer = 0;
-            FertilizerTimer = 0;
+
 
             OnImgLackWater = false;
 
             FlowerLevel = FlowerLevel + 1;
+            
+            //*결핍 상태 가기 까지의 시간을 설정해준다*/
+            NutrientSchedulers[0].SetLackTime(FlowerLevel);
+            NutrientSchedulers[1].SetLackTime(FlowerLevel);
+
             SetAmountOfNutrientForLv(FlowerLevel);
         }
 
@@ -278,32 +217,24 @@ namespace MiniGame2
             if (flowerLevel == 0) // 씨앗 단계
             {
                 mAmountOfWaterForLvUp = 1;
-                mAmountOfFertilizerForLvUp = 0;
-                CountLackWater = 6;
-                CountlackFertilizerTimer = 6;
+                mAmountOfFertilizerForLvUp = 1;
             }
             else if (flowerLevel == 1) // 새싹 단계
             {
                 mAmountOfWaterForLvUp = 2;
-                mAmountOfFertilizerForLvUp = 0;
-                CountLackWater = 8;
-                CountlackFertilizerTimer = 8;
+                mAmountOfFertilizerForLvUp = 2;
+
             }
             else if (flowerLevel == 2) // 줄기 단계
             {
                 mAmountOfWaterForLvUp = 3;
-                mAmountOfFertilizerForLvUp = 0;
-
-                CountLackWater = 10;
-                CountlackFertilizerTimer = 10;
+                mAmountOfFertilizerForLvUp = 3;
             }
             else if (flowerLevel == 3) // 꽃봉오리
             {
                 mAmountOfWaterForLvUp = 4;
-                mAmountOfFertilizerForLvUp = 0;
+                mAmountOfFertilizerForLvUp = 4;
 
-                CountLackWater = 12;
-                CountlackFertilizerTimer = 12;
             }
             else if (flowerLevel == 4) // 꽃 = 만렙
             {
@@ -315,33 +246,33 @@ namespace MiniGame2
         //* 물을 뿌려줄 때 첫번째로 호출 됨 */
         public void PlusWater()
         {
-            InstImgLackWater.gameObject.SetActive(false);
-
             AmountOfWater = AmountOfWater + 1;
-            WaterTimer = 0;
+
             CheckLevelUp();
 
             //*물 받았으니 일반 상태 변경 */
-            if (NutrientSchedulers[0].NowNutrientState == 1)
+            if (NutrientSchedulers[1].NowNutrientState == 1)
             {
-                NutrientSchedulers[0].SetStateNormal();
+                NutrientSchedulers[1].NormalNutrient();
             }
+
+            mActiveWaterTimer = false;
         }
 
         //* 물을 뿌려줄 때 첫번째로 호출 됨 */
         public void PlusFertilizer()
         {
-            InstImgLackFer.gameObject.SetActive(false);
-
             AmountOfFertilizer = AmountOfFertilizer + 1;
-            FertilizerTimer = 0;
+
             CheckLevelUp();
 
-            //*물 받았으니 일반 상태 변경 */
-            //if (flowerState == FlowerState.LackFer)
-            //{
-            //    flowerState = FlowerState.Normal;
-            //}
+            //*영양분 받았으니 일반 상태 변경 */
+            if (NutrientSchedulers[0].NowNutrientState == 1)
+            {
+                NutrientSchedulers[0].NormalNutrient();
+            }
+
+            mActiveFertilizerTimer = false;
         }
 
         //*죽거나 새로 심었을 때 호출*/
@@ -349,25 +280,25 @@ namespace MiniGame2
         {
             //*진행된 데이터 초기화*/
             OnImgLackWater = false;
-            flowerState = FlowerState.Normal;
+           // flowerState = FlowerState.Normal;
             AmountOfWater = 0;
             AmountOfFertilizer = 0;
-            WaterTimer = 0;
-            FertilizerTimer = 0;
+
             FlowerLevel = 0;
         }
+
+
 
         //* 레벨업 할 때 호출*/
         public void InitLevelUpFlowerInfo()
         {
             //*진행된 데이터 초기화*/
             OnImgLackWater = false;
-            flowerState = FlowerState.Normal;
+         //   flowerState = FlowerState.Normal;
             AmountOfWater = 0;
             AmountOfFertilizer = 0;
-            WaterTimer = 0;
-            FertilizerTimer = 0;
         }
+
 
 
         //* 꽃 색상 설정해 주는 함수*/
@@ -389,6 +320,20 @@ namespace MiniGame2
             {
                 transform.GetComponent<Image>().color = Color.green;
             }
+        }
+
+        public void SetFlowerData(int potNumber, bool activeWaterTimer, bool activeFertilizerTimer, int itemNumber)
+        {
+            PotNumber = potNumber;
+
+            mActiveWaterTimer = activeWaterTimer;
+            mActiveFertilizerTimer = activeFertilizerTimer;
+
+            SetFlowerColor(itemNumber);
+
+            //*영양분 timer 초기화 */
+            NutrientSchedulers[0].InitNutrient();
+            NutrientSchedulers[1].InitNutrient();
         }
     }
 }
