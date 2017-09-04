@@ -16,13 +16,13 @@ namespace Contents4
         {
             if(Index > 0 && Index < 13)
             {
-                this.transform.parent.GetComponent<Dial>().GetHour(Index);
-                this.transform.parent.GetComponent<Dial>().BringCenter(Angle);
+                this.transform.parent.GetComponent<OldDial>().GetHour(Index);
+                this.transform.parent.GetComponent<OldDial>().BringCenter(Angle);
             }
             else if(Index > 13)
             {
-                this.transform.parent.GetComponent<Dial>().GetHour(Index-1);
-                this.transform.parent.GetComponent<Dial>().BringCenter(Angle);
+                this.transform.parent.GetComponent<OldDial>().GetHour(Index-1);
+                this.transform.parent.GetComponent<OldDial>().BringCenter(Angle);
             }            
         }
 

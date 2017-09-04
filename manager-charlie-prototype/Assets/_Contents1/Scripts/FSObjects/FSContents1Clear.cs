@@ -27,7 +27,7 @@ namespace Contents1
             if (TouchInput.Begin())
             {
                 //Outro 활성화
-                (Entity.View as ViewContents1).ShowOutro();
+                Entity.View.ShowOutro();
                 Entity.ChangeState(QnAContentsBase.State.None);
             }
         }

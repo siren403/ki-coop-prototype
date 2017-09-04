@@ -7,6 +7,10 @@ namespace SceneLoader
 		SceneContents2,
 		SceneContents3,
 		SceneContents4,
+		SceneTest,
+		SceneSingleAnim,
+		SceneObjects,
+		SceneAndroid,
 		SceneFirebase,
 	}
 }
