@@ -20,6 +20,14 @@ namespace UIComponent
         public Grid TargetGrid = null;
         public float Duration = 0.3f;
         public Ease EasingType = Ease.OutExpo;
+        public int CurrentPage
+        {
+            get
+            {
+                return mCurrentPage;
+            }
+        }
+
 
         public Button InstBtnLeft = null;
         public Button InstBtnRight = null;

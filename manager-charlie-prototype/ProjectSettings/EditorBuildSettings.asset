@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Common/Scenes/Phone/SceneContents4_Phone.unity
+    guid: f037020bf37823e47a6fc3b9adf168d7
+  - enabled: 1
     path: Assets/_Home/Scenes/SceneHome.unity
     guid: ed34aad75c92da14b82ba67e59ea38e1
   - enabled: 1
