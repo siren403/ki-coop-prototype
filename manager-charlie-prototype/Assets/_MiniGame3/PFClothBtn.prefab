@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114138402939374936}
   - component: {fileID: 114381995324009374}
   m_Layer: 5
-  m_Name: PFItemBtn
+  m_Name: PFClothBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

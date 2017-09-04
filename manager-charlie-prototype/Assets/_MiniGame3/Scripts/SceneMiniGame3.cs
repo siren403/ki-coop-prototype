@@ -10,16 +10,11 @@ namespace MiniGame3
     {
 
         public ViewMiniGame3 InstViewMiniGame3 = null;
-
-
-
+        
         void Start()
         {
-            InstViewMiniGame3.SetScene(this);
-
-            
+            InstViewMiniGame3.SetScene(this);            
         }
-
 
         void Update()
         {

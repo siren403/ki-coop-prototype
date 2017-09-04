@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 128648317}
   - component: {fileID: 128648316}
   m_Layer: 5
-  m_Name: InstMainUIPanel
+  m_Name: InstChangingRoomPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 1199725328}
   - component: {fileID: 1199725327}
   m_Layer: 0
-  m_Name: InstUIMiniGame3
+  m_Name: InstViewMiniGame3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,7 +574,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   SwipeTime: 0.5
   SwipeSensitivity: 60
-  mPFPagePanelList: []
+  mPagePanelList: []
   buttonInput: 0
 --- !u!114 &1199725328
 MonoBehaviour:
@@ -587,15 +587,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625469a1dad6d904bb3d62560e16c021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstMiniGamePanel: {fileID: 128648314}
+  InstChangingRoomPanel: {fileID: 128648314}
   InstCoinShopPanel: {fileID: 1628468975}
-  PFItemBtn: {fileID: 114381995324009374, guid: b9d0928e7a5448144aa5bebda6a0f2b5,
+  PFClothBtn: {fileID: 114381995324009374, guid: b9d0928e7a5448144aa5bebda6a0f2b5,
     type: 2}
-  PFItemBtnList: []
+  PFClothBtnList: []
   PFPagePanel: {fileID: 1626488385592228, guid: 223617389b9ad0043bf7d2dd469cfa8d,
     type: 2}
   PFPagePanelList: []
-  ImageList: []
+  ClothImgList: []
 --- !u!1 &1319018917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PFCoinShopPagePanel: {fileID: 1626488385592228, guid: 223617389b9ad0043bf7d2dd469cfa8d,
     type: 2}
-  PFCoinShopItemBtn: {fileID: 114153318116106672, guid: b418c64f2797b3b42ae35381c472607b,
+  PFCoinShopClothBtn: {fileID: 114153318116106672, guid: b418c64f2797b3b42ae35381c472607b,
     type: 2}
   PageCount: 0
   PFCoinShopPagePanelList: []
@@ -1085,7 +1085,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   SwipeTime: 0.5
   SwipeSensitivity: 60
-  mImageList: []
+  mClothList: []
   buttonInput: 0
 --- !u!1 &1720163959
 GameObject:

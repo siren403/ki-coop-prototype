@@ -7,7 +7,7 @@ using CustomDebug;
 
 namespace MiniGame3
 {
-    public class MainUISwipe : MonoBehaviour
+    public class ViewChangingRoom : MonoBehaviour
     {
 
         public int PageCount; //총 페이지 수
@@ -30,7 +30,7 @@ namespace MiniGame3
         bool SwipeOn; /** swipe 중복을 막기 위해 ,true 일때만 swipe 가능*/
 
         [SerializeField]
-        private List<GameObject> mPFPagePanelList = new List<GameObject>();
+        private List<GameObject> mPagePanelList = new List<GameObject>();
 
         public enum InputState
         {
@@ -43,64 +43,17 @@ namespace MiniGame3
         {
             //첫 페이지는 0부터 시작
             mCurrentPage = 0;
-            PageCount = mPFPagePanelList.Count;
+            PageCount = mPagePanelList.Count;
             ShowButton();
             SwipeOn = true;
         }
-
-       
-
-        // 마우스 스와이프
-        /*
-        public void Swipe()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //save began touch 2d point
-                firstPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                //save ended touch 2d point
-                secondPressPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-
-                //create vector from the two points
-                currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-
-                //swipe left
-                if (mCurrentPage < PageCount - 1)
-                {
-                    if (currentSwipe.x < -SwipeSensitivity)
-                    {
-                        CDebug.Log("left swipe");
-                        OnClickNextButton();
-                        SwipeOn = false;
-                    }
-                }
-
-                //swipe right
-                if (mCurrentPage >= 1)
-                {
-                    if (currentSwipe.x > SwipeSensitivity)
-                    {
-                        CDebug.Log("right swipe");
-                        OnClickPreviousButton();
-                        SwipeOn = false;
-                    }
-                }
-
-                StartCoroutine(SwipeOnTrue());
-            }
-        }*/
-
+        
         IEnumerator SwipeOnTrue()
         {
             yield return new WaitForSeconds(SwipeTime);
             SwipeOn = true;
         }
-
-
+        
         //앞 버튼 눌렀을 때
         public void OnClickPreviousButton()
         {
@@ -132,30 +85,38 @@ namespace MiniGame3
 
         }
 
-        public void SetPage(List<GameObject> tPFPagePanelList)
+        public void SetPage(List<GameObject> tPagePanelList)
         {
-            mPFPagePanelList = tPFPagePanelList;
+            mPagePanelList = tPagePanelList;
         }
+
         //앞, 뒤 버튼 눌렀을 때 포지션 변경
         void ChangePosition()
         {
             if (buttonInput == InputState.prev)
             {
-                for (int i = 0; i < mPFPagePanelList.Count; i++)
+                for (int i = 0; i < mPagePanelList.Count; i++)
                 {
-                    mPFPagePanelList[i].transform.DOLocalMoveX(mPFPagePanelList[i].transform.localPosition.x + 400, SwipeTime).SetEase(Anim);
+                    mPagePanelList[i].transform.DOLocalMoveX(mPagePanelList[i].transform.localPosition.x + 400, SwipeTime).SetEase(Anim);
                 }
             }
             else if (buttonInput == InputState.next)
             {
-                for (int i = 0; i < mPFPagePanelList.Count; i++)
+                for (int i = 0; i < mPagePanelList.Count; i++)
                 {
-                    mPFPagePanelList[i].transform.DOLocalMoveX(mPFPagePanelList[i].transform.localPosition.x - 400, SwipeTime).SetEase(Anim);
+                    mPagePanelList[i].transform.DOLocalMoveX(mPagePanelList[i].transform.localPosition.x - 400, SwipeTime).SetEase(Anim);
                 }
             }
         }
 
-        //앞, 뒤 버튼 보여주는 함수
+        /**
+         @fn    void ShowButton()
+        
+         @brief Next, Previous 버튼 보여주는 함수
+        
+         @author    Kyoungil
+         @date  2017-09-04
+         */        
         void ShowButton()
         {
             if (mCurrentPage == 0) //첫 페이지 이전 버튼 안보임

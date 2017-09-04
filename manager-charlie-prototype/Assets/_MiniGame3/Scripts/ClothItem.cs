@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace MiniGame3
 {
-    public class Item : MonoBehaviour
+    public class ClothItem : MonoBehaviour
     {
         [SerializeField]
         private int mId;                 // 아이템 번호

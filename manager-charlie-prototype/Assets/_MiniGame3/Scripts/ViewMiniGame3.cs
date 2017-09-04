@@ -9,91 +9,60 @@ namespace MiniGame3
 {
     public class ViewMiniGame3 : MonoBehaviour
     {
-
-
-        public GameObject InstMiniGamePanel = null;                 // 미니겜 패널
+        public GameObject InstChangingRoomPanel = null;             // 미니겜 패널
         public GameObject InstCoinShopPanel = null;                 // 코인샵 패널
 
-        public Button PFItemBtn = null;                             // 버튼 프리팹
-        public List<Button> PFItemBtnList = null;
-
+        public Button PFClothBtn = null;                            // 버튼 프리팹
         public GameObject PFPagePanel = null;                       // 페이지 프리팹
-        public List<GameObject> PFPagePanelList = null;
+
+        public List<Button> PFClothBtnList = null;                  // 버튼 프리팹 리스트
+        public List<GameObject> PFPagePanelList = null;             // 페이지 프리팹 리스트
 
         private SceneMiniGame3 mScene = null;
         private int mCoin;                                          // 소지 코인
 
 
-        private Item[] mItemImg = new Item[10];
-        private ItemButton[] mItemBtn = new ItemButton[10];
+        private ClothItem[] mClothImg = new ClothItem[4];
+        public List<ClothItem> ClothList = new List<ClothItem>();
 
-        public List<ItemButton> ItemBtnList = new List<ItemButton>();
-        public List<Item> ImageList = new List<Item>();
-
+        private ClothButtonData[] mClothBtn = new ClothButtonData[10];
+        public List<ClothButtonData> ClothBtnList = new List<ClothButtonData>();
+        
         private Vector2[] mButtonPos = new Vector2[4];
 
         void Awake()
         {
-            //GetDate();              // Json 데이터 로드
-
-            mButtonPos[0] = new Vector2(0, 65);
-            mButtonPos[1] = new Vector2(100, 65);
-            mButtonPos[2] = new Vector2(0, -65);
-            mButtonPos[3] = new Vector2(100, -65);
-
-            GetmItemImg();
-
+            SetChangingRoomBtnPos();
+            GetItemImg();
             CreatePanel();
             CreateButtons();
 
-            this.GetComponent<MainUISwipe>().SetPage(PFPagePanelList);
-            //InstMiniGamePanel.GetComponent<MainUISwipe>().SetPage(PFPagePanelList);
-            InstCoinShopPanel.GetComponent<CoinShopSwipe>().SetItemList(ImageList);
+            this.GetComponent<ViewChangingRoom>().SetPage(PFPagePanelList);            
+            InstCoinShopPanel.GetComponent<ViewCoinShop>().SetClothList(ClothList);
         }
-
-        void Start()
-        {
-
-            GetDate();
-        }
-
-        void Update()
-        {
-
-        }
-
+        
         public void SetScene(SceneMiniGame3 scene)
         {
             mScene = scene;
         }
-
-        // Json 파싱 메소드
-        public void GetDate()
-        {
-            //string jsonData = Resources.Load<TextAsset>("MiniGame3").text;
-            //LitJson.JsonData getData = LitJson.JsonMapper.ToObject(jsonData);
-            //string a = getData["Id"].ToString();
-            //int b = int.Parse(getData["Price"].ToString());
-            //Debug.Log("Id :" + a + "Price :" + b);
-        }
-
+        
         // 버튼 패널 생성
         public void CreatePanel()
         {
             int tIndex = 0;
-            if (0 == ItemBtnList.Count % 4)
+            if (0 == ClothBtnList.Count % 4)
             {
-                tIndex = ItemBtnList.Count / 4;
+                tIndex = ClothBtnList.Count / 4;
             }
             else
             {
-                tIndex = (ItemBtnList.Count / 4) + 1;
+                tIndex = (ClothBtnList.Count / 4) + 1;
             }
 
             for (int j = 0; j < tIndex; j++)
             {
                 Vector2 tPos = Vector2.zero;
-                var tempPanel = Instantiate(PFPagePanel, tPos, Quaternion.identity, InstMiniGamePanel.transform);
+                var tempPanel = Instantiate(PFPagePanel, tPos, Quaternion.identity, InstChangingRoomPanel.transform);
                 tempPanel.transform.localPosition = new Vector2(j * 400, 0);
                 PFPagePanelList.Add(tempPanel);
             }
@@ -101,39 +70,49 @@ namespace MiniGame3
         }
         // 버튼 생성
         public void CreateButtons()
-        {
-            for (int i = 0; i < ItemBtnList.Count; i++)
+        {            
+            for (int i = 0; i < ClothBtnList.Count; i++)
             {
-                var tempBtn = Instantiate(PFItemBtn, Vector2.zero, Quaternion.identity, PFPagePanelList[i / 4].transform);
+                var tempBtn = Instantiate(PFClothBtn, Vector2.zero, Quaternion.identity, PFPagePanelList[i / 4].transform);
                 tempBtn.transform.localPosition = mButtonPos[i % 4];
-                //CDebug.Log(mButtonPos[i]);
-                PFItemBtnList.Add(tempBtn);
+                PFClothBtnList.Add(tempBtn);
             }
 
-            for (int ti = 0; ti < PFItemBtnList.Count; ti++)
+            for (int ti = 0; ti < PFClothBtnList.Count; ti++)
             {
                 //PFItemBtnList[ti].onClick.AddListener(() => OnBtnItem(ImageList[ti].GetId()));
+            }
+        }
+
+        // Cloth 정보 초기화
+        public void InitClothBtn()
+        {            
+            for (int ti = 0; ti < mClothBtn.Length; ti++)
+            {
+                mClothBtn[ti] = new ClothButtonData();
+                mClothBtn[ti].SetId(ti);
+                ClothBtnList.Add(mClothBtn[ti]);
             }
         }
 
         // 메인창 버튼 기능
         private void OnBtnItem(int ti)
         {
-            CDebug.LogFormat("Item ID: {0}", ImageList[ti].GetId());
-            if (true == ImageList[ti].isWearing)
+            CDebug.LogFormat("Item ID: {0}", ClothList[ti].GetId());
+            if (true == ClothList[ti].isWearing)
             {
                 CDebug.Log("코스튬 해제");
-                if (PFItemBtnList[ti])
+                if (PFClothBtnList[ti])
                 {
-                    Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
+                    Instantiate(PFClothBtnList[ti], ClothList[ti].posImg, Quaternion.identity);
                 }
             }
-            else if(false == ImageList[ti].isWearing)
+            else if(false == ClothList[ti].isWearing)
             {
                 CDebug.Log("코스튬 장착");
-                if (PFItemBtnList[ti])
+                if (PFClothBtnList[ti])
                 {
-                    Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
+                    Instantiate(PFClothBtnList[ti], ClothList[ti].posImg, Quaternion.identity);
                 }
             }
         }
@@ -141,76 +120,55 @@ namespace MiniGame3
         private void OnBtnCoinShopItem(int ti)
         {
             // 코인 체크 && 구매 체크
-            if (ImageList[ti].GetPrice() > mCoin)
+            if (ClothList[ti].GetPrice() > mCoin)
             {
-                Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
-                ImageList[ti].isWearing = true;
-                mCoin -= ImageList[ti].GetPrice();
+                Instantiate(PFClothBtnList[ti], ClothList[ti].posImg, Quaternion.identity);
+                ClothList[ti].isWearing = true;
+                mCoin -= ClothList[ti].GetPrice();
                 CDebug.Log("구매완료");
             }
-            else if(true == ImageList[ti].isBought)
+            else if(true == ClothList[ti].isBought)
             {
                 CDebug.Log("이미 구매함");
             }
         }
 
-
-        public void GetmItemImg()
-        {
-            // 버튼 정보 초기화
-            for (int ti = 0; ti < mItemBtn.Length; ti++)
-            {
-                mItemBtn[ti] = new ItemButton();
-                mItemBtn[ti].SetId(ti);
-
-                ItemBtnList.Add(mItemBtn[ti]);
-            }
-            // 버튼 생성 위치 저장
-            //mItemBtn[0].SetPos(Camera.main.WorldToScreenPoint(new Vector3(0, 65, 0)));
-            //mItemBtn[1].SetPos(Camera.main.WorldToScreenPoint(new Vector3(100, 65, 0)));
-            //mItemBtn[2].SetPos(Camera.main.WorldToScreenPoint(new Vector3(0, -65, 0)));
-            //mItemBtn[3].SetPos(Camera.main.WorldToScreenPoint(new Vector3(100, -65, 0)));
-
-
-
+        public void GetItemImg()
+        {            
             // 아이템 정보 초기화
-            for (int ti = 0; ti < mItemImg.Length; ti++)
+            for (int ti = 0; ti < mClothImg.Length; ti++)
             {
-                mItemImg[ti] = new Item();
-                mItemImg[ti].SetId(ti);
-                //CDebug.LogFormat("ID {0} = {1}",ti,mItemImg[ti].GetId());
-                mItemImg[ti].SetPrice(ti * 100);
-                //CDebug.LogFormat("Price {0} = {1}", ti, mItemImg[ti].GetPrice());
-
-                ImageList.Add(mItemImg[ti]);
+                mClothImg[ti] = new ClothItem();
+                mClothImg[ti].SetId(ti);                
+                mClothImg[ti].SetPrice(ti * 100);                                
+                ClothList.Add(mClothImg[ti]);
             }
+
             // 이미지 생성 위치 저장
-            mItemImg[0].posImg = new Vector2(-140, 60);     // 모자
-            mItemImg[1].posImg = new Vector2(-135, 20);     // 안경
-            mItemImg[2].posImg = new Vector2(-140, -100);   // 옷
-            mItemImg[3].posImg = new Vector2(0, 0);         // none
-
-            //mItemImg[0].GetImg("")
-
+            mClothImg[0].posImg = new Vector2(-140, 60);     // 모자
+            mClothImg[1].posImg = new Vector2(-135, 20);     // 안경
+            mClothImg[2].posImg = new Vector2(-140, -100);   // 옷
+            mClothImg[3].posImg = new Vector2(0, 0);         // none
         }
 
-
-
+        public void SetChangingRoomBtnPos()
+        {
+            mButtonPos[0] = new Vector2(0, 65);
+            mButtonPos[1] = new Vector2(100, 65);
+            mButtonPos[2] = new Vector2(0, -65);
+            mButtonPos[3] = new Vector2(100, -65);
+        }
 
         public void OnClickGoCoinShop()
         {
-            InstMiniGamePanel.SetActive(false);
+            InstChangingRoomPanel.SetActive(false);
             InstCoinShopPanel.SetActive(true);
-            InstCoinShopPanel.GetComponent<CoinShopSwipe>().SetItemList(ImageList);
+            InstCoinShopPanel.GetComponent<ViewCoinShop>().SetClothList(ClothList);
         }
-        public void OnClickGoMain()
+        public void OnClickGoChangingRoom()
         {
-
-        }
-        public void OnClickBtnItem()
-        {
-
-        }
-
+            InstChangingRoomPanel.SetActive(true);
+            InstCoinShopPanel.SetActive(false);
+        }    
     }
 }

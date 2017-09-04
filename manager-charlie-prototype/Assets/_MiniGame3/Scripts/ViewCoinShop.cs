@@ -8,10 +8,10 @@ using CustomDebug;
 
 namespace MiniGame3
 {
-    public class CoinShopSwipe : MonoBehaviour
+    public class ViewCoinShop : MonoBehaviour
     {
         public GameObject PFCoinShopPagePanel = null;
-        public Button PFCoinShopItemBtn = null;
+        public Button PFCoinShopClothBtn = null;
         public int PageCount; //총 페이지 수
 
         public List<GameObject> PFCoinShopPagePanelList = new List<GameObject>();
@@ -34,7 +34,7 @@ namespace MiniGame3
         bool SwipeOn;       /** swipe 중복을 막기 위해 ,true 일때만 swipe 가능*/
 
         [SerializeField]
-        private List<Item> mImageList = new List<Item>();           // 아이템 정보 전달 변수
+        private List<ClothItem> mClothList = new List<ClothItem>();           // 아이템 정보 전달 변수
         
         public enum InputState
         {
@@ -47,7 +47,7 @@ namespace MiniGame3
         {
             //첫 페이지는 0부터 시작
             mCurrentPage = 0;
-            PageCount = mImageList.Count;
+            PageCount = mClothList.Count;
             CreatePanel();
             ShowButton();
             SwipeOn = true;
@@ -62,11 +62,11 @@ namespace MiniGame3
 
         public void CreatePanel()
         {
-            for (int j = 0; j < mImageList.Count; j++)
+            for (int j = 0; j < mClothList.Count; j++)
             {
                 Vector2 tPos = Vector2.zero;
                 var tempPanel = Instantiate(PFCoinShopPagePanel, tPos, Quaternion.identity, this.transform);
-                Instantiate(PFCoinShopItemBtn, Vector2.zero, Quaternion.identity, tempPanel.transform);
+                Instantiate(PFCoinShopClothBtn, Vector2.zero, Quaternion.identity, tempPanel.transform);
                 tempPanel.transform.localPosition = new Vector2(j * 400, 0);
                 PFCoinShopPagePanelList.Add(tempPanel);
             }
@@ -84,7 +84,7 @@ namespace MiniGame3
                 if (0 == mCurrentPage)
                 {
                     ViewMiniGame3 tempA = null;
-                    tempA.InstMiniGamePanel.SetActive(true);
+                    tempA.InstChangingRoomPanel.SetActive(true);
                     tempA.InstCoinShopPanel.SetActive(false);
                 }   
                 else
@@ -158,9 +158,9 @@ namespace MiniGame3
             }
         }
 
-        public void SetItemList(List<Item> t)
+        public void SetClothList(List<ClothItem> t)
         {
-            mImageList = t;
+            mClothList = t;
         }
     }
 }
