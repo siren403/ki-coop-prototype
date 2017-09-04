@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Common/Scenes/Phone/SceneContents4_Phone.unity
-    guid: f037020bf37823e47a6fc3b9adf168d7
+    path: Assets/_Common/Examples/AndroidPlugin/ExamSceneAndroid.unity
+    guid: 6d413f29641cff246b4626e7ba630503
   - enabled: 1
     path: Assets/_Home/Scenes/SceneHome.unity
     guid: ed34aad75c92da14b82ba67e59ea38e1
@@ -32,9 +32,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Common/Test/Scenes/SceneObjects.unity
     guid: 6189e5b9b3621f241ad86ae7b2943dbb
-  - enabled: 1
-    path: Assets/_Home/Scenes/SceneAndroid.unity
-    guid: 6d413f29641cff246b4626e7ba630503
-  - enabled: 1
-    path: Assets/_Home/Scenes/SceneFirebase.unity
-    guid: d2287bc7ec90f9a49a7bf99457538b38

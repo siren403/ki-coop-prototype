@@ -6,9 +6,9 @@ using UniRx;
 using System.Text.RegularExpressions;
 using CustomDebug;
 using Util;
-namespace Examples.Plugin
+namespace Examples
 {
-    public class SceneFirebase : MonoBehaviour
+    public class ExamSceneFirebase : MonoBehaviour
     {
         private string mAccount = string.Empty;
         private string mPassword = string.Empty;
@@ -28,7 +28,7 @@ namespace Examples.Plugin
         private FirebaseAuth mAuth = null;
         private FirebaseUser mCurrentUser = null;
 
-        public UIFirebase InstUI = null;
+        public ExamUIFirebase InstUI = null;
 
         public UnityEngine.UI.Text InstTxtPhoneNumber = null;
 

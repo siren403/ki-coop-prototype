@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CustomDebug;
+using UnityEngine.UI;
+using UniRx;
 
-namespace Examples.Plugin
+namespace Examples
 {
-    public class SceneAndroid : MonoBehaviour
+    public class ExamSceneAndroid : MonoBehaviour
     {
 
         #region
@@ -68,5 +70,31 @@ namespace Examples.Plugin
 
         #endregion
 
+        public Text InstTxtResult = null;
+        public Button InstBtnStartActivity = null;
+        public Button InstBtnShowToast = null;
+
+
+        private void Awake()
+        {
+            InstBtnStartActivity.OnClickAsObservable().Subscribe(_ => LaunchActivity());
+            InstBtnShowToast.OnClickAsObservable().Subscribe(_ => ShowToast("Show Toast", false));
+        }
+
+        public void LaunchActivity()
+        {
+            try
+            {
+                AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                AndroidJavaObject currentUnityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+
+                AndroidJavaClass plugin = new AndroidJavaClass("com.kids.charlie.ActivityLauncher");
+                plugin.CallStatic("launchActivity", "com.kids.charlie.NativeActivity", currentUnityActivity);
+            }
+            catch(System.Exception e)
+            {
+                InstTxtResult.text = e.ToString();
+            }
+        }
     }
 }

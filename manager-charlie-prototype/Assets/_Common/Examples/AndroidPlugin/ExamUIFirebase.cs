@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using UniRx;
 using System.Text.RegularExpressions;
 
-namespace Examples.Plugin
+namespace Examples
 {
-    public class UIFirebase : MonoBehaviour
+    public class ExamUIFirebase : MonoBehaviour
     {
-        private SceneFirebase mScene = null;
+        private ExamSceneFirebase mScene = null;
 
         public Text InstTxtResult = null;
 
@@ -39,7 +39,7 @@ namespace Examples.Plugin
         public InputField InstInputPhoneAuthCode = null;
         public Button InstBtnPhoneAuth = null;
 
-        public void SetScene(SceneFirebase scene)
+        public void SetScene(ExamSceneFirebase scene)
         {
             mScene = scene;
 
