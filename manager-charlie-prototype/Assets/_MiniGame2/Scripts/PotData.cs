@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MiniGame2
 {
-    public class MiniGame2PotClass
+    public class PotData
     {
         //* 화분 ID 값 */
         public int PotID;
@@ -29,7 +29,7 @@ namespace MiniGame2
         //*꽃 레벨*/
         public int FlowerLevel;
 
-        public MiniGame2PotClass(int potId, bool isEmpty, int flowerNumber, int amountOfWater, int amountOfFertilizer, int waterTimer, int fertilizerTimer, int flowerState, int flowerLevel)
+        public PotData(int potId, bool isEmpty, int flowerNumber, int amountOfWater, int amountOfFertilizer, int waterTimer, int fertilizerTimer, int flowerState, int flowerLevel)
         {
             PotID = potId;
             IsEmpty = isEmpty;

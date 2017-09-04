@@ -10,9 +10,10 @@ namespace MiniGame2
     public class UIMiniGame2CoinShop : MonoBehaviour
     {
 
+        private SceneMiniGame2 mScene = null;
+
         public GameObject InstPanelCoinShop;
         public GameObject InstPanelBuyCheck;
-
 
         public GameObject[] Page;
 
@@ -53,6 +54,11 @@ namespace MiniGame2
         public InputBtnState buttonInput;
 
 
+        public void SetScene(SceneMiniGame2 scene)
+        {
+            mScene = scene;
+        }
+
         void Start()
         {
             InstBtnItemList[0].onClick.AddListener(() => OnClickItemBtn(0));
@@ -92,7 +98,7 @@ namespace MiniGame2
         {
             if (checkNum == 0)
             {
-                SceneMiniGame2.instance.BuyItem(mCurrentSelectedItem);
+                mScene.BuyItem(mCurrentSelectedItem);
                 MyCoin = MyCoin - mItemCost;
             }
             else
