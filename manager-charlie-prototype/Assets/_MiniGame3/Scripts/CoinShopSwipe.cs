@@ -31,7 +31,7 @@ namespace MiniGame3
         Vector2 secondPressPos;
         Vector2 currentSwipe;
 
-        bool SwipeOn; /** swipe 중복을 막기 위해 ,true 일때만 swipe 가능*/
+        bool SwipeOn;       /** swipe 중복을 막기 위해 ,true 일때만 swipe 가능*/
 
         [SerializeField]
         private List<Item> mImageList = new List<Item>();           // 아이템 정보 전달 변수
@@ -79,9 +79,8 @@ namespace MiniGame3
             // 아이템이 없다면 메인화면으로 넘어감 (패널 변경)
             // 이전 아이템이 있다면 이전 아이템 페이지로 넘어감
 
-
             if (SwipeOn == true)
-            {   /*
+            {   
                 if (0 == mCurrentPage)
                 {
                     ViewMiniGame3 tempA = null;
@@ -89,7 +88,7 @@ namespace MiniGame3
                     tempA.InstCoinShopPanel.SetActive(false);
                 }   
                 else
-                {*/
+                {
                     SwipeOn = false;
                     mCurrentPage = mCurrentPage - 1;
                     ShowButton();
@@ -97,7 +96,7 @@ namespace MiniGame3
                     ChangePosition();
 
                     StartCoroutine(SwipeOnTrue());
-                //}
+                }
             }
         }
 
@@ -158,7 +157,6 @@ namespace MiniGame3
                 NextButton.gameObject.SetActive(true);              // 다음 버튼 보임
             }
         }
-
 
         public void SetItemList(List<Item> t)
         {

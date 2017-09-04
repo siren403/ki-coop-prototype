@@ -34,6 +34,8 @@ namespace MiniGame3
 
         void Awake()
         {
+            //GetDate();              // Json 데이터 로드
+
             mButtonPos[0] = new Vector2(0, 65);
             mButtonPos[1] = new Vector2(100, 65);
             mButtonPos[2] = new Vector2(0, -65);
@@ -51,8 +53,8 @@ namespace MiniGame3
 
         void Start()
         {
-            
 
+            GetDate();
         }
 
         void Update()
@@ -65,6 +67,17 @@ namespace MiniGame3
             mScene = scene;
         }
 
+        // Json 파싱 메소드
+        public void GetDate()
+        {
+            //string jsonData = Resources.Load<TextAsset>("MiniGame3").text;
+            //LitJson.JsonData getData = LitJson.JsonMapper.ToObject(jsonData);
+            //string a = getData["Id"].ToString();
+            //int b = int.Parse(getData["Price"].ToString());
+            //Debug.Log("Id :" + a + "Price :" + b);
+        }
+
+        // 버튼 패널 생성
         public void CreatePanel()
         {
             int tIndex = 0;
@@ -86,6 +99,7 @@ namespace MiniGame3
             }
 
         }
+        // 버튼 생성
         public void CreateButtons()
         {
             for (int i = 0; i < ItemBtnList.Count; i++)
@@ -102,26 +116,43 @@ namespace MiniGame3
             }
         }
 
-        // 버튼 아이디 기준으로 생성
+        // 메인창 버튼 기능
         private void OnBtnItem(int ti)
         {
             CDebug.LogFormat("Item ID: {0}", ImageList[ti].GetId());
             if (true == ImageList[ti].isWearing)
             {
+                CDebug.Log("코스튬 해제");
                 if (PFItemBtnList[ti])
                 {
                     Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
                 }
             }
+            else if(false == ImageList[ti].isWearing)
+            {
+                CDebug.Log("코스튬 장착");
+                if (PFItemBtnList[ti])
+                {
+                    Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
+                }
+            }
+        }
+        // 코인샵 버튼 기능
+        private void OnBtnCoinShopItem(int ti)
+        {
             // 코인 체크 && 구매 체크
-            else if (ImageList[ti].GetPrice() > mCoin && false == ImageList[ti].isWearing)
+            if (ImageList[ti].GetPrice() > mCoin)
             {
                 Instantiate(PFItemBtnList[ti], ImageList[ti].posImg, Quaternion.identity);
                 ImageList[ti].isWearing = true;
                 mCoin -= ImageList[ti].GetPrice();
+                CDebug.Log("구매완료");
+            }
+            else if(true == ImageList[ti].isBought)
+            {
+                CDebug.Log("이미 구매함");
             }
         }
-
 
 
         public void GetmItemImg()
