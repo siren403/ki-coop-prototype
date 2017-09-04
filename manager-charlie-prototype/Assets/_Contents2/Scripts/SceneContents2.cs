@@ -5,7 +5,6 @@ using CustomDebug;
 using Contents.QnA;
 using FSM;
 using System;
-using Contents.Data;
 using Util.Inspector;
 using LitJson;
 using System.Linq;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Contents.QnA;
 using CustomDebug;
-using Contents.Data;
 using QuickSheet;
 using Util.Inspector;
 using Util;
@@ -96,7 +95,7 @@ namespace Examples
         {
             string json = Resources.Load<TextAsset>("ContentsData/Contents1").text;
             mContentsData = JsonUtility.FromJson<ContentsData>(json);
-            mQnATable = TableFactory.LoadContents1Table();
+            //mQnATable = TableFactory.LoadContents1Table();
             ChangeState(State.Episode);
         }
        
