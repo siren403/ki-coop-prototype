@@ -19,6 +19,7 @@ namespace Contents4
             {
                 btn.OnButtonUp = OnBtnSelectAlram;
             }
+            InstAlramList.gameObject.SetActive(true);
         }
         private void OnBtnSelectAlram(int id, IDButton sender)
         {
