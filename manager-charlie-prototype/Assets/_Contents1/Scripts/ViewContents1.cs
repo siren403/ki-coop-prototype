@@ -46,16 +46,13 @@ namespace Contents1
         /** @brief 선택지 버튼 리스트 */
         public List<Button> InstBtnAnswerList = null;
 
-
         /**
-         @fn    public void Initialize(QnAContentsBase scene)
-        
-         @brief View 초기화
-        
-         @author    SEONG
-         @date  2017-08-31
-        
-         @param scene   The scene.
+         * View 초기화
+         *
+         * @author  SEONG
+         * @date    2017-08-31
+         *
+         * @param   scene   The scene.
          */
         public void Initialize(QnAContentsBase scene)
         {
@@ -101,15 +98,13 @@ namespace Contents1
         }
 
         /**
-         @fn    private void ButtonChangeState(Button btn,bool enable)
-        
-         @brief 전달한 버튼의 상태를 바꿈
-        
-         @author    SEONG
-         @date  2017-08-31
-        
-         @param btn     The button control.
-         @param enable  True to enable, false to disable.
+         * 전달한 버튼의 상태를 바꿈
+         *
+         * @author  SEONG
+         * @date    2017-08-31
+         *
+         * @param   btn     The button control.
+         * @param   enable  True to enable, false to disable.
          */
         private void ButtonChangeState(Button btn,bool enable)
         {
@@ -123,8 +118,16 @@ namespace Contents1
                 btn.enabled = false;
                 btn.image.color = new Color(0.6f, 0.6f, 0.6f, 0.5f);
             }          
-        }        
+        }
 
+        /**
+         * Outro move
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         *
+         * @param   moveInfo    Information describing the move.
+         */
         public void OutroMove(int moveInfo)
         {
             if(moveInfo == 3)
@@ -136,10 +139,7 @@ namespace Contents1
         }
 
         /**
-         * @fn  public void ShowEpisode()
-         *
-         * @brief   에피소드 선택화면에서 각 패널을 On/Off 시켜주는 함수
-         *          관련 패널 - InstPanelGuage, InstPanelEpisode 
+         * 에피소드 선택화면에서 각 패널을 On/Off 시켜주는 함수 관련 패널 - InstPanelGuage, InstPanelEpisode
          *
          * @author  Byeong
          * @date    2017-08-25
@@ -151,24 +151,22 @@ namespace Contents1
         }
 
         /**
-         @fn    private void OnBtnSelectEpisodeEvent(int episodeID)
-        
-         @brief 에피소드 버튼 선택 시 호출
-        
-         @author    SEONG
-         @date  2017-08-31
-        
-         @param episodeID   Identifier for the episode.
+         * 에피소드 버튼 선택 시 호출
+         *
+         * @author  SEONG
+         * @date    2017-08-31
+         *
+         * @param   episodeID   Identifier for the episode.
+         * @param   sender      The sender.
          */
         private void OnBtnSelectEpisode(int episodeID, IDButton sender)
         {
             mScene.SelectEpisode(episodeID);
             InstPanelEpisodeList.gameObject.SetActive(false);
         }
+
         /**
-         * @fn  public void ShowSituation()
-         *
-         * @brief   상황 애니메이션을 보여주는 함수
+         * 상황 애니메이션을 보여주는 함수
          *
          * @author  Byeong
          * @date    2017-08-25
@@ -180,9 +178,7 @@ namespace Contents1
         }
 
         /**
-         * @fn  public void ShowQuestion()
-         *
-         * @brief   질문 애니메이션을 보여주는 함수
+         * 질문 애니메이션을 보여주는 함수
          *
          * @author  Byeong
          * @date    2017-08-25
@@ -195,12 +191,10 @@ namespace Contents1
         }
 
         /**
-         @fn    public void ShowAnswer()
-        
-         @brief 선택지를 보여줌
-        
-         @author    SEONG
-         @date  2017-08-31
+         * 선택지를 보여줌
+         *
+         * @author  SEONG
+         * @date    2017-08-31
          */
         public void ShowAnswer()
         {
@@ -225,14 +219,12 @@ namespace Contents1
         }
 
         /**
-         * @fn  public void OnBtnSelectAnswer(int selection)
-         *
-         * @brief   버튼을 선택한 답을 SceneContent1 클래스의 멤버 함수에 전달해주는 함수
+         * 버튼을 선택한 답을 SceneContent1 클래스의 멤버 함수에 전달해주는 함수
          *
          * @author  Byeong
          * @date    2017-08-25
          *
-         * @param   selection   The selection.
+         * @param   answerIndex The selection.
          */
         public void OnBtnSelectAnswer(int answerIndex)
         {
@@ -254,12 +246,10 @@ namespace Contents1
         }
 
         /**
-         @fn    public void CorrectAnswer()
-        
-         @brief 정답 선택 시 정반응 
-        
-         @author    SEONG
-         @date  2017-08-31
+         * 정답 선택 시 정반응
+         *
+         * @author  SEONG
+         * @date    2017-08-31
          */
         public void CorrectAnswer()
         {
@@ -287,12 +277,10 @@ namespace Contents1
         }
 
         /**
-         @fn    public void WrongAnswer()
-        
-         @brief 틀린 답 선택 시 오반응
-        
-         @author    SEONG
-         @date  2017-08-31
+         * 틀린 답 선택 시 오반응
+         *
+         * @author  SEONG
+         * @date    2017-08-31
          */
         public void WrongAnswer()
         {
@@ -301,12 +289,10 @@ namespace Contents1
         }
 
         /**
-         @fn    public void PerfectWrongAnswer()
-        
-         @brief 3번 틀린 답 선택시 강제 진행
-        
-         @author    SEONG
-         @date  2017-08-31
+         * 3번 틀린 답 선택시 강제 진행
+         *
+         * @author  SEONG
+         * @date    2017-08-31
          */
         public void PerfectWrongAnswer()
         {
@@ -324,6 +310,13 @@ namespace Contents1
                     mScene.ChangeState(QnAContentsBase.State.Question);
                 });
         }
+
+        /**
+         * Shows the reward
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void ShowReward()
         {
             if(mScene.CorrectProgress == 1)//모든 문제 정답시의 값
@@ -347,6 +340,13 @@ namespace Contents1
             }
             
         }
+
+        /**
+         * Clears the episode
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void ClearEpisode()
         {
             CDebug.Log("Clear Episode!");
@@ -356,6 +356,12 @@ namespace Contents1
             // 터치 입력을 받으면 Outro UI 활성화
         }
 
+        /**
+         * Shows the outro
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void ShowOutro()
         {
             InstPanelClear.gameObject.SetActive(false);

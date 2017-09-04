@@ -41,7 +41,6 @@ namespace Contents1
         protected override QnAFiniteState FSSelect { get { return new FSContents1Select(); } }
         protected override QnAFiniteState FSEvaluate { get { return new FSContents1Evaluation(); } }
 
-
         /** @brief 유저가 선택한 에피소드 */
         private int mSelectedEpisode = 0;
         
@@ -170,8 +169,13 @@ namespace Contents1
             }
         }
         #endregion
-      
 
+        /**
+         * Initializes this object
+         *
+         * @author  Byeong
+         * @date    2017-09-04
+         */
         protected override void Initialize()
         {            
             ChangeState(State.Episode);
@@ -272,14 +276,35 @@ namespace Contents1
 
             return mAnswers;
         }
+
+        /**
+         * Increment correct count
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void IncrementCorrectCount()
         {
             mCorrectCount++;
         }
+
+        /**
+         * Increment wrong count
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void IncrementWrongCount()
         {
             mWrongCount++;
         }
+
+        /**
+         * Resets the wrong count
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void ResetWrongCount()
         {
             mWrongCount = 0;
@@ -294,8 +319,14 @@ namespace Contents1
             }
         }
 
-
-        // 선택 안했을 때
+        /**
+         * 선택 안했을 때
+         *
+         * @author  Byeong
+         * @date    2017-09-04
+         *
+         * @param   howWait Describes how wait.
+         */
         public void NoSelect(int howWait)
         {
             if(howWait >= 5)
@@ -325,17 +356,37 @@ namespace Contents1
            
         }
 
+        /**
+         * Retry episode
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void RetryEpisode()
         {
             ResetQuestionState();
             SelectEpisode(mSelectedEpisode);
         }
+
+        /**
+         * Next episode
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void NextEpisode()
         {
             ResetQuestionState();
             mSelectedEpisode = Mathf.Clamp(mSelectedEpisode + 1, 1, EpisodeCount);
             SelectEpisode(mSelectedEpisode);
         }
+
+        /**
+         * Resets the question state
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         private void ResetQuestionState()
         {
             mCurrentCorrect = null;
@@ -345,7 +396,12 @@ namespace Contents1
             mWrongCount = 0;
         }
 
-        // 보상 확인 함수
+        /**
+         * 보상 확인 함수
+         *
+         * @author  Seong
+         * @date    2017-09-04
+         */
         public void RewardConfirm()
         {
             CDebug.Log("confirm Reward");

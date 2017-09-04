@@ -57,8 +57,6 @@ namespace MiniGame1
 
             BuyButton.onClick.AddListener(() => BuyItem());
             BuyCancleButton.onClick.AddListener(() => BuyCancle());
-
-            //CDebug.Log(mScene.ItemCount);
         }
 
         // Use this for initialization. 

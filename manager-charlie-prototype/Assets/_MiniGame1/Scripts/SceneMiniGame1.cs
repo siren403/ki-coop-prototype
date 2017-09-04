@@ -19,6 +19,7 @@ namespace MiniGame1
         [SerializeField]
         private ViewMiniGame1 mView = null;
 
+        [SerializeField]
         private List<QuickSheet.MiniGame1Data> mItemData = null;
 
         public int ItemCount
@@ -31,20 +32,7 @@ namespace MiniGame1
 
         void Awake()
         {
-            mItemData = new List<QuickSheet.MiniGame1Data>();
 
-            List<HaveItemInfo> mHaveInfo = new List<HaveItemInfo>();
-            JsonData mJsonInfo;
-
-            string jsonPath = File.ReadAllText(Application.persistentDataPath + "/_MiniGame1/Resources/MiniGame1Info.json");
-
-            mJsonInfo = JsonMapper.ToObject(jsonPath);
-
-            for(int i=0; i<mJsonInfo.Count; i++)
-            {
-                mHaveInfo.Add(new HaveItemInfo(mJsonInfo[i]["Name"].ToString(), mJsonInfo[i]["haveItem"].ToString()));
-                //CDebug.Log(mHaveInfo[i].ItemName + " ? : " + mHaveInfo[i].HaveItem);
-            }
         }
 
         // Use this for initialization

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace MiniGame1
 {
     public class CakeObject : MonoBehaviour

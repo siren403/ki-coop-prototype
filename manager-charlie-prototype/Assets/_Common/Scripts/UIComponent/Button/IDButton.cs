@@ -23,6 +23,7 @@ namespace UIComponent
                 }
             }
         }
+
         [SerializeField]
         private int mID = 0;
         private Action<int, IDButton> mOnButtonUp = null;
