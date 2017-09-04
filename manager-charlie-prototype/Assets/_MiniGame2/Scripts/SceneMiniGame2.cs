@@ -14,7 +14,7 @@ namespace MiniGame2
     {
         public UIMiniGame2CoinShop UIShop = null;
         public UIMiniGame2 UIMini2 = null;
-        public List<Flower> Flower = null;
+        public List<FlowerData> Flower = null;
 
         public List<PotData> PotList = new List<PotData>();
 
@@ -26,7 +26,6 @@ namespace MiniGame2
         //*뒷 배경 색상 바꿔주기 (추후 화분 색상 바꿔주는것으로 변경) */
         public Image InstPanelGarden;
 
-
         void Awake()
         {
             UIShop.SetScene(this);
@@ -34,7 +33,7 @@ namespace MiniGame2
 
             for (int i = 0; i < Flower.Count; i++)
             {
-                Flower[i] = FlowerList[i].GetComponent<Flower>();
+                Flower[i] = FlowerList[i].GetComponent<FlowerData>();
                 Flower[i].SetScene(this);
             }
         }
@@ -108,13 +107,13 @@ namespace MiniGame2
                     CDebug.Log(i + "번째 화분에" + PotList[i].FlowerNumber + " 번 식물 배치");
 
                     FlowerList[i].transform.FindChild("Text").GetComponent<Text>().text = "Flower" + i;
-                    FlowerList[i].GetComponent<Flower>().PotNumber = i;
-                    FlowerList[i].GetComponent<Flower>().SetFlowerColor(PotList[i].FlowerNumber);
-                    FlowerList[i].GetComponent<Flower>().AmountOfWater = PotList[i].AmountOfWater;
-                    FlowerList[i].GetComponent<Flower>().WaterTimer = PotList[i].WaterTimer;
-                    FlowerList[i].GetComponent<Flower>().FertilizerTimer = PotList[i].FertilizerTimer;
-                    FlowerList[i].GetComponent<Flower>().SetFlowerState(PotList[i].FlowerState);
-                    FlowerList[i].GetComponent<Flower>().FlowerLevel = PotList[i].FlowerLevel;
+                    FlowerList[i].GetComponent<FlowerData>().PotNumber = i;
+                    FlowerList[i].GetComponent<FlowerData>().SetFlowerColor(PotList[i].FlowerNumber);
+                    FlowerList[i].GetComponent<FlowerData>().AmountOfWater = PotList[i].AmountOfWater;
+                    FlowerList[i].GetComponent<FlowerData>().WaterTimer = PotList[i].WaterTimer;
+                    FlowerList[i].GetComponent<FlowerData>().FertilizerTimer = PotList[i].FertilizerTimer;
+                    FlowerList[i].GetComponent<FlowerData>().SetFlowerState(PotList[i].FlowerState);
+                    FlowerList[i].GetComponent<FlowerData>().FlowerLevel = PotList[i].FlowerLevel;
                 }
             }
         }
@@ -180,15 +179,15 @@ namespace MiniGame2
                     PotList[i].FlowerNumber = itemNumber;
 
                     //*전에 있던 데이터 초기화*/
-                    FlowerList[i].GetComponent<Flower>().InitFlowerInfo();
+                    FlowerList[i].GetComponent<FlowerData>().InitFlowerInfo();
 
                     //*꽃 정보 설정*/
                     FlowerList[i].transform.FindChild("Text").GetComponent<Text>().text = "Flower" + itemNumber;
 
-                    FlowerList[i].GetComponent<Flower>().StartFlowerLife();
-                    FlowerList[i].GetComponent<Flower>().PotNumber = i;
-                    FlowerList[i].GetComponent<Flower>().SetFlowerColor(itemNumber);
-                    FlowerList[i].GetComponent<Flower>().SetFlowerState(1);
+                    FlowerList[i].GetComponent<FlowerData>().StartFlowerLife();
+                    FlowerList[i].GetComponent<FlowerData>().PotNumber = i;
+                    FlowerList[i].GetComponent<FlowerData>().SetFlowerColor(itemNumber);
+                    FlowerList[i].GetComponent<FlowerData>().SetFlowerState(1);
 
                     //*꽃 심기는 UI 를 보여준다 */
                     UIMini2.ShowPlantFlower(itemNumber, i);
@@ -202,15 +201,15 @@ namespace MiniGame2
                     PotList[0].FlowerNumber = itemNumber;
 
                     //*전에 있던 데이터 초기화*/
-                    FlowerList[0].GetComponent<Flower>().InitFlowerInfo();
+                    FlowerList[0].GetComponent<FlowerData>().InitFlowerInfo();
 
                     //*꽃 정보 설정*/
                     FlowerList[0].transform.FindChild("Text").GetComponent<Text>().text = "Flower" + itemNumber;
 
-                    FlowerList[0].GetComponent<Flower>().StartFlowerLife();
-                    FlowerList[0].GetComponent<Flower>().PotNumber = 0;
-                    FlowerList[0].GetComponent<Flower>().SetFlowerColor(itemNumber);
-                    FlowerList[0].GetComponent<Flower>().SetFlowerState(1);
+                    FlowerList[0].GetComponent<FlowerData>().StartFlowerLife();
+                    FlowerList[0].GetComponent<FlowerData>().PotNumber = 0;
+                    FlowerList[0].GetComponent<FlowerData>().SetFlowerColor(itemNumber);
+                    FlowerList[0].GetComponent<FlowerData>().SetFlowerState(1);
 
                     //*꽃 심기는 UI 를 보여준다 */
                     UIMini2.ShowPlantFlower(itemNumber, i);
@@ -249,13 +248,13 @@ namespace MiniGame2
         public void WaterTheFlower(int potNumber)
         {
             CDebug.Log(potNumber + "번 화분에 물뿌려준다 !");
-            if (FlowerList[potNumber].GetComponent<Flower>().SavedFlowerState == 1)
+            if (FlowerList[potNumber].GetComponent<FlowerData>().SavedFlowerState == 1)
             {
                 CDebug.Log("물 줄 필요 없다 ! , 오반응 효과");
             }
             else
             {
-                FlowerList[potNumber].GetComponent<Flower>().PlusWater();
+                FlowerList[potNumber].GetComponent<FlowerData>().PlusWater();
             }
         }
 
@@ -264,12 +263,12 @@ namespace MiniGame2
         {
             for (int i = 0; i < FlowerList.Count; i++)
             {
-                PotList[i].AmountOfWater = FlowerList[i].GetComponent<Flower>().AmountOfWater;
-                PotList[i].AmountOfFertilizer = FlowerList[i].GetComponent<Flower>().AmountOfWater;
-                PotList[i].WaterTimer = FlowerList[i].GetComponent<Flower>().WaterTimer;
-                PotList[i].FertilizerTimer = FlowerList[i].GetComponent<Flower>().FertilizerTimer;
-                PotList[i].FlowerState = FlowerList[i].GetComponent<Flower>().SavedFlowerState;
-                PotList[i].FlowerLevel = FlowerList[i].GetComponent<Flower>().FlowerLevel;
+                PotList[i].AmountOfWater = FlowerList[i].GetComponent<FlowerData>().AmountOfWater;
+                PotList[i].AmountOfFertilizer = FlowerList[i].GetComponent<FlowerData>().AmountOfWater;
+                PotList[i].WaterTimer = FlowerList[i].GetComponent<FlowerData>().WaterTimer;
+                PotList[i].FertilizerTimer = FlowerList[i].GetComponent<FlowerData>().FertilizerTimer;
+                PotList[i].FlowerState = FlowerList[i].GetComponent<FlowerData>().SavedFlowerState;
+                PotList[i].FlowerLevel = FlowerList[i].GetComponent<FlowerData>().FlowerLevel;
             }
         }
     }
