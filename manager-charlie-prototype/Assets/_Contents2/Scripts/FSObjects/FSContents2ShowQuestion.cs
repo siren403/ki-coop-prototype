@@ -15,7 +15,7 @@ namespace Contents2
             }
         }
         private SimpleTimer Timer = SimpleTimer.Create();
-        private float duration = 6.0f;
+        private float duration = 12.0f;
 
         public override void Enter()
         {
