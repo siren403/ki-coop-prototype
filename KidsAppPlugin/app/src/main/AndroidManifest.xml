@@ -3,17 +3,31 @@
     package="com.kids.charlie">
 
     <application android:label="@string/app_name">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".NativeActivity"
                   android:label="NativeActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation">
         </activity>
-        <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" />
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.kids.charlie.ALRAM_START"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".AlarmToastService"/>
+
+        <!--<meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" />-->
+
     </application>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+
 </manifest>
