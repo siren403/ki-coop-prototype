@@ -15,11 +15,20 @@ namespace MiniGame1
      */
     public class ItemButton : IDButton
     {
-        public void Initialize(int id, Action<int> onSelect)
+        // 결과 확인을 위한 임시 변수
+        [SerializeField]
+        private Text ItemName;
+
+        // 가격 변수
+        [SerializeField]
+        private Text Price;
+
+        public void Initialize(int id)
         {
             ID = id;
-            
-            GetComponentInChildren<Text>().text = string.Format("{0}", id);
+
+            ItemName.text = this.GetComponent<ItemInfo>().ItemName;
+            Price.text = this.GetComponent<ItemInfo>().ItemPrice.ToString();
         }
     }
 }

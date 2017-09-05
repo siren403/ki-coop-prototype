@@ -19,7 +19,9 @@ namespace MiniGame1
         public QuickSheet.MiniGame1 ItemSheet = null;
 
         private Dictionary<int, CakeObject> mCakeObjects = new Dictionary<int, CakeObject>();
+        public Dictionary<int, ItemInfo> DicItemInfo = new Dictionary<int, ItemInfo>();
 
+        // ItemSheet의 총 길이를 가져오는 Getter
         public int ItemCount
         {
             get
@@ -30,38 +32,60 @@ namespace MiniGame1
 
         void Awake()
         {
-            CDebug.Log("before : " + mCakeObjects.Count);
+            mCakeObjects.Clear();
+            DicItemInfo.Clear();
 
             var components = mView.InstCake.GetComponentsInChildren<CakeObject>();
 
             int indexer = 0;
 
+            // CakeObject 정보 초기화
             foreach (var com in components)
             {
+                // Dictionary 초기화
                 if (mCakeObjects.ContainsKey(com.ID) == false)
                 {
-                    mCakeObjects.Add(ItemSheet.dataArray[indexer].ID, components[indexer]);
-                    CDebug.Log(ItemSheet.dataArray[indexer].ID);
+                    mCakeObjects.Add(indexer + 1, components[indexer]);
+                    //CDebug.Log(ItemSheet.dataArray[indexer].ID);
                 }
                 else
                 {
                     CDebug.LogError("Contains " + com.ID);
                 }
 
-                int tmpIdx = ItemSheet.dataArray[indexer].ID;
-
-                mCakeObjects[tmpIdx].ID = ItemSheet.dataArray[indexer].ID;
-                mCakeObjects[tmpIdx].CATEGORY = ItemSheet.dataArray[indexer].Category;
-                mCakeObjects[tmpIdx].NAME = ItemSheet.dataArray[indexer].Name;
-                mCakeObjects[tmpIdx].PRICE = ItemSheet.dataArray[indexer].Price;
-                mCakeObjects[tmpIdx].MISBUY = ItemSheet.dataArray[indexer].Isbuy;
+                mCakeObjects[indexer + 1].ID = indexer;
 
                 indexer++;
             }
+        }
 
-            for(int i=0; i<components.Length; i++)
+        public void ItemInitializer()
+        {
+            var ItemComponents = mView.ItemList.GetComponentsInChildren<ItemInfo>();
+
+            int indexer = 0;
+
+            // 아이템 정보 초기화
+            foreach (var itemcom in ItemComponents)
             {
-                CDebug.Log(mCakeObjects[i+1].ID);
+                // Dictionary 초기화
+                if (DicItemInfo.ContainsKey(ItemSheet.dataArray[indexer].ID) == false)
+                {
+                    DicItemInfo.Add(indexer, ItemComponents[indexer]);
+                    CDebug.Log(ItemSheet.dataArray[indexer].ID);
+                }
+                else
+                {
+                    CDebug.LogError("Contains ");
+                }
+
+                DicItemInfo[indexer].ItemID = ItemSheet.dataArray[indexer].ID;
+                DicItemInfo[indexer].ItemCategory = ItemSheet.dataArray[indexer].Category;
+                DicItemInfo[indexer].ItemName = ItemSheet.dataArray[indexer].Name;
+                DicItemInfo[indexer].ItemPrice = ItemSheet.dataArray[indexer].Price;
+                DicItemInfo[indexer].ItemIsBuy = ItemSheet.dataArray[indexer].Isbuy;
+
+                indexer++;
             }
         }
 
@@ -78,3 +102,5 @@ namespace MiniGame1
         }
     }
 }
+
+//mCakeObjects.Add(ItemSheet.dataArray[indexer].ID, components[indexer]);

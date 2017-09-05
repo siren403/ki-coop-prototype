@@ -18,18 +18,23 @@ namespace MiniGame1
         #region Panel member
         [SerializeField]
         private GameObject mPanelBuyConfrim = null;
-
-        public GridSwipe mPanelShopItemList = null;
-        #endregion
+        [SerializeField]
+        private GameObject mPanelBack = null;
 
         public GameObject InstCake = null;
+        public GridSwipe PanelShopItemList = null;
+        public GameObject ItemList = null;
+        #endregion
 
-        [SerializeField]
-        private SceneMiniGame1 mScene = null;
-
+        #region Buttons
         public Button ShopButton = null;
         public Button BuyButton = null;
         public Button BuyCancleButton = null;
+        public Button BackButton = null;
+        #endregion        
+
+        [SerializeField]
+        private SceneMiniGame1 mScene = null;
 
         public ItemButton PFItemButton = null;
 
@@ -41,24 +46,28 @@ namespace MiniGame1
          */
         void Awake()
         {
-            ShopButton.onClick.AddListener(() => EnterShop());
-
-            BuyButton.onClick.AddListener(() => BuyItem());
-            BuyCancleButton.onClick.AddListener(() => BuyCancle());
         }
 
         // Use this for initialization. 
         void Start()
         {
+            ShopButton.onClick.AddListener(() => EnterShop());
+            BackButton.onClick.AddListener(() => BackToShop());
+
+            BuyButton.onClick.AddListener(() => BuyItem());
+            BuyCancleButton.onClick.AddListener(() => BuyCancle());
+
             // Scene에서 가져온 아이템 개수를 사용하여 버튼 동적생성 및 ID 부여
             // Grid가 Attach되어있는 오브젝트 하위에 위치시킨 후 Reposition을 통해 정렬
             for (int i = 0; i < mScene.ItemCount; i++)
             {
-                var btn = Instantiate<ItemButton>(PFItemButton, mPanelShopItemList.TargetGrid.transform);
-                btn.Initialize(i + 1, OnBtnSelectItem);
+                var btn = Instantiate<ItemButton>(PFItemButton, PanelShopItemList.TargetGrid.transform);
+                btn.OnButtonUp = OnBtnSelectItem;
             }
+            PanelShopItemList.TargetGrid.Reposition();
 
-            mPanelShopItemList.TargetGrid.Reposition();
+            // 아이템 정보 초기화
+            mScene.ItemInitializer();
         }
 
         /**
@@ -72,9 +81,18 @@ namespace MiniGame1
         private void EnterShop()
         {
             CDebug.Log("Welcome! Customer!");
-
-            mPanelShopItemList.gameObject.SetActive(true);
-        }       
+            InstCake.SetActive(false);
+            mPanelBack.SetActive(true);
+            PanelShopItemList.gameObject.SetActive(true);
+        }
+        private void BackToShop()
+        {
+            CDebug.Log(" (>ㅁ<)oOoOo");
+            mPanelBuyConfrim.SetActive(false);
+            mPanelBack.SetActive(false);
+            PanelShopItemList.gameObject.SetActive(false);
+            InstCake.SetActive(true);
+        }
         /**
          * @fn  private void EnterShop()
          *
@@ -86,8 +104,9 @@ namespace MiniGame1
         private void BuyItem()
         {
             CDebug.Log(" m(ㅇㅅㅇ)m Thank you!");
-
-            mPanelShopItemList.GetComponent<GridSwipe>().enabled = true;
+            InstCake.SetActive(true);
+            PanelShopItemList.GetComponent<GridSwipe>().enabled = true;
+            PanelShopItemList.gameObject.SetActive(false);
             mPanelBuyConfrim.SetActive(false);
         }
         /**
@@ -101,8 +120,7 @@ namespace MiniGame1
         private void BuyCancle()
         {
             CDebug.Log(" (^o^) Bye~ ");
-
-            mPanelShopItemList.GetComponent<GridSwipe>().enabled = true;
+            PanelShopItemList.GetComponent<GridSwipe>().enabled = true;
             mPanelBuyConfrim.SetActive(false);
         }
 
@@ -114,15 +132,14 @@ namespace MiniGame1
          *
          * @param   selectItem  The select item.
          */
-        private void OnBtnSelectItem(int selectItem)
+        private void OnBtnSelectItem(int selectItem, IDButton sender)
         {
             CDebug.Log(" /(^ㅠ^)/  : " + selectItem);
 
-            mPanelShopItemList.GetComponent<GridSwipe>().enabled = false;
+            PanelShopItemList.GetComponent<GridSwipe>().enabled = false;
 
             mPanelBuyConfrim.SetActive(true);
         }
-
         // Update is called once per frame
         void Update()
         {

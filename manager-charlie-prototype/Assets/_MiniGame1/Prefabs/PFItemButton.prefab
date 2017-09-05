@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114734281745329768}
   - component: {fileID: 114956263436500706}
   - component: {fileID: 114413253323887290}
+  - component: {fileID: 114135153581739014}
   m_Layer: 5
   m_Name: PFItemButton
   m_TagString: Untagged
@@ -64,6 +65,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114135153581739014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621492964762230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd603e4cba190c4faa0ac772a39c1ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mCategory: 
+  mName: 
 --- !u!114 &114175230581925274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b6440dbc7da0c419fe23374ffe3c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mID: 0
+  ItemName: {fileID: 114175230581925274}
+  Price: {fileID: 114677295158808076}
 --- !u!114 &114677295158808076
 MonoBehaviour:
   m_ObjectHideFlags: 1
