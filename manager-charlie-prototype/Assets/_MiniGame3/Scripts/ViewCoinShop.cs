@@ -8,33 +8,35 @@ using CustomDebug;
 
 namespace MiniGame3
 {
+    /**
+     @class ViewCoinShop
+    
+     @brief coinShop의 view.
+    
+     @author    Kyoungil
+     @date  2017-09-05
+     */
     public class ViewCoinShop : MonoBehaviour
     {
         public GameObject PFCoinShopPagePanel = null;
         public Button PFCoinShopClothBtn = null;
-        public int PageCount; //총 페이지 수
+        public int PageCount;                                                           //총 페이지 수
 
         public List<GameObject> PFCoinShopPagePanelList = new List<GameObject>();
 
         [SerializeField]
-        private int mCurrentPage; // 현재 보고있는 페이지 
+        private int mCurrentPage;                                                       // 현재 보고있는 페이지 
 
-        public Button PreviousButton;
-        public Button NextButton;
+        public Button PreviousButton;                                                   // 이전 버튼
+        public Button NextButton;                                                       // 다음 버튼
 
         public AnimationCurve Anim;
-        public float SwipeTime;
-        public float SwipeSensitivity; /**스와이프 감도 -> 작을 수록 민감하다*/
-
-        //swipe 관련
-        Vector2 firstPressPos;
-        Vector2 secondPressPos;
-        Vector2 currentSwipe;
-
-        bool SwipeOn;       /** swipe 중복을 막기 위해 ,true 일때만 swipe 가능*/
+        public float SwipeTime;                                                         // Swipe 시간
+            
+        bool SwipeOn;                                                                   // swipe 중복을 막기 위해 ,true 일때만 swipe 가능
 
         [SerializeField]
-        private List<ClothItem> mClothList = new List<ClothItem>();           // 아이템 정보 전달 변수
+        private List<ClothItem> mClothList = new List<ClothItem>();                     // 아이템 정보 전달 변수
         
         public enum InputState
         {
@@ -53,27 +55,53 @@ namespace MiniGame3
             SwipeOn = true;
         }
 
-
+        /**
+         @fn    IEnumerator SwipeOnTrue()
+        
+         @brief Swipe 시간이 끝나면 리턴
+        
+         @author    Kyoungil
+         @date  2017-09-05
+        
+         @return    An IEnumerator.
+         */
         IEnumerator SwipeOnTrue()
         {
             yield return new WaitForSeconds(SwipeTime);
             SwipeOn = true;
         }
 
+        /**
+         @fn    public void CreatePanel()
+        
+         @brief CoinShop 버튼 패널 생성
+        
+         @author    Kyoungil
+         @date  2017-09-05
+         */
         public void CreatePanel()
         {
             for (int j = 0; j < mClothList.Count; j++)
             {
                 Vector2 tPos = Vector2.zero;
                 var tempPanel = Instantiate(PFCoinShopPagePanel, tPos, Quaternion.identity, this.transform);
-                Instantiate(PFCoinShopClothBtn, Vector2.zero, Quaternion.identity, tempPanel.transform);
+                var tempClothBtn = Instantiate(PFCoinShopClothBtn, Vector2.zero, Quaternion.identity, tempPanel.transform);
                 tempPanel.transform.localPosition = new Vector2(j * 400, 0);
+                
+                
                 PFCoinShopPagePanelList.Add(tempPanel);
             }
         }
-       
 
-        //앞 버튼 눌렀을 때
+        /**
+         @fn    public void OnClickPreviousButton()
+        
+         @brief 다음 버튼 눌렀을 때 기능
+        
+         @author    Kyoungil
+         @date  2017-09-05
+         */
+
         public void OnClickPreviousButton()
         {
             // 아이템이 없다면 메인화면으로 넘어감 (패널 변경)
@@ -100,7 +128,14 @@ namespace MiniGame3
             }
         }
 
-        //뒤 버튼 눌렀을 때
+        /**
+         @fn    public void OnClickNextButton()
+        
+         @brief 이전 버튼 눌렀을 때 기능
+        
+         @author    Kyoungil
+         @date  2017-09-05
+         */
         public void OnClickNextButton()
         {
             // 보여줄 다음 아이템이 있다면 다음 페이지로 넘어감
@@ -118,7 +153,14 @@ namespace MiniGame3
             }
         }
 
-        //앞, 뒤 버튼 눌렀을 때 포지션 변경
+        /**
+         @fn    void ChangePosition()
+        
+         @brief 다음, 이전 버튼 눌렀을 때 포지션 변경
+        
+         @author    Kyoungil
+         @date  2017-09-05
+         */
         void ChangePosition()
         {
             if (buttonInput == InputState.prev)
@@ -137,8 +179,14 @@ namespace MiniGame3
             }
         }
 
-
-        //앞, 뒤 버튼 메소드
+        /**
+         @fn    void ShowButton()
+        
+         @brief 페이지에 따라 버튼 보임 기능
+        
+         @author    Kyoungil
+         @date  2017-09-05
+         */
         void ShowButton()
         {
             if (mCurrentPage == 0)                                  // 첫 페이지 일 때,
@@ -157,7 +205,7 @@ namespace MiniGame3
                 NextButton.gameObject.SetActive(true);              // 다음 버튼 보임
             }
         }
-
+                
         public void SetClothList(List<ClothItem> t)
         {
             mClothList = t;

@@ -6,8 +6,17 @@ using UnityEngine.UI;
 
 namespace MiniGame3
 {
-    public class ClothItem : MonoBehaviour
+    /**
+     @class ClothItem
+    
+     @brief 옷 데이터
+    
+     @author    Kyoungil
+     @date  2017-09-05
+     */
+    public class ClothItem
     {
+        
         [SerializeField]
         private int mId;                 // 아이템 번호
         public int GetId()
@@ -28,10 +37,6 @@ namespace MiniGame3
 
         public bool isBought = false;   // 아이템 구매여부
         public bool isWearing = false;  // 아이템 착용여부
-
-        public void GetImg(Sprite tSpr)
-        {
-            this.gameObject.GetComponent<Image>().sprite = tSpr;
-        }
+                
     }
 }

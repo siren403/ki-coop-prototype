@@ -137,8 +137,8 @@ RectTransform:
   m_Children:
   - {fileID: 1319018918}
   - {fileID: 135288491}
-  - {fileID: 1078188044}
   - {fileID: 1860904497}
+  - {fileID: 1078188044}
   - {fileID: 1512515940}
   - {fileID: 2057948821}
   - {fileID: 1414668698}
@@ -468,7 +468,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 128648315}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -589,13 +589,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InstChangingRoomPanel: {fileID: 128648314}
   InstCoinShopPanel: {fileID: 1628468975}
-  PFClothBtn: {fileID: 114381995324009374, guid: b9d0928e7a5448144aa5bebda6a0f2b5,
+  PFClothBtn: {fileID: 114975606652394992, guid: b9d0928e7a5448144aa5bebda6a0f2b5,
     type: 2}
-  PFClothBtnList: []
   PFPagePanel: {fileID: 1626488385592228, guid: 223617389b9ad0043bf7d2dd469cfa8d,
     type: 2}
+  PFClothBtnList: []
   PFPagePanelList: []
-  ClothImgList: []
+  ClothBtnList: []
 --- !u!1 &1319018917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1085,6 @@ MonoBehaviour:
     m_RotationOrder: 0
   SwipeTime: 0.5
   SwipeSensitivity: 60
-  mClothList: []
   buttonInput: 0
 --- !u!1 &1720163959
 GameObject:
@@ -1300,7 +1299,7 @@ RectTransform:
   m_Children:
   - {fileID: 1965639721}
   m_Father: {fileID: 128648315}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
