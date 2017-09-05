@@ -22,12 +22,13 @@
       </intent-filter>
     </receiver>
 
-    <!--<service android:name=".AlarmToastService"/>-->
+    <service android:name=".AlarmToastService"/>
 
     <!--<meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" />-->
 
   </application>
 
   <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

@@ -4,6 +4,7 @@ using UnityEngine;
 using CustomDebug;
 using UnityEngine.UI;
 using UniRx;
+using AndroidPlugin;
 
 namespace Examples
 {
@@ -108,7 +109,9 @@ namespace Examples
                          int hour = System.Convert.ToInt32(strHour);
                          int min = System.Convert.ToInt32(InstLayoutAlarm.InputMin.text);
                          int sec = System.Convert.ToInt32(InstLayoutAlarm.InputSec.text);
-                         SetAlram(hour, min, sec);
+
+                         AndroidManager.Inst.SetAlram(2738, hour, min, sec);
+                         //SetAlram(hour, min, sec);
                      }
                      else
                      {
