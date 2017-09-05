@@ -1630,7 +1630,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140, y: -100}
+  m_AnchoredPosition: {x: -140, y: -2.2}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &374463363
@@ -1858,19 +1858,26 @@ MonoBehaviour:
   - {fileID: 1317515514}
   - {fileID: 930853661}
   - {fileID: 969551670}
+  InstTextFlowerList:
+  - {fileID: 903864189}
+  - {fileID: 534863571}
+  - {fileID: 1161481670}
+  - {fileID: 1819240268}
   InstBtnPotList:
   - {fileID: 674164656}
   - {fileID: 1499075541}
   - {fileID: 1993586325}
   - {fileID: 136589535}
   InstBtnNutrientsList:
-  - {fileID: 700193621}
   - {fileID: 374463363}
+  - {fileID: 700193621}
+  InstPanelGarden: {fileID: 615824826}
   InstPanelTitle: {fileID: 1073623712}
   InstPanelCoinShop: {fileID: 1228942881}
   InstBtnExit: {fileID: 1680961885}
   InstImgTutorialTouch: {fileID: 641595332}
   InstImgSeed: {fileID: 1626881175}
+  NutrientsMoveTime: 0
 --- !u!4 &408191708
 Transform:
   m_ObjectHideFlags: 0
@@ -3541,7 +3548,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -140, y: 0}
+  m_AnchoredPosition: {x: -140, y: -98.8}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700193621
@@ -3735,21 +3742,10 @@ MonoBehaviour:
   UIShop: {fileID: 408191709}
   UIMini2: {fileID: 408191707}
   Flower:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  FlowerList:
-  - {fileID: 2045618544}
-  - {fileID: 647524993}
-  - {fileID: 865070638}
-  - {fileID: 151391292}
-  InstBtnPots:
-  - {fileID: 674164654}
-  - {fileID: 1499075539}
-  - {fileID: 1993586323}
-  - {fileID: 136589533}
-  InstPanelGarden: {fileID: 615824826}
+  - {fileID: 2045618545}
+  - {fileID: 647524994}
+  - {fileID: 865070639}
+  - {fileID: 151391293}
 --- !u!1 &805249264
 GameObject:
   m_ObjectHideFlags: 0

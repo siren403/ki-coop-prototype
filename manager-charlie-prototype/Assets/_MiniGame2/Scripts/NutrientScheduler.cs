@@ -32,6 +32,10 @@ namespace MiniGame2
 
         public int NowNutrientState
         {
+            set
+            {
+                nutrientState = (NutrientState)value;
+            }
             get
             {
                 return (int)nutrientState;
@@ -40,6 +44,10 @@ namespace MiniGame2
 
         public int Timer
         {
+            set
+            {
+                mTimer = value;
+            }
             get
             {
                 return mTimer;
@@ -47,9 +55,9 @@ namespace MiniGame2
         }
 
         /** @brief Flower 스크립트 가져오기 */
-        protected FlowerData mFlower;
+        protected Flower mFlower;
 
-        public void SetFlower(FlowerData flower)
+        public void SetFlower(Flower flower)
         {
             mFlower = flower;
         }
@@ -111,12 +119,21 @@ namespace MiniGame2
             nutrientState = (NutrientState)state;
         }
 
-        public void InitNutrient()
+        public virtual void InitNutrient()
         {
             mTimer = 0;
             mLackNutrientTime = 3;
             nutrientState = NutrientState.Normal;
         }
+
+        /**
+         @fn    public virtual void NormalNutrient()
+        
+         @brief 일반 상태로 변경
+        
+         @author    JT & YT
+         @date  2017-09-05
+         */
         public virtual void NormalNutrient()
         {
             mTimer = 0;
@@ -124,6 +141,14 @@ namespace MiniGame2
         }
 
 
+        /**
+         @fn    public virtual void LackNutrient()
+        
+         @brief 영양분 부족 상태 일 때  호출
+        
+         @author    JT & YT
+         @date  2017-09-05
+         */
         public virtual void LackNutrient()
         {
 
@@ -141,7 +166,7 @@ namespace MiniGame2
         /**
  @fn    void DeadFlower()
 
- @brief 영양분이 부족해서 죽었을 때 호출 : FlowerData -> DeadFlower 함수 호출
+ @brief 영양분이 부족해서 죽었을 때 호출 : Flower 의 DeadFlower 함수 호출해 준다
 
  @author    JT & YT
  @date  2017-09-04
@@ -153,6 +178,17 @@ namespace MiniGame2
             mFlower.DeadFlower();
         }
 
+        /**
+         @fn    public void SetLackTime(int level)
+        
+         @brief 레벨에 따라서 영양분 부족 시간을 설정해준다
+               동시에 LackNutrient() 를 호출하여 영양분 부족을 체크한뒤 영양분 부족하다는 UI 띄워준다
+        
+         @author    JT & YT
+         @date  2017-09-05
+        
+         @param level   The level.
+         */
         public void SetLackTime(int level)
         {
             if (level == 0)
@@ -171,7 +207,15 @@ namespace MiniGame2
             {
                 mLackNutrientTime = 15;
             }
-        }
+            else if (level >= 4)
+            {
+                mLackNutrientTime = 20;
+            }
 
+            if (nutrientState == NutrientState.Lack)
+            {
+                LackNutrient();
+            }
+        }
     }
 }

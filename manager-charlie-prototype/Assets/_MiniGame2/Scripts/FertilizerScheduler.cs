@@ -8,6 +8,12 @@ namespace MiniGame2
     {
         public UIMiniGame2 UImini2 = null;
 
+        public override void InitNutrient()
+        {
+            base.InitNutrient();
+            UImini2.InActiveUILackFertilizer(PotNumber);
+        }
+
         public override void NormalNutrient()
         {
             base.NormalNutrient();

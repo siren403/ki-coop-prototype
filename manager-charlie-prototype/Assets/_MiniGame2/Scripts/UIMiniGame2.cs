@@ -24,10 +24,9 @@ namespace MiniGame2
         public List<Text> InstTextFerState = new List<Text>();
         public List<Text> InstTextCurrentFer = new List<Text>();
         public List<Text> InstTextFerTimer = new List<Text>();
-               
 
 
-
+        public List<Text> InstTextFlowerList = new List<Text>();
 
 
         private SceneMiniGame2 mScene = null;
@@ -39,6 +38,12 @@ namespace MiniGame2
         public List<Button> InstBtnNutrientsList = new List<Button>();
 
 
+
+        //*뒷 배경 색상 바꿔주기 (추후 화분 색상 바꿔주는것으로 변경) */
+        public Image InstPanelGarden;
+
+
+
         public GameObject InstPanelTitle;
 
         public GameObject InstPanelCoinShop = null;
@@ -48,6 +53,7 @@ namespace MiniGame2
         Vector3 mBtnWaterPosition;
 
         Vector3 mBtnFertilizerPosition;
+
         public Button InstBtnExit;
 
         public Image InstImgTutorialTouch;
@@ -57,6 +63,7 @@ namespace MiniGame2
         int mSelectedNutrient;
 
         public float NutrientsMoveTime;
+
 
         public void Start()
         {
@@ -88,7 +95,8 @@ namespace MiniGame2
             mScene = scene;
         }
 
-        //* 물뿌리개 선택하면 mSelectedNutrient = 0 , 비료면 1이됨*/
+
+        //* 물뿌리개 선택하면 mSelectedNutrient = 1 , 비료면 0이됨*/
         public void OnClickNutrients(int nutrientId)
         {
             for (int i = 0; i < InstBtnNutrientsList.Count; i++)
@@ -103,9 +111,7 @@ namespace MiniGame2
                     InstBtnNutrientsList[i].transform.DOKill();
                     InstBtnNutrientsList[i].transform.DOScale(Vector2.one , 0.5f).SetEase(Ease.OutBounce);
                 }
-            }
-
-            
+            }           
             
         }
 
@@ -123,31 +129,31 @@ namespace MiniGame2
             InstPanelTitle.SetActive(false));
         }
 
-        //*물뿌리개가 움직이고 콜백으로 물주기 함수 호출 */
+        //*영양분이 움직이고 콜백으로 물주기 함수 호출 */
         public void OnClickBtnPot(int potNumber)
         {
             //* pot 번호 호출*/
             CDebug.Log(potNumber + "번 화분이 클릭 됨");
-            mScene.OnClickBtnPot(potNumber);
+
 
             //* 물주기 */
-            if (mScene.PotList[potNumber].IsEmpty == true)
+            if (mScene.FlowerData[potNumber].IsEmpty == true)
             {
                 CDebug.Log("비어있다");
             }
             else
             {
                 //* 물만 선택해서 주기*/
-                if (mSelectedNutrient == 0)
+                if (mSelectedNutrient == 1)
                 {
-                    InstBtnNutrientsList[0].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
+                    InstBtnNutrientsList[1].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
             InstWaterCallBack(potNumber));
                 }
 
                 //* 비료만 선택해서 주기*/
-                else if (mSelectedNutrient == 1)
+                else if (mSelectedNutrient == 0)
                 {
-                    InstBtnNutrientsList[1].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
+                    InstBtnNutrientsList[0].transform.DOMove(InstBtnPotList[potNumber].transform.position, NutrientsMoveTime).OnComplete(() =>
          InstFertilizerCallBack(potNumber));
 
                 }
@@ -168,8 +174,8 @@ namespace MiniGame2
         {
             CDebug.Log("물 뿌려주기 시작!");
             mScene.WaterTheFlower(potNumber);
-            InstBtnNutrientsList[0].transform.DOMove(mBtnWaterPosition, 0);
-            InstBtnNutrientsList[0].transform.DOScale(Vector2.one , 0);
+            InstBtnNutrientsList[1].transform.DOMove(mBtnFertilizerPosition, 0);
+            InstBtnNutrientsList[1].transform.DOScale(Vector2.one , 0);
             mSelectedNutrient = 2;
         }
 
@@ -177,8 +183,8 @@ namespace MiniGame2
         {
             CDebug.Log("비료 뿌려주기 시작!");
             mScene.FertilizeTheFlower(potNumber);
-            InstBtnNutrientsList[1].transform.DOMove(mBtnFertilizerPosition, 0);
-            InstBtnNutrientsList[1].transform.DOScale(Vector2.one, 0);
+            InstBtnNutrientsList[0].transform.DOMove(mBtnWaterPosition, 0);
+            InstBtnNutrientsList[0].transform.DOScale(Vector2.one, 0);
             mSelectedNutrient = 2;
         }
 
@@ -270,6 +276,41 @@ namespace MiniGame2
 
             InstImgLackFertilizer[potNumber].DOKill();
             InstImgLackFertilizer[potNumber].DOFade(0, 0);
+        }
+
+        public void SetPotColor(int itemNumber)
+        {
+            if (itemNumber == 4)
+            {
+                InstPanelGarden.color = Color.red;
+            }
+            else if (itemNumber == 5)
+            {
+                InstPanelGarden.color = Color.white;
+            }
+            else if (itemNumber == 6)
+            {
+                InstPanelGarden.color = Color.blue;
+            }
+            else if (itemNumber == 7)
+            {
+                InstPanelGarden.color = Color.green;
+            }
+        }
+
+        /**
+         @fn    public void SetFlowerText(int flowerNumber)
+        
+         @brief 꽃 이름을 정해주는 함수 -> 꽃 심을 때 호출
+        
+         @author    JT & YT
+         @date  2017-09-05
+        
+         @param flowerNumber    The flower number.
+         */
+        public void SetFlowerText(int flowerNumber, int itemNumber)
+        {
+            InstTextFlowerList[flowerNumber].text = "Flower" + itemNumber;
         }
     }
 }

@@ -11,6 +11,14 @@ namespace MiniGame2
         public bool IsWarter;
         public bool IsFertilizer;
 
+        /**
+         @fn    void Start()
+        
+         @brief 드래그 기능 있을 시 사용 -> 필요없으면 삭제
+        
+         @author    JT & YT
+         @date  2017-09-05
+         */
         void Start()
         {
 
