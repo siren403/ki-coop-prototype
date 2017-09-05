@@ -8,10 +8,9 @@ namespace UIComponent
 {
     public class EpisodeButton : IDButton
     {
-        public override void Initialize(int id, Action<int> onSelect)
+        protected override void OnChangedID()
         {
-            base.Initialize(id, onSelect);
-            GetComponentInChildren<Text>().text = string.Format("Episode\n{0}", id);
+            GetComponentInChildren<Text>().text = string.Format("Episode\n{0}", ID);
         }
     }
 }

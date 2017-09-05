@@ -1,73 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UIComponent;
+using UnityEngine.UI;
 
 namespace Contents4
 {
 
     public class ViewContents4 : MonoBehaviour
     {
+        public GridSwipe InstAlramList = null;
+        public GameObject InstDialController = null;
 
-
-        public SwipeManager InstSelectPage = null;
-        public UIAlarmSelectPage InstAlarmSelectPage = null;
-
-
-        public void HideSelectPage()
+        private void Awake()
         {
-            InstSelectPage.gameObject.SetActive(false);
+            var btnAlrams = InstAlramList.TargetGrid.GetComponentsInChildren<IDButton>();
+            foreach(var btn in btnAlrams)
+            {
+                btn.OnButtonUp = OnBtnSelectAlram;
+            }
+            InstAlramList.gameObject.SetActive(true);
         }
-        public void ShowSelectPage()
+        private void OnBtnSelectAlram(int id, IDButton sender)
         {
-            InstSelectPage.gameObject.SetActive(true);
+            InstAlramList.gameObject.SetActive(false);
+            InstDialController.GetComponentInChildren<Text>().text = id.ToString();
+            InstDialController.gameObject.SetActive(true);
         }
-        public void HideAlarmSelectPage()
-        {
-            InstAlarmSelectPage.gameObject.SetActive(false);
-        }
-        public void ShowAlarmSelectPage()
-        {
-            InstAlarmSelectPage.gameObject.SetActive(true);
-        }
-
-
-        public void OnClickSleep()
-        {
-            HideSelectPage();
-
-        }
-
-        public void OnClickWakeUp()
-        {
-            HideSelectPage();
-
-        }
-
-        public void OnClickEat()
-        {
-            HideSelectPage();
-
-        }
-
-        public void OnClickRead()
-        {
-            HideSelectPage();
-
-        }
-
-
-        public void OnClickWash()
-        {
-            HideSelectPage();
-
-        }
-
-        public void OnClickBrush()
-        {
-            HideSelectPage();
-
-        }
-
     }
 
 }

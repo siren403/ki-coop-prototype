@@ -37,16 +37,9 @@ namespace Contents1
             }
         }
 
-        #region QnAContents를 구성하는 기본적인 State객체
-        protected override QnAFiniteState FSEpisode { get { return new FSContents1Episode(); } }
-        protected override QnAFiniteState FSSituation { get { return new FSContents1Situation(); } }
         protected override QnAFiniteState FSQuestion { get { return new FSContents1Question(); } }
-        protected override QnAFiniteState FSAnswer { get { return new FSContents1Answer(); } }
         protected override QnAFiniteState FSSelect { get { return new FSContents1Select(); } }
         protected override QnAFiniteState FSEvaluate { get { return new FSContents1Evaluation(); } }
-        protected override QnAFiniteState FSReward { get { return new FSContents1Reward(); } }
-        protected override QnAFiniteState FSClear { get { return new FSContents1Clear(); } }
-        #endregion
 
 
         /** @brief 유저가 선택한 에피소드 */
@@ -124,7 +117,7 @@ namespace Contents1
         {
             get
             {
-                return mPhonicsSet[mSubmitQuestionCount % mPhonicsSet.Length].ToString();
+                return mPhonicsSet[mSubmitQuestionCount % mPhonicsSet.Length];
             }
         }
         /**
@@ -201,7 +194,6 @@ namespace Contents1
         public void SelectEpisode(int episodeID)
         {
             mSelectedEpisode = episodeID;
-            //mIncorrectArr.Clear();
 
             // 테이블을 순회하며 지정한 조건에 해당하는(Where) 데이터를 추출. 리스트로 변환(ToList)
             var table = mQnATable.dataArray
@@ -210,7 +202,6 @@ namespace Contents1
 
             // 테이블을 순회하며 원하는 데이터를 추출(Select). 중복제거 후(Distinct) 배열로 변환(ToArray)
             mPhonicsSet = table.Select((data) => data.Question).Distinct().ToArray();
-
 
             // 문제 데이터 초기화
             mQuestionData.Clear();
@@ -231,7 +222,7 @@ namespace Contents1
                 if (mQuestionData.ContainsKey(phonics))
                 {
                     var array = mQuestionData[phonics].ToArray();
-                    array.DoShuffle();
+                    array.Shuffle();
                     mQuestionData[phonics] = new Queue<QuickSheet.Contents1Data>(array);
                 }
             }
@@ -261,13 +252,6 @@ namespace Contents1
             answersIndex++;
             CDebug.LogFormat("CurrentPhonics : {0}", mCurrentCorrect.Question);
 
-            //string str = "Queue : ";
-            //foreach (var question in mQuestionData[CurrentPhonics])
-            //{
-            //    str += question.Correct + ",";
-            //}
-            //CDebug.Log(str);
-
             for (int i = 0; i < mPhonicsSet.Length; i++)
             {
                 if(answersIndex < 4)
@@ -275,7 +259,6 @@ namespace Contents1
                     if (mPhonicsSet[i].Equals(mCurrentCorrect.Question) == false)
                     {
                         mAnswers[answersIndex] = mQuestionData[mPhonicsSet[i]].First();
-                        //mIncorrectArr.Add(mQuestionData[mPhonicsSet[i]].First().ID);
                         answersIndex++;
                     }
                 }
@@ -285,10 +268,11 @@ namespace Contents1
                 }
             }
 
+            mAnswers.Shuffle();
+
             //문제 인덱스 증가
             mSubmitQuestionCount++;
 
-            mAnswers.DoShuffle();
             return mAnswers;
         }
         public void IncrementCorrectCount()

@@ -34,11 +34,11 @@ namespace Contents.QnA
         void ShowAnswer();
 
         /**
-         @fn    void SelectAnswer();
+         @fn    void HurryUpAnswer();
         
-         @brief 선택지 중 답 선택을 기다리는 상태(현재는 사용할 일 없을거라 예상)
+         @brief 선택 대기시간 초과 시 연출
          */
-        void SelectAnswer();
+        void HurryUpAnswer();
 
         /**
          @fn    void CorrectAnswer();
@@ -67,5 +67,12 @@ namespace Contents.QnA
          @brief 보상 처리 후 클리어 연출, 이후에는 Outro UI로 진행
          */
         void ClearEpisode();
+
+        /**
+         @fn    void ShowOutro();
+        
+         @brief 에피소드 종료 후 분기 메뉴
+         */
+        void ShowOutro();
     }
 }

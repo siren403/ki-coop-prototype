@@ -19,7 +19,7 @@ namespace Contents2
 
         public Sprite InstLockImage;
 
-        public CorrectGuage InstCorrectGuage = null;
+        public CorrectGauge InstCorrectGuage = null;
 
         //* 문제 Situation panel*/
 
@@ -77,7 +77,8 @@ namespace Contents2
             for (int i = 0; i < mScene.EpisodeCount; i++)
             {
                 var btn = Instantiate<EpisodeButton>(PFEpisodeButton, InstPanelEpisodeList.TargetGrid.transform);
-                btn.Initialize(i + 1, OnBtnSelectEpisodeEvent);
+                btn.ID = i + 1;
+                btn.OnButtonUp = OnBtnSelectEpisodeEvent;
             }
             InstPanelEpisodeList.TargetGrid.Reposition();
 
@@ -118,7 +119,7 @@ namespace Contents2
 
 
 
-        private void OnBtnSelectEpisodeEvent(int episodeID)
+        private void OnBtnSelectEpisodeEvent(int episodeID,IDButton sender)
         {
             Debug.Log(episodeID);
             mScene.SelectEpisode(episodeID);
@@ -289,7 +290,7 @@ namespace Contents2
 
 
 
-        public void SelectAnswer()
+        public void HurryUpAnswer()
         {
             CDebug.Log("Wait Show Answer Animaition... \n InPut Open  -> Hurry Up! 넣어준다");
 
@@ -384,6 +385,10 @@ namespace Contents2
                 InstPanelLeftWrong.SetActive(true);
             }
             CDebug.Log(" 오답입니다. ");
+        }
+
+        public void ShowOutro()
+        {
         }
     }
 }

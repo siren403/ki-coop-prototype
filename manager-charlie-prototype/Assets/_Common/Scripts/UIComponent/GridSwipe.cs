@@ -6,6 +6,7 @@ using Util;
 using CustomDebug;
 using System;
 using DG.Tweening;
+using UniRx;
 
 namespace UIComponent
 {
@@ -19,9 +20,35 @@ namespace UIComponent
         public Grid TargetGrid = null;
         public float Duration = 0.3f;
         public Ease EasingType = Ease.OutExpo;
+        public int CurrentPage
+        {
+            get
+            {
+                return mCurrentPage;
+            }
+        }
+
+
+        public Button InstBtnLeft = null;
+        public Button InstBtnRight = null;
+
+        private bool mIsGesture = true;
+
+        private void Awake()
+        {
+            if(InstBtnLeft != null && InstBtnRight != null)
+            {
+                mIsGesture = false;
+                InstBtnLeft.OnClickAsObservable().Subscribe(_ => OnSwipe(-1));
+                InstBtnRight.OnClickAsObservable().Subscribe(_ => OnSwipe(1));
+            }
+        }
 
         private void Update()
         {
+            if (mIsGesture == false)
+                return;
+
             if (TouchInput.Begin())
             {
                 mBeginPosition = TouchInput.GetPosition();

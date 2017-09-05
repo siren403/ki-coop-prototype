@@ -9,9 +9,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NativeActivity"
+                  android:label="NativeActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation">
+        </activity>
         <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="true" />
     </application>
-
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 </manifest>
