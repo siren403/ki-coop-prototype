@@ -99,7 +99,6 @@ namespace Contents1
                     return false;
                 });
         }
-
         /**
          @fn    private void ButtonChangeState(Button btn,bool enable)
         
@@ -124,7 +123,15 @@ namespace Contents1
                 btn.image.color = new Color(0.6f, 0.6f, 0.6f, 0.5f);
             }          
         }        
-
+        /**
+         * Outro move
+         * 다시 플레이하기
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         *
+         * @param   moveInfo    Information describing the move.
+         */
         public void OutroMove(int moveInfo)
         {
             if(moveInfo == 3)
@@ -134,7 +141,17 @@ namespace Contents1
                 mScene.ChangeState(QnAContentsBase.State.Situation);
             }
         }
-
+        /**
+         * Shows the outro
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
+        public void ShowOutro()
+        {
+            InstPanelClear.gameObject.SetActive(false);
+            InstOutro.Show();
+        }
         /**
          * @fn  public void ShowEpisode()
          *
@@ -149,7 +166,6 @@ namespace Contents1
             InstCorrectGuage.gameObject.SetActive(false);
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
-
         /**
          @fn    private void OnBtnSelectEpisodeEvent(int episodeID)
         
@@ -178,7 +194,6 @@ namespace Contents1
             CDebug.Log("Play Situation");
             InstCorrectGuage.gameObject.SetActive(true);
         }
-
         /**
          * @fn  public void ShowQuestion()
          *
@@ -193,7 +208,6 @@ namespace Contents1
 
             mScene.ChangeState(QnAContentsBase.State.Answer);
         }
-
         /**
          @fn    public void ShowAnswer()
         
@@ -281,11 +295,8 @@ namespace Contents1
                         CDebug.Log("End Question");
                     }
                     InstEventSystem.enabled = true;
-                });
-                
-            
+                });            
         }
-
         /**
          @fn    public void WrongAnswer()
         
@@ -299,7 +310,6 @@ namespace Contents1
             ButtonChangeState(InstBtnAnswerList[mSelectedAnswerIndex], false);
             mScene.ChangeState(QnAContentsBase.State.Select);
         }
-
         /**
          @fn    public void PerfectWrongAnswer()
         
@@ -324,6 +334,12 @@ namespace Contents1
                     mScene.ChangeState(QnAContentsBase.State.Question);
                 });
         }
+        /**
+         * Shows the reward
+         *
+         * @author  Byeong
+         * @date    2017-09-05
+         */
         public void ShowReward()
         {
             if(mScene.CorrectProgress == 1)//모든 문제 정답시의 값
@@ -344,9 +360,14 @@ namespace Contents1
             {
                 //별다른 연출이 없다면 ClearEpisode상태로 이행
                 mScene.ChangeState(QnAContentsBase.State.Clear);
-            }
-            
+            }            
         }
+        /**
+         * Clears the episode
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void ClearEpisode()
         {
             CDebug.Log("Clear Episode!");
@@ -354,12 +375,6 @@ namespace Contents1
             InstPanelClear.gameObject.SetActive(true);
             //클리어 시 애니메이션 재생
             // 터치 입력을 받으면 Outro UI 활성화
-        }
-
-        public void ShowOutro()
-        {
-            InstPanelClear.gameObject.SetActive(false);
-            InstOutro.Show();
         }
     }
 }

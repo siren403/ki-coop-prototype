@@ -272,18 +272,46 @@ namespace Contents1
 
             return mAnswers;
         }
+
+        /**
+         * 정답 개수 카운트
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void IncrementCorrectCount()
         {
             mCorrectCount++;
         }
+
+        /**
+         * 오답 개수 카운트
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void IncrementWrongCount()
         {
             mWrongCount++;
         }
+
+        /**
+         * 오답 개수 초기화
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void ResetWrongCount()
         {
             mWrongCount = 0;
         }
+
+        /**
+         * 문제 재출제 기능 담당 함수
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void RecycleCurrentQuestion()
         {
             //NUnit.Framework.Assert.IsNotNull(mCurrentCorrect, "현재 출제되어 있는 문제가 없습니다.");
@@ -293,9 +321,14 @@ namespace Contents1
                 mQuestionData[mCurrentCorrect.Question].Enqueue(mCurrentCorrect);
             }
         }
-
-
-        // 선택 안했을 때
+        /**
+         * 정답 선택 대기 화면에서 선택을 안했을 경우, 관련 이벤트 처리 함수
+         *
+         * @author  Byeong
+         * @date    2017-09-05
+         *
+         * @param   howWait Describes how wait.
+         */
         public void NoSelect(int howWait)
         {
             if(howWait >= 5)
@@ -307,7 +340,6 @@ namespace Contents1
                 CDebug.Log("S.e.l.e.t!!!!! P.l.e.a.s.e!!!!!!!!");
             }            
         }
-
         /**
          @fn    public void SelectAnswer(int answer)
         
@@ -321,21 +353,37 @@ namespace Contents1
         public void SelectAnswer(int answer)
         {
             mSelectedAnswer = mAnswers[answer];
-            ChangeState(State.Evaluation);
-           
+            ChangeState(State.Evaluation);           
         }
-
+        /**
+         * 에피소드 다시 플레이하기
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void RetryEpisode()
         {
             ResetQuestionState();
             SelectEpisode(mSelectedEpisode);
         }
+        /**
+         * 다음 에피소드 플레이하기
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void NextEpisode()
         {
             ResetQuestionState();
             mSelectedEpisode = Mathf.Clamp(mSelectedEpisode + 1, 1, EpisodeCount);
             SelectEpisode(mSelectedEpisode);
         }
+        /**
+         * 문제 및 정오답 관련 멤버 초기화
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         private void ResetQuestionState()
         {
             mCurrentCorrect = null;
@@ -345,7 +393,12 @@ namespace Contents1
             mWrongCount = 0;
         }
 
-        // 보상 확인 함수
+        /**
+         * 보상 확인 함수
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void RewardConfirm()
         {
             CDebug.Log("confirm Reward");
