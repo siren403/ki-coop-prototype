@@ -40,12 +40,7 @@ namespace MiniGame1
             {
                 if (mCakeObjects.ContainsKey(com.ID) == false)
                 {
-                    mCakeObjects.Add(ItemSheet.dataArray[indexer].ID, new CakeObject(
-                                                                                     ItemSheet.dataArray[indexer].ID,
-                                                                                     ItemSheet.dataArray[indexer].Category, 
-                                                                                     ItemSheet.dataArray[indexer].Name,
-                                                                                     ItemSheet.dataArray[indexer].Price,
-                                                                                     ItemSheet.dataArray[indexer].Isbuy));
+                    mCakeObjects.Add(ItemSheet.dataArray[indexer].ID, components[indexer]);
                     CDebug.Log(ItemSheet.dataArray[indexer].ID);
                 }
                 else
@@ -53,7 +48,20 @@ namespace MiniGame1
                     CDebug.LogError("Contains " + com.ID);
                 }
 
+                int tmpIdx = ItemSheet.dataArray[indexer].ID;
+
+                mCakeObjects[tmpIdx].ID = ItemSheet.dataArray[indexer].ID;
+                mCakeObjects[tmpIdx].CATEGORY = ItemSheet.dataArray[indexer].Category;
+                mCakeObjects[tmpIdx].NAME = ItemSheet.dataArray[indexer].Name;
+                mCakeObjects[tmpIdx].PRICE = ItemSheet.dataArray[indexer].Price;
+                mCakeObjects[tmpIdx].MISBUY = ItemSheet.dataArray[indexer].Isbuy;
+
                 indexer++;
+            }
+
+            for(int i=0; i<components.Length; i++)
+            {
+                CDebug.Log(mCakeObjects[i+1].ID);
             }
         }
 

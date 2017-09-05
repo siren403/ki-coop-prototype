@@ -18,10 +18,15 @@ namespace MiniGame1
         public int PRICE { get { return mPrice; } set { mPrice = value; } }
         public bool MISBUY { get { return mIsBuy; } set { mIsBuy = value; } }
         
+        [SerializeField]
         private int mID = 0;
+        [SerializeField]
         private string mCategory = null;
+        [SerializeField]
         private string mName = null;
+        [SerializeField]
         private int mPrice = 0;
+        [SerializeField]
         private bool mIsBuy = false;
 
         public CakeObject(int id, string category, string name, int price, bool buy)
