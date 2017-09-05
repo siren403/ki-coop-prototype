@@ -13,8 +13,8 @@ namespace Home
 
         private void Start()
         {
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("SceneHome");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("ExamSceneAndroid");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("SceneHome");
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("ExamSceneAndroid");
         }
     }
 }

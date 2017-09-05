@@ -39,13 +39,13 @@ namespace UIComponent
             Action onLoadMiniGame,
             Action onRetryEpisode,
             Action onNextEpisode,
-            Func<bool> hasEnableNextEpisode)
+            Func<bool> isEnableNextEpisode)
         {
             mInstBtnHome.OnClickAsObservable().Subscribe(_ => SceneLoadWrapper.LoadScene(BuildScene.SceneHome));
             mInstBtnMiniGame.OnClickAsObservable().Subscribe(_ => onLoadMiniGame.SafeInvoke());
             mInstBtnRetry.OnClickAsObservable().Subscribe(_ => onRetryEpisode.SafeInvoke());
             mInstBtnNext.OnClickAsObservable().Subscribe(_ => onNextEpisode.SafeInvoke());
-            mHasNextEpisode = hasEnableNextEpisode;
+            mHasNextEpisode = isEnableNextEpisode;
         }
 
         public void Show()

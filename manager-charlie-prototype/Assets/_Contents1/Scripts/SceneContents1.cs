@@ -43,6 +43,13 @@ namespace Contents1
 
         /** @brief 유저가 선택한 에피소드 */
         private int mSelectedEpisode = 0;
+        public bool HasNextEpisode
+        {
+            get
+            {
+                return mSelectedEpisode < EpisodeCount;
+            }
+        }
         
         /** @brief 테이블 데이터로 추출한 선택한 에피소드의 파닉스 데이터 */
         private string[] mPhonicsSet = null;

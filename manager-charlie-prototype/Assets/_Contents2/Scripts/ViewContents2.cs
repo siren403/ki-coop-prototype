@@ -101,10 +101,9 @@ namespace Contents2
                 {
                     OnClickOutroBtnEvent(3);
                 },
-                hasEnableNextEpisode: ()=> 
+                isEnableNextEpisode: ()=> 
                 {
-                    //todo : 테이블에서 에피소드 데이터가 추가 될 시 코드 변경 일어남
-                    return mScene.CurrentEpisode < 5;
+                    return mScene.HasNextEpisode;
                 });
 
             InstBtnDoubleSpeed.OnClickAsObservable()

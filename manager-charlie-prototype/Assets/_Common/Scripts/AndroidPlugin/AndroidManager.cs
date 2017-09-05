@@ -27,16 +27,20 @@ namespace AndroidPlugin
         {
             base.Awake();
 
+#if !UNITY_EDITOR && UNITY_ANDROID
             mUnityJavaClass = new AndroidJavaClass(UNITY_PLAYER_CLASS);
             mUnityActivity = mUnityJavaClass.GetStatic<AndroidJavaObject>(CURRENT_ACTIVITY);
 
             mDisposables.Add(mUnityJavaClass);
             mDisposables.Add(mUnityActivity);
+#endif
+
         }
 
         public void SetAlram(int id, int hour, int min, int sec)
         {
             CDebug.LogFormat("ID:{0},Hour:{1},Minute:{2},Second:{3}",id, hour, min, sec);
+#if !UNITY_EDITOR && UNITY_ANDROID
             try
             {
                 using (AndroidJavaClass alarmModerator = new AndroidJavaClass(ALARM_MODERATOR))
@@ -48,6 +52,7 @@ namespace AndroidPlugin
             {
                 CDebug.Log(e);
             }
+#endif
         }
 
         public void ReceiveString(string data)

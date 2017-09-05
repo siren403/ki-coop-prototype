@@ -71,9 +71,9 @@ namespace Contents3
                     InstOutro.Hide();
                     mScene.NextEpisode();
                 },
-                hasEnableNextEpisode: () =>
+                isEnableNextEpisode: () =>
                 {
-                    return false;
+                    return mScene.HasNextEpisode;
                 });
         }
 

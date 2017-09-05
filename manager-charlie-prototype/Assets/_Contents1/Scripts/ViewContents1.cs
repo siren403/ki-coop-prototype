@@ -89,11 +89,12 @@ namespace Contents1
                 onNextEpisode: ()=> 
                 {
                     InstOutro.Hide();
+                    InstCorrectGuage.Value = 0;
                     mScene.NextEpisode();
                 },
-                hasEnableNextEpisode: ()=> 
+                isEnableNextEpisode: ()=> 
                 {
-                    return false;
+                    return mScene.HasNextEpisode;
                 });
         }
         /**
@@ -359,16 +360,5 @@ namespace Contents1
             // 터치 입력을 받으면 Outro UI 활성화
         }
 
-        /**
-         * Shows the outro
-         *
-         * @author  Seong
-         * @date    2017-09-04
-         */
-        public void ShowOutro()
-        {
-            InstPanelClear.gameObject.SetActive(false);
-            InstOutro.Show();
-        }
     }
 }
