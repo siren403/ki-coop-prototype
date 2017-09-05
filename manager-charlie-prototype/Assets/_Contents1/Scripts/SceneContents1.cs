@@ -41,7 +41,6 @@ namespace Contents1
         protected override QnAFiniteState FSSelect { get { return new FSContents1Select(); } }
         protected override QnAFiniteState FSEvaluate { get { return new FSContents1Evaluation(); } }
 
-
         /** @brief 유저가 선택한 에피소드 */
         private int mSelectedEpisode = 0;
         
@@ -170,8 +169,13 @@ namespace Contents1
             }
         }
         #endregion
-      
 
+        /**
+         * Initializes this object
+         *
+         * @author  Byeong
+         * @date    2017-09-04
+         */
         protected override void Initialize()
         {            
             ChangeState(State.Episode);
@@ -321,11 +325,12 @@ namespace Contents1
                 mQuestionData[mCurrentCorrect.Question].Enqueue(mCurrentCorrect);
             }
         }
+
         /**
-         * 정답 선택 대기 화면에서 선택을 안했을 경우, 관련 이벤트 처리 함수
+         * 선택 안했을 때
          *
          * @author  Byeong
-         * @date    2017-09-05
+         * @date    2017-09-04
          *
          * @param   howWait Describes how wait.
          */
@@ -355,6 +360,7 @@ namespace Contents1
             mSelectedAnswer = mAnswers[answer];
             ChangeState(State.Evaluation);           
         }
+
         /**
          * 에피소드 다시 플레이하기
          *
@@ -366,6 +372,7 @@ namespace Contents1
             ResetQuestionState();
             SelectEpisode(mSelectedEpisode);
         }
+
         /**
          * 다음 에피소드 플레이하기
          *
@@ -378,6 +385,7 @@ namespace Contents1
             mSelectedEpisode = Mathf.Clamp(mSelectedEpisode + 1, 1, EpisodeCount);
             SelectEpisode(mSelectedEpisode);
         }
+
         /**
          * 문제 및 정오답 관련 멤버 초기화
          *
