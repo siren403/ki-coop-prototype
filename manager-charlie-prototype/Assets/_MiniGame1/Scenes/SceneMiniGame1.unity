@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496b0e8293b04324eac4501eddb07e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mID: 3
 --- !u!1 &102051459
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +531,7 @@ Transform:
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_Children: []
   m_Father: {fileID: 908460498}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &248088328
 SpriteRenderer:
@@ -754,76 +753,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 386623324}
---- !u!1 &395498997
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 395498998}
-  - component: {fileID: 395498999}
-  m_Layer: 5
-  m_Name: Strawberry1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &395498998
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 395498997}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66.8, y: 41.201534, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
-  m_Children: []
-  m_Father: {fileID: 908460498}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &395498999
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 395498997}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: eecf120ef52b2974193220609e7469a2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
 --- !u!1 &447465722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496b0e8293b04324eac4501eddb07e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mID: 4
 --- !u!1 &598059077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,9 +1115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202b6ea67fb90e44e9421d2c3c06ed1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mGameItem: {fileID: 11400000, guid: b55436f279143384682d3a92c809db05, type: 2}
   mView: {fileID: 1803799685}
-  mItemData: []
+  ItemSheet: {fileID: 11400000, guid: b55436f279143384682d3a92c809db05, type: 2}
 --- !u!1 &693701746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496b0e8293b04324eac4501eddb07e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mID: 2
 --- !u!1 &702810170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,7 +1895,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 395498998}
   - {fileID: 248088327}
   - {fileID: 1869137665}
   m_Father: {fileID: 856234510}
@@ -2095,7 +2020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1118452251
 Transform:
   m_ObjectHideFlags: 0
@@ -3148,23 +3073,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803799683}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c45b5691db741344b651c045eb2e181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCake: {fileID: 829384826}
-  mPanelCitrus: {fileID: 1173100774}
-  mPanelStawberry: {fileID: 908460497}
-  mPanelKiwi: {fileID: 384636482}
-  mPanelBanana: {fileID: 747313374}
-  mPanelLemon: {fileID: 756079037}
-  mPanelCherry: {fileID: 1043756071}
-  mPanelGrape: {fileID: 1860290585}
-  mPanelRaspberry: {fileID: 1160743082}
-  mPanelCandle: {fileID: 447465722}
   mPanelBuyConfrim: {fileID: 455918182}
   mPanelShopItemList: {fileID: 717606343}
+  InstCake: {fileID: 1118452250}
   mScene: {fileID: 669654858}
   ShopButton: {fileID: 1800682874}
   BuyButton: {fileID: 702810172}
@@ -3177,12 +3093,11 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1803799683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb84156468549948b7248d185e2f988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstCake: {fileID: 1118452250}
 --- !u!1 &1849065197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3231,7 +3146,7 @@ MonoBehaviour:
   GridAxis: 0
   Distance: 150
   ColumCount: 2
-  Offset: {x: -75, y: 65}
+  Offset: {x: -75, y: 75}
   PageItemCount: 4
   PageDistance: 400
 --- !u!1 &1860290585
@@ -3402,7 +3317,7 @@ Transform:
   m_LocalScale: {x: 50, y: 50, z: 1}
   m_Children: []
   m_Father: {fileID: 908460498}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1869137666
 SpriteRenderer:
@@ -3686,8 +3601,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2101766350}
-  - component: {fileID: 2101766352}
   - component: {fileID: 2101766351}
+  - component: {fileID: 2101766352}
   m_Layer: 0
   m_Name: InstBody
   m_TagString: Untagged
@@ -3760,4 +3675,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496b0e8293b04324eac4501eddb07e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mID: 1

@@ -15,32 +15,14 @@ namespace MiniGame1
 {
     public class ViewMiniGame1 : MonoBehaviour
     {
-        #region Panel Member
-        [SerializeField]
-        private GameObject mCake = null;
-        [SerializeField]
-        private GameObject mPanelCitrus = null;
-        [SerializeField]
-        private GameObject mPanelStawberry = null;
-        [SerializeField]
-        private GameObject mPanelKiwi = null;
-        [SerializeField]
-        private GameObject mPanelBanana = null;
-        [SerializeField]
-        private GameObject mPanelLemon = null;
-        [SerializeField]
-        private GameObject mPanelCherry = null;
-        [SerializeField]
-        private GameObject mPanelGrape = null;
-        [SerializeField]
-        private GameObject mPanelRaspberry = null;
-        [SerializeField]
-        private GameObject mPanelCandle = null;
+        #region Panel member
         [SerializeField]
         private GameObject mPanelBuyConfrim = null;
 
         public GridSwipe mPanelShopItemList = null;
         #endregion
+
+        public GameObject InstCake = null;
 
         [SerializeField]
         private SceneMiniGame1 mScene = null;
@@ -51,6 +33,12 @@ namespace MiniGame1
 
         public ItemButton PFItemButton = null;
 
+        /**
+         * Awakes this object
+         *
+         * @author  Byeong
+         * @date    2017-09-05
+         */
         void Awake()
         {
             ShopButton.onClick.AddListener(() => EnterShop());
@@ -84,17 +72,6 @@ namespace MiniGame1
         private void EnterShop()
         {
             CDebug.Log("Welcome! Customer!");
-
-            mPanelCitrus.SetActive(false);
-            mPanelStawberry.SetActive(false);
-            mPanelKiwi.SetActive(false);
-            mPanelLemon.SetActive(false);
-            mPanelGrape.SetActive(false);
-            mPanelCherry.SetActive(false);
-            mPanelBanana.SetActive(false);
-            mPanelRaspberry.SetActive(false);
-            mPanelCandle.SetActive(false);
-            mCake.SetActive(false);
 
             mPanelShopItemList.gameObject.SetActive(true);
         }       
@@ -137,7 +114,6 @@ namespace MiniGame1
          *
          * @param   selectItem  The select item.
          */
-
         private void OnBtnSelectItem(int selectItem)
         {
             CDebug.Log(" /(^ㅠ^)/  : " + selectItem);
