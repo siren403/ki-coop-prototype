@@ -189,7 +189,7 @@ namespace MiniGame2
         }
 
         //*꽃이 생성되는(심기는) UI 보여주기 */
-        public void ShowPlantFlower(int flowerNumber,int potNumber)
+        public void ShowPlantFlower(int itemNumber,int potNumber)
         {
             InstImgSeed.position = Vector2.one * 200;
 
@@ -310,6 +310,7 @@ namespace MiniGame2
          */
         public void SetFlowerText(int flowerNumber, int itemNumber)
         {
+            CDebug.Log("itemNumber :: SetFlowerText"  + itemNumber);
             InstTextFlowerList[flowerNumber].text = "Flower" + itemNumber;
         }
     }

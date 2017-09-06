@@ -1928,7 +1928,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  SwipeTime: 1
+  ChangeTime: 0.5
   InstBtnItemList:
   - {fileID: 440002685}
   - {fileID: 805249268}
@@ -2418,7 +2418,7 @@ GameObject:
   - component: {fileID: 534863572}
   - component: {fileID: 534863571}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InstTextFlowerName1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4101,7 +4101,7 @@ GameObject:
   - component: {fileID: 903864190}
   - component: {fileID: 903864189}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InstTextFlowerName0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4864,7 +4864,7 @@ GameObject:
   - component: {fileID: 1161481671}
   - component: {fileID: 1161481670}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InstTextFlowerName2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8589,7 +8589,7 @@ GameObject:
   - component: {fileID: 1819240269}
   - component: {fileID: 1819240268}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InstTextFlowerName3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

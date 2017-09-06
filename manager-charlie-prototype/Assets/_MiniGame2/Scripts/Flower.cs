@@ -207,7 +207,7 @@ namespace MiniGame2
         public void DeadFlower()
         {
             //* 데이터 지워줌*/
-            mScene.ErasePotInfo(PotNumber);
+            mScene.EraseFlowerData(PotNumber);
 
             mActiveFertilizerTimer = false;
             mActiveWaterTimer = false;
@@ -264,23 +264,23 @@ namespace MiniGame2
             if (flowerLevel == 0) // 씨앗 단계
             {
                 mAmountOfWaterForLvUp = 1;
-                mAmountOfFertilizerForLvUp = 1;
+                mAmountOfFertilizerForLvUp = 0;
             }
             else if (flowerLevel == 1) // 새싹 단계
             {
-                mAmountOfWaterForLvUp = 1;
-                mAmountOfFertilizerForLvUp = 1;
+                mAmountOfWaterForLvUp = 2;
+                mAmountOfFertilizerForLvUp = 2;
 
             }
             else if (flowerLevel == 2) // 줄기 단계
             {
-                mAmountOfWaterForLvUp = 1;
-                mAmountOfFertilizerForLvUp = 1;
+                mAmountOfWaterForLvUp = 3;
+                mAmountOfFertilizerForLvUp = 3;
             }
             else if (flowerLevel == 3) // 꽃봉오리
             {
-                mAmountOfWaterForLvUp = 1;
-                mAmountOfFertilizerForLvUp = 1;
+                mAmountOfWaterForLvUp = 4;
+                mAmountOfFertilizerForLvUp = 4;
 
             }
             else if (flowerLevel >= 4) // 꽃 = 만렙
@@ -290,7 +290,14 @@ namespace MiniGame2
             }
         }
 
-        //* 물을 뿌려줄 때 첫번째로 호출 됨 */
+        /**
+         @fn    public void PlusWater()
+        
+         @brief 물 줬을 때 호출
+        
+         @author    JT & YT
+         @date  2017-09-06
+         */
         public void PlusWater()
         {
             AmountOfWater = AmountOfWater + 1;
@@ -306,7 +313,14 @@ namespace MiniGame2
             mActiveWaterTimer = false;
         }
 
-        //* 물을 뿌려줄 때 첫번째로 호출 됨 */
+        /**
+         @fn    public void PlusFertilizer()
+        
+         @brief 비료 줬을 때 호출
+        
+         @author    JT & YT
+         @date  2017-09-06
+         */
         public void PlusFertilizer()
         {
             AmountOfFertilizer = AmountOfFertilizer + 1;
@@ -391,8 +405,38 @@ namespace MiniGame2
             }
             else
             {
-
+                SetAmountOfNutrientForLv(FlowerLevel);
             }
+        }
+
+
+
+        /**
+         @fn    public void LoadFlower(int flowerNumber, int amountOfWater, int amountOfFertilizer, int waterTimer, int fertilizerTimer, int waterState, int fertilizerState, int flowerLevel)
+        
+         @brief 데이터를 로드할 때 호출해서 정보 값을 설정 
+        
+         @author    JT & YT
+         @date  2017-09-06
+
+         */
+        public void LoadFlower(int flowerNumber, int amountOfWater, int amountOfFertilizer, int waterTimer, int fertilizerTimer, int waterState, int fertilizerState, int flowerLevel)
+        {
+            SetFlowerColor(flowerNumber);
+
+            AmountOfWater = amountOfWater;
+            AmountOfFertilizer = amountOfFertilizer;
+
+            NutrientSchedulers[0].Timer = fertilizerTimer;
+            NutrientSchedulers[1].Timer = waterTimer;
+
+            NutrientSchedulers[0].NowNutrientState = fertilizerState;
+            NutrientSchedulers[1].NowNutrientState = waterState;
+
+            FlowerLevel = flowerLevel;
+
+            NutrientSchedulers[0].SetLackTime(flowerLevel);
+            NutrientSchedulers[1].SetLackTime(flowerLevel);
         }
     }
 }

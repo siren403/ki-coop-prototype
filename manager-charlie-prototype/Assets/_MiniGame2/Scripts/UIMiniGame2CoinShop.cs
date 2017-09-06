@@ -28,8 +28,8 @@ namespace MiniGame2
         public AnimationCurve Anim;
 
         //* 화면 넘어가는 시간*/
-        public int SwipeTime;
-
+        public float ChangeTime;
+        bool isFinishChange = true;
 
         //*GameShop Item 버튼 리스트 */
         public List<Button> InstBtnItemList = new List<Button>();
@@ -112,6 +112,12 @@ namespace MiniGame2
         //앞 버튼 눌렀을 때
         public void OnClickPreviousButton()
         {
+            //*화면변환이 끝나지 않았으면 버튼작동 안함*/
+            if (isFinishChange == false)
+            {
+                return;
+            }
+
             if (mCurrentPage == 0)
             {
                 InstPanelCoinShop.SetActive(false);
@@ -128,6 +134,12 @@ namespace MiniGame2
         //뒤 버튼 눌렀을 때
         public void OnClickNextButton()
         {
+            //*화면변환이 끝나지 않았으면 버튼작동 안함*/
+            if (isFinishChange == false)
+            {
+                return;
+            }
+
             mCurrentPage = mCurrentPage + 1;
             ShowButton();
             buttonInput = InputBtnState.next;
@@ -137,18 +149,35 @@ namespace MiniGame2
         //앞, 뒤 버튼 눌렀을 때 포지션 변경
         void ChangePosition()
         {
+
             if (buttonInput == InputBtnState.prev)
             {
                 for (int i = 0; i < Page.Length; i++)
                 {
-                    Page[i].transform.DOMoveX(Page[i].transform.position.x + 400, SwipeTime).SetEase(Anim);
+                    Page[i].transform.DOMoveX(Page[i].transform.position.x + 400, ChangeTime).SetEase(Anim)
+                             .OnStart(() =>
+                             {
+                                 isFinishChange = false;
+                             })
+                         .OnComplete(() =>
+                         {
+                             isFinishChange = true;
+                         });
                 }
             }
             else if (buttonInput == InputBtnState.next)
             {
                 for (int i = 0; i < Page.Length; i++)
                 {
-                    Page[i].transform.DOMoveX(Page[i].transform.position.x - 400, SwipeTime).SetEase(Anim);
+                    Page[i].transform.DOMoveX(Page[i].transform.position.x - 400, ChangeTime).SetEase(Anim)
+                         .OnStart(() =>
+                         {
+                             isFinishChange = false;
+                         })
+                         .OnComplete(() =>
+                         {
+                             isFinishChange = true;
+                         });
                 }
             }
         }

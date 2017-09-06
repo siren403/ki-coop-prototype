@@ -50,9 +50,9 @@ namespace MiniGame2
             CDebug.Log("저장된 데이터 로드");
             string Jsonstring = File.ReadAllText(Application.dataPath + "/_MiniGame2/Resource/PotData.json");
 
-            JsonData potData = JsonMapper.ToObject(Jsonstring);
+            JsonData flowerJsonData = JsonMapper.ToObject(Jsonstring);
 
-            ParsingJsonItem(potData);
+            ParsingJsonItem(flowerJsonData);
         }
 
         /**
@@ -65,7 +65,7 @@ namespace MiniGame2
         
          @param potDataJson The pot data JSON.
          */
-        void ParsingJsonItem(JsonData potDataJson)
+        void ParsingJsonItem(JsonData flowerJsonData)
         {
             bool isEmpty;
             int flowerInfo;
@@ -81,19 +81,19 @@ namespace MiniGame2
 
             int flowerLevel;
 
-            for (int i = 0; i < potDataJson.Count; i++)
+            for (int i = 0; i < flowerJsonData.Count; i++)
             {
-                isEmpty = bool.Parse(potDataJson[i]["IsEmpty"].ToString());
-                flowerInfo = int.Parse(potDataJson[i]["FlowerNumber"].ToString());
-                amountOfWater = int.Parse(potDataJson[i]["AmountOfWater"].ToString());
-                amountOfFertilizerInfo = int.Parse(potDataJson[i]["AmountOfFertilizer"].ToString());
-                waterTimer = int.Parse(potDataJson[i]["WaterTimer"].ToString());
-                fertilizerTimer = int.Parse(potDataJson[i]["FertilizerTimer"].ToString());
-                waterState = int.Parse(potDataJson[i]["WatertState"].ToString());
-                fertilizerState = int.Parse(potDataJson[i]["FertilizerState"].ToString());
-                flowerLevel = int.Parse(potDataJson[i]["FlowerLevel"].ToString());
+                isEmpty = bool.Parse(flowerJsonData[i]["IsEmpty"].ToString());
+                flowerInfo = int.Parse(flowerJsonData[i]["FlowerNumber"].ToString());
+                amountOfWater = int.Parse(flowerJsonData[i]["AmountOfWater"].ToString());
+                amountOfFertilizerInfo = int.Parse(flowerJsonData[i]["AmountOfFertilizer"].ToString());
+                waterTimer = int.Parse(flowerJsonData[i]["WaterTimer"].ToString());
+                fertilizerTimer = int.Parse(flowerJsonData[i]["FertilizerTimer"].ToString());
+                waterState = int.Parse(flowerJsonData[i]["WatertState"].ToString());
+                fertilizerState = int.Parse(flowerJsonData[i]["FertilizerState"].ToString());
+                flowerLevel = int.Parse(flowerJsonData[i]["FlowerLevel"].ToString());
 
-                //*Json에 저장된 정보에 따라서 PotList에 들어감 */
+                //*Json에 저장된 정보에 따라서 FlowerData 설정 */
                 FlowerData.Add(new FlowerData(isEmpty, flowerInfo, amountOfWater, amountOfFertilizerInfo, waterTimer, fertilizerTimer, waterState, fertilizerState, flowerLevel));
             }
 
@@ -103,7 +103,7 @@ namespace MiniGame2
         /**
          @fn    void LoadFlowerList()
         
-         @brief 저장된 화분 데이터에 로드
+         @brief 저장된 Data를 Flowr에 로드해줌
         
          @author    JT & YT
          @date  2017-09-05
@@ -119,21 +119,9 @@ namespace MiniGame2
                     UIMini2.SetFlowerText(i, FlowerData[i].FlowerNumber);
 
 
-                    Flower[i].SetFlowerColor(FlowerData[i].FlowerNumber);
-                    Flower[i].AmountOfWater = FlowerData[i].AmountOfWater;
-                    Flower[i].AmountOfFertilizer = FlowerData[i].AmountOfFertilizer;
-
-                    Flower[i].NutrientSchedulers[0].Timer = FlowerData[i].FertilizerTimer;
-                    Flower[i].NutrientSchedulers[1].Timer = FlowerData[i].WaterTimer;
-
-
-                    Flower[i].NutrientSchedulers[0].NowNutrientState = FlowerData[i].FertilizerState;
-                    Flower[i].NutrientSchedulers[1].NowNutrientState = FlowerData[i].WatertState;
-
-
-                    Flower[i].FlowerLevel = FlowerData[i].FlowerLevel;
-                    Flower[i].NutrientSchedulers[0].SetLackTime(Flower[i].FlowerLevel);
-                    Flower[i].NutrientSchedulers[1].SetLackTime(Flower[i].FlowerLevel);
+                    Flower[i].LoadFlower(FlowerData[i].FlowerNumber, FlowerData[i].AmountOfWater, FlowerData[i].AmountOfFertilizer
+                     ,FlowerData[i].WaterTimer, FlowerData[i].FertilizerTimer, FlowerData[i].WatertState, FlowerData[i].FertilizerState , FlowerData[i].FlowerLevel);
+                
                     Flower[i].StartFlowerLife();
                 }
             }
@@ -154,16 +142,8 @@ namespace MiniGame2
         {
             for (int i = 0; i < Flower.Count; i++)
             {
-                FlowerData[i].AmountOfFertilizer = Flower[i].AmountOfWater;
-                FlowerData[i].AmountOfWater = Flower[i].AmountOfWater;
-
-                FlowerData[i].FertilizerTimer = Flower[i].NutrientSchedulers[0].Timer;
-                FlowerData[i].WaterTimer = Flower[i].NutrientSchedulers[1].Timer;
-
-                FlowerData[i].FertilizerState = Flower[i].NutrientSchedulers[0].NowNutrientState;
-                FlowerData[i].WatertState = Flower[i].NutrientSchedulers[1].NowNutrientState;
-
-                FlowerData[i].FlowerLevel = Flower[i].FlowerLevel;
+                FlowerData[i].SaveFlowerData(Flower[i].AmountOfWater, Flower[i].AmountOfWater, Flower[i].NutrientSchedulers[1].Timer, Flower[i].NutrientSchedulers[0].Timer
+                    , Flower[i].NutrientSchedulers[1].NowNutrientState, Flower[i].NutrientSchedulers[0].NowNutrientState, Flower[i].FlowerLevel);
             }
         }
 
@@ -185,7 +165,7 @@ namespace MiniGame2
             if (itemNumber <= 3)
             {
                 CDebug.Log(itemNumber + " 번 꽃을 심는다 ! ");
-                SetFlowerInfo(itemNumber);
+                PlantFlower(itemNumber);
             }
             else
             {
@@ -204,7 +184,7 @@ namespace MiniGame2
         
          @param itemNumber  The item number.
          */
-        void SetFlowerInfo(int itemNumber)
+        void PlantFlower(int itemNumber)
         {
             for (int i = 0; i < FlowerData.Count; i++)
             {
@@ -228,36 +208,24 @@ namespace MiniGame2
                 //*화분이 다 찼을 때 첫 화분에 심기*/
                 if (i == FlowerData.Count - 1)
                 {
-
+                    CDebug.Log("itemNumber :: :" + itemNumber);
                     Flower[0].SetFlowerData(FlowerData[0].IsEmpty, itemNumber);
 
                     FlowerData[0].IsEmpty = false;
                     FlowerData[0].FlowerNumber = itemNumber;
-
+     
                     //*꽃 심기는 UI 를 보여준다 */
                     UIMini2.ShowPlantFlower(itemNumber, 0);
                     //*꽃 정보 설정*/
-                    UIMini2.SetFlowerText(i,itemNumber);
-
+                    UIMini2.SetFlowerText(0,itemNumber);
                 }
             }
         }
 
         //*지운 꽃의 화분 정보 초기화한다*/
-        public void ErasePotInfo(int potNumber)
+        public void EraseFlowerData(int potNumber)
         {
-            FlowerData[potNumber].IsEmpty = true;
-            FlowerData[potNumber].FlowerNumber = 0;
-
-            FlowerData[potNumber].AmountOfWater = 0;
-            FlowerData[potNumber].AmountOfFertilizer = 0;
-            FlowerData[potNumber].WaterTimer = 0;
-            FlowerData[potNumber].FertilizerTimer = 0;
-
-            FlowerData[potNumber].WatertState = 0;
-            FlowerData[potNumber].FertilizerState = 0;
-
-            FlowerData[potNumber].FlowerLevel = 0;
+            FlowerData[potNumber].InitFlowerData();
         }
 
 

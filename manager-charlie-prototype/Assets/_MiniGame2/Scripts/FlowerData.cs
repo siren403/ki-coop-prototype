@@ -44,6 +44,37 @@ namespace MiniGame2
 
             FlowerLevel = flowerLevel;
         }
+
+        public void SaveFlowerData( int amountOfWater, int amountOfFertilizer, int waterTimer, int fertilizerTimer, int waterState, int fertilizerState, int flowerLevel)
+        {
+            AmountOfWater = amountOfWater;
+            AmountOfFertilizer = amountOfFertilizer;
+
+            WaterTimer = waterTimer;
+            FertilizerTimer = fertilizerTimer;
+
+            WatertState = waterState;
+            FertilizerState = fertilizerState;
+
+            FlowerLevel = flowerLevel;
+        }
+
+        public void InitFlowerData()
+        {
+            IsEmpty = true;
+            FlowerNumber = 0;
+
+            AmountOfWater = 0;
+            AmountOfFertilizer = 0;
+
+            WaterTimer = 0;
+            FertilizerTimer = 0;
+
+            WatertState = 0;
+            FertilizerState = 0;
+
+            FlowerLevel = 0;
+        }
     }
 }
 
