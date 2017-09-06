@@ -9,8 +9,6 @@ public class SwipeManager : MonoBehaviour
 {
     public GameObject[] Page;
 
-
-
     public int PageCount; //총 페이지 수
 
     [SerializeField]

@@ -16,7 +16,13 @@ namespace Contents2
     {
         /** 콘텐츠 관련 멤버 */
         private int mSelectedEpisode = 0;       // 유저가 위치하고 있는 에피소드를 체크하는 변수        
-
+        public bool HasNextEpisode
+        {
+            get
+            {
+                return mSelectedEpisode < EpisodeCount;
+            }
+        }
         public List<QnaContents2Data> QnAList = new List<QnaContents2Data>();
 
         [SerializeField]

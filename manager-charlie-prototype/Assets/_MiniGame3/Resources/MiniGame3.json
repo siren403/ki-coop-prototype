@@ -1,0 +1,15 @@
+{
+"Item: 
+	[
+		{"mId": 0, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 1, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 2, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 3, "mPrice": 100, "Image": "001.png", "isBought": "false"}, 
+		{"mId": 4, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 5, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 6, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 7, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 8, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+		{"mId": 9, "mPrice": 100, "Image": "001.png", "isBought": "false"},
+	]
+}

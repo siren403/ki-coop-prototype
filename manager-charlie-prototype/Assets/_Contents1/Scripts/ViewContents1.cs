@@ -89,14 +89,14 @@ namespace Contents1
                 onNextEpisode: ()=> 
                 {
                     InstOutro.Hide();
+                    InstCorrectGuage.Value = 0;
                     mScene.NextEpisode();
                 },
-                hasEnableNextEpisode: ()=> 
+                isEnableNextEpisode: ()=> 
                 {
-                    return false;
+                    return mScene.HasNextEpisode;
                 });
         }
-
         /**
          * 전달한 버튼의 상태를 바꿈
          *
@@ -118,13 +118,14 @@ namespace Contents1
                 btn.enabled = false;
                 btn.image.color = new Color(0.6f, 0.6f, 0.6f, 0.5f);
             }          
-        }
+        }        
 
         /**
          * Outro move
+         * 다시 플레이하기
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          *
          * @param   moveInfo    Information describing the move.
          */
@@ -137,7 +138,17 @@ namespace Contents1
                 mScene.ChangeState(QnAContentsBase.State.Situation);
             }
         }
-
+        /**
+         * Shows the outro
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
+        public void ShowOutro()
+        {
+            InstPanelClear.gameObject.SetActive(false);
+            InstOutro.Show();
+        }
         /**
          * 에피소드 선택화면에서 각 패널을 On/Off 시켜주는 함수 관련 패널 - InstPanelGuage, InstPanelEpisode
          *
@@ -149,7 +160,6 @@ namespace Contents1
             InstCorrectGuage.gameObject.SetActive(false);
             InstPanelEpisodeList.gameObject.SetActive(true);
         }
-
         /**
          * 에피소드 버튼 선택 시 호출
          *
@@ -176,7 +186,6 @@ namespace Contents1
             CDebug.Log("Play Situation");
             InstCorrectGuage.gameObject.SetActive(true);
         }
-
         /**
          * 질문 애니메이션을 보여주는 함수
          *
@@ -189,7 +198,6 @@ namespace Contents1
 
             mScene.ChangeState(QnAContentsBase.State.Answer);
         }
-
         /**
          * 선택지를 보여줌
          *
@@ -271,11 +279,8 @@ namespace Contents1
                         CDebug.Log("End Question");
                     }
                     InstEventSystem.enabled = true;
-                });
-                
-            
+                });            
         }
-
         /**
          * 틀린 답 선택 시 오반응
          *
@@ -287,7 +292,6 @@ namespace Contents1
             ButtonChangeState(InstBtnAnswerList[mSelectedAnswerIndex], false);
             mScene.ChangeState(QnAContentsBase.State.Select);
         }
-
         /**
          * 3번 틀린 답 선택시 강제 진행
          *
@@ -314,8 +318,8 @@ namespace Contents1
         /**
          * Shows the reward
          *
-         * @author  Seong
-         * @date    2017-09-04
+         * @author  Byeong
+         * @date    2017-09-05
          */
         public void ShowReward()
         {
@@ -337,15 +341,15 @@ namespace Contents1
             {
                 //별다른 연출이 없다면 ClearEpisode상태로 이행
                 mScene.ChangeState(QnAContentsBase.State.Clear);
-            }
-            
+            }            
         }
 
         /**
          * Clears the episode
          *
          * @author  Seong
-         * @date    2017-09-04
+
+         * @date    2017-09-05
          */
         public void ClearEpisode()
         {
@@ -356,16 +360,5 @@ namespace Contents1
             // 터치 입력을 받으면 Outro UI 활성화
         }
 
-        /**
-         * Shows the outro
-         *
-         * @author  Seong
-         * @date    2017-09-04
-         */
-        public void ShowOutro()
-        {
-            InstPanelClear.gameObject.SetActive(false);
-            InstOutro.Show();
-        }
     }
 }

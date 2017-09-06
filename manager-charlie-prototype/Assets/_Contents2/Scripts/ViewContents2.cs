@@ -24,6 +24,7 @@ namespace Contents2
         //* 문제 Situation panel*/
 
         public GameObject InstPanelSituation = null;
+        public Text InstTextSituation;
 
         public GameObject InstPanelQuestion = null;
 
@@ -35,6 +36,7 @@ namespace Contents2
 
         //*가시적으로 보기위해 임시로 text 추가함  */
         public GameObject InstTextQuestion = null;
+        public Text InstTextQuestionObject;
 
         //*정답 선택지 판넬*/
         public GameObject InstPanelAnswer = null;                            
@@ -101,10 +103,9 @@ namespace Contents2
                 {
                     OnClickOutroBtnEvent(3);
                 },
-                hasEnableNextEpisode: ()=> 
+                isEnableNextEpisode: ()=> 
                 {
-                    //todo : 테이블에서 에피소드 데이터가 추가 될 시 코드 변경 일어남
-                    return mScene.CurrentEpisode < 5;
+                    return mScene.HasNextEpisode;
                 });
 
             InstBtnDoubleSpeed.OnClickAsObservable()
@@ -131,7 +132,7 @@ namespace Contents2
         private void EvaluationEvent(int answerID)
         {
             CDebug.Log( answerID +"번 선택");
-            InstBtnAnswerList[answerID].transform.DOScale(Vector3.one * 2, 0.5f).SetLoops(2, LoopType.Yoyo);
+            InstBtnAnswerList[answerID].transform.DOScale(Vector3.one * 1.4f, 0.5f).SetLoops(2, LoopType.Yoyo);
             mScene.SelectAnswer(answerID);
 
         }
@@ -200,10 +201,13 @@ namespace Contents2
         }
         IEnumerator SeqShowSituation()
         {
+            InstTextSituation.text = "Hi I'm Joy !";
             CDebug.Log("Hi ~ I'm Joy ! ");
             yield return new WaitForSeconds(2.0f);
+            InstTextSituation.text = "Oh! it's so messy ! ... ";
             CDebug.Log("Oh! it's so messy ! ... ");
             yield return new WaitForSeconds(2.0f);
+            InstTextSituation.text = "By recycling we can..... Let's Recycle !.. ";
             CDebug.Log("몇초 뒤 캐릭터와 같이 출력 (파이팅 동작을 하며 Let's Recycle !) ");
         }
 
@@ -219,14 +223,12 @@ namespace Contents2
             //InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x + 10, 0);
             //InstImgItem.transform.DOScale(Vector3.one, 0);
 
-
-            InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x -10, 2);
-
-
+       
             CDebug.Log("Situation Data Set -> situation 애니메이션 보여주면서 Question을 설정해준다");
             mScene.SetQuestion();
 
-            InstTextQuestion.GetComponent<Text>().text = +(mScene.CorrectProgress * 10) + " 번째 situation : " + mScene.QuestionObject;
+            InstTextQuestion.GetComponent<Text>().text = +((mScene.CorrectProgress * 10) + 1) + " 번 question : " + mScene.QuestionObject;
+            InstTextQuestionObject.text = "" + mScene.QuestionObject;
             InstTextQuestion.SetActive(false);
             if (mScene.RandomCorrectAnswerID == 0)
             {
@@ -244,16 +246,24 @@ namespace Contents2
         IEnumerator SeqShowQuestion()
         {
             yield return new WaitForSeconds(2.0f);
-            CDebug.Log("아이템 이름 출력 후 강조하면서 캐릭터 사라짐");
-            InstImgItem.transform.DOScale(Vector3.one * 2.0f, 2);
-            InstImgCharacter.SetActive(false);
+            InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x - 10, 3);
 
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(3.0f);
+            CDebug.Log("아이템 이름 출력 후 강조하면서 캐릭터 사라짐");
+            InstImgItem.transform.DOScale(Vector2.one * 2.0f, 2);
+            InstImgItem.transform.DOMove(Vector2.zero, 2);
+            InstImgCharacter.transform.GetComponent<Image>().DOFade(0,1);
+
+            yield return new WaitForSeconds(3.0f);
             CDebug.Log("Question의 이름이 출력되며 사운드 실행");
+            InstImgItem.transform.DOScale(Vector2.one , 2);
+            InstImgItem.transform.DOMove(new Vector2(1, 0), 2);
             InstTextQuestion.SetActive(true);
-            InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x + 10, 0);
-            InstImgCharacter.SetActive(true);
+            InstImgCharacter.transform.GetComponent<Image>().DOFade(1, 1);
+
+
         }
+
 
 
 
@@ -264,6 +274,10 @@ namespace Contents2
             CDebug.Log("Wait Show Answers Animaition... \n Input Close");
             InstPanelQuestion.SetActive(false);
             InstPanelAnswer.SetActive(true);
+
+            //*Question 관련 UI 원위치 */
+            InstImgItem.transform.localPosition = new Vector2(243, 0);
+            InstPanelQuestionBack.transform.DOMoveX(InstPanelQuestionBack.transform.position.x + 10, 0);
 
             //* 선택지 출력 연출을 위해 사용*/
             StartCoroutine(SeqShowAnswer());

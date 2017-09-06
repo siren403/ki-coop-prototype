@@ -2,6 +2,7 @@ namespace SceneLoader
 {
 	public enum BuildScene
 	{
+		SceneIntro,
 		SceneHome,
 		SceneContents1,
 		SceneContents2,
@@ -10,7 +11,6 @@ namespace SceneLoader
 		SceneTest,
 		SceneSingleAnim,
 		SceneObjects,
-		SceneAndroid,
-		SceneFirebase,
+		ExamSceneAndroid,
 	}
 }

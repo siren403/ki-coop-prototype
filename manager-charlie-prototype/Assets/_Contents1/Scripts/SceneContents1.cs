@@ -43,6 +43,13 @@ namespace Contents1
 
         /** @brief 유저가 선택한 에피소드 */
         private int mSelectedEpisode = 0;
+        public bool HasNextEpisode
+        {
+            get
+            {
+                return mSelectedEpisode < EpisodeCount;
+            }
+        }
         
         /** @brief 테이블 데이터로 추출한 선택한 에피소드의 파닉스 데이터 */
         private string[] mPhonicsSet = null;
@@ -278,10 +285,10 @@ namespace Contents1
         }
 
         /**
-         * Increment correct count
+         * 정답 개수 카운트
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         public void IncrementCorrectCount()
         {
@@ -289,10 +296,10 @@ namespace Contents1
         }
 
         /**
-         * Increment wrong count
+         * 오답 개수 카운트
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         public void IncrementWrongCount()
         {
@@ -300,15 +307,22 @@ namespace Contents1
         }
 
         /**
-         * Resets the wrong count
+         * 오답 개수 초기화
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         public void ResetWrongCount()
         {
             mWrongCount = 0;
         }
+
+        /**
+         * 문제 재출제 기능 담당 함수
+         *
+         * @author  Seong
+         * @date    2017-09-05
+         */
         public void RecycleCurrentQuestion()
         {
             //NUnit.Framework.Assert.IsNotNull(mCurrentCorrect, "현재 출제되어 있는 문제가 없습니다.");
@@ -338,7 +352,6 @@ namespace Contents1
                 CDebug.Log("S.e.l.e.t!!!!! P.l.e.a.s.e!!!!!!!!");
             }            
         }
-
         /**
          @fn    public void SelectAnswer(int answer)
         
@@ -352,15 +365,14 @@ namespace Contents1
         public void SelectAnswer(int answer)
         {
             mSelectedAnswer = mAnswers[answer];
-            ChangeState(State.Evaluation);
-           
+            ChangeState(State.Evaluation);           
         }
 
         /**
-         * Retry episode
+         * 에피소드 다시 플레이하기
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         public void RetryEpisode()
         {
@@ -369,10 +381,10 @@ namespace Contents1
         }
 
         /**
-         * Next episode
+         * 다음 에피소드 플레이하기
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         public void NextEpisode()
         {
@@ -382,10 +394,10 @@ namespace Contents1
         }
 
         /**
-         * Resets the question state
+         * 문제 및 정오답 관련 멤버 초기화
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         private void ResetQuestionState()
         {
@@ -400,7 +412,7 @@ namespace Contents1
          * 보상 확인 함수
          *
          * @author  Seong
-         * @date    2017-09-04
+         * @date    2017-09-05
          */
         public void RewardConfirm()
         {

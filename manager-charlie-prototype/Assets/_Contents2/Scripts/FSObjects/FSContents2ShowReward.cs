@@ -21,8 +21,9 @@ namespace Contents2
         {
             CDebug.Log(" ----------------------------------------------- ShowReward----------------------------------");
             CDebug.Log("[FSM] Show Reward");
-            Entity.View.ShowReward();
+
             CDebug.Log("[FSM] Send Clear Data");
+            Timer.Start();
         }
 
         public override void Excute()
@@ -30,6 +31,7 @@ namespace Contents2
             Timer.Update();
             if (Timer.Check(1.5f))
             {
+                CDebug.Log(" ----------------------------------------------- ShowReward----------------------------------");
                 CDebug.Log("[FSM] Receive Reward Data");
                 Entity.View.ShowReward();
             }

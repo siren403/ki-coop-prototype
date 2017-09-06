@@ -20,7 +20,13 @@ namespace Contents3
         private const int TURN_COUNT = 2;
 
         private int mSelectedEpisode = 0;
-
+        public bool HasNextEpisode
+        {
+            get
+            {
+                return mSelectedEpisode < EpisodeCount;
+            }
+        }
         //** UI 및 리소스 관리자 */
         [SerializeField]
         public ViewContents3 mInstUI = null;
