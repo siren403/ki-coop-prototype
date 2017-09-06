@@ -999,7 +999,7 @@ GameObject:
   - component: {fileID: 175124222}
   - component: {fileID: 151391295}
   - component: {fileID: 151391294}
-  - component: {fileID: 151391293}
+  - component: {fileID: 151391296}
   m_Layer: 5
   m_Name: InstImgFlower3
   m_TagString: Untagged
@@ -1007,25 +1007,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &151391293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114130035753845074, guid: cfa2475761fb68842b196e49dca89fcc,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 151391292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393a778c7d03df449afaf60425e8c596, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NutrientSchedulers:
-  - {fileID: 1420603707}
-  - {fileID: 425949251}
-  PotNumber: 3
-  AmountOfWater: 0
-  AmountOfFertilizer: 0
-  FlowerLevel: 0
 --- !u!114 &151391294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,6 +1042,24 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 151391292}
+--- !u!114 &151391296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 151391292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e242620eee652e4aac340923a2b5504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NutrientSchedulers:
+  - {fileID: 1420603707}
+  - {fileID: 425949251}
+  PotNumber: 3
+  AmountOfWater: 0
+  AmountOfFertilizer: 0
+  FlowerLevel: 0
 --- !u!224 &175124222
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1168,7 +1167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0495f3749de804ebcf2e6c7b34e7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PotNumber: 0
+  PotNumber: 1
   UImini2: {fileID: 408191707}
 --- !u!1 &270010724
 GameObject:
@@ -2024,7 +2023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0495f3749de804ebcf2e6c7b34e7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PotNumber: 0
+  PotNumber: 3
   UImini2: {fileID: 408191707}
 --- !u!1 &436210779
 GameObject:
@@ -3028,13 +3027,12 @@ GameObject:
 --- !u!114 &647524994
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114130035753845074, guid: cfa2475761fb68842b196e49dca89fcc,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 647524993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393a778c7d03df449afaf60425e8c596, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e242620eee652e4aac340923a2b5504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NutrientSchedulers:
@@ -3744,8 +3742,8 @@ MonoBehaviour:
   Flower:
   - {fileID: 2045618545}
   - {fileID: 647524994}
-  - {fileID: 865070639}
-  - {fileID: 151391293}
+  - {fileID: 865070642}
+  - {fileID: 151391296}
 --- !u!1 &805249264
 GameObject:
   m_ObjectHideFlags: 0
@@ -4030,7 +4028,7 @@ GameObject:
   - component: {fileID: 42525983}
   - component: {fileID: 865070641}
   - component: {fileID: 865070640}
-  - component: {fileID: 865070639}
+  - component: {fileID: 865070642}
   m_Layer: 5
   m_Name: InstImgFlower2
   m_TagString: Untagged
@@ -4038,25 +4036,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &865070639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114130035753845074, guid: cfa2475761fb68842b196e49dca89fcc,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 865070638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393a778c7d03df449afaf60425e8c596, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NutrientSchedulers:
-  - {fileID: 1774130601}
-  - {fileID: 1724402610}
-  PotNumber: 2
-  AmountOfWater: 0
-  AmountOfFertilizer: 0
-  FlowerLevel: 0
 --- !u!114 &865070640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4092,6 +4071,24 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 865070638}
+--- !u!114 &865070642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 865070638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e242620eee652e4aac340923a2b5504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NutrientSchedulers:
+  - {fileID: 1774130601}
+  - {fileID: 1724402610}
+  PotNumber: 2
+  AmountOfWater: 0
+  AmountOfFertilizer: 0
+  FlowerLevel: 0
 --- !u!1 &903864187
 GameObject:
   m_ObjectHideFlags: 0
@@ -6629,7 +6626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981ec1664b7d3df49b37a12ed281e85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PotNumber: 0
+  PotNumber: 3
   UImini2: {fileID: 408191707}
 --- !u!1 &1437275376
 GameObject:
@@ -8021,7 +8018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0495f3749de804ebcf2e6c7b34e7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PotNumber: 0
+  PotNumber: 2
   UImini2: {fileID: 408191707}
 --- !u!1 &1761591184
 GameObject:
@@ -8303,7 +8300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981ec1664b7d3df49b37a12ed281e85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PotNumber: 0
+  PotNumber: 2
   UImini2: {fileID: 408191707}
 --- !u!1 &1779566320
 GameObject:
@@ -8578,7 +8575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981ec1664b7d3df49b37a12ed281e85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PotNumber: 0
+  PotNumber: 1
   UImini2: {fileID: 408191707}
 --- !u!1 &1819240266
 GameObject:
@@ -9864,13 +9861,12 @@ GameObject:
 --- !u!114 &2045618545
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114130035753845074, guid: cfa2475761fb68842b196e49dca89fcc,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2045618544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 393a778c7d03df449afaf60425e8c596, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e242620eee652e4aac340923a2b5504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NutrientSchedulers:
