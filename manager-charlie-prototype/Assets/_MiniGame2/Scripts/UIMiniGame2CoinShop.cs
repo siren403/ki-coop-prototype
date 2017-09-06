@@ -85,7 +85,6 @@ namespace MiniGame2
             {
                 mCurrentSelectedItem = itemNumber;
                 InstPanelBuyCheck.SetActive(true);
-                InstPanelCoinShop.SetActive(false);
             }
             else
             {
@@ -98,6 +97,7 @@ namespace MiniGame2
         {
             if (checkNum == 0)
             {
+                InstPanelCoinShop.SetActive(false);
                 mScene.BuyItem(mCurrentSelectedItem);
                 MyCoin = MyCoin - mItemCost;
             }
