@@ -310,8 +310,18 @@ namespace Contents1
                 .SetLoops(8, LoopType.Yoyo)
                 .OnComplete(() =>
                 {
-                    InstEventSystem.enabled = true;
-                    mScene.ChangeState(QnAContentsBase.State.Question);
+                    if (mScene.HasNextQuestion)
+                    {
+                        CDebug.Log("Has Next Question");
+                        InstEventSystem.enabled = true;
+                        mScene.ChangeState(QnAContentsBase.State.Question);
+                    }
+                    else
+                    {
+                        mScene.ChangeState(QnAContentsBase.State.Reward);
+                        CDebug.Log("End Question");
+                    }
+                    //mScene.ChangeState(QnAContentsBase.State.Question);
                 });
         }
 

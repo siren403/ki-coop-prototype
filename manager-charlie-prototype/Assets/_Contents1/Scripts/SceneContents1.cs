@@ -280,6 +280,7 @@ namespace Contents1
 
             //문제 인덱스 증가
             mSubmitQuestionCount++;
+            CDebug.Log("SubmitCount : " + mSubmitQuestionCount);
 
             return mAnswers;
         }
